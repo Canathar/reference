@@ -1,0 +1,576 @@
+﻿╔════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ Determining_EMB_Configuration.txt                                                                                              ║
+║                                                                                                                                ║
+║ Document Best Viewed/Printed: Page{Letter, Landscape, 0.25in Side Margins} Font{Consolas Font, Normal, 10pt}                   ║
+║                                                                                                                                ║
+╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                        Revision History                                                        ║
+╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development/Update/Maintenance Update                                            ║
+║                                                                                                                                ║
+║  1.00.xxxxx.xx (xx xxx xx) - Initial Creation {J. Laccone}                                                                     ║
+║                                 Added header, added reference data, added block diagram                                        ║
+║  1.01.20117.xx (20 Jul 17) - Development Update {J. Laccone}                                                                   ║
+║                                 Added additional procedure notes                                                               ║
+║                                                                                                                                ║
+╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                             Notes                                                              ║
+╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                ║
+║                                                                                                                                ║
+╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                           Reference                                                            ║
+╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                ║
+║   Items Shown Below are grouped into the following categories:                                                                 ║
+║                                                                                                                                ║
+║      Custom Software                                                                                                           ║
+║      Linked Libraries                                                                                                          ║
+║      Misc                                                                                                                      ║
+║      Operating System                                                                                                          ║
+║      Standalone Process                                                                                                        ║
+║      Utilities                                                                                                                 ║
+║                                                                                                                                ║
+╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+╔════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                         Custom Software                                                        ║
+╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   xxx.bin - Primary Application {CWP, TMG, RMG, RIU}
+   ──────────────────────────────────────────────────
+
+         ----- To verify on the device -----
+
+   1. Type the following command at a command prompt:
+
+         cat /tmp/ccu_version.ver
+
+
+
+   Universal Bootloader Image {CWP, TMG, RMG, RIU}
+   ───────────────────────────────────────────────
+
+         ----- To verify on the device -----
+
+   1. Type the following command at a command prompt:
+
+         cat /tmp/u-boot.ver
+
+
+
+   Whole Image {CWP, TMG, RMG, RIU}
+   ────────────────────────────────
+
+         ----- To verify on the device -----
+
+   1. Type the following command at a command prompt:
+
+         cat /tmp/wholeimg.ver
+
+
+
+
+
+
+╔════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                         Linked Libraries                                                       ║
+╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Agent++ - Library
+   ─────────────────
+   1. On a development platform, navigate to the directory in the repository that contains the source
+      code. Open the source file that documents the library (example path shown below).
+
+         /ccu/base/third_party/agent++/src/v3_mib.cpp
+
+         ----- To verify on the device -----
+
+   NO COMMAND LINE INTERFACE, COMMAND LINE DOES NOT SHOW VERSION INFORMATION!!!
+
+
+
+   DSP NDK - Library
+   ─────────────────
+   1. On a development platform, navigate to the directory in the repository that contains the source
+      code. Open the html file that documents the library (example path shown below).
+
+         /apu/base/ndk_2_21_01_38/ndk_2_21_01_38_ReleaseNotes.html
+
+         ----- To verify on the device -----
+
+   NO COMMAND LINE INTERFACE, COMMAND LINE DOES NOT SHOW VERSION INFORMATION!!!
+
+
+
+   Gfx SDK - Library
+   ─────────────────
+   1. On a development platform, navigate to the directory in the repository that contains the source
+      code. Open the html file that documents the library (example path shown below).
+
+         /ccu/DM8168/common/kernelcomponents/graphics-sdk_4.06.00.02/README.txt
+
+         ----- To verify on the device -----
+
+   NO COMMAND LINE INTERFACE, COMMAND LINE DOES NOT SHOW VERSION INFORMATION!!!
+
+
+
+   glibc - Library {CWP, TMG, RMG, RIU}
+   ────────────────────────────────────
+
+         ----- To verify on the device -----
+
+   1. Type the following command at a command prompt
+
+         /lib/libc.so.6
+
+
+
+   linux PAM - Library
+   ───────────────────
+   1. On a development platform, navigate to the directory in the repository that contains the source
+      code. Open the text file that documents the library (example path shown below).
+
+         /ccu/DM8168/common/components/Linux-PAM/Linux-PAM-1.3.0.tar.gz
+
+         ----- To verify on the device -----
+
+   NO COMMAND LINE INTERFACE, COMMAND LINE DOES NOT SHOW VERSION INFORMATION!!!
+
+
+
+   M5T SIP Client Engine SDK - Library (This version info is for the whole API)
+   ────────────────────────────────────────────────────────────────────────────
+   1. On a development platform, navigate to the directory in the repository that contains the source
+      code. Open the source file that documents the library (example path shown below).
+
+         /ccu/base/third_party/sip/m5t-sip-4.1.8.13
+
+         ----- To verify on the device -----
+
+   NO COMMAND LINE INTERFACE, COMMAND LINE DOES NOT SHOW VERSION INFORMATION!!!
+
+
+
+   nss-pam-ldapd - Library
+   ───────────────────────
+   1. On a development platform, navigate to the directory in the repository that contains the source
+      code. Open the text file that documents the library (example path shown below).
+
+         /ccu/DM8168/common/components/nss-pam-ldapd/nss-pam-ldapd-0.9.7.tar.gz
+
+         ----- To verify on the device -----
+
+   NO COMMAND LINE INTERFACE, COMMAND LINE DOES NOT SHOW VERSION INFORMATION!!!
+
+
+
+   openssl - Unix Tools {CWP, TMG, RMG, RIU}
+   ─────────────────────────────────────────
+   1. On a development platform, navigate to the directory in the repository that contains the source
+      code. Open the text file that documents the library (example path shown below).
+
+         /ccu/DM8168/common/components/openssl/openssl-1.0.2j.tar.gz
+
+         ----- To verify on the device -----
+
+   1. Type the following command at a command prompt
+
+         /usr/bin/openssl version
+
+
+
+   SNMP++ - Library
+   ────────────────
+   1. On a development platform, navigate to the directory in the repository that contains the source
+      code. Open the source file that documents the library (example path shown below).
+
+         /ccu/base/third_party/snmp++/src/v3.cpp
+
+         ----- To verify on the device -----
+
+   NO COMMAND LINE INTERFACE, COMMAND LINE DOES NOT SHOW VERSION INFORMATION!!!
+
+
+
+   syslink - Unix Utility
+   ──────────────────────
+   1. On a development platform, navigate to the directory in the repository that contains the source
+      code. Open the html file that documents the library (example path shown below).
+
+         /ccu/DM8168/common/kernelcomponents/syslink_2_10_03_20/syslink_2_10_03_20_ReleaseNotes.html
+
+         ----- To verify on the device -----
+
+   NO COMMAND LINE INTERFACE, COMMAND LINE DOES NOT SHOW VERSION INFORMATION!!!
+
+
+
+   TinyXML Parser - Library (Previous docs appear to have been reported incorrectly)
+   ─────────────────────────────────────────────────────────────────────────────────
+   1. On a development platform, navigate to the directory in the repository that contains the source
+      code. Open the text file that documents the library (example path shown below).
+
+         /ccu/base/third_party/tinyxml/changes.txt
+
+         ----- To verify on the device -----
+
+   NO COMMAND LINE INTERFACE, COMMAND LINE DOES NOT SHOW VERSION INFORMATION!!!
+
+
+
+   tslib - Library {CWP}
+   ─────────────────────
+   1. On a development platform, navigate to the directory in the repository that contains the source
+      code. Open the text file that documents the library (example path shown below).
+
+         /ccu/DM8168/common/kernelcomponents/tslib_1_4/README
+
+         ----- To verify on the device -----
+
+   1. Type the following command at a command prompt
+
+         ldd -r -v /usr/lib/libts-1.0.so.1.0.0
+
+
+
+
+
+
+╔════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                            Misc                                                                ║
+╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   CodeSourcery - Software Development Kit {Development Environment}
+   -----------------------------------------------------------------
+   1. On a development platform, navigate to the directory that contains the compilation tools. Open
+      the Adobe Acrobat file that documents the compiler (example path shown below).
+
+         ~/CodeSourcery/Sourcery_G++_Lite_for_ARM_GNU_Linux/Compiler.pdf
+
+         ----- To verify on the device -----
+
+   NO COMMAND LINE INTERFACE, COMMAND LINE DOES NOT SHOW VERSION INFORMATION!!!
+
+
+
+   ELDK - Software Development Kit {Development Environemnt}
+   ---------------------------------------------------------
+   1. On a development platform, navigate to the directory that contains the compilation tools. Open
+      the text file that documents the compiler (example path shown below).
+
+         ~/eldk/version
+
+         ----- To verify on the device -----
+
+   NO COMMAND LINE INTERFACE, COMMAND LINE DOES NOT SHOW VERSION INFORMATION!!!
+
+
+
+   flex - Unix Utility {CWP, TMG, RMG, RIU}
+   ----------------------------------------
+   1. On a development platform, navigate to the directory in the repository that contains the source
+      code. Open the text file that documents the library (example path shown below).
+
+         /ccu/DM8168/common/components/flex/flex-2.5.37.tar.gz
+
+         ----- To verify on the device -----
+
+   NO COMMAND LINE INTERFACE, COMMAND LINE DOES NOT SHOW VERSION INFORMATION!!!
+
+
+
+   xdctools - Unix Utility
+   -----------------------
+   1. On a development platform, navigate to the directory in the repository that contains the source
+      code. Open the html file that documents the library (example path shown below).
+
+         /ccu/DM8168/common/kernelcomponents/xdctools_3_23_01_43/xdctools_3_23_01_43_release_notes.html
+
+         ----- To verify on the device -----
+
+   NO COMMAND LINE INTERFACE, COMMAND LINE DOES NOT SHOW VERSION INFORMATION!!!
+
+
+
+
+
+
+╔════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                         Operating System                                                       ║
+╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   busybox - Unix Tools {CWP, TMG, RMG, RIU}
+   ─────────────────────────────────────────
+   1. On a development platform, navigate to the directory in the repository that contains the source
+      code. Open the text file that documents the library (example path shown below).
+
+         /ccu/DM8168/common/components/busybox/busybox-1.24.1.tar.bz2
+
+         ----- To verify on the device -----
+
+   1. Type the following command at a command prompt:
+
+         /bin/busybox --help
+
+
+
+   DAS U-Boot - Universal Bootloader {CWP, TMG, RMG, RIU}
+   ──────────────────────────────────────────────────────
+   1. On a development platform, navigate to the directory in the repository that contains the source
+      code. Open the text file that builds the library (example path shown below).
+
+         /ccu/DM8168/common/uboot/Makefile
+
+         ----- To verify on the device -----
+
+   RUNNING DEVICE HAS NO COMMAND LINE INTERFACE, COMMAND LINE DOES NOT SHOW VERSION INFORMATION!!!
+
+         Attaching to the serial port and rebooting the device will display version information. The
+         following commands will reboot the device based on the type of image to load:
+
+            flh -- Home Directory
+            flu -- U Boot
+            flw -- Whole Image
+
+
+
+   kernel - Operating System {CWP, TMG, RMG, RIU}
+   ──────────────────────────────────────────────
+
+         ----- To verify on the device -----
+
+   1. Type the following command at a command prompt
+
+         uname -a
+
+
+
+   Operating System (DSP/BIOS)
+   ───────────────────────────
+   1. On a development platform, navigate to the directory in the repository that contains the source
+      code. Open the docx file that documents the library (example path shown below).
+
+         /apu/base/Code Composer Studio Setup Guide.docx
+
+         ----- To verify on the device -----
+
+   NO COMMAND LINE INTERFACE, COMMAND LINE DOES NOT SHOW VERSION INFORMATION!!!
+
+
+
+   Operating System (SYS/BIOS)
+   ───────────────────────────
+   1. On a development platform, navigate to the directory in the repository that contains the source
+      code. Open the docx file that documents the library (example path shown below).
+
+         /apu/base/Code Composer Studio Setup Guide.docx
+
+         ----- To verify on the device -----
+
+   NO COMMAND LINE INTERFACE, COMMAND LINE DOES NOT SHOW VERSION INFORMATION!!!
+
+
+
+
+
+
+╔════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                       Standalone Processes                                                     ║
+╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   ipc - Unix Utility
+   ──────────────────
+   1. On a development platform, navigate to the directory in the repository that contains the source
+      code. Open the html file that documents the library (example path shown below).
+
+         /ccu/DM8168/common/kernelcomponents/ipc_1_24_02_27/ipc_1_24_02_27_release_notes.html
+
+         ----- To verify on the device -----
+
+   NO COMMAND LINE INTERFACE, COMMAND LINE DOES NOT SHOW VERSION INFORMATION!!!
+
+
+
+   ntp - Unix Tools {CWP, TMG, RMG, RIU}
+   ─────────────────────────────────────
+   1. On a development platform, navigate to the directory in the repository that contains the source
+      code. Open the text file that documents the library (example path shown below).
+
+         /ccu/DM8168/common/components/ntp/ntp-4.2.8p8.tar.gz
+
+         ----- To verify on the device -----
+
+   1. Type the following command at a command prompt
+
+         /usr/sbin/ntpd --version
+
+
+
+
+
+
+╔════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                            Utilities                                                           ║
+╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   bash - Script Processor {CWP, TMG, RMG, RIU}
+   ────────────────────────────────────────────
+   1. On a development platform, navigate to the directory in the repository that contains the source
+      code. Open the text file that documents the library (example path shown below).
+
+         /ccu/DM8168/common/components/bash/bash-4.4.tar.gz/doc/version.texi
+
+         ----- To verify on the device -----
+
+   1. Type the following command at a command prompt:
+
+         /bin/bash --version
+
+
+   gdb - Debugger
+   ──────────────
+   1. On a development platform, navigate to the directory in the repository that contains the source
+      code. Open the text file that documents the library (example path shown below).
+
+         /ccu/DM8168/common/components/gdb/gdb-7.12.tar.gz
+
+         ----- To verify on the device -----
+
+   1. Type the following command at a command prompt:
+
+         /usr/bin/gdbserver --version
+
+
+
+   inputattach - Unix Utility
+   ──────────────────────────
+   1. On a development platform, navigate to the directory in the repository that contains the source
+      code. Open the source file that documents the library (example path shown below).
+
+         /ccu/DM8168/common/kernelcomponents/inputattach_1_24/inputattach.c
+
+         ----- To verify on the device -----
+
+   1. Type the following command at a command prompt for information (COMMAND LINE DOES NOT SHOW VERSION INFORMATION!!!):
+
+         /usr/bin/inputattach --help
+
+
+
+   iptables - Tool
+   ───────────────
+   1. On a development platform, navigate to the directory in the repository that contains the source
+      code. Open the source file that documents the library (example path shown below).
+
+         /ccu/DM8168/common/components/iptables/iptables-1.6.0.tar.bz2
+
+         ----- To verify on the device -----
+
+   1. Type the following command at a command prompt:
+
+         /usr/sbin/iptables --version
+
+
+
+   ntpstat - Unix Tools {CWP, TMG, RMG, RIU}
+   ─────────────────────────────────────────
+   1. On a development platform, navigate to the directory in the repository that contains the source
+      code. Open the text file that documents the library (example path shown below).
+
+         /ccu/DM8168/common/components/ntpstat/ntpstat-0.2.tgz
+
+         ----- To verify on the device -----
+
+   1. The utility is in the location shown below (COMMAND LINE DOES NOT SHOW VERSION INFORMATION!!!):
+
+         /usr/sbin/ntpstat
+
+
+
+   openldap - Unix Tools {CWP, TMG, RMG, RIU}
+   ──────────────────────────────────────────
+   1. On a development platform, navigate to the directory in the repository that contains the source
+      code. Open the text file that documents the library (example path shown below).
+
+         /ccu/DM8168/common/components/openldap/openldap-2.4.44.tgz
+
+         ----- To verify on the device -----
+
+   1. Type the following command at a command prompt:
+
+         /usr/bin/ldapcompare -V or /usr/bin/ldapwhoami -V
+
+
+
+   openssh - Unix Tools {CWP, TMG, RMG, RIU}
+   ─────────────────────────────────────────
+   1. On a development platform, navigate to the directory in the repository that contains the source
+      code. Open the text file that documents the library (example path shown below).
+
+         /ccu/DM8168/common/components/openssh/openssh-7.3p1.tar.gz
+
+         ----- To verify on the device -----
+
+   1. Type the following command at a command prompt:
+
+         /usr/bin/ssh -V
+
+
+
+   rsync - Unix Tools {CWP, TMG, RMG, RIU}
+   ───────────────────────────────────────
+   1. On a development platform, navigate to the directory in the repository that contains the source
+      code. Open the text file that documents the library (example path shown below).
+
+         /ccu/DM8168/common/components/rsync/rsync-3.1.2.tar.gz
+
+         ----- To verify on the device -----
+
+   1. Type the following command at a command prompt:
+
+         /usr/bin/rsync --help
+
+
+
+   sed - Unix Utility {CWP, TMG, RMG, RIU} NOTE: Not using Busybox sed
+   ───────────────────────────────────────────────────────────────────
+   1. On a development platform, navigate to the directory in the repository that contains the source
+      code. Open the text file that documents the library (example path shown below).
+
+         /ccu/DM8168/common/components/sed/sed-4.2.2.tar.gz
+
+         ----- To verify on the device -----
+
+   1. Type the following command at a command prompt:
+
+         /bin/sed --version
+
+
+
+   wget - Unix Utility {CWP, TMG, RMG, RIU} NOTE: Not using Busybox wget
+   ─────────────────────────────────────────────────────────────────────
+   1. On a development platform, navigate to the directory in the repository that contains the source
+      code. Open the text file that documents the library (example path shown below).
+
+         /ccu/DM8168/common/components/wget/wget-1.18.tar.gz
+
+         ----- To verify on the device -----
+
+   1. Type the following command at a command prompt:
+
+         /usr/bin/wget --version
+
+
+
+   zlib - Unix Utility
+   ───────────────────
+   1. On a development platform, navigate to the directory in the repository that contains the source
+      code. Open the text file that documents the library (example path shown below).
+
+         /ccu/DM8168/common/components/zlib/zlib-1.2.8.tar.gz
+
+         ----- To verify on the device -----
+
+   NO COMMAND LINE INTERFACE, COMMAND LINE DOES NOT SHOW VERSION INFORMATION!!!

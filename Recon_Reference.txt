@@ -1,0 +1,130 @@
+﻿╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ Recon_Reference.txt                                                                                                             ║
+║                                                                                                                                 ║
+║ Document Best Viewed/Printed: Page{Letter, Landscape, 0.25in Side Margins} Font{Consolas Font, Normal, 10pt}                    ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                        Revision History                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development/Update/Maintenance Update                                             ║
+║                                                                                                                                 ║
+║  1.00.25916.xx (15 Sep 16) - Initial Creation {J. Laccone}                                                                      ║
+║                                 Added header, added reference data                                                              ║
+║  1.01.26616.xx (22 Sep 16) - Development Update {J. Laccone}                                                                    ║
+║                                 Added additional procedures                                                                     ║
+║  1.02.26716.xx (23 Sep 16) - Development Update {J. Laccone}                                                                    ║
+║                                 Added additional procedures                                                                     ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                           Reference                                                             ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                 ║
+║   Area   - A horizontal region of airspace within a facility. Also known as speciality                                          ║
+║   AVN    - ATC Voice Node (Loosely equates to a facility)                                                                       ║
+║   RRN    - Remote Radio Node                                                                                                    ║
+║   Sector - A vertical region of airspace within an Area                                                                         ║
+║                                                                                                                                 ║
+║                                                                                                                                 ║
+║   Facility Types                                                                                                                ║
+║   ──────────────                                                                                                                ║
+║      Airport Traffic Control Tower    (ATCT)                                                                                    ║
+║      Terminal Radar Approach Control  (TRACON)                                                                                  ║
+║      Air Route Traffic Control Center (ARTCC)                                                                                   ║
+║                                                                                                                                 ║
+║                                                                                                                                 ║
+║   Sector Types                                                                                                                  ║
+║   ────────────                                                                                                                  ║
+║      Ultra High Altitude   (e.g. FL350 & Above)                                                                                 ║
+║      Super High Altitude                                                                                                        ║
+║      High Altitude         (e.g. FL240 to FL330)                                                                                ║
+║      Intermediate Altitude (e.g. 11,000 to FL230)                                                                               ║
+║      Low Altitude          (e.g. 0 to FL230)                                                                                    ║
+║                                                                                                                                 ║
+║                                                                                                                                 ║
+║   Embedded Development Local Manager Servers                                                                                    ║
+║   ──────────────────────────────────────────                                                                                    ║
+║      ATL: 172.24.24.57                                                                                                          ║
+║      ZMA: 172.24.24.58                                                                                                          ║
+║                                                                                                                                 ║
+║                                                                                                                                 ║
+║   Embedded Development Local Manager Credentials                                                                                ║
+║   ──────────────────────────────────────────────                                                                                ║
+║      Username: bfishe03                                                                                                         ║
+║      Password: Abcd1234*                                                                                                        ║
+║                                                                                                                                 ║
+║                                                                                                                                 ║
+║   Embedded Development Local Manager Application Site                                                                           ║
+║   ───────────────────────────────────────────────────                                                                           ║
+║      ATL: https://win01.atl-p.atct.ionharris.com:2340/Portal/Home/Role/Configuration Specialist                                 ║
+║      ATL: https://win01.atl-p.atct.ionharris.com:2340/Portal/Home/Role/Supervisor                                               ║
+║                                                                                                                                 ║
+║      ZMA: https://win01.zma-p.artcc.ionharris.com:2340/Portal/Home/Role/Configuration Specialist                                ║
+║      ZMA: https://win01.zma-p.artcc.ionharris.com:2340/Portal/Home/Role/Supervisor                                              ║
+║                                                                                                                                 ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Overview
+   ────────
+
+      Facility -> Area -> Sector -> Logical Position
+
+      Configuration Specialist
+      ------------------------
+         - Defines frequencies
+         - Defines trunks
+         - Defines classmarks
+         - Defines configuration maps for facility, area, sector, position
+         - Initial setup of maps on the various positions
+         - Validates the modifications to the database
+
+      Supervisor
+      ----------
+         - Performs reconfigurations
+         - Assigns logical to physical
+         - Assigns A/G & G/G communication buttons
+         - Assigns other feature buttons
+
+
+   Reconfiguration Procedures
+   ──────────────────────────
+      1. Open a Remote Desktop connection to a local manager server
+      2. Login to the machine using the appropriate credentials. You will have to enter the credentials twice
+      3. Open a web browser and connect to the local manager application site
+
+
+
+
+
+
+
+
+Facility Reconfiguration
+
+   Configuration Specialist
+      Map - What we see on the TED (configures the pui_dynamic.xml)
+
+      Maps - Edit a positions map
+
+
+      Special Functions
+      Call Features
+
+      Database Validation
+
+   Supervisor
+      Transition -> Transition
+      Recon -> Facility Recon (Unslect all xMG)
+            -> Reconfigure
+            -> Continue
+
+
+
+Logical To Physical Reconfiguration
+
+Supervisor
+   Facility Recon Must Be Complete
+   Recon -> Logical To Physical
+   Select the device/role
+
+
+

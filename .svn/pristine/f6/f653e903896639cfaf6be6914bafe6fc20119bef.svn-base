@@ -1,0 +1,533 @@
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ Recorder_Notes.txt                                                                                                                                                      ║
+║                                                                                                                                                                         ║
+║ Document Best Viewed/Printed: Page{Ledger, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                                                         ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                            Revision History                                                                             ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                                                                     ║
+║                                                                                                                                                                         ║
+║  1.00.17818.xx (27 Jun 18) - Initial Creation {J. Laccone}                                                                                                              ║
+║                                 Added header, added reference data                                                                                                      ║
+║                                 Added code path for reading XML configuration                                                                                           ║
+║  1.01.17918.xx (28 Jun 18) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added codec configuration                                                                                                               ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                Reference                                                                                ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║   Real Time Streaming Protocol (RTSP)                                                                                                                                   ║
+║   -----------------------------------                                                                                                                                   ║
+║      https://tools.ietf.org/html/rfc2326                                                                                                                                ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                  Notes                                                                                  ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║                                                                                                                                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                   Code Path For Reading XML Configuration                                                               ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+ParseFile << in /Embedded/ccu/base/utilities/common/src/uli_db_online.cpp >>
+──┬──────
+  ╎
+  ╎
+  └── ULi_DB_InterpretXmlTags << in /Embedded/ccu/base/utilities/common/src/uli_db_online.cpp >>
+      ──┬────────────────────
+        ╎
+        ╎
+        └── FirstLevelDecodeTags << in /Embedded/ccu/base/utilities/common/src/uli_db_online.cpp >>
+            ──┬─────────────────
+              ╎
+              ╎
+              └── ULi_DB_OnlineTagHandler << in /Embedded/ccu/base/utilities/common/src/uli_db_online.cpp >>
+                  ──┬────────────────────
+                    ╎
+                    ╎
+                    └── DecodeOnlineTags << in /Embedded/ccu/base/utilities/common/src/uli_db_online.cpp >>
+                        ──┬─────────────
+                          ╎
+                          ╎
+                          ├── IPRecorderHandler << in /Embedded/ccu/base/utilities/common/src/uli_db_online.cpp >>
+                          ╎   ──┬──────────────
+                          ╎     ╎
+                          ╎     ╎
+                          ╎     └── DecodeIPRecorder << in /Embedded/ccu/base/utilities/common/src/uli_db_online.cpp >>
+                          ╎
+                          ╎
+                          └── ATCoIPOnlineConfigHandler << in /Embedded/ccu/base/utilities/common/src/uli_db_online.cpp >>
+                              ──┬──────────────────────
+                                ╎
+                                ╎
+                                └── DecodeATCoIPOnlineConfigTags << in /Embedded/ccu/base/utilities/common/src/uli_db_online.cpp >>
+                                    ──┬─────────────────────────
+                                      ╎
+                                      ╎
+                                      └── DecodeATCoIPOnlineCodecConfigTags << in /Embedded/ccu/base/utilities/common/src/uli_db_online.cpp >>
+                                          ──┬──────────────────────────────
+                                            ╎
+                                            ╎
+                                            └── ATCoIPOnlineConfigCodecHandler << in /Embedded/ccu/base/utilities/common/src/uli_db_online.cpp >>
+                                                ──┬───────────────────────────
+                                                  ╎
+                                                  ╎
+                                                  └── DecodeATCoIPOnlineCodecTags << in /Embedded/ccu/base/utilities/common/src/uli_db_online.cpp >>
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                      Configuration Decode                                                                               ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   ul_db_records.h
+   ═══════════════
+
+      typedef struct UL_DB_IPRecorderCfgStruct
+
+         uint8 recorder;                 //<! 0 - Analog, 1 - IP, 2 - No recorder
+         char recorderURI[URISize];      //<! URI Address for the recorder
+         UL_IPADDR recorderIPAddress;    //<! IP Address for the recorder
+         UL_PcmCompanding_t codec;       //<! VoCoder type
+         uint16    packet_time;          //<! Packetization 10, 20 or 30mS
+         uint16    recorderPort;         //<! port number for the recorder
+         uint8     recorderType;         //<! 0 - A/G, 1- G/G
+         uint8     primaryBackupRecorder;//<! 0 - primary, 1- backup
+         bool recordAGAudioOnPtt;
+
+
+      typedef struct UL_DB_ATCoIPConfigCodecStruct
+
+         uint8 recordType;
+         bool defined;
+         uint32 clockRate;
+         uint8 packetTime;
+         uint8 rtpPayLoadType;
+
+
+
+   uli_db_online.cpp
+   ═════════════════
+
+      enum RecorderTags
+      {
+         recorderIsIP,
+         recorderURI,
+         recorderIPAddress,
+         recorderPortNumber,
+         recorderType,
+         primaryBackupRecorder,
+         recordAGAudioOnPTT,
+         MAX_RECORDER_STRINGS
+      };
+
+      const char * RecordersTagsString = "Recorders";
+      const char * RecorderTagsStrings[] =
+      {
+         "recorder",                        // translates to enum 0
+         "recorderURI",                     // translates to enum 1
+         "recorderIPAddress",               // translates to enum 2
+         "recorderPort",                    // translates to enum 3
+         "recorderType",                    // translates to enum 4
+         "primaryBackupRecorder",           // translates to enum 5
+         "recordAGAudioOnPTT"               // translates to enum 6
+      };
+
+
+
+   Online.xml
+   ══════════
+
+       <Recorders>
+         <Recorder>
+           <recorder value="1" />                       <!-- uint8         ===> 0 - Analog, 1 - IP, 2 - No recorder                                               -->
+           <recorderURI value="cwp-001-P-AG" />         <!-- char[URISize] ===> URI Address for the recorder (Name shown MUST match the name defined on Ricochet) -->
+           <recorderIPAddress value="10.122.35.20" />   <!-- UL_IPADDR     ===> IP Address for the recorder (NATS Lab OPS AVN server ip-rec-01 shown)             -->
+           <recorderPort value="554" />                 <!-- uint16        ===> Port number for the recorder (Default RTSP Port Number Shown)                     -->
+           <recorderType value="0" />                   <!-- uint8         ===> 0 - A/G, 1 - G/G                                                                  -->
+           <primaryBackupRecorder value="0" />          <!-- uint8         ===> 0 - primary, 1 - backup                                                           -->
+         </Recorder>
+       </Recorders>
+
+
+       <ATCoIPCFG>
+         <FVRVCA>
+           <PacketTime value="0" />                     <!-- uint8         ===> 0 - 10ms, 1 - 20ms, 2, 30ms                                                       -->
+           <Codec priority="0">                         <!-- int           ===> 0 to N, Highest priority starts at 0 (actually a 0-based array index)             -->
+             <RTPPayLoadType value="8" />               <!-- unit8         ===> 0 - G-711 u-Law, 8 - G-711 A-Law, 15 - G-728, 18 - G-729                          -->
+           </Codec>
+         </FVRVCA>
+       </ATCoIPCFG>
+
+
+
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                             Example Packets                                                                             ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   CWP ANNOUNCE
+   ════════════
+
+      ANNOUNCE rtsp://10.122.35.20:554/speechsynth RTSP/1.0
+      CSeq: 68
+      WG67-Version: recorder.01
+      Content-Type: application/sdp
+      Content-Length: 162
+
+      v=0
+      o=MAP 6566280070635630600 46 IN IP4 10.122.72.46
+      s=Recording session
+      c=IN IP4 10.122.35.20
+      t=0 0
+      m=audio 49882 RTP/AVP 8
+      a=rtpmap:8 PCMA/8000 ptime:10
+
+
+
+   UniMRCP Test Program ANNOUNCE
+   ═════════════════════════════
+
+      ANNOUNCE rtsp://192.168.36.128:1554/media/speechsynthesizer RTSP/1.0
+      CSeq: 1
+      Transport: RTP/AVP;unicast;client_port=4000-4001
+      Content-Type: application/sdp
+      Content-Length: 260
+
+      v=0
+      o=UniMRCPClient 0 0 IN IP4 192.168.36.128
+      s=-
+      c=IN IP4 192.168.36.128
+      t=0 0
+      m=audio 4000 RTP/AVP 0 8 96 101
+      a=rtpmap:0 PCMU/8000
+      a=rtpmap:8 PCMA/8000
+      a=rtpmap:96 L16/8000
+      a=rtpmap:101 telephone-event/8000
+      a=fmtp:101 0-15
+      a=recvonly
+      a=ptime:20
+
+
+
+   FreeSwitch ANNOUNCE (Out-dated)
+   ═══════════════════════════════
+
+      ANNOUNCE rtsp://10.122.35.20:554/REC-001-P-GG RTSP/1.0
+      CSeq: 1
+      Transport: RTP/AVP;unicast;client_port=4000-4001
+      Content-Type: application/sdp
+      Content-Length: 187
+      WG67-Version: recorder.01
+
+      v=0
+      o=FreeSWITCH 0 0 IN IP4 10.122.36.135
+      s=-
+      c=IN IP4 10.122.36.135
+      t=0 0
+      m=audio 4000 RTP/AVP 0 8 96
+      a=rtpmap:0 PCMU/8000
+      a=rtpmap:8 PCMA/8000
+      a=rtpmap:96 L16/8000
+      a=recvonly
+
+
+
+   CWP SETUP
+   ═════════
+
+      SETUP rtsp://10.122.35.20:554/speechsynth RTSP/1.0
+      CSeq: 69
+      WG67-Version: recorder.01
+      Transport: RTP/AVP/UDP;unicast;mode="RECORD";dest_addr="10.122.72.46:9";setup=active;connection=new
+
+
+
+   FreeSwitch SETUP (Out-dated)
+   ════════════════════════════
+
+      SETUP rtsp://10.122.35.20:554/REC-001-P-GG RTSP/1.0
+      CSeq: 2
+      Transport: RTP/AVP/UDP;unicast;mode="RECORD";dest_addr="10.122.36.135:9";setup=active;connection=new
+      WG67-Version: recorder.01
+
+
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                             Example Transaction                                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   CWP To CWP Full Conversation
+   ════════════════════════════
+
+
+      RTSP ANNOUNCE Request With Response
+      ───────────────────────────────────
+
+         ANNOUNCE rtsp://10.9.40.40:554/cwp-001-P-GG RTSP/1.0
+         CSeq: 276
+         WG67-Version: recorder.01
+         Content-Type: application/sdp
+         Content-Length: 156
+
+         v=0
+         o=MAP 6551439807577936252 6 IN IP4 10.9.41.6
+         s=Recording session
+         c=IN IP4 10.9.40.40
+         t=0 0
+         m=audio 49816 RTP/AVP 0
+         a=rtpmap:0 PCMU/8000 ptime:10
+
+
+         RTSP/1.0 200 OK
+         CSeq: 276
+         Content-Length: 0
+         WG67-Version: recorder.01
+
+
+
+      RTSP SETUP Request With Response
+      ────────────────────────────────
+
+         SETUP rtsp://10.9.40.40:554/cwp-001-P-GG RTSP/1.0
+         CSeq: 277
+         WG67-Version: recorder.01
+         Transport: RTP/AVP/UDP;unicast;mode="RECORD";dest_addr="10.9.41.6:9";setup=active;connection=new
+
+
+         RTSP/1.0 200 OK
+         CSeq: 277
+         Content-Length: 0
+         Session: d10f1630-8824-4fb9-ba37-e42287f5b67f
+         Transport: RTP/AVP/UDP;unicast;mode="RECORD";dest_addr="10.9.41.6:9";setup=active;connection=new;src_addr="10.9.40.40:55001"
+         WG67-Version: recorder.01
+
+
+
+      RTSP SET_PARAMETER Request With Response
+      ────────────────────────────────────────
+
+         SET_PARAMETER rtsp://10.9.40.40:554/cwp-001-P-GG RTSP/1.0
+         CSeq: 278
+         WG67-Version: recorder.01
+         Session: d10f1630-8824-4fb9-ba37-e42287f5b67f
+         Content-Type: application/x-crd+xml
+         Content-Length: 401
+
+         <call-record-data connref="3D9F4861-F07CFAB@10.9.41.5" >
+            <properties>
+               <property name="Direction">2</property>
+               <property name="Priority">2</property>
+               <property name="CallingNr">320001</property>
+               <property name="CalledNr">320009</property>
+               <property name="SetupTime">2018-05-03_19:32:27.315+0000</property>
+               <property name="vnd.VCS21-RoleId">320001</property>
+            </properties>
+         </call-record-data>
+
+
+         RTSP/1.0 200 OK
+         CSeq: 278
+         Content-Length: 0
+         Session: d10f1630-8824-4fb9-ba37-e42287f5b67f
+         WG67-Version: recorder.01
+
+
+
+      RTSP SET_PARAMETER Request With Response
+      ────────────────────────────────────────
+
+         SET_PARAMETER rtsp://10.9.40.40:554/cwp-001-P-GG RTSP/1.0
+         CSeq: 279
+         WG67-Version: recorder.01
+         Session: d10f1630-8824-4fb9-ba37-e42287f5b67f
+         Content-Type: application/x-crd+xml
+         Content-Length: 223
+
+         <call-record-data connref="3D9F4861-F07CFAB@10.9.41.5" >
+            <properties>
+               <property name="AlertingNr">320001</property>
+               <property name="AlertTime">2018-05-03_19:32:27.334+0000</property>
+            </properties>
+         </call-record-data>
+
+
+         RTSP/1.0 200 OK
+         CSeq: 279
+         Content-Length: 0
+         Session: d10f1630-8824-4fb9-ba37-e42287f5b67f
+         WG67-Version: recorder.01
+
+
+
+      RTSP RECORD Request With Response
+      ─────────────────────────────────
+
+         RECORD rtsp://10.9.40.40:554/cwp-001-P-GG RTSP/1.0
+         CSeq: 280
+         WG67-Version: recorder.01
+         Session: d10f1630-8824-4fb9-ba37-e42287f5b67f
+         Content-Type: application/x-crd+xml
+         Content-Length: 226
+
+         <call-record-data connref="3D9F4861-F07CFAB@10.9.41.5" >
+            <properties>
+               <property name="ConnectedNr">320009</property>
+               <property name="ConnectTime">2018-05-03_19:32:30.141+0000</property>
+            </properties>
+         </call-record-data>
+
+
+         RTSP/1.0 200 OK
+         CSeq: 280
+         Content-Length: 213
+         Content-Type: application/x-crd+xml
+         Session: d10f1630-8824-4fb9-ba37-e42287f5b67f
+         WG67-Version: recorder.01
+
+         <call-record-data connref="3D9F4861-F07CFAB@10.9.41.5">
+            <properties>
+               <property name="ConnectedNr">320009</property>
+               <property name="ConnectTime">2018-05-03_19:32:30.141+0000</property>
+            </properties>
+         </call-record-data>
+
+
+
+      RTSP SET_PARAMETER Request With Response
+      ────────────────────────────────────────
+
+         SET_PARAMETER rtsp://10.9.40.40:554/cwp-001-P-GG RTSP/1.0
+         CSeq: 281
+         WG67-Version: recorder.01
+         Session: d10f1630-8824-4fb9-ba37-e42287f5b67f
+         Content-Type: application/x-crd+xml
+         Content-Length: 182
+
+         <call-record-data connref="3D9F4861-F07CFAB@10.9.41.5" >
+            <operations>
+               <operation name="HOLD" time="2018-05-03_19:32:34.058+0000">1</operation>
+            </operations>
+         </call-record-data>
+
+
+         RTSP/1.0 200 OK
+         CSeq: 281
+         Content-Length: 0
+         Session: d10f1630-8824-4fb9-ba37-e42287f5b67f
+         WG67-Version: recorder.01
+
+
+
+      RTSP SET_PARAMETER Request With Response
+      ────────────────────────────────────────
+
+         SET_PARAMETER rtsp://10.9.40.40:554/cwp-001-P-GG RTSP/1.0
+         CSeq: 282
+         WG67-Version: recorder.01
+         Session: d10f1630-8824-4fb9-ba37-e42287f5b67f
+         Content-Type: application/x-crd+xml
+         Content-Length: 401
+
+         <call-record-data connref="6881217B-101F9BD@10.9.41.5" >
+            <properties>
+               <property name="Direction">2</property>
+               <property name="Priority">2</property>
+               <property name="CallingNr">320001</property>
+               <property name="CalledNr">320002</property>
+               <property name="SetupTime">2018-05-03_19:32:36.452+0000</property>
+               <property name="vnd.VCS21-RoleId">320001</property>
+            </properties>
+         </call-record-data>
+
+
+         RTSP/1.0 200 OK
+         CSeq: 282
+         Content-Length: 0
+         Session: d10f1630-8824-4fb9-ba37-e42287f5b67f
+         WG67-Version: recorder.01
+
+
+
+      RTSP SET_PARAMETER Request With Response
+      ────────────────────────────────────────
+
+         SET_PARAMETER rtsp://10.9.40.40:554/cwp-001-P-GG RTSP/1.0
+         CSeq: 283
+         WG67-Version: recorder.01
+         Session: d10f1630-8824-4fb9-ba37-e42287f5b67f
+         Content-Type: application/x-crd+xml
+         Content-Length: 223
+
+         <call-record-data connref="6881217B-101F9BD@10.9.41.5" >
+            <properties>
+               <property name="AlertingNr">320001</property>
+               <property name="AlertTime">2018-05-03_19:32:36.497+0000</property>
+            </properties>
+         </call-record-data>
+
+
+         RTSP/1.0 200 OK
+         CSeq: 283
+         Content-Length: 0
+         Session: d10f1630-8824-4fb9-ba37-e42287f5b67f
+         WG67-Version: recorder.01
+
+
+
+      RTSP SET_PARAMETER Request With Response
+      ────────────────────────────────────────
+
+         SET_PARAMETER rtsp://10.9.40.40:554/cwp-001-P-GG RTSP/1.0
+         CSeq: 284
+         WG67-Version: recorder.01
+         Session: d10f1630-8824-4fb9-ba37-e42287f5b67f
+         Content-Type: application/x-crd+xml
+         Content-Length: 195
+
+         <call-record-data connref="6881217B-101F9BD@10.9.41.5" >
+            <operations>
+               <operation name="RedirectedNr" time="2018-05-03_19:32:40.261+0000">320002</operation>
+            </operations>
+         </call-record-data>
+
+
+         RTSP/1.0 200 OK
+         CSeq: 284
+         Content-Length: 0
+         Session: d10f1630-8824-4fb9-ba37-e42287f5b67f
+         WG67-Version: recorder.01
+
+
+
+      RTSP TEARDOWN Request With Response
+      ───────────────────────────────────
+
+         TEARDOWN rtsp://10.9.40.40:554/cwp-001-P-GG RTSP/1.0
+         CSeq: 285
+         WG67-Version: recorder.01
+         Session: d10f1630-8824-4fb9-ba37-e42287f5b67f
+         Content-Type: application/x-crd+xml
+         Content-Length: 229
+
+         <call-record-data connref="6881217B-101F9BD@10.9.41.5" >
+            <properties>
+               <property name="DisconnectSource">0</property>
+               <property name="DisconnectTime">2018-05-03_19:32:42.822+0000</property>
+            </properties>
+         </call-record-data>
+
+
+         RTSP/1.0 200 OK
+         CSeq: 285
+         Content-Length: 0
+         Session: d10f1630-8824-4fb9-ba37-e42287f5b67f
+         WG67-Version: recorder.01

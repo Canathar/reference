@@ -1,0 +1,87 @@
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ RtspServer_Demistified.txt                                                                                                                                              ║
+║                                                                                                                                                                         ║
+║ Document Best Viewed/Printed: Page{Ledger, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                                                         ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                             Revision History                                                                            ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                                                                     ║
+║                                                                                                                                                                         ║
+║  1.00.18318.xx (02 Jul 18) - Initial Creation {J. Laccone}                                                                                                              ║
+║                                 Added header, added reference data                                                                                                      ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                 Reference                                                                               ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║   ION Repository                                                                                                                                                        ║
+║   --------------                                                                                                                                                        ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad                                                                                                       ║
+║                                                                                                                                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                     Dependencies                                                                        ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   SessionDescription
+   ──┬───────────────
+     │  SVN Loc: <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/ccu/base/tools
+     │                   /RtspServerSimulator/deps
+     │                   /jsdp-1.1.jar>
+     │  ────────────────────────────────────────────────────────────────────────────────────────────────────
+     │  Package: net.sourceforge.jdsp
+     │
+     │  Defines   : [SessionDescription] Class
+     │  Implements: [Description] Interface
+     └───────────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+   HttpResponseStatus
+   ──┬───────────────
+     │  SVN Loc: <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/ccu/base/tools
+     │                   /RtspServerSimulator/deps
+     │                   /netty-all-4.0.15.Final.jar>
+     │  ────────────────────────────────────────────────────────────────────────────────────────────────────
+     │  Package: io.netty.handler.codec.http
+     │
+     │  Defines   : [HttpResponseStatus] Class
+     │  Implements: [Comparable<HttpResponseStatus>] Interface
+     └───────────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                 Code Path For Server                                                                    ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Server.java
+   ──┬────────
+     │  SVN Loc: <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/ccu/base/tools
+     │                   /RtspServerSimulator/src/main/java/com/harris/rtspserver
+     │                   /Server.java>
+     │  ────────────────────────────────────────────────────────────────────────────────────────────────────
+     │  Package: com.harris.rtpserver
+     │
+     │  Defines: [Server] Class
+     │  - Contains [RtspServer] objects
+     │  - Contains [WebSocketServer] objects
+     │  - Contains [JsonMessageProcessor] objects
+     │
+     │
+     ├── RtspServer.java
+     │   ──┬────────────
+     │     │  SVN Loc: <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/ccu/base/tools
+     │     │                   /RtspServerSimulator/src/main/java/com/harris/rtspserver/rtsp
+     │     │                   /RtspServer.java>
+     │     │  ────────────────────────────────────────────────────────────────────────────────────────────────────
+     │     │  Package: com.harris.rtspserver.rtsp
+     │     │
+     │     │  Defines: [RtspServer] Class
+     │     │
+     │     │
+

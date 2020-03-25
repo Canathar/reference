@@ -1,0 +1,152 @@
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ Linux_Sound_Info.txt                                                                                                            ║
+║                                                                                                                                 ║
+║ Document Encoding           : UTF-8, UNIX Line Terminator                                                                       ║
+║ Document Best Viewed/Printed: Page{Legal, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                  ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                         Revision History                                                        ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                             ║
+║                                                                                                                                 ║
+║  1.00.23218.xx (20 Aug 18) - Initial Creation {J. Laccone}                                                                      ║
+║                                 Added header, added reference data                                                              ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                            Reference                                                            ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                 ║
+║   Alsa Project                                                                                                                  ║
+║   ------------                                                                                                                  ║
+║      http://www.alsa-project.org                                                                                                ║
+║                                                                                                                                 ║
+║   PulseAudio                                                                                                                    ║
+║   ----------                                                                                                                    ║
+║      https://en.wikipedia.org/wiki/PulseAudio                                                                                   ║
+║                                                                                                                                 ║
+║   No Audio/Sound in CentOS 7                                                                                                    ║
+║   --------------------------                                                                                                    ║
+║      https://www.linuxquestions.org/questions/linux-laptop-and-netbook-25/no-audio-sound-in-centos-7-a-4175599751/              ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                              Notes                                                              ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                 ║
+║   ALSA - Advanced Linux Sound Architecture                                                                                      ║
+║                                                                                                                                 ║
+║   PulseAudio - Network-capable sound server that directs one or more sound sources to one or more sinks                         ║
+║                                                                                                                                 ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+
+
+   Display The Multimedia Hardware In The System
+   ═════════════════════════════════════════════
+      1. Open a terminal window as a root user
+      2. Display the multimedia hardware by typing the following command(s) into the terminal window:
+
+            lshw | grep -A11 multimedia
+
+
+
+   Generate A Log Of The System Sound Configuration
+   ════════════════════════════════════════════════
+      1. Open a terminal window as a root user
+      2. Generate the log by typing the following command(s) into the terminal window:
+
+            alsa-info
+
+
+
+   Display The Audio Devices In The System
+   ═══════════════════════════════════════
+      1. Open a terminal window as a root user
+      2. Display the audio devices by typing the following command(s) into the terminal window:
+
+            lspci -nnk | grep -i -A7 audio
+
+
+
+   Display The Audio Drivers In The System
+   ═══════════════════════════════════════
+      1. Open a terminal window as a root user
+      2. Display the audio drivers by typing the following command(s) into the terminal window:
+
+            lsmod | grep snd
+
+
+
+   Display The Audio Playback Devices In The System
+   ════════════════════════════════════════════════
+      1. Open a terminal window as a root user
+      2. Display the audio playback devices by typing the following command(s) into the terminal window:
+
+            aplay -l
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                           Pulse Audio                                                           ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+
+   Display The PulseAudio Sound Cards In The System
+   ════════════════════════════════════════════════
+      1. Open a terminal window as a non-root user
+      2. Display the sound cards by typing the following command(s) into the terminal window:
+
+            pacmd list-cards
+
+
+
+   Configure The Properties Of The PulseAudio Sound Cards In The System
+   ════════════════════════════════════════════════════════════════════
+      1. Open a terminal window as a non-root user
+      2. If the pavucontrol utility is NOT install on the system, by typing the following command(s) into the terminal window:
+
+            su
+            yum install pavucontrol
+            exit
+
+      3. Display/Configure the PulseAudio sound cards by typing the following command(s) into the terminal window:
+
+            pavucontrol
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+alsamixer
+
+
+System -> Preferences -> Hardware -> Sound
+
+
+
+yum --enablerepo "*" install audacity
+
+audacity
+
+
+
+
+rpm -qa | grep alsa
+
+
+systemctl list-unit-files --type=service
+
+
+
+

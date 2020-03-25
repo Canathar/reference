@@ -1,0 +1,197 @@
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ High_Level_Robustness_Demystified.txt                                                                                                                                   ║
+║                                                                                                                                                                         ║
+║ Document Best Viewed/Printed: Page{Ledger, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                                                         ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                            Revision History                                                                             ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                                                                     ║
+║                                                                                                                                                                         ║
+║  1.00.19117.xx (10 Jul 18) - Initial Creation {J. Laccone}                                                                                                              ║
+║                                 Added header, added reference data                                                                                                      ║
+║  1.01.19717.xx (16 Jul 18) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added SNMP reference information                                                                                                        ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                Reference                                                                                ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║   Command Line Hexdump Tool                                                                                                                                             ║
+║   -------------------------                                                                                                                                             ║
+║      https://www.systutorials.com/docs/linux/man/1-xxd/                                                                                                                 ║
+║                                                                                                                                                                         ║
+║                                                                                                                                                                         ║
+║   Installing NET-SNMP (RHEL/CentOS)                                                                                                                                     ║
+║   ---------------------------------                                                                                                                                     ║
+║      https://www.liquidweb.com/kb/how-to-install-and-configure-snmp-on-centos/                                                                                          ║
+║                                                                                                                                                                         ║
+║                                                                                                                                                                         ║
+║   Monitoring Performance With NET-SNMP (RHEL/CentOS)                                                                                                                    ║
+║   --------------------------------------------------                                                                                                                    ║
+║      https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/system_administrators_guide/sect-system_monitoring_tools-net-snmp                    ║
+║                                                                                                                                                                         ║
+║                                                                                                                                                                         ║
+║   MIB Broswer Based On NET-SNMP (RHEL/CentOS)                                                                                                                           ║
+║   -------------------------------------------                                                                                                                           ║
+║      https://linuxsoft.cern.ch/cern/centos/7/updates/x86_64/repoview/net-snmp-gui.html                                                                                  ║
+║                                                                                                                                                                         ║
+║                                                                                                                                                                         ║
+║   VCS21 Device MIB Files                                                                                                                                                ║
+║   ----------------------                                                                                                                                                ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Management/Zabbix/ion_mibs/                                                                     ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                  Notes                                                                                  ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║                                                                                                                                                                         ║
+║                                                                                                                                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                               1 - SNMP Packets                                                                          ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Installing Command Line SNMP Tools (RHEL/CentOS)
+   ════════════════════════════════════════════════
+      1. Open a terminal window as root
+      2. Install the command line SNMP components by typing the following command(s) into the terminal window:
+
+            yum --enablerepo "*" install net-snmp net-snmp-utils net-snmp-perl perl-Tk
+
+
+
+   Verify Config Files Are Providing Correct Command Line Utility Parameters (For Your Platform)
+   ═════════════════════════════════════════════════════════════════════════════════════════════
+      1. Open a terminal window
+      2. Change to the configuration directory by typing the following command(s) into the terminal window:
+
+            (starting at the HLRobustness directory)
+            cd MAP/configs
+
+      3. Verify that the config files are using the correct SNMP version parameter for your platform by typing the following command(s) into the terminal window:
+
+            grep -rnw . -e 'VERSION'
+
+      4. If the results from the previous step do not match your platform, verify the correct parameter for your platform and modify the data files by typing the
+         following command(s) into the terminal window:
+
+            grep -rl '<cmd-line-snmp-version-num-in-cfg-file>' | xargs sed -i 's/<cmd-line-snmp-verison-num-in-cfg-file>/<platform-cmd-line-snmp-version-num>/g'
+            (CentOS ex: grep -rl 'VERSION=2' | xargs sed -i 's/VERSION=2/VERSION=2c/g')
+
+
+
+   Verify Data Files Are Calling Correct Command Line Utility (For Your Platform)
+   ══════════════════════════════════════════════════════════════════════════════
+      1. Open a terminal window
+      2. Change directory to the SNMP data files (data_source_1) by typing the following command(s) into the terminal window:
+
+            (starting at the HLRobustness directory)
+            cd MAP/data_files/data_source_1
+
+      3. Verify that the data files are using the correct SNMP Get command for your platform by typing the following command(s) into the terminal window:
+
+            grep -rnw . -e '<cmd-line-snmp-get-util>'
+            (CentOS ex: grep -rnw . -e 'snmpget')
+
+      4. If there are no matches from the previous step, verify the correct command for your platform and modify the data files by typing the following
+         command(s) into the terminal window:
+
+            grep -rl '<cmd-line-snmp-get-util-in-dat-file>' | xargs sed -i 's/<cmd-line-snmp-get-util-in-dat-file>/<platform-cmd-line-snmp-get-util>/g'
+            (CentOS ex: grep -rl 'snmpGet' | xargs sed -i 's/snmpGet/snmpget/g')
+
+      5. Verify that the data files are using the correct SNMP Set command for your platform by typing the following command(s) into the terminal window:
+
+            grep -rnw . -e '<cmd-line-snmp-set-util>'
+            (CentOS ex: grep -rnw . -e 'snmpset')
+
+      6. If there are no matches from the previous step, verify the correct command for your platform and modify the data files by typing the following
+         command(s) into the terminal window:
+
+            grep -rl '<cmd-line-snmp-set-util-in-dat-file>' | xargs sed -i 's/<cmd-line-snmp-set-util-in-dat-file>/<platform-cmd-line-snmp-set-util>/g'
+            (CentOS ex: grep -rl 'snmpSet' | xargs sed -i 's/snmpSet/snmpset/g')
+
+
+
+   Install GUI MIB Browser Utility (tkmib)
+   ═══════════════════════════════════════
+      1. Open a terminal window as a root user
+      2. Download and install the utility by typing the following command(s) into the terminal window:
+
+            cd /usr/src
+            wget https://linuxsoft.cern.ch/cern/centos/7/updates/x86_64/Packages/net-snmp-gui-5.7.2-33.el7_5.2.x86_64.rpm
+            rpm -ivh net-snmp-gui-5.7.2-33.el7_5.2.x86_64.rpm
+
+      3. Create a configuraton storage directory for the tool by typing the following command(s) into the terminal window:
+
+            mkdir ~/.snmp
+
+      4. Create a mib storage directory for the tool by typing the following command(s) into the terminal window:
+
+            cd ~/.snmp
+            mkdir mibs
+
+      5. Download the VCS21 MIBs into the mib storage directory
+      6. Run the mib browser by typing the following command(s) into the terminal window:
+
+            tkmib
+
+      7. Load the desired MIB data into the browser by selecting the menu option, "Load a New Mib module" under the "Mib" menu. Select one (or all) of the modules
+         available (Modules for a CWP shown below)
+
+            HARRIS-MIB
+            ION-MIB
+            ION-CWPMIB
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                               5 - SIP Packets                                                                           ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Decoding A Hexadecimal Data File Into A Plain ASCII Text File
+   ═════════════════════════════════════════════════════════════
+      1. Open a terminal window
+      2. Decode the hexadecimal .dat file into an ASCII text file by typing the following command(s) into the terminal window:
+
+            cat <dat-file> | xxd -r -p > <txt-file>
+            (ex: cat MAP-HRT-500.dat | xxd -r -p > MAP-HRT-500.dat.txt)
+
+
+
+   Encoding A Plain ASCII Text File Into A Hexadecimal Data File
+   ═════════════════════════════════════════════════════════════
+      1. Open a terminal window
+      2. Encode the ASCII text file into a hexadecimal .dat file by typing the following command(s) into the terminal window:
+
+            cat <txt-file> | xxd -p -c 8192 > <dat-file> && echo "" >> <dat-file>
+            (ex: cat MAP-HRT-500.dat.txt | xxd -p -c 8192 MAP-HRT-500.dat && echo "" >> MAP-HRT-500.dat)
+
+
+
+
+
+
+SNMP
+144, 145
+
+
+
+# Execute the test with the supplied data file
+./runtest_map.sh --tstprog snmpDriver \
+                 --cfgfile MAP_HRT_SNMP.cfg \
+                 --datsrc data_source_1 \
+                 --datfile MAP-HRT-158.dat \
+                 --target 172.24.24.157
+
+# Execute the test with the supplied data file
+./runtest_map.sh --tstprog snmpDriver \
+                 --cfgfile MAP_HRT_SNMP.cfg \
+                 --datsrc data_source_1 \
+                 --datfile MAP-HRT-145.dat \
+                 --target 172.24.24.224
+
+
+
+snmpset -m ION-CWPMIB -v 2c -c public 172.24.24.157 1.3.6.1.4.1.290.6.7.3.1.1.4.0 s "32"

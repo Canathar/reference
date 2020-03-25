@@ -1,0 +1,206 @@
+﻿╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ hats-usage.txt                                                                                                                                                          ║
+║                                                                                                                                                                         ║
+║ Document Best Viewed/Printed: Page{Ledger, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                                                         ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                            Revision History                                                                             ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development/Update/Maintenance Update                                                                                     ║
+║                                                                                                                                                                         ║
+║  1.00.35317.xx (19 Dec 17) - Initial Creation {J. Laccone}                                                                                                              ║
+║                                 Added sections                                                                                                                          ║
+║  1.01.35417.xx (20 Dec 17) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added additional docker data                                                                                                            ║
+║  1.02.35517.xx (21 Dec 17) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added header and reference links                                                                                                        ║
+║  1.03.00818.xx (08 Jan 18) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added docker installation commands                                                                                                      ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                Reference                                                                                ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║   Docker Networking                                                                                                                                                     ║
+║   ─────────────────                                                                                                                                                     ║
+║      http://www.elastic.co/blog/docker-networking                                                                                                                       ║
+║      https://docs.docker.com/engine/userguide/networking/                                                                                                               ║
+║                                                                                                                                                                         ║
+║   Docker X11                                                                                                                                                            ║
+║   ──────────                                                                                                                                                            ║
+║      https://blog.yadutaf.fr/2017/09/10/running-a-graphical-app-in-a-docker-container-on-a-remote-server/                                                               ║
+║                                                                                                                                                                         ║
+║                                                                                                                                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                           Docker Installation                                                                           ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Bash Commands - Execute The Following In A Terminal Window As superuser
+   ───────────────────────────────────────────────────────────────────────
+      1. Open a terminal window
+      2. Login as the superuser (root on CentOS/RHEL)
+      3. Use yum to remove any existing docker components
+
+            yum remove docker docker-common docker-selinux docker-engine
+
+      4. Use yum to install required docker components
+
+            yum --noplugins --enablerepo "*" --disablerepo "*media*" install yum-utils device-mapper-persistent-data lvm2
+
+      5. Modify the yum configuration file, /etc/yum.conf, to suppress the checking of SSL certificates by adding the following line
+
+            sslverify=False
+
+      6. Use yum to add the docker repository
+
+            yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+
+      7. Use yum to add docker
+
+            yum --noplugins --enablerepo "*" --disablerepo "*media*" install docker-ce
+
+      8. Start the docker service
+
+            systemctl start docker
+
+      9. Create a directory to hold the certificates
+
+            mkdir /root/security
+
+     10. Change to the new directory
+
+            cd /root/security
+
+     11. Copy the certificate tools
+
+            scp root@<machine-ip-address>:/<source-path>/Certificate-and-tools.tar.gz .
+
+     12. Expand the archive
+
+            tar -xzvf Certificate-and-tools.tar.gz
+
+     13. Install the necessary certficates
+
+            ./AddCertsToAnchor.sh
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                 Docker                                                                                  ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   systemctl start docker
+   systemctl status docker
+
+   Work with images
+   ────────────────
+
+      docker images
+
+      docker image ls
+      docker image rm <image-id>
+
+
+   Work with containers
+   ────────────────────
+
+      docker ps -a
+      docker container ls
+      docker container rm <container-id>
+      docker rm `docker ps --no-trunc -a -q`
+
+
+   Building Images
+   ───────────────
+
+      docker build -t <tag> <source-dir>
+
+      docker build -t hats-platform .
+
+
+   Running An Image (Creating A Container)
+   ───────────────────────────────────────
+
+      docker run -it <container-name> <image-name>
+
+
+
+
+
+
+
+      docker run -it --privileged \
+         -e DISPLAY=:${CONTAINER_DISPLAY} \
+         -v ${PWD}/display/socket:/tmp/.X11-unix:rw \
+         -v ${PWD}/display/Xauthority:/home/developer/.Xauthority:rw \
+         --hostname ${CONTAINER_HOSTNAME} \
+         --name hats_instance \
+         hats-platform
+
+
+
+
+
+
+
+      # Working command for terminal session started on docker host
+      docker run -it --privileged -e DISPLAY=$DISPLAY \
+                                  -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
+                                  --name hats_test \
+                                  hats-platform
+
+
+      # docker run -it --net=host --privileged -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --name hats_test hats-platform
+      # docker run --rm -it -e "TERM=xterm-256color" --mount type=tmpfs,destination=/tmp --name hats_test hats-platform
+      # docker run -it -e "TERM=xterm-256color" --name hats_test hats-platform
+
+
+   Attaching To A Running Image (Creating A New Terminal)
+   ──────────────────────────────────────────────────────
+
+      docker exec -it <container-id> bash
+
+      docker exec -it -e DISPLAY=$DISPLAY hats_test bash
+
+
+   Copying a file to/from the host to/from a running container
+   ───────────────────────────────────────────────────────────
+
+      docker cp foo.txt mycontainer:/foo.txt
+      docker cp mycontainer:/foo.txt foo.txt
+
+      docker cp /tmp/hats-dev/dist/hats-0.18.0a1.dev79-py2-none-any.whl hats_test:/usr/src/hats
+
+
+   Networking
+   ──────────
+
+      docker network ls
+
+
+
+   xhost +local:<container-id>
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                    Creating hats Configuration Files                                                                    ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Melbourne Embedded Development - NAN
+   ────────────────────────────────────
+   python2.7 createConfigFile.py --script-avn mlb_emb_dev_nan --script-proxy-ip 172.24.24.204 --target-avn mlb_emb_dev_nan -n 172.24.24 -a "LC000 CD000 GC000 RC000 TM000" -m "220 222 224 226 228"
+
+
+   Melbourne Embedded Development - SJU
+   ────────────────────────────────────
+   python2.7 createConfigFile.py --script-avn mlb_emb_dev_sju --script-proxy-ip 172.24.24.140 --target-avn mlb_emb_dev_sju -n 172.24.24 -a "MNT001 CD000 GC000 RC000 TM000" -m "155 157 159 161 163"
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                        Running hats Script Files                                                                        ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+
+   python2.7 invite_hats_UAC.py -i eth0 --conf ~/hats-working-config/hats__script-mlb_emb_dev_sju__target-mlb_emb_dev_sju_GC000.conf --nopcap --log -*
+

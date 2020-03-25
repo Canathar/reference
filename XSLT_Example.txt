@@ -1,0 +1,35 @@
+
+# Reference
+# http://xmlsoft.org/XSLT/python.html
+
+import libxml2 as lx2
+import libxslt as lxt
+
+
+# XML DOM Method Bindings are found in the following file
+#    /usr/local/lib/python2.7/site-packages/libxml2.py
+
+# XSLT Method Bindings are found in the following file
+#    /usr/local/lib/python2.7/site-packages/libxslt.py
+
+
+# Load the transform document
+#styledoc = lx2.parseFile('xslt-filename')
+styledoc = lx2.parseFile('/tmp/palladium.xsl')
+style = lxt.parseStylesheetDoc(styledoc)
+
+# Load the data document
+#doc = lx2.parseFile('xml-filename')
+doc = lx2.parseFile('/tmp/kelso.xml')
+
+# Perform the transformation
+result = style.applyStylesheet(doc, None)
+
+# Save the output
+style.saveResultToFilename('/tmp/xslt-example.txt', result, 0)
+
+# Clean Up, Aisle Two
+style.freeStylesheet()
+doc.freeDoc()
+result.freeDoc()
+

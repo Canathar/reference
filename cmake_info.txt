@@ -1,0 +1,50 @@
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ cmake_info.txt                                                                                                                                                          ║
+║                                                                                                                                                                         ║
+║ Document Encoding           : UTF-8, UNIX Line Terminator                                                                                                               ║
+║ Document Best Viewed/Printed: Page{Ledger, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                                                         ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                            Revision History                                                                             ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                                                                     ║
+║                                                                                                                                                                         ║
+║  1.00.33318.xx (29 Nov 18) - Initial Creation {J. Laccone}                                                                                                              ║
+║                                 Added sections                                                                                                                          ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                Reference                                                                                ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║   CMake Reference Documentation                                                                                                                                         ║
+║   -----------------------------                                                                                                                                         ║
+║      https://cmake.org/cmake/help/latest/index.html                                                                                                                     ║
+║                                                                                                                                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+
+   Bash Script To Kick It All Off
+
+
+   /ccu/base/build/setup
+
+      calls: setup_externalprojects.cmake
+      calls: setup_apps.cmake
+
+             imports (for arm): toolchain.arm.cmake
+             executes         : CMakeLists.txt
+
+                                imports: klocwork.cmake
+
+
+
+   if the USER_KLOCWORK environment variable is set to "ON", the build will be instrumented
+
+
+
+   results of environment creation are stored in CMakeCache.txt
+
+
+
+
+

@@ -1,0 +1,164 @@
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ APU_Demystified.txt                                                                                                                                                     ║
+║                                                                                                                                                                         ║
+║ Document Encoding           : UTF-8, UNIX Line Terminator                                                                                                               ║
+║ Document Best Viewed/Printed: Page{Ledger, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                                                         ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                            Revision History                                                                             ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                                                                     ║
+║                                                                                                                                                                         ║
+║  1.00.11519.xx (25 Apr 19) - Initial Creation {J. Laccone}                                                                                                              ║
+║                                 Added sections                                                                                                                          ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                              Reference                                                                                  ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║                                                                                                                                                                         ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                Notes                                                                                    ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║                                                                                                                                                                         ║
+║                                                                                                                                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                               Code Path For Loading/Initializing XMG DSP                                                                ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+      ┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+      │                                                                                                                                                             │
+      │    │  - Solid line in the code path description denotes that the entire code path has been documented for the item (method/function)                        │
+      │                                                                                                                                                             │
+      │    ╎  - Broken line in the code path description denotes that there may be additional undocumented paths for the item (method/function)                     │
+      │                                                                                                                                                             │
+      │   ' ' - Blank line in the code path description denotes that the item (method/function) may not call all of the following paths                             │
+      │                                                                                                                                                             │
+      └─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+   main
+   ══╤═
+     ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app
+     ╎                   /xsapu/src
+     ╎                   /appmain.c>
+     ╎  ──────────────────────────────────────────────────────────────────────────────────────────────────
+     ╎  Brief  : Application entry point
+     ╎
+     ╎
+     ├── ConsoleLogThreadInit
+     ╎   ══╤═════════════════
+     ╎     ╎  Def    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app
+     ╎     ╎                   /common/include
+     ╎     ╎                   /telnetconsole.h>
+     ╎     ╎
+     ╎     ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app
+     ╎     ╎                   /common/src
+     ╎     ╎                   /telnetconsole.c>
+     ╎     ╎  ──────────────────────────────────────────────────────────────────────────────────────────────────
+     ╎     ╎  Brief  : Initializes the thread on startup
+     ╎     └────────────────────────────────────────────────────────────────────────────────────────────────────
+     ╎
+     ╎
+     ├── DM8168_Init
+     ╎   ══╤════════
+     ╎     ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app
+     ╎     ╎                   /xsapu/src
+     ╎     ╎                   /appmain.c>
+     ╎     ╎  ──────────────────────────────────────────────────────────────────────────────────────────────────
+     ╎     ╎  Brief  : Initialize specific DM register needed for the application
+     ╎     └────────────────────────────────────────────────────────────────────────────────────────────────────
+     ╎
+     ╎
+     ├── HOSTCOMM_init
+     ╎   ══╤══════════
+     ╎     ╎  Def    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/drivers
+     ╎     ╎                   /common/hostcomm/api
+     ╎     ╎                   /hostcomm.h>
+     ╎     ╎
+     ╎     ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/drivers
+     ╎     ╎                   /common/hostcomm/src
+     ╎     ╎                   /hostcomm.c>
+     ╎     ╎  ──────────────────────────────────────────────────────────────────────────────────────────────────────
+     ╎     ╎  Brief  : Initializes the communication channel between the ccu and the apu
+     ╎     └────────────────────────────────────────────────────────────────────────────────────────────────────────
+     ╎
+     ╎
+     ├── Health_Notification_Init
+     ╎   ══╤═════════════════════
+     ╎     ╎  Def    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app
+     ╎     ╎                   /common/include
+     ╎     ╎                   /health.h>
+     ╎     ╎
+     ╎     ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app
+     ╎     ╎                   /common/src
+     ╎     ╎                   /health.c>
+     ╎     ╎  ──────────────────────────────────────────────────────────────────────────────────────────────────
+     ╎     ╎  Brief  : Initializes the IPC communication channel between the ccu and the apu
+     ╎     └────────────────────────────────────────────────────────────────────────────────────────────────────
+     ╎
+     ╎
+     ├── appinfo_init
+     ╎   ══╤═════════
+     ╎     ╎  Def    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app
+     ╎     ╎                   /common/include
+     ╎     ╎                   /appinfo.h>
+     ╎     ╎
+     ╎     ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app
+     ╎     ╎                   /common/src
+     ╎     ╎                   /appinfo.c>
+     ╎     ╎  ──────────────────────────────────────────────────────────────────────────────────────────────────
+     ╎     ╎  Brief  : Verifies the appinfo structure sent by the ccu to the apu
+     ╎     └────────────────────────────────────────────────────────────────────────────────────────────────────
+     ╎
+     ╎
+     ├── thrAudioprocInit
+     ╎   ══╤═════════════
+     ╎     ╎  Def    : extern
+     ╎     ╎
+     ╎     ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app
+     ╎     ╎                   /xsapu/src
+     ╎     ╎                   /thraudioproc.c>
+     ╎     ╎  ──────────────────────────────────────────────────────────────────────────────────────────────────
+     ╎     ╎  Brief  : Initialization function for the thread audio process
+     ╎     └────────────────────────────────────────────────────────────────────────────────────────────────────
+     ╎
+     ╎
+     ├── appinfo_setSignature
+     ╎   ══╤═════════════════
+     ╎     ╎  Def    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app
+     ╎     ╎                   /common/include
+     ╎     ╎                   /appinfo.h>
+     ╎     ╎
+     ╎     ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app
+     ╎     ╎                   /common/src
+     ╎     ╎                   /appinfo.c>
+     ╎     ╎  ──────────────────────────────────────────────────────────────────────────────────────────────────
+     ╎     ╎  Brief  : Inform the ccu that the apu is ready
+     ╎     └────────────────────────────────────────────────────────────────────────────────────────────────────
+     ╎
+     ╎
+     └── BIOS_start
+         ══╤═══════
+           ╎  Def    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app
+           ╎                   /common/include
+           ╎                   /appinfo.h>
+           ╎
+           ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app
+           ╎                   /common/src
+           ╎                   /appinfo.c>
+           ╎  ──────────────────────────────────────────────────────────────────────────────────────────────────
+           ╎  Brief  : Inform the ccu that the apu is ready
+           └────────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+
+
+
+
+

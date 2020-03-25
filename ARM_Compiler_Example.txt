@@ -1,0 +1,41 @@
+/home/jlaccone/vdriveSourcery/bin/arm-none-linux-gnueabi-g++
+ -MMD -std=gnu++98 -Werror -Wall -D_THREAD_SAFE -DARCH_ARM -fno-exceptions
+
+ -DCCU_SVN_REVISION=177879
+ -DCCU_BUILD_BRANCHNAME=lnsvr0011.cs.myharris.net/repositories/ion/vcs21/irad/branches/dev/jlaccone/DE16246/Embedded/ccu/base/third_party/tinyxml/build/arm
+ -DCCU_BUILD_TYPE=DESIGN-jlaccone
+ -DCCU_SVN_REVISION=177879
+ -DCCU_BUILD_BRANCHNAME=lnsvr0011.cs.myharris.net/repositories/ion/vcs21/irad/branches/dev/jlaccone/DE16246/Embedded/ccu/base/third_party/tinyxml/build/arm
+ -DCCU_BUILD_TYPE=DESIGN-jlaccone
+
+ -mfpu=neon
+ -mfloat-abi=softfp
+ -pipe
+ -march=armv7-a
+ -mtune=cortex-a8
+ -D__BOARD_CWP2__
+ -c -ggdb -O3  -D__SOLACOM_FILE__=""
+
+ -I/data/dataworkspace/DE16246/ccu/base/build/buildconfig
+ -I/data/dataworkspace/DE16246/ccu/base/build/buildconfig/map
+ -I/data/dataworkspace/DE16246/ccu/base/build/buildconfig/cwp2
+ -I/data/dataworkspace/DE16246/ccu/base/app/common/api
+ -I/data/dataworkspace/DE16246/ccu/base/service/common/api
+ -I/data/dataworkspace/DE16246/ccu/base/service/ion/map/api
+ -I/data/dataworkspace/DE16246/ccu/base/hal/common/api
+ -I/data/dataworkspace/DE16246/ccu/base/hal/ion/cwp2/api
+ -I/data/dataworkspace/DE16246/ccu/base/kernel_drivers/cwp2/api
+ -I/data/dataworkspace/DE16246/ccu/base/utilities/common/api
+ -I/data/dataworkspace/DE16246/ccu/base/utilities/ion/map/api
+ -I/data/dataworkspace/DE16246/ccu/base/os/common/api
+ -I/data/dataworkspace/DE16246/ccu/base/third_party/tinyxml
+ -I/data/dataworkspace/DE16246/ccu/base/third_party/crc
+ -I/data/dataworkspace/DE16246/ccu/base/third_party/register-dump
+ -I/data/dataworkspace/DE16246/ccu/base/third_party/agent++/include
+ -I/data/dataworkspace/DE16246/ccu/base/third_party/snmp++/include
+ -I/data/dataworkspace/DE16246/ccu/base/third_party/sip/m5t-sip-4.1.8.13/M5TSipUa_v4_1/Sources
+ -I/data/dataworkspace/DE16246/ccu/base/third_party/sip/m5t-sip-4.1.8.13/M5TSdpParser_v1_7/Sources
+ -I/data/dataworkspace/DE16246/ccu/base/third_party/sip/m5t-sip-4.1.8.13/M5TFramework_v2_1/Sources
+ -I/data/dataworkspace/DE16246/ccu/base/third_party/sip/m5t-sip-4.1.8.13/Build/Linux26-arm-libc/Sources
+
+   /data/dataworkspace/DE16246/ccu/base/third_party/tinyxml/tinyxmlerror.cpp

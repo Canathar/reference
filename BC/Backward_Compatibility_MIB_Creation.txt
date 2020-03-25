@@ -1,0 +1,568 @@
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ Backward_Compatibility_MIB_Creation.txt                                                                                                                                 ║
+║                                                                                                                                                                         ║
+║ Document Encoding           : UTF-8, UNIX Line Terminator                                                                                                               ║
+║ Document Best Viewed/Printed: Page{Ledger, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                                                         ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                            Revision History                                                                             ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                                                                     ║
+║                                                                                                                                                                         ║
+║  1.00.01119.xx (11 Jan 19) - Initial Creation {J. Laccone}                                                                                                              ║
+║                                 Added sections                                                                                                                          ║
+║  1.01.02219.xx (22 Jan 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Modified sections and added file change lists                                                                                           ║
+║  1.02.02919.xx (29 Jan 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added rmg mib, added tmg mib                                                                                                            ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                              Reference                                                                                  ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║                                                                                                                                                                         ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                Notes                                                                                    ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║   Backward Compatibility Build System                                                                                                                                   ║
+║   -----------------------------------                                                                                                                                   ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/jlaccone/US22895/Backward_Compatibility_Build_System.txt                                 ║
+║                                                                                                                                                                         ║
+║                                                                                                                                                                         ║
+║   SNMP Information                                                                                                                                                      ║
+║   ----------------                                                                                                                                                      ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/jlaccone/reference/SNMP_Info.txt                                                         ║
+║                                                                                                                                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                  Backward Compatibility CWP MIB Objects                                                                 ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+    --
+    -- Implementatiion For Backward Compatibility
+    --
+    backwardCompatibility                 OBJECT IDENTIFIER ::= { cwpObjects 8 }
+
+    --
+    -- MIB Implementatiion For The Release Versions
+    --
+    currentReleaseVersion                 OBJECT-TYPE
+        SYNTAX                            DisplayString  (SIZE (0..255))
+        MAX-ACCESS                        read-only
+        STATUS                            current
+        DESCRIPTION
+                "The current release version"
+        ::= { backwardCompatibility 1 }
+
+    previousReleaseVersion                OBJECT-TYPE
+        SYNTAX                            DisplayString  (SIZE (0..255))
+        MAX-ACCESS                        read-only
+        STATUS                            current
+        DESCRIPTION
+                "The previous release version"
+        ::= { backwardCompatibility 2 }
+
+    --
+    -- Implementatiion For The Current Interface Versions
+    --
+    currentInterfaceVersions              OBJECT IDENTIFIER ::= { backwardCompatibility 3 }
+
+    --
+    -- Implementatiion For The Current Local Manager Interface Protocol Versions
+    --
+    currentLMInterfaceVersions            OBJECT IDENTIFIER ::= { currentInterfaceVersions 1 }
+
+    currentVcs21SnmpParserVersion         OBJECT-TYPE
+        SYNTAX                            DisplayString  (SIZE (0..255))
+        MAX-ACCESS                        read-only
+        STATUS                            current
+        DESCRIPTION
+                "The current VCS21 SNMP Parser (MIB and Agent) version"
+        ::= { currentLMInterfaceVersions 1 }
+
+    currentTdraVersion                    OBJECT-TYPE
+        SYNTAX                            DisplayString  (SIZE (0..255))
+        MAX-ACCESS                        read-only
+        STATUS                            current
+        DESCRIPTION
+                "The current TDRA version"
+        ::= { currentLMInterfaceVersions 2 }
+
+    currentVcs21MultiVersion              OBJECT-TYPE
+        SYNTAX                            DisplayString  (SIZE (0..255))
+        MAX-ACCESS                        read-only
+        STATUS                            current
+        DESCRIPTION
+                "The current VCS21 Multicast version"
+        ::= { currentLMInterfaceVersions 3 }
+
+    currentXmlConfigVersion               OBJECT-TYPE
+        SYNTAX                            DisplayString  (SIZE (0..255))
+        MAX-ACCESS                        read-only
+        STATUS                            current
+        DESCRIPTION
+                "The current XML Config version"
+        ::= { currentLMInterfaceVersions 4 }
+
+    --
+    -- Implementatiion For The Current SIP Interface Protocol Versions
+    --
+    currentSIPInterfaceVersions           OBJECT IDENTIFIER ::= { currentInterfaceVersions 2 }
+
+    currentSipVersion                     OBJECT-TYPE
+        SYNTAX                            DisplayString  (SIZE (0..255))
+        MAX-ACCESS                        read-only
+        STATUS                            current
+        DESCRIPTION
+                "The current SIP version"
+        ::= { currentSIPInterfaceVersions 1 }
+
+    currentRtspVersion                    OBJECT-TYPE
+        SYNTAX                            DisplayString  (SIZE (0..255))
+        MAX-ACCESS                        read-only
+        STATUS                            current
+        DESCRIPTION
+                "The current RTSP version"
+        ::= { currentSIPInterfaceVersions 2 }
+
+    currentR2sVersion                     OBJECT-TYPE
+        SYNTAX                            DisplayString  (SIZE (0..255))
+        MAX-ACCESS                        read-only
+        STATUS                            current
+        DESCRIPTION
+                "The current R2S version"
+        ::= { currentSIPInterfaceVersions 3 }
+
+    currentRtpVersion                     OBJECT-TYPE
+        SYNTAX                            DisplayString  (SIZE (0..255))
+        MAX-ACCESS                        read-only
+        STATUS                            current
+        DESCRIPTION
+                "The current RTP version"
+        ::= { currentSIPInterfaceVersions 4 }
+
+    --
+    -- Implementatiion For The Previous Interface Versions
+    --
+    previousInterfaceVersions             OBJECT IDENTIFIER ::= { backwardCompatibility 4 }
+
+    --
+    -- Implementatiion For The Previous Local Manager Interface Protocol Versions
+    --
+    previousLMInterfaceVersions           OBJECT IDENTIFIER ::= { previousInterfaceVersions 1 }
+
+    previousVcs21SnmpParserVersion        OBJECT-TYPE
+        SYNTAX                            DisplayString  (SIZE (0..255))
+        MAX-ACCESS                        read-only
+        STATUS                            current
+        DESCRIPTION
+                "The previous VCS21 SNMP Parser (MIB and Agent) version"
+        ::= { previousLMInterfaceVersions 1 }
+
+    previousTdraVersion                   OBJECT-TYPE
+        SYNTAX                            DisplayString  (SIZE (0..255))
+        MAX-ACCESS                        read-only
+        STATUS                            current
+        DESCRIPTION
+                "The previous TDRA version"
+        ::= { previousLMInterfaceVersions 2 }
+
+    previousVcs21MultiVersion             OBJECT-TYPE
+        SYNTAX                            DisplayString  (SIZE (0..255))
+        MAX-ACCESS                        read-only
+        STATUS                            current
+        DESCRIPTION
+                "The previous VCS21 Multicast version"
+        ::= { previousLMInterfaceVersions 3 }
+
+    previousXmlConfigVersion              OBJECT-TYPE
+        SYNTAX                            DisplayString  (SIZE (0..255))
+        MAX-ACCESS                        read-only
+        STATUS                            current
+        DESCRIPTION
+                "The previous XML Config version"
+        ::= { previousLMInterfaceVersions 4 }
+
+    --
+    -- Implementatiion For The Previous SIP Interface Protocol Versions
+    --
+    previousSIPInterfaceVersions          OBJECT IDENTIFIER ::= { previousInterfaceVersions 2 }
+
+    previousSipVersion                    OBJECT-TYPE
+        SYNTAX                            DisplayString  (SIZE (0..255))
+        MAX-ACCESS                        read-only
+        STATUS                            current
+        DESCRIPTION
+                "The previous SIP version"
+        ::= { previousSIPInterfaceVersions 1 }
+
+    previousRtspVersion                   OBJECT-TYPE
+        SYNTAX                            DisplayString  (SIZE (0..255))
+        MAX-ACCESS                        read-only
+        STATUS                            current
+        DESCRIPTION
+                "The previous RTSP version"
+        ::= { previousSIPInterfaceVersions 2 }
+
+    previousR2sVersion                    OBJECT-TYPE
+        SYNTAX                            DisplayString  (SIZE (0..255))
+        MAX-ACCESS                        read-only
+        STATUS                            current
+        DESCRIPTION
+                "The previous R2S version"
+        ::= { previousSIPInterfaceVersions 3 }
+
+    previousRtpVersion                    OBJECT-TYPE
+        SYNTAX                            DisplayString  (SIZE (0..255))
+        MAX-ACCESS                        read-only
+        STATUS                            current
+        DESCRIPTION
+                "The previous RTP version"
+        ::= { previousSIPInterfaceVersions 4 }
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                  Backward Compatibility RMG MIB Objects                                                                 ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+    --
+    -- Implementatiion For Backward Compatibility
+    --
+    backwardCompatibility                 OBJECT IDENTIFIER ::= { rmgObjects 13 }
+
+    --
+    -- MIB Implementatiion For The Release Versions
+    --
+    currentReleaseVersion                 OBJECT-TYPE
+        SYNTAX                            DisplayString  (SIZE (0..255))
+        MAX-ACCESS                        read-only
+        STATUS                            current
+        DESCRIPTION
+                "The current release version"
+        ::= { backwardCompatibility 1 }
+
+    previousReleaseVersion                OBJECT-TYPE
+        SYNTAX                            DisplayString  (SIZE (0..255))
+        MAX-ACCESS                        read-only
+        STATUS                            current
+        DESCRIPTION
+                "The previous release version"
+        ::= { backwardCompatibility 2 }
+
+    --
+    -- Implementatiion For The Current Interface Versions
+    --
+    currentInterfaceVersions              OBJECT IDENTIFIER ::= { backwardCompatibility 3 }
+
+    --
+    -- Implementatiion For The Current Local Manager Interface Protocol Versions
+    --
+    currentLMInterfaceVersions            OBJECT IDENTIFIER ::= { currentInterfaceVersions 1 }
+
+    currentVcs21SnmpParserVersion         OBJECT-TYPE
+        SYNTAX                            DisplayString  (SIZE (0..255))
+        MAX-ACCESS                        read-only
+        STATUS                            current
+        DESCRIPTION
+                "The current VCS21 SNMP Parser (MIB and Agent) version"
+        ::= { currentLMInterfaceVersions 1 }
+
+    currentTdraVersion                    OBJECT-TYPE
+        SYNTAX                            DisplayString  (SIZE (0..255))
+        MAX-ACCESS                        read-only
+        STATUS                            current
+        DESCRIPTION
+                "The current TDRA version"
+        ::= { currentLMInterfaceVersions 2 }
+
+    currentVcs21MultiVersion              OBJECT-TYPE
+        SYNTAX                            DisplayString  (SIZE (0..255))
+        MAX-ACCESS                        read-only
+        STATUS                            current
+        DESCRIPTION
+                "The current VCS21 Multicast version"
+        ::= { currentLMInterfaceVersions 3 }
+
+    currentXmlConfigVersion               OBJECT-TYPE
+        SYNTAX                            DisplayString  (SIZE (0..255))
+        MAX-ACCESS                        read-only
+        STATUS                            current
+        DESCRIPTION
+                "The current XML Config version"
+        ::= { currentLMInterfaceVersions 4 }
+
+    --
+    -- Implementatiion For The Current SIP Interface Protocol Versions
+    --
+    currentSIPInterfaceVersions           OBJECT IDENTIFIER ::= { currentInterfaceVersions 2 }
+
+    currentSipVersion                     OBJECT-TYPE
+        SYNTAX                            DisplayString  (SIZE (0..255))
+        MAX-ACCESS                        read-only
+        STATUS                            current
+        DESCRIPTION
+                "The current SIP version"
+        ::= { currentSIPInterfaceVersions 1 }
+
+    currentRtspVersion                    OBJECT-TYPE
+        SYNTAX                            DisplayString  (SIZE (0..255))
+        MAX-ACCESS                        read-only
+        STATUS                            current
+        DESCRIPTION
+                "The current RTSP version"
+        ::= { currentSIPInterfaceVersions 2 }
+
+    currentR2sVersion                     OBJECT-TYPE
+        SYNTAX                            DisplayString  (SIZE (0..255))
+        MAX-ACCESS                        read-only
+        STATUS                            current
+        DESCRIPTION
+                "The current R2S version"
+        ::= { currentSIPInterfaceVersions 3 }
+
+    currentRtpVersion                     OBJECT-TYPE
+        SYNTAX                            DisplayString  (SIZE (0..255))
+        MAX-ACCESS                        read-only
+        STATUS                            current
+        DESCRIPTION
+                "The current RTP version"
+        ::= { currentSIPInterfaceVersions 4 }
+
+    --
+    -- Implementatiion For The Previous Interface Versions
+    --
+    previousInterfaceVersions             OBJECT IDENTIFIER ::= { backwardCompatibility 4 }
+
+    --
+    -- Implementatiion For The Previous Local Manager Interface Protocol Versions
+    --
+    previousLMInterfaceVersions           OBJECT IDENTIFIER ::= { previousInterfaceVersions 1 }
+
+    previousVcs21SnmpParserVersion        OBJECT-TYPE
+        SYNTAX                            DisplayString  (SIZE (0..255))
+        MAX-ACCESS                        read-only
+        STATUS                            current
+        DESCRIPTION
+                "The previous VCS21 SNMP Parser (MIB and Agent) version"
+        ::= { previousLMInterfaceVersions 1 }
+
+    previousTdraVersion                   OBJECT-TYPE
+        SYNTAX                            DisplayString  (SIZE (0..255))
+        MAX-ACCESS                        read-only
+        STATUS                            current
+        DESCRIPTION
+                "The previous TDRA version"
+        ::= { previousLMInterfaceVersions 2 }
+
+    previousVcs21MultiVersion             OBJECT-TYPE
+        SYNTAX                            DisplayString  (SIZE (0..255))
+        MAX-ACCESS                        read-only
+        STATUS                            current
+        DESCRIPTION
+                "The previous VCS21 Multicast version"
+        ::= { previousLMInterfaceVersions 3 }
+
+    previousXmlConfigVersion              OBJECT-TYPE
+        SYNTAX                            DisplayString  (SIZE (0..255))
+        MAX-ACCESS                        read-only
+        STATUS                            current
+        DESCRIPTION
+                "The previous XML Config version"
+        ::= { previousLMInterfaceVersions 4 }
+
+    --
+    -- Implementatiion For The Previous SIP Interface Protocol Versions
+    --
+    previousSIPInterfaceVersions          OBJECT IDENTIFIER ::= { previousInterfaceVersions 2 }
+
+    previousSipVersion                    OBJECT-TYPE
+        SYNTAX                            DisplayString  (SIZE (0..255))
+        MAX-ACCESS                        read-only
+        STATUS                            current
+        DESCRIPTION
+                "The previous SIP version"
+        ::= { previousSIPInterfaceVersions 1 }
+
+    previousRtspVersion                   OBJECT-TYPE
+        SYNTAX                            DisplayString  (SIZE (0..255))
+        MAX-ACCESS                        read-only
+        STATUS                            current
+        DESCRIPTION
+                "The previous RTSP version"
+        ::= { previousSIPInterfaceVersions 2 }
+
+    previousR2sVersion                    OBJECT-TYPE
+        SYNTAX                            DisplayString  (SIZE (0..255))
+        MAX-ACCESS                        read-only
+        STATUS                            current
+        DESCRIPTION
+                "The previous R2S version"
+        ::= { previousSIPInterfaceVersions 3 }
+
+    previousRtpVersion                    OBJECT-TYPE
+        SYNTAX                            DisplayString  (SIZE (0..255))
+        MAX-ACCESS                        read-only
+        STATUS                            current
+        DESCRIPTION
+                "The previous RTP version"
+        ::= { previousSIPInterfaceVersions 4 }
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                  Backward Compatibility TMG MIB Objects                                                                 ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+    --
+    -- Implementatiion For Backward Compatibility
+    --
+    backwardCompatibility                 OBJECT IDENTIFIER ::= { tmgObjects 7 }
+
+    --
+    -- MIB Implementatiion For The Release Versions
+    --
+    currentReleaseVersion                 OBJECT-TYPE
+        SYNTAX                            DisplayString  (SIZE (0..255))
+        MAX-ACCESS                        read-only
+        STATUS                            current
+        DESCRIPTION
+                "The current release version"
+        ::= { backwardCompatibility 1 }
+
+    previousReleaseVersion                OBJECT-TYPE
+        SYNTAX                            DisplayString  (SIZE (0..255))
+        MAX-ACCESS                        read-only
+        STATUS                            current
+        DESCRIPTION
+                "The previous release version"
+        ::= { backwardCompatibility 2 }
+
+    --
+    -- Implementatiion For The Current Interface Versions
+    --
+    currentInterfaceVersions              OBJECT IDENTIFIER ::= { backwardCompatibility 3 }
+
+    --
+    -- Implementatiion For The Current Local Manager Interface Protocol Versions
+    --
+    currentLMInterfaceVersions            OBJECT IDENTIFIER ::= { currentInterfaceVersions 1 }
+
+    currentVcs21SnmpParserVersion         OBJECT-TYPE
+        SYNTAX                            DisplayString  (SIZE (0..255))
+        MAX-ACCESS                        read-only
+        STATUS                            current
+        DESCRIPTION
+                "The current VCS21 SNMP Parser (MIB and Agent) version"
+        ::= { currentLMInterfaceVersions 1 }
+
+    currentTdraVersion                    OBJECT-TYPE
+        SYNTAX                            DisplayString  (SIZE (0..255))
+        MAX-ACCESS                        read-only
+        STATUS                            current
+        DESCRIPTION
+                "The current TDRA version"
+        ::= { currentLMInterfaceVersions 2 }
+
+    currentVcs21MultiVersion              OBJECT-TYPE
+        SYNTAX                            DisplayString  (SIZE (0..255))
+        MAX-ACCESS                        read-only
+        STATUS                            current
+        DESCRIPTION
+                "The current VCS21 Multicast version"
+        ::= { currentLMInterfaceVersions 3 }
+
+    currentXmlConfigVersion               OBJECT-TYPE
+        SYNTAX                            DisplayString  (SIZE (0..255))
+        MAX-ACCESS                        read-only
+        STATUS                            current
+        DESCRIPTION
+                "The current XML Config version"
+        ::= { currentLMInterfaceVersions 4 }
+
+    --
+    -- Implementatiion For The Current SIP Interface Protocol Versions
+    --
+    currentSIPInterfaceVersions           OBJECT IDENTIFIER ::= { currentInterfaceVersions 2 }
+
+    currentSipVersion                     OBJECT-TYPE
+        SYNTAX                            DisplayString  (SIZE (0..255))
+        MAX-ACCESS                        read-only
+        STATUS                            current
+        DESCRIPTION
+                "The current SIP version"
+        ::= { currentSIPInterfaceVersions 1 }
+
+    currentRtpVersion                     OBJECT-TYPE
+        SYNTAX                            DisplayString  (SIZE (0..255))
+        MAX-ACCESS                        read-only
+        STATUS                            current
+        DESCRIPTION
+                "The current RTP version"
+        ::= { currentSIPInterfaceVersions 2 }
+
+    --
+    -- Implementatiion For The Previous Interface Versions
+    --
+    previousInterfaceVersions             OBJECT IDENTIFIER ::= { backwardCompatibility 4 }
+
+    --
+    -- Implementatiion For The Previous Local Manager Interface Protocol Versions
+    --
+    previousLMInterfaceVersions           OBJECT IDENTIFIER ::= { previousInterfaceVersions 1 }
+
+    previousVcs21SnmpParserVersion        OBJECT-TYPE
+        SYNTAX                            DisplayString  (SIZE (0..255))
+        MAX-ACCESS                        read-only
+        STATUS                            current
+        DESCRIPTION
+                "The previous VCS21 SNMP Parser (MIB and Agent) version"
+        ::= { previousLMInterfaceVersions 1 }
+
+    previousTdraVersion                   OBJECT-TYPE
+        SYNTAX                            DisplayString  (SIZE (0..255))
+        MAX-ACCESS                        read-only
+        STATUS                            current
+        DESCRIPTION
+                "The previous TDRA version"
+        ::= { previousLMInterfaceVersions 2 }
+
+    previousVcs21MultiVersion             OBJECT-TYPE
+        SYNTAX                            DisplayString  (SIZE (0..255))
+        MAX-ACCESS                        read-only
+        STATUS                            current
+        DESCRIPTION
+                "The previous VCS21 Multicast version"
+        ::= { previousLMInterfaceVersions 3 }
+
+    previousXmlConfigVersion              OBJECT-TYPE
+        SYNTAX                            DisplayString  (SIZE (0..255))
+        MAX-ACCESS                        read-only
+        STATUS                            current
+        DESCRIPTION
+                "The previous XML Config version"
+        ::= { previousLMInterfaceVersions 4 }
+
+    --
+    -- Implementatiion For The Previous SIP Interface Protocol Versions
+    --
+    previousSIPInterfaceVersions          OBJECT IDENTIFIER ::= { previousInterfaceVersions 2 }
+
+    previousSipVersion                    OBJECT-TYPE
+        SYNTAX                            DisplayString  (SIZE (0..255))
+        MAX-ACCESS                        read-only
+        STATUS                            current
+        DESCRIPTION
+                "The previous SIP version"
+        ::= { previousSIPInterfaceVersions 1 }
+
+    previousRtpVersion                    OBJECT-TYPE
+        SYNTAX                            DisplayString  (SIZE (0..255))
+        MAX-ACCESS                        read-only
+        STATUS                            current
+        DESCRIPTION
+                "The previous RTP version"
+        ::= { previousSIPInterfaceVersions 2 }

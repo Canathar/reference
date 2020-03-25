@@ -1,0 +1,210 @@
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ EMBDevelopment_VM_Modifications.txt                                                                                             ║
+║                                                                                                                                 ║
+║ Document Best Viewed/Printed: Page{Letter, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                 ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                         Revision History                                                        ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                             ║
+║                                                                                                                                 ║
+║  1.00.13418.xx (14 May 18) - Initial Creation {J. Laccone}                                                                      ║
+║                                 Added header, added reference data                                                              ║
+║  1.01.13518.xx (15 May 18) - Development Update {J. Laccone}                                                                    ║
+║                                 Modified steps to show how to rebuild the Qt framework for the new user                         ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                            Reference                                                            ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                 ║
+║   Setting Up An Eclipse Project                                                                                                 ║
+║   -----------------------------                                                                                                 ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/jlaccone/reference/Eclipse_Project_Setup.txt     ║
+║                                                                                                                                 ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                              Embedded Development Virtual Machine                                               ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   The Virtual Machine Image for Embedded Development is a 40G image stored as a 12G compressed archive on a physical development
+   machine.
+
+
+   Obtain The Existing Virtual Machine Compressed Archive
+   ══════════════════════════════════════════════════════
+      1. Using a file transfer tool such as WinSCP or command line scp, login to the following development machine as
+         the root user (ask your task lead for the password).
+
+            lnion0042
+
+      2. Navigate the the following directory:
+
+            /data
+
+      3. Download the folling file:
+
+            EMBDevelopment.tar.gz
+
+      4. Expand the archive by execute the following commands:
+
+            On Linux
+            ────────
+               1. Open a terminal window as a non-root user
+               2. Expand the compressed archive into a directory by typing the following command(s) into the terminal window:
+
+                     tar --no-same-owner -xzvf EMBDevelopment.tar.gz
+
+                  Commands If The Created Directory Is NOT Owned By The Current User
+                  ------------------------------------------------------------------
+                  chown <username>:<groupname> -R EMBDevelopment
+                  (ex: chown mdavis:mda vis -R EMBDevelopment)
+
+      5. Open the virtual machine tool (either VMWare Workstation or VMWare Player)
+      6. Add the virtual machine to the virtual machine tool
+      7. If a prompt appears select 'Take Ownership'
+      8. Start the EMBDevelopment virtual machine. If asked, choose "I Copied it"
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                User Modifications (As superuser)                                                ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   In order to make the following changes, you will have to login to the VM as the superuser (root). The following steps must
+   be performed as the superuser.
+
+
+   Modify The Existing Users Home Directory
+   ────────────────────────────────────────
+      1. Open a terminal window
+      2. Rename jlaccone users home directory to new user by execute the following command:
+
+            mv /home/jlaccone /home/<user>
+            (ex: mv /home/jlaccone /home/mdavis)
+
+
+   Delete The Existing User
+   ────────────────────────
+      1. Open a terminal window
+      2. Delete the jlaccone user by executing the following command:
+
+            userdel jlaccone
+
+
+   Add The New User
+   ────────────────
+      1. Open a terminal window
+      2. Add the new user by executing the following commands:
+
+            useradd <user>
+            (ex: useradd mdavis)
+
+            passwd <user>
+            (ex: passwd mdavis)
+
+      3. Add groups to the new user by executing the following command:
+
+            usermod -aG wheel,docker <user>
+            (ex: usermod -aG wheel,docker mdavis)
+
+
+   Modify The Existing File Ownership
+   ──────────────────────────────────
+      1. Open a terminal window
+      2. Change the owner/group of all the existing files to the new user by executing the following command:
+
+            chown <user>:<group> -R /home/<user>
+            (ex: chown mdavis:mdavis -R /home/mdavis)
+
+      3. Change the programming symbolic links to the new user by executing the following commands:
+
+            cd /home/<user>
+            (ex: cd /home/mdavis)
+
+            CodeSourcery Symbolic Link
+            --------------------------
+            rm -f vdriveSourcery
+
+            ln -s /home/<user>/CodeSourcery/Sourcery_G++_Lite vdriveSourcery
+            (ex: ln -s /home/mdavis/CodeSourcery/Sourcery_G++_Lite vdriveSourcery)
+
+            chown <user>:<group> -R vdriveSourcery
+            (ex: chown mdavis:mdavis -R vdriveSourcery)
+
+      4. Modify content in all home directory files to the new user by typing the following command(s) into the terminal window:
+
+            cd /home/<user>
+            (ex: cd /home/mdavis)
+
+            grep -rl 'jlaccone' . | xargs sed -i 's/jlaccone/<user>/g'
+            (ex: grep -rl 'jlaccone' . | xargs sed -i 's/jlaccone/mdavis/g')
+
+      5. Delete the existing user eclipse directory by executing the following command:
+
+            rm -rf /home/<user>/.eclipse
+            (ex: rm -rf /home/mdavis/.eclipse)
+
+      6. Delete the existing user subversion directory by executing the following command:
+
+            rm -rf /home/<user>/.subversion
+            (ex: rm -rf /home/mdavis/.subversion)
+
+      7. Delete the gnome keyring by executing the following command:
+
+            rm -f /home/<user>/.local/share/keyrings/login.keyring
+            (ex: rm -f /home/mdavis/.local/share/keyrings/login.keyring)
+
+      8. Reboot the machine
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                   User Modifications (As user)                                                  ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   In order to make the following changes, you will have to login to the VM as a regular user.
+
+
+   Remove The Existing Local Working Copy Of trunk
+   ───────────────────────────────────────────────
+      1. Open a terminal window as a non-root user
+      2. Rebuild the Qt framework (necessary for the pui application) by typing the following command(s) into the terminal window:
+
+            cd /data/dataworkspace
+            ./install_qt.sh (answers to prompts: yes, no, /data/dataworkspace/SvnQt, <enter>, <enter>)
+
+            Startup Scripts
+            ---------------
+            cp /home/<user>/Downloads/bashrc /home/<user>/.bashrc
+            (ex: cp /home/mdavis/Downloads/bashrc /home/mdavis/.bashrc)
+
+            cp /home/<user>/Downloads/bash_profile /home/<user>/.bash_profile
+            (ex: cp /home/mdavis/Downloads/bash_profile /home/mdavis/.bash_profile)
+
+      3. Reboot the machine
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                      Remove Outdated Script                                                     ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Remove The Existing Local Working Copy Of trunk
+   ───────────────────────────────────────────────
+      1. Open a terminal window as a non-root user
+      2. Remove the local source code repository base directory by typing the following command(s) into the terminal window:
+
+            rm -rf /data/dataworkspace/trunk
+
+      3. Remove the local workspace installation script by typing the following command(s) into the terminal window:
+
+            rm -f /data/dataworkspace/svn_make_vcs21_workspace
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                       Add Eclipse Project                                                       ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Follow the instructions in the document Eclipse_Project_Setup.txt to create a new local workspace/Eclipse project.

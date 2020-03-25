@@ -1,0 +1,91 @@
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ RtspServerSimulator_Setup_Notes.txt                                                                                                                                     ║
+║                                                                                                                                                                         ║
+║    Document Best Viewed/Printed: Page{Ledger, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                                                      ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                            Revision History                                                                             ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                                                                     ║
+║                                                                                                                                                                         ║
+║  1.00.17218.xx (21 Jun 18) - Initial Creation {J. Laccone}                                                                                                              ║
+║                                 Added header, added reference data                                                                                                      ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                Reference                                                                                ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║   Rtsp Server Simulator Source Code                                                                                                                                     ║
+║   ---------------------------------                                                                                                                                     ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/ccu/base/tools/RtspServerSimulator/                                                    ║
+║                                                                                                                                                                         ║
+║   Apache Maven                                                                                                                                                          ║
+║   ------------                                                                                                                                                          ║
+║      http://maven.apache.org/                                                                                                                                           ║
+║                                                                                                                                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Add Pre-Requisites To Server
+   ════════════════════════════
+      1. Open a terminal window on the simulator server as a root user
+      2. Add the Apache Maven build tool by typing the following command(s) into the terminal window:
+
+            yum --enablerepo "*" install maven java-1.8.0-openjdk.x86_64
+
+      3. Verify that the Java Development Kit (JDK) 1.8 is installed and the active Java option by typing the following command(s) into the terminal window:
+
+            alternatives --config java
+
+      4. Verify that the JAVA_HOME environment variable is set by typing the following command(s) into the terminal window:
+
+            echo $JAVA_HOME
+
+
+   Checkout Source And Build The Simulator
+   ═══════════════════════════════════════
+      1. Open a terminal window on the simulator server as a root user
+      2. Checkout the simulator source code by typing the following command(s) into the terminal window:
+
+            svn co https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/ccu/base/tools/RtspServerSimulator /usr/src/RtspServerSimulator
+
+      3. Build the simulator by typing the following command(s) into the terminal window:
+
+            cd /usr/src/RtspServerSimulator
+            mvn compile package assembly:single
+
+
+   Post Installation Server Configuration
+   ══════════════════════════════════════
+      1. Open a terminal window on the simulator server as a root user
+      2. Determine the current active firewall zones by typing the following command(s) into the terminal window:
+
+            firewall-cmd --get-active-zones
+
+      3. Add the MRCPv1 ports to the active firewall zone (public zone shown below) by typing the following command(s) into the terminal window:
+
+            firewall-cmd --zone=public --add-port=554/udp --permanent
+            firewall-cmd --zone=public --add-port=554/tcp --permanent
+            firewall-cmd --reload
+
+      4. Verify that the MRCPv1 ports were added to the active firewall zone (public zone shown below) by typing the following command(s) into the terminal window:
+
+            firewall-cmd --list-ports
+
+      5. In the "applicaiton.properties" file, modify the value of the "server.ipaddr" key to reflect the IP address of the simulator server
+
+            server.ipaddr=127.0.0.1
+            (ex: server.ipaddr=10.122.36.91)
+
+
+   Running Simulator
+   ═════════════════
+      1. Open a terminal window on the simulator server as a root user
+      2. Run the simulator by typing the following command(s) into the terminal window:
+
+            cd /usr/src/RtspServerSimulator
+            startRtspServer.sh &
+
+      3. Open a web browser to the simulator to view/modify RTSP sessions
+
+            URL: http://<server-ip-address>:<simulator-port>
+            (ex: http://10.122.36.91:8888)

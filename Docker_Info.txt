@@ -1,0 +1,591 @@
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ Docker_Info.txt                                                                                                                                                         ║
+║                                                                                                                                                                         ║
+║ Document Encoding           : UTF-8, UNIX Line Terminator                                                                                                               ║
+║ Document Best Viewed/Printed: Page{Ledger, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                                                         ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                            Revision History                                                                             ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                                                                     ║
+║                                                                                                                                                                         ║
+║  1.00.26918.xx (26 Sep 18) - Initial Creation {J. Laccone}                                                                                                              ║
+║                                 Added sections                                                                                                                          ║
+║  1.01.27618.xx (03 Oct 18) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Updated document instructions from feedback                                                                                             ║
+║  1.02.28218.xx (09 Oct 18) - Maintenance Update {J. Laccone}                                                                                                            ║
+║                                 Updated document instructions from feedback                                                                                             ║
+║  1.03.28818.xx (15 Oct 18) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added instructions to change storage location                                                                                           ║
+║  1.04.29718.xx (24 Oct 18) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added instructions to open API socket                                                                                                   ║
+║  1.05.34718.xx (13 Dec 18) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Debug on API socket connections                                                                                                         ║
+║  1.06.00719.xx (07 Jan 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added logging information                                                                                                               ║
+║  1.07.00919.xx (09 Jan 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added additional reference information                                                                                                  ║
+║  1.08.02119.xx (21 Jan 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added additional reference information for Ubuntu                                                                                       ║
+║                                 Modified instructions to correct for certificate issues                                                                                 ║
+║  1.09.02319.xx (23 Jan 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added DNS instructions to allow image/container operation on Ubuntu 16.04                                                               ║
+║  1.10.03819.xx (07 Jan 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added sshd instructions to allow ssh/scp operation to containers                                                                        ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                Reference                                                                                ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║   Docker Installation                                                                                                                                                   ║
+║   -------------------                                                                                                                                                   ║
+║      https://docs.docker.com/install/linux/docker-ce/centos/                                                                                                            ║
+║      https://docs.docker.com/install/linux/docker-ce/ubuntu/                                                                                                            ║
+║      https://docs.docker.com/install/linux/linux-postinstall/                                                                                                           ║
+║                                                                                                                                                                         ║
+║   Docker Networking                                                                                                                                                     ║
+║   -----------------                                                                                                                                                     ║
+║      http://www.elastic.co/blog/docker-networking                                                                                                                       ║
+║      https://docs.docker.com/engine/userguide/networking/                                                                                                               ║
+║                                                                                                                                                                         ║
+║   Docker Add Host Flag                                                                                                                                                  ║
+║   --------------------                                                                                                                                                  ║
+║      https://blog.codeship.com/using-the-add-host-flag-for-dns-mapping-within-docker-containers/                                                                        ║
+║      https://stackoverflow.com/questions/34620695/docker-what-is-the-equivalent-of-the-legacy-link-parameter                                                            ║
+║                                                                                                                                                                         ║
+║   Docker Deprecated Engine Features                                                                                                                                     ║
+║   ---------------------------------                                                                                                                                     ║
+║      https://docs.docker.com/v17.09/engine/deprecated/                                                                                                                  ║
+║                                                                                                                                                                         ║
+║   Docker Daemon Configuration                                                                                                                                           ║
+║   ---------------------------                                                                                                                                           ║
+║      https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-configuration-file                                                                            ║
+║                                                                                                                                                                         ║
+║   Docker X11                                                                                                                                                            ║
+║   ----------                                                                                                                                                            ║
+║      https://blog.yadutaf.fr/2017/09/10/running-a-graphical-app-in-a-docker-container-on-a-remote-server/                                                               ║
+║                                                                                                                                                                         ║
+║   How To Change Docker Container And Image Default Storage Location                                                                                                     ║
+║   -----------------------------------------------------------------                                                                                                     ║
+║      https://sanenthusiast.com/change-default-image-container-location-docker/                                                                                          ║
+║                                                                                                                                                                         ║
+║   How To Enable The Remote API For dockerd                                                                                                                              ║
+║   ----------------------------------------                                                                                                                              ║
+║      https://success.docker.com/article/how-do-i-enable-the-remote-api-for-dockerd                                                                                      ║
+║      https://success.docker.com/article/using-systemd-to-control-the-docker-daemon                                                                                      ║
+║                                                                                                                                                                         ║
+║   How To Enable SSH Capability In Containers                                                                                                                            ║
+║   ------------------------------------------                                                                                                                            ║
+║      https://stackoverflow.com/questions/30172605/how-do-i-get-into-a-docker-containers-shell                                                                           ║
+║      https://dzone.com/articles/docker-how-to-ssh-to-a-running-container                                                                                                ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                Notes                                                                                    ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║   Hats Docker Image Source                                                                                                                                              ║
+║   ------------------------                                                                                                                                              ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/ccu/base/tools/emb/hats-docker-image/                                                  ║
+║                                                                                                                                                                         ║
+║   VectorCAST Docker Image Source                                                                                                                                        ║
+║   ------------------------------                                                                                                                                        ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/jlaccone/vcast-docker/                                                                   ║
+║                                                                                                                                                                         ║
+║   Certificates And Tools                                                                                                                                                ║
+║   ----------------------                                                                                                                                                ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/jlaccone/security/Certificate-and-tools.tar.gz                                           ║
+║                                                                                                                                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                 Common                                                                                  ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Prerequisites For Installations
+   ═══════════════════════════════
+      1. An account on the VCS21 configuration management repository
+      2. Downloaded tools and certificates to allow virtual machines to reach external locations (ref: "Certificates And Tools" above)
+
+      Install Corporate Certificates
+      ──────────────────────────────
+         1. Open a terminal window
+         2. Login as the superuser (root on CentOS/RHEL, add sudo in front of commands on Ubuntu)
+         3. Create a directory to hold the certificates and tools by typing the following command(s) into the terminal window:
+
+               mkdir ~/security
+
+         4. Change to the directory the tools and vertificates were downloaded into
+         5. Expand the archive by typing the following command(s) into the terminal window:
+
+               tar --no-same-owner -xzvf Certificate-and-tools.tar.gz --directory ~/security
+
+         6. Install the necessary corporate certificates by typing the following command(s) into the terminal window:
+
+            CentOS
+            ──────
+               ~/security/AddCertsToAnchor.sh -c ~/security/certs --centos -a
+
+            Ubuntu
+            ──────
+               sudo ~/security/AddCertsToAnchor.sh -c ~/security/certs --ubuntu -a
+
+         7. Verify that the certificates are installed by typing the following command(s) into the terminal window:
+            (NOTE: As of this writing, there are 9 certificates)
+
+            CentOS
+            ──────
+               awk -v cmd='openssl x509 -noout -subject' '
+                          /BEGIN/{close(cmd)};{print | cmd}' < /etc/ssl/certs/ca-bundle.trust.crt | grep Harris
+
+            Ubuntu
+            ──────
+               awk -v cmd='openssl x509 -noout -subject' '
+                          /BEGIN/{close(cmd)};{print | cmd}' < /etc/ssl/certs/ca-certificates.crt | grep Harris
+
+         8. Verify that the machine can reach the docker server by typing the following command(s) into the terminal window:
+
+               openssl s_client -connect download.docker.com:443
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                           Docker Installation                                                                           ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Installing Docker
+   ═════════════════
+      1. Open a terminal window
+      2. Verify that the "Install Corporate Certificates" section above has been completed
+      3. Login as the superuser (root on CentOS/RHEL, add sudo in front of commands on Ubuntu)
+      4. Remove any existing docker components by typing the following command(s) into the terminal window:
+
+         CentOS
+         ──────
+            yum remove docker docker-common docker-selinux docker-engine
+
+         Ubuntu
+         ──────
+            sudo apt-get remove docker docker-engine docker.io containerd runc
+
+      5. Install the required docker components by typing the following command(s) into the terminal window:
+
+         CentOS
+         ──────
+            yum --noplugins --enablerepo "*" --disablerepo "*media*" install yum-utils device-mapper-persistent-data lvm2 runc
+
+         Ubuntu
+         ──────
+            sudo apt-get update
+            sudo apt-get install \
+                         apt-transport-https \
+                         ca-certificates \
+                         curl \
+                         gnupg2 \
+                         software-properties-common
+
+      6. Prepare the system for the new repo by typing the following command(s) into the terminal window:
+
+         CentOS
+         ──────
+            Modify the yum configuration file, /etc/yum.conf, to suppress the checking of SSL certificates by adding the following line:
+
+               sslverify=False
+
+         Ubuntu
+         ──────
+            curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+            sudo apt-key fingerprint 0EBFCD88
+
+      7. Add the docker repository by typing the following command(s) into the terminal window:
+
+         CentOS
+         ──────
+            yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+
+         Ubuntu
+         ──────
+            sudo add-apt-repository \
+                 "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+                  $(lsb_release -cs) \
+                  stable"
+
+      8. Add docker by typing the following command(s) into the terminal window:
+
+         CentOS
+         ──────
+            yum --noplugins --enablerepo "*" --disablerepo "*media*" install docker-ce
+
+         Ubuntu
+         ──────
+            sudo apt-get update
+            sudo apt-get install docker-ce
+
+      9. To customize the docker configuration file, open the config file by typing the following command(s) into the terminal window:
+         NOTE: The file daemon.json and/or the directory /etc/docker may not exist. Create either/both as necessary
+
+            gedit /etc/docker/daemon.json &
+
+     10. To enable experimental functions in docker, add the following lines to the daemon.json file
+
+            {
+               "experimental": true
+            }
+
+         For Ubuntu 16.04 (NOT FOR 18.04):
+         ─────────────────────────────────
+            Both the Docker build and Docker run process fails on this version of this OS due to the fact that the host DNS entries
+            are NOT supplied to either images or containers. To add the missing entries, perform the following steps:
+
+            1. Determine the hosts DNS configuration by typing the following command(s) into the terminal window:
+               NOTE: The "nameserver" entries and "search" entries will be used in the following steps
+
+                  cat /etc/resolv.conf
+
+            2. Edit the the daemon.json file to reflect the changes below:
+               NOTE: Brackets are MANDATORY as Docker is expecting lists for both DNS entries
+
+                  {
+                     "dns"         : ["<nameserver-ip-address-1>", "<nameserver-ip-address-2>", "<nameserver-ip-address-n>"],
+                     "dns-search"  : ["<search-name>"],
+                     "experimental": true
+                  }
+
+
+                  Example:
+
+                  {
+                     "dns"         : ["10.64.0.139", "10.64.4.129", "10.64.8.129"],
+                     "dns-search"  : ["gs.myharris.net"],
+                     "experimental": true
+                  }
+
+     11. Save the file and exit gedit
+     12. Add the docker group (may already be added during installation) by typing the following command(s) into the terminal window:
+
+            groupadd docker
+
+     13. Add your username to the docker group by typing the following command(s) into the terminal window:
+
+            usermod -aG docker $USER
+
+     14. Enable the docker service to run at startup by typing the following command(s) into the terminal window:
+
+            systemctl enable docker
+
+     15. Install the necessary docker certificates by typing the following command(s) into the terminal window:
+
+         CentOS
+         ──────
+            ~/security/AddCertsToAnchor.sh -c ~/security/certs --docker --centos -a
+
+         Ubuntu
+         ──────
+            sudo ~/security/AddCertsToAnchor.sh -c ~/security/certs --docker --ubuntu -a
+
+     16. Start the docker service by typing the following command(s) into the terminal window:
+
+            systemctl start docker
+
+     17. Verify the docker service is configured correctly by typing the following command(s) into the terminal window:
+
+            docker run hello-world
+
+     18. Logout and login so your group membership is re-evaluated
+
+
+      OPTIONAL: Modifying Docker Storage Location
+      ───────────────────────────────────────────
+         If there is not enough space on the partition Docker was installed into, follow the procedure below to move the installation to a different location.
+         (Please refer to the web link "How To Change Docker Container And Image Default Storage Location" in the reference section of this document)
+
+         1. Open a terminal window
+         2. Login as the superuser (root on CentOS/RHEL, add sudo in front of commands on Ubuntu)
+         3. Stop the docker service by typing the following command(s) into the terminal window:
+
+               systemctl stop docker
+
+         4. To customize the docker service, create a drop-in file by typing the following command(s) into the terminal window:
+            NOTE: The file docker.conf and/or the directory /etc/systemd/system/docker.service.d may not exist. Create either/both as necessary
+
+               gedit /etc/systemd/system/docker.service.d/docker.conf &
+
+         5. To modify the service storage location, add the following lines to the docker.conf file:
+            NOTE: The default data root location is "/var/lib/docker"
+
+               [Service]
+               ExecStart=
+               ExecStart=/usr/bin/dockerd --data-root "<new-docker-data-storage-location>"
+               (ex: ExecStart=/usr/bin/dockerd --data-root "/data/docker")
+
+         6. Save the file and exit gedit
+         7. Reload the configuration for the system daemons by typing the following command(s) into the terminal window:
+
+               systemctl daemon-reload
+
+         8. Restart the docker service by typing the following command(s) into the terminal window:
+
+               systemctl start docker
+
+         9. Verify that the systemd drop in file is being used by typing the following command(s) into the terminal window:
+
+               systemd-delta --type=extended
+
+
+      OPTIONAL: Modifying Docker API Socket
+      ─────────────────────────────────────
+         If connectivity is required between docker containers (as is the case with Jenkins and Dynamic Jenkins Agents), follow the procedure below to open the socket.
+         (Please refer to the web link "How To Enable The Remote API For dockerd" in the reference section of this document)
+
+         1. Open a terminal window
+         2. Login as the superuser (root on CentOS/RHEL, add sudo in front of commands on Ubuntu)
+         3. Stop the docker service by typing the following command(s) into the terminal window:
+
+               systemctl stop docker
+
+         4. To customize the docker service, create a drop-in file by typing the following command(s) into the terminal window:
+            NOTE: The file docker.conf and/or the directory /etc/systemd/system/docker.service.d may not exist. Create either/both as necessary
+
+               gedit /etc/systemd/system/docker.service.d/docker.conf &
+
+         5. To modify the service storage location, add the following lines to the docker.conf file:
+            NOTE: The default data root location is "/var/lib/docker"
+
+               [Service]
+               ExecStart=
+               ExecStart=/usr/bin/dockerd -H unix:// -H tcp://0.0.0.0:2376
+               NOTE: The -H flag binds dockerd to a listening socket, either a Unix socket or a TCP port. You can specify multiple -H flags to bind to
+                     multiple sockets/ports. The default -H fd:// uses systemd's socket activation feature to refer to /lib/systemd/system/docker.socket.
+
+         6. Save the file and exit gedit
+         7. Reload the configuration for the system daemons by typing the following command(s) into the terminal window:
+
+               systemctl daemon-reload
+
+         8. Restart the docker service by typing the following command(s) into the terminal window:
+
+               systemctl start docker
+
+         9. Verify that the systemd drop in file is being used by typing the following command(s) into the terminal window:
+
+               systemd-delta --type=extended
+
+        10. Determine the current active firewall zones by typing the following command(s) into the terminal window:
+
+               firewall-cmd --get-active-zones
+
+        11. Add the Docker port to the active firewall zone (public zone shown below) by typing the following command(s) into the terminal window:
+
+               firewall-cmd --zone=public --add-port=2376/tcp --permanent
+               firewall-cmd --reload
+
+        12. Verify that the Docker port was added to the active firewall zone (public zone shown below) by typing the following command(s) into the terminal window:
+
+               firewall-cmd --list-ports
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                 Docker                                                                                  ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Starting/Stopping/Monitoring Docker Service
+   ═══════════════════════════════════════════
+      1. Open a terminal window
+      2. Login as the superuser (root on CentOS/RHEL, add sudo in front of commands on Ubuntu)
+      3. Start the docker service by typing the following command(s) into the terminal window:
+
+            systemctl start docker
+
+      4. View the status of the docker service by typing the following command(s) into the terminal window:
+
+            systemctl status docker
+
+      5. Stop the docker service by typing the following command(s) into the terminal window:
+
+            systemctl stop docker
+
+
+
+   Work With Images
+   ════════════════
+      NOTE: The below commands will operate as shown if the user is in the docker group
+
+      1. Open a terminal window
+      2. Display all the images currently installed locally by typing the following command(s) into the terminal window:
+
+            docker images
+
+              -- or --
+
+            docker image ls
+
+      3. Remove a local image by typing the following command(s) into the terminal window:
+
+            docker image rm <image-id>
+
+
+
+   Saving An Image (Outputting An Image To A File)
+   ═══════════════════════════════════════════════
+      NOTE: The below commands will operate as shown if the user is in the docker group
+
+      1. Open a terminal window
+      2. Save the docker image to a file archive by typing the following command(s) into the terminal window:
+
+            docker save -o <archive-file> <image>
+            (ex: docker save -o /tmp/hats-platform_010170.00.tar hats-platform)
+
+
+
+   Loading An Image (Inputting An Image From A File)
+   ═════════════════════════════════════════════════
+      NOTE: The below commands will operate as shown if the user is in the docker group
+
+      1. Open a terminal window
+      2. Load the docker image from a file archive by typing the following command(s) into the terminal window:
+
+            docker load -i <archive-file>
+            (ex: docker load -i /tmp/hats-platform_010170.00.tar)
+
+
+
+   Work With Containers
+   ════════════════════
+      NOTE: The below commands will operate as shown if the user is in the docker group
+
+      1. Open a terminal window
+      2. Display all the containers instantiated (in any state) by typing the following command(s) into the terminal window:
+
+            docker ps -a
+
+      3. Display all the containers currently running by typing the following command(s) into the terminal window:
+
+            docker container ls
+
+      4. Remove a container (must be stopped) by typing the following command(s) into the terminal window:
+
+            docker container rm <container-id>
+
+      4. Remove all containers by typing the following command(s) into the terminal window:
+
+            docker rm `docker ps --no-trunc -a -q`
+
+
+
+   Adding SSH Capability To Containers
+   ═══════════════════════════════════
+      NOTE1: The commands shown below are for an existing container. Several of the steps can be added to a Dockerfile to allow for continuous SSH access
+      NOTE2: The below commands will operate as shown if the user is in the docker group
+
+      1. Open a terminal window
+      2. Create a new container based on your perferred Docker Image with the SSH port open by adding the following command to your docker run command:
+
+            -p 2222:22
+
+      3. In the containers terminal window, login as the superuser
+      4. Add the SSH components to the container by typing the following command(s) into the containers terminal window:
+
+         CentOS
+         ──────
+            yum --enablerepo "*" --disablerepo "*media*" install openssh-server openssh-clients
+
+      5. Configure the SSH components to the container by typing the following command(s) into the containers terminal window:
+
+            rm -f /etc/ssh/ssh_host_ecdsa_key /etc/ssh/ssh_host_rsa_key
+            ssh-keygen -q -N "" -t dsa -f /etc/ssh/ssh_host_ecdsa_key
+            ssh-keygen -q -N "" -t rsa -f /etc/ssh/ssh_host_rsa_key
+            sed -i "s/#UsePrivilegeSeparation.*/UsePrivilegeSeparation no/g" /etc/ssh/sshd_config
+            sed -i "s/UsePAM.*/UsePAM yes/g" /etc/ssh/sshd_config
+            ssh-keygen -A
+
+      6. Start the ssh daemon in the container by typing the following command(s) into the containers terminal window:
+
+            /usr/sbin/sshd
+
+
+
+   Work With Volumes
+   ═════════════════
+      NOTE: The below commands will operate as shown if the user is in the docker group
+
+      1. Open a terminal window
+      2. Display all the local volumes that currently exist by typing the following command(s) into the terminal window:
+
+            docker volume ls
+
+      3. Create a new local volume by typing the following command(s) into the terminal window:
+
+            docker volume create <volume-name>
+            (ex: docker volume create trunk-for-docker)
+
+      4. Remove a local volume by typing the following command(s) into the terminal window:
+
+            docker volume rm <volume-name>
+            (ex: docker volume rm trunk-for-docker)
+
+
+
+   Displaying Container Logs
+   ═════════════════════════
+      NOTE: The below commands will operate as shown if the user is in the docker group
+
+      1. Open a terminal window
+      2. Display the logs for a container by typing the following command(s) into the terminal window:
+
+            docker logs <container-name>
+            (ex: docker logs mysql_instance)
+
+
+
+   User Defined Bridge Networks
+   ════════════════════════════
+      NOTE: The below commands will operate as shown if the user is in the docker group
+
+      1. Open a terminal window
+      2. Create a new Docker user defined bridge network by typing the following command(s) into the terminal window:
+
+            docker network create <network-name>
+            (ex: docker network create customnet)
+
+      3. Verify that the Docker user defined bridge network was created by typing the following command(s) into the terminal window:
+
+            docker network ls
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                             Docker Images                                                                               ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Building Images
+   ═══════════════
+      See the "Building Image" section of the Notes header in the Dockerfile that ships with the Docker Image
+
+
+   Building Containers
+   ═══════════════════
+      See the "Running An Image On Host (Creating A Container)" section of the Notes header in the Dockerfile that ships with the Docker Image
+
+
+   Attaching To A Running Container
+   ════════════════════════════════
+      See the "Attaching To A Running Image (Creating A New Terminal)" section of the Notes header in the Dockerfile that ships with the Docker Image
+
+
+
+
+
+
+
+
+sudo apt install perf
+
+yum install perf
+
+
+perf top
+
+
+
+
+

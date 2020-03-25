@@ -1,0 +1,344 @@
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ Automation_Support_Info.txt                                                                                                                                             ║
+║                                                                                                                                                                         ║
+║ Document Encoding           : UTF-8, UNIX Line Terminator                                                                                                               ║
+║ Document Best Viewed/Printed: Page{Ledger, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                                                         ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                            Revision History                                                                             ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                                                                     ║
+║                                                                                                                                                                         ║
+║  1.00.16119.xx (10 Jun 19) - Initial Creation {J. Laccone}                                                                                                              ║
+║                                 Added sections                                                                                                                          ║
+║  1.01.16219.xx (11 Jun 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Clarified overview section                                                                                                              ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                              Reference                                                                                  ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║   Embedded Software Tool Repository Base                                                                                                                                ║
+║   --------------------------------------                                                                                                                                ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/ccu/base/tools/emb/                                                                    ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                Notes                                                                                    ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║   Docker Information                                                                                                                                                    ║
+║   ------------------                                                                                                                                                    ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/jlaccone/reference/Docker_Info.txt                                                       ║
+║                                                                                                                                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                     Framework Interaction Overview                                                                      ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+
+      ┌───────────────────────┐                                          ┌───────────────────────┐
+      │                       │                                          │                       │
+      │       Log File        │                                          │      Config File      │
+      │                       │                                          │                       │
+      └───────────╦───────────┘                                          └───────────╦───────────┘
+                  │                                                                  │
+                  │                                                                  │
+                  │                                                                  │
+                  │                                                                  │
+                  │                                                                  │
+      ┌───────────┴───────────┐                                          ┌───────────╩───────────┐
+      │                       │        Command Line Processing -->       │                       │
+      │                       ├──────────────────────────────────────────╣    Basic Script Lib   │
+      │                       │                                          │                       │
+      │                       ╠──────────────────────────────────────────╣     script_api.py     │
+      │                       │          <-- script object -->           │                       │
+      │                       │                                          └───────────────────────┘
+      │                       │
+      │                       │
+      │                       │
+      │                       │
+      │                       │
+      │                       │                                          ┌───────────────────────┐
+      │                       │            DB Operations -->             │                       │
+      │                       ╠╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╣     Database Lib      │
+      │                       │                                          │                       │
+      │                       ╠╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╣       db_api.py       │
+      │                       │          <-- script object -->           │                       │
+      │                       │                                          └───────────╦───────────┘
+      │                       │                                                      │
+      │                       │                                                      │
+      │                       │                                                      │ SIP User Creation/Deletion Database Operations
+      │                       │                                                      │
+      │                       │                                                      │
+      │                       │                                          ┌───────────╩───────────┐                               ┌───────────────────────────────┐
+      │                       │        SIP Scenario Creation -->         │                       ╠───────────────────────────────╣        SIPpXMLTools.py        │
+      │      hats script      ╠╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╣   SIP Creation Lib    │                               └───────────────────────────────┘
+      │                       │                                          │                       │
+      │    xxxx_xxx_xxx.py    ╠╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╣       sip_api.py      │
+      │                       │          <-- script object -->           │                       ╠───────────────┐
+      │                       │                                          └───────────╦───────────┘               │
+      │                       │                                                      │                           │
+      │                       │                                                      │                           │
+      │                       │                                                      │ Scenario Instant Execute  │
+      │                       │                                                      │                           │
+      │                       │                                                      │                           │
+      │                       │                                          ┌───────────╩───────────┐               │
+      │                       │        SIP Scenario Execution -->        │                       │               │
+      │                       ╠╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╣     SIP Exec Lib      │               │
+      │                       │                                          │                       │               │ SIP Com Debug Menu Sess / Bash Cmd Prompt Term Sess
+      │                       ╠╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╣      exec_api.py      │               │
+      │                       │          <-- script object -->           │                       │               │
+      │                       │                                          └───────────╦───────────┘               │
+      │                       │                                                      │                           │
+      │                       │                                                      │                           │
+      │                       │                                                      │ Call Answer               │
+      │                       │                                                      │                           │
+      │                       │                                                      │                           │
+      │                       │                                          ┌───────────╩───────────┐               │
+      │                       │   <-- Debug Menu / Bash Term Sess -->    │                       ╠───────────────┘               ┌───────────────────────────────┐
+      │                       ╠╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╣    SSH Interaction    ╠───────────────────────────────╣     CommandExpectTools.py     │
+      │                       │                                          │                       │     <-- Bash Cmd Term -->     └───────────────────────────────┘
+      │                       ╠╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╣    session_api.py     │                               ┌───────────────────────────────┐
+      │                       │          <-- script object -->           │                       ╠───────────────────────────────╣     DebugPexpectTools.py      │
+      └───────────────────────┘                                          └───────────────────────┘      <-- Debug Menu -->       └───────────────────────────────┘
+
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                             Create Config File                                                                          ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Prerequisites For Calls
+   ═══════════════════════
+      1. Open a terminal window
+      2. Change to the directory contiaining the scripts supplied by the automation framework by typing the following command(s) into the terminal window:
+
+            cd <hats-working-scripts>
+            (ex: cd ~/hats-working-scripts)
+
+      3. Create a configuration file (if necessary) by typing the following command(s) into the terminal window:
+
+            python2.7 create_config_file.py --write-config \
+                                            --log \
+                                            --virtual-cwp-device-file <virtual-cwps>.json \
+                                            --cwp-device-file <required-cwps>.json \
+                                            --proxy-ccs-file <required-proxies>.json \
+                                            --files-contain-encrypted-passwords \
+                                            --store-encrypted-passwords
+
+            (ex: python2.7 create_config_file.py --write-config \
+                                                 --log \
+                                                 --virtual-cwp-device-file ~/hats-working-config/hats_virtual_cwps.json \
+                                                 --cwp-device-file ~/hats-working-config/hats_basic_cwps.json \
+                                                 --proxy-ccs-file ~/hats-working-config/hats_basic_proxies.json \
+                                                 --files-contain-encrypted-passwords \
+                                                 --store-encrypted-passwords)
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                Register/Deregister To A Proxy (Outside Of Any Additional SIP Activity)                                                  ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Register The Virtual Site Devices In The Script With The Proxy
+   ══════════════════════════════════════════════════════════════
+      1. Open a terminal window
+      2. Verify that the prerequisites have been completed
+      3. Change to the directory contiaining the scripts supplied by the automation framework by typing the following command(s) into the terminal window:
+
+            cd <hats-working-scripts>
+            (ex: cd ~/hats-working-scripts)
+
+      4. Register the virtual site devices by typing the following command(s) into the terminal window:
+
+            python2.7 invite_hats.py register \
+                                     -i <ethernet-interface> \
+                                     --log --sippalllog)
+
+            (ex: python2.7 invite_hats.py register \
+                                          -i enp0s25 \
+                                          --log --sippalllog)
+
+
+   Deregister The Virtual Site Devices In The Script From The Proxy
+   ════════════════════════════════════════════════════════════════
+      1. Open a terminal window
+      2. Verify that the prerequisites have been completed
+      3. Change to the directory contiaining the scripts supplied by the automation framework by typing the following command(s) into the terminal window:
+
+            cd <hats-working-scripts>
+            (ex: cd ~/hats-working-scripts)
+
+      4. Deregister the virtual site devices by typing the following command(s) into the terminal window:
+
+            python2.7 invite_hats.py deregister \
+                                     -i <ethernet-interface> \
+                                     --log --sippalllog)
+
+            (ex: python2.7 invite_hats.py deregister \
+                                          -i enp0s25 \
+                                          --log --sippalllog)
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                            Calls To A CWP Device                                                                        ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Script As UAC, Device As UAS, IC CHIME Call, No Registration/Deregistration, Single Invite
+   ══════════════════════════════════════════════════════════════════════════════════════════
+      1. Open a terminal window
+      2. Verify that the prerequisites have been completed
+      3. Change to the directory contiaining the scripts supplied by the automation framework by typing the following command(s) into the terminal window:
+
+            cd <hats-working-scripts>
+            (ex: cd ~/hats-working-scripts)
+
+      4. Configure any devices with the required roles by typing the following command(s) into the terminal window:
+
+            python2.7 recon_role_tester.py role-add --cwp-ip <cwp-device-ip> --roles "<role1;role2;roleN>" --log
+            (ex: python2.7 recon_role_tester.py role-add --cwp-ip 192.168.158.45 --roles "CD001" --log)
+
+      5. Initiate the call by typing the following command(s) into the terminal window:
+
+            python2.7 invite_hats.py invite-script-uac \
+                                     -i <ethernet-interface> \
+                                     --log --sippalllog \
+                                     --no-reg --no-dereg
+                                     --mediadesc-one-rtp-initial-codecs 0 \
+                                     --call-type IC_CHIME \
+                                     --answer
+
+            (ex: python2.7 invite_hats.py invite-script-uac \
+                                          -i enp0s25 \
+                                          --log --sippalllog \
+                                          --no-reg --no-dereg \
+                                          --mediadesc-one-rtp-initial-codecs 0 \
+                                          --call-type IC_CHIME \
+                                          --answer)
+
+
+   Script As UAC, Device As UAS, IC CHIME Call, Registration/Deregistration, Single Invite
+   ═══════════════════════════════════════════════════════════════════════════════════════
+      1. Open a terminal window
+      2. Verify that the prerequisites have been completed
+      3. Change to the directory contiaining the scripts supplied by the automation framework by typing the following command(s) into the terminal window:
+
+            cd <hats-working-scripts>
+            (ex: cd ~/hats-working-scripts)
+
+      4. Configure any devices with the required roles by typing the following command(s) into the terminal window:
+
+            python2.7 recon_role_tester.py role-add --cwp-ip <cwp-device-ip> --roles "<role1;role2;roleN>" --log
+            (ex: python2.7 recon_role_tester.py role-add --cwp-ip 192.168.158.45 --roles "CD001" --log)
+
+      5. Initiate the call by typing the following command(s) into the terminal window:
+
+            python2.7 invite_hats.py invite-script-uac \
+                                     -i <ethernet-interface> \
+                                     --log --sippalllog \
+                                     --proxy secondary \
+                                     --mediadesc-one-rtp-initial-codecs 0 \
+                                     --call-type IC_CHIME \
+                                     --answer
+
+            (ex: python2.7 invite_hats.py invite-script-uac \
+                                          -i enp0s25 \
+                                          --log --sippalllog \
+                                          --proxy secondary \
+                                          --mediadesc-one-rtp-initial-codecs 0 \
+                                          --call-type IC_CHIME \
+                                          --answer)
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                           Calls From A CWP Device                                                                       ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Script As UAS, Device As UAC, IC CHIME Call, Registration/Deregistration, Single Invite
+   ═══════════════════════════════════════════════════════════════════════════════════════
+      1. Open a terminal window
+      2. Verify that the prerequisites have been completed
+      3. Change to the directory contiaining the scripts supplied by the automation framework by typing the following command(s) into the terminal window:
+
+            cd <hats-working-scripts>
+            (ex: cd ~/hats-working-scripts)
+
+      4. Configure any devices with the required roles by typing the following command(s) into the terminal window:
+
+            python2.7 recon_role_tester.py role-add --cwp-ip <cwp-device-ip> --roles "<role1;role2;roleN>" --log
+            (ex: python2.7 recon_role_tester.py role-add --cwp-ip 192.168.158.45 --roles "CD001" --log)
+
+      5. Initiate the call by typing the following command(s) into the terminal window:
+
+            python2.7 invite_hats.py invite-script-uas \
+                                     -i <ethernet-interface> \
+                                     --log --sippalllog \
+                                     --proxy secondary \
+                                     --mediadesc-one-rtp-initial-codecs 0 \
+                                     --call-type IC_CHIME
+
+            (ex: python2.7 invite_hats.py invite-script-uas \
+                                          -i enp0s25 \
+                                          --log --sippalllog \
+                                          --proxy secondary \
+                                          --mediadesc-one-rtp-initial-codecs 0 \
+                                          --call-type IC_CHIME)
+
+
+   Script As UAS, Device As UAC, IC CHIME Call, Registration/Deregistration, Invite/Reinvite
+   ═════════════════════════════════════════════════════════════════════════════════════════
+      1. Open a terminal window
+      2. Verify that the prerequisites have been completed
+      3. Change to the directory contiaining the scripts supplied by the automation framework by typing the following command(s) into the terminal window:
+
+            cd <hats-working-scripts>
+            (ex: cd ~/hats-working-scripts)
+
+      4. Configure any devices with the required roles by typing the following command(s) into the terminal window:
+
+            python2.7 recon_role_tester.py role-add --cwp-ip <cwp-device-ip> --roles "<role1;role2;roleN>" --log
+            (ex: python2.7 recon_role_tester.py role-add --cwp-ip 192.168.158.45 --roles "CD001" --log)
+
+      5. Initiate the call by typing the following command(s) into the terminal window:
+
+            python2.7 invite_hats.py invite-script-uas \
+                                     -i <ethernet-interface> \
+                                     --log --sippalllog \
+                                     --proxy primary \
+                                     --mediadesc-one-rtp-initial-codecs '0 8' \
+                                     --mediadesc-one-rtp-follow-up-codecs 0 \
+                                     --call-type IC_CHIME
+
+            (ex: python2.7 invite_hats.py invite-script-uas \
+                                          -i enp0s25 \
+                                          --log --sippalllog \
+                                          --proxy primary \
+                                          --mediadesc-one-rtp-initial-codecs '0 8' \
+                                          --mediadesc-one-rtp-follow-up-codecs 0 \
+                                          --call-type IC_CHIME -*
+
+
+
+
+   Test Specific Notes
+   ═══════════════════
+      ssh root@192.168.158.19 "tcpdump -Uvv -s 0 -A -i eth0 not port 22 -w -" | wireshark -k -s 262144 -i -
+      ssh root@192.168.158.20 "tcpdump -Uvv -s 0 -A -i eth0 not port 22 -w -" | wireshark -k -s 262144 -i -
+
+      DE21693: Call Termination during Media Renegotiation of an answered IC Chime Fork Call results in Hanging Application Call
+      ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+         python2.7 recon_role_tester.py role-add --cwp-ip 192.168.158.45 --roles "CD001" --log -*
+         python2.7 recon_role_tester.py role-add --cwp-ip 192.168.158.47 --roles "CD003" --log -*
+         python2.7 invite_hats.py invite-script-uas \
+                                  -i enp0s25 \
+                                  --log --sippalllog \
+                                  --proxy primary \
+                                  --mediadesc-one-rtp-initial-codecs '0 8' \
+                                  --mediadesc-one-rtp-follow-up-codecs 0 \
+                                  --call-type IC_CHIME \
+                                  --initial-invite-end-with-bye \
+                                  -*

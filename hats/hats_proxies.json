@@ -1,0 +1,10 @@
+[
+   {
+      "ip": "192.168.158.19",
+      "name": "sipproxy-01",
+      "operation": "primary",
+      "password": "U2FsdGVkX18Y79UASmlqQ50JnD5puId7AEnZEfXH7aU=",
+      "site_loc": "MLB_EMB_DEV_NAN",
+      "user": "root"
+   }
+]

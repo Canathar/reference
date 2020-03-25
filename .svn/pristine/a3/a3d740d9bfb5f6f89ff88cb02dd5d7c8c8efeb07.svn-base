@@ -1,0 +1,181 @@
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ Docker_Info.txt                                                                                                                                                         ║
+║                                                                                                                                                                         ║
+║ Document Encoding           : UTF-8, UNIX Line Terminator                                                                                                               ║
+║ Document Best Viewed/Printed: Page{Ledger, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                                                         ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                            Revision History                                                                             ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development/Update/Maintenance Update                                                                                     ║
+║                                                                                                                                                                         ║
+║  1.00.26918.xx (26 Sep 18) - Initial Creation {J. Laccone}                                                                                                              ║
+║                                 Added sections                                                                                                                          ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                Reference                                                                                ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║   Docker Installation                                                                                                                                                   ║
+║   -------------------                                                                                                                                                   ║
+║      https://docs.docker.com/install/linux/docker-ce/centos/                                                                                                            ║
+║      https://docs.docker.com/install/linux/linux-postinstall/                                                                                                           ║
+║                                                                                                                                                                         ║
+║   Docker Networking                                                                                                                                                     ║
+║   -----------------                                                                                                                                                     ║
+║      http://www.elastic.co/blog/docker-networking                                                                                                                       ║
+║      https://docs.docker.com/engine/userguide/networking/                                                                                                               ║
+║                                                                                                                                                                         ║
+║   Docker X11                                                                                                                                                            ║
+║   ----------                                                                                                                                                            ║
+║      https://blog.yadutaf.fr/2017/09/10/running-a-graphical-app-in-a-docker-container-on-a-remote-server/                                                               ║
+║                                                                                                                                                                         ║
+║   Hats Docker Image Source                                                                                                                                              ║
+║   ------------------------                                                                                                                                              ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/ccu/base/tools/emb/hats-docker-image/                                                  ║
+║                                                                                                                                                                         ║
+║   VectorCAST Docker Image Source                                                                                                                                        ║
+║   ------------------------------                                                                                                                                        ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/jlaccone/vcast-docker/                                                                   ║
+║                                                                                                                                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                           Docker Installation                                                                           ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Installing Docker
+   ─────────────────
+      1. Open a terminal window
+      2. Login as the superuser (root on CentOS/RHEL)
+      3. Remove any existing docker components by typing the following command(s) into the terminal window:
+
+            yum remove docker docker-common docker-selinux docker-engine
+
+      4. Install the required docker components by typing the following command(s) into the terminal window:
+
+            yum --noplugins --enablerepo "*" --disablerepo "*media*" install yum-utils device-mapper-persistent-data lvm2
+
+      5. Modify the yum configuration file, /etc/yum.conf, to suppress the checking of SSL certificates by adding the following line
+
+            sslverify=False
+
+      6. Add the docker repository by typing the following command(s) into the terminal window:
+
+            yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+
+      7. Add docker by typing the following command(s) into the terminal window:
+
+            yum --noplugins --enablerepo "*" --disablerepo "*media*" install docker-ce
+
+      8. Start the docker service by typing the following command(s) into the terminal window:
+
+            systemctl start docker
+
+      9. Create a directory to hold the certificates by typing the following command(s) into the terminal window:
+
+            mkdir /root/security
+
+     10. Change to the new directory by typing the following command(s) into the terminal window:
+
+            cd /root/security
+
+     11. Copy the certificate tools by typing the following command(s) into the terminal window:
+
+            scp root@<machine-ip-address>:/<source-path>/Certificate-and-tools.tar.gz .
+
+     12. Expand the archive by typing the following command(s) into the terminal window:
+
+            tar -xzvf Certificate-and-tools.tar.gz
+
+     13. Install the necessary certficates by typing the following command(s) into the terminal window:
+
+            ./AddCertsToAnchor.sh
+
+     14. Add the docker group (may already be added during installation) by typing the following command(s) into the terminal window:
+
+            groupadd docker
+
+     15. Add your username to the docker group by typing the following command(s) into the terminal window:
+
+            usermod -aG docker $USER
+
+     16. Logout and login so your group membership is re-evaluated
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                 Docker                                                                                  ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Starting/Stopping/Monitoring Docker Service
+   ───────────────────────────────────────────
+      1. Open a terminal window
+      2. Login as the superuser (root on CentOS/RHEL)
+      3. Start the docker service by typing the following command(s) into the terminal window:
+
+            systemctl start docker
+
+      4. View the status of the docker service by typing the following command(s) into the terminal window:
+
+            systemctl status docker
+
+      5. Stop the docker service by typing the following command(s) into the terminal window:
+
+            systemctl stop docker
+
+
+   Work with images
+   ────────────────
+      1. Open a terminal window
+      2. Display all the images currently installed locally by typing the following command(s) into the terminal window:
+
+            docker images
+
+              -- or --
+
+            docker image ls
+
+      3. Remove a local image by typing the following command(s) into the terminal window:
+
+            docker image rm <image-id>
+
+
+   Work with containers
+   ────────────────────
+      1. Open a terminal window
+      2. Display all the containers instantiated (in any state) by typing the following command(s) into the terminal window:
+
+            docker ps -a
+
+      3. Display all the containers currently running by typing the following command(s) into the terminal window:
+
+            docker container ls
+
+      4. Remove a container (must be stopped) by typing the following command(s) into the terminal window:
+
+            docker container rm <container-id>
+
+      4. Remove all containers by typing the following command(s) into the terminal window:
+
+            docker rm `docker ps --no-trunc -a -q`
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                             Docker Images                                                                               ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Building Images
+   ───────────────
+      See the "Building Image" section of the Notes header in the Dockerfile that ships with the Docker Image
+
+
+   Building Containers
+   ───────────────────
+      See the "Running An Image On Host (Creating A Container)" section of the Notes header in the Dockerfile that ships with the Docker Image
+
+
+   Attaching To A Running Container
+   ────────────────────────────────
+      See the "Attaching To A Running Image (Creating A New Terminal)" section of the Notes header in the Dockerfile that ships with the Docker Image

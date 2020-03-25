@@ -1,0 +1,26 @@
+
+
+
+
+
+
+
+
+   As root, execute the following command to install the connection library
+   ------------------------------------------------------------------------
+      yum --noplugins --enablerepo "*" --disablerepo "*media*" install subversion-gnome.x86_64
+
+
+   Make the displayed modifications to the following file
+   ------------------------------------------------------
+      ~/.subversion/config
+
+         password-stores = gnome-keyring
+
+
+   Make the displayed modifications to the following file
+   ------------------------------------------------------
+      ~/.subversion/servers
+
+         store-passwords = yes
+         store-plaintext-passwords = no

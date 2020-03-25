@@ -1,0 +1,52 @@
+
+
+
+
+
+
+
+
+Terminal Server .37 (16 Port)
+-----------------------------
+01 - unknown
+02 - 192.168.157.26/25    cwp-001.mco.atct.garage-dc.devlab.vcs21.com
+03 - 172.24.21.50/24      cwp-005.nbc.atct.garage-dc.devlab.vcs21.com
+04 - unknown
+05 - 192.168.156.164/24   cwp-008.f11.traco.garage-dc.devlab.vcs21.com
+06 - 172.24.21.52/24      cwp-004.nbc.atct.garage-dc.devlab.vcs21.com
+07 - 192.168.157.22/25    cwp-002.mco.atct.garage-dc.devlab.vcs21.com
+08 - 192.168.157.137/25   cwp-003.mco.atct.garage-dc.devlab.vcs21.com
+
+09 - 192.168.156.24/24    cwp-009.f11.traco.garage-dc.devlab.vcs21.com
+10 - 172.24.18.57/26      tmg001-03.dtw-p.atct.garage-dc.devlab.vcs21.com
+11 - 172.24.24.185/26     rmg001-01.sju-p.atct.garage.devlab.vcs21.com
+12 - 172.24.24.181/26     qmg002-04.sju-p.atct.garage.devlab.vcs21.com
+13 - unknown
+14 - unknown
+15
+16 - unknown
+
+
+
+Terminal Server .242 (16 Port)
+------------------------------
+01 - 172.24.24.155/26     cwp-001.sju-p.atct.garage.devlab.vcs21.com
+02 - 172.24.24.157/26     cwp-002.sju-p.atct.garage.devlab.vcs21.com
+03 - 172.24.24.159/26     cwp-003.sju-p.atct.garage.devlab.vcs21.com
+04 - 172.24.24.161/26     cwp-004.sju-p.atct.garage.devlab.vcs21.com
+05 - 172.24.24.163/26     cwp-005.sju-p.atct.garage.devlab.vcs21.com
+06 - 172.24.24.220/26     cwp-001.nan-p.atct.garage.devlab.vcs21.com
+07 - 172.24.24.222/26     cwp-002.nan-p.atct.garage.devlab.vcs21.com
+08 - 172.24.24.224/26     cwp-003.nan-p.atct.garage.devlab.vcs21.com
+
+09 - 172.24.24.226/26     cwp-004.nan-p.atct.garage.devlab.vcs21.com
+10 - 172.24.24.228/26     cwp-005.nan-p.atct.garage.devlab.vcs21.com
+11 - 192.168.156.156/24   cwp-007.f11.traco.garage-dc.devlab.vcs21.com
+12 - 192.168.159.22/25    cwp-007.f11-b.traco.ionharris.com
+13 - 192.168.159.20/25    cwp-008.f11-b.traco.ionharris.com
+14 - 192.168.159.5/25     cwp-009.f11-b.traco.ionharris.com
+15 - unknown
+16 - unknown
+
+
+

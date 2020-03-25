@@ -1,0 +1,89 @@
+﻿╔════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ tcpdump.txt                                                                                                                    ║
+║  by J. Laccone                                                                                                                 ║
+║                                                                                                                                ║
+║ Document Best Viewed/Printed: Page{Letter, Landscape, 0.25in Side Margins} Font{Consolas Font, Normal, 10pt}                   ║
+║                                                                                                                                ║
+╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                         Revision History                                                       ║
+╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                            ║
+║                                                                                                                                ║
+║  1.00.13216.xx (11 May 16) - Initial Creation                                                                                  ║
+║                                 Added header, added reference data                                                             ║
+║  1.01.23816.xx (25 Aug 16) - Development Update                                                                                ║
+║                                 Added additional usage options                                                                 ║
+║  1.03.24917.xx (06 Sep 17) - Development Update                                                                                ║
+║                                 Added additional documentation                                                                 ║
+║                                                                                                                                ║
+╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                            Reference                                                           ║
+╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                ║
+║   tcpdump Site                                                                                                                 ║
+║   ────────────                                                                                                                 ║
+║      http://www.tcpdump.org/                                                                                                   ║
+║                                                                                                                                ║
+║   tcpdump Info                                                                                                                 ║
+║   ────────────                                                                                                                 ║
+║      https://en.wikipedia.org/wiki/Tcpdump                                                                                     ║
+║                                                                                                                                ║
+║   pcap-filter Info                                                                                                             ║
+║   ────────────────                                                                                                             ║
+║      http://www.tcpdump.org/manpages/pcap-filter.7.html                                                                        ║
+║                                                                                                                                ║
+╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Harris Devices (cwp, rmg) Use The Following
+   ───────────────────────────────────────────
+      tcpdump Version 4.1.1
+      libpcap Version 1.1.1
+
+
+
+   Basic Use (tcpdump)
+   ───────────────────
+      -v   : slightly more verbose output
+      -s   : snapshot-length {0 configures default size of 262144 bytes}
+      -A   : print each packet in ASCII
+      -i   : interface to capture packets from
+      -w   : write the raw packets to a file
+      -w - : write the raw packets to stdout
+
+
+
+   Basic Use (wireshark)
+   ─────────────────────
+      Capture interface:
+        -i <interface>           name or idx of interface (def: first non-loopback)
+        -s <snaplen>             packet snapshot length (def: 65535)
+        -k                       start capturing immediately (def: do nothing)
+
+      Output:
+        -w <outfile|->           set the output filename (or '-' for stdout)
+
+
+
+   Examples
+   ────────
+
+      Capture all packets from ZMA GC00 {cwp-003.zma.artcc.ionharris.com (192.168.156.174)}
+      -------------------------------------------------------------------------------------
+         tcpdump -v -s 0 -A -i eth0 -w /tmp/jjl_stuff.pcap host 192.168.156.174
+
+
+      Capture all packets from ZMA cwp-004.zma.artcc.ionharris.com (192.168.156.176) - RC00
+      ---------------------------------------------------------------------------------
+         tcpdump -v -s 0 -A -i eth0 -w /tmp/jjl_stuff.pcap host 192.168.156.176
+
+
+      Capture all packets between ZMA cwp003 and cwp-004
+      --------------------------------------------------
+         tcpdump -vv -s 0 -A -i eth0 -w /tmp/jjl_stuff.pcap host 192.168.156.174 or 192.168.156.176
+
+         tcpdump -vv -s 0 -A -i eth0 -w /tmp/jjl_stuff.pcap host 192.168.156.172 or 192.168.156.174
+         scp root@192.168.155.87:/tmp/jjl_stuff.pcap /tftpboot/captures/sipproxy-01-zma_06212016_00.pcap
+
+      Capture all packets remotely and display them locally (exclude ssh)
+      -------------------------------------------------------------------
+         ssh root@xxx.xxx.xxx.xxx "tcpdump -Uvv -s 0 -A -i eth0 not port 22 -w -" | wireshark -k -s 262144 -i -

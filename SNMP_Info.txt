@@ -1,0 +1,336 @@
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ SNMP_Info.txt                                                                                                                                                           ║
+║                                                                                                                                                                         ║
+║ Document Encoding           : UTF-8, UNIX Line Terminator                                                                                                               ║
+║ Document Best Viewed/Printed: Page{Ledger, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                                                         ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                            Revision History                                                                             ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                                                                     ║
+║                                                                                                                                                                         ║
+║  1.00.32318.xx (19 Nov 18) - Initial Creation {J. Laccone}                                                                                                              ║
+║                                 Added sections                                                                                                                          ║
+║  1.01.01119.xx (11 Jan 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Merged data from several documents                                                                                                      ║
+║  1.02.02919.xx (29 Jan 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Moved some steps to another document                                                                                                    ║
+║  1.03.04319.xx (12 Jan 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Clarified steps and added SIP CONF                                                                                                      ║
+║  1.04.06719.xx (08 Mar 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Documented additional MIB values                                                                                                        ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                              Reference                                                                                  ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║   RFC 2578 - Structure of Management Information Version 2 (SMIv2)                                                                                                      ║
+║   ----------------------------------------------------------------                                                                                                      ║
+║      https://tools.ietf.org/html/rfc2578                                                                                                                                ║
+║                                                                                                                                                                         ║
+║   RFC 2579 - Textual Conventions for SMIv2                                                                                                                              ║
+║   ----------------------------------------                                                                                                                              ║
+║      https://tools.ietf.org/html/rfc2579                                                                                                                                ║
+║                                                                                                                                                                         ║
+║   RFC 2580 - Conformance Statements for SMIv2                                                                                                                           ║
+║   -------------------------------------------                                                                                                                           ║
+║      https://tools.ietf.org/html/rfc2580                                                                                                                                ║
+║                                                                                                                                                                         ║
+║                                                                                                                                                                         ║
+║   OID Repository                                                                                                                                                        ║
+║   --------------                                                                                                                                                        ║
+║      http://oid-info.com/                                                                                                                                               ║
+║                                                                                                                                                                         ║
+║   Structure of Management Information (SMI) Numbers                                                                                                                     ║
+║   -------------------------------------------------                                                                                                                     ║
+║      https://www.iana.org/assignments/smi-numbers/smi-numbers.xhtml                                                                                                     ║
+║                                                                                                                                                                         ║
+║   Private Enterprise Numbers                                                                                                                                            ║
+║   --------------------------                                                                                                                                            ║
+║      https://www.iana.org/assignments/enterprise-numbers/enterprise-numbers                                                                                             ║
+║                                                                                                                                                                         ║
+║                                                                                                                                                                         ║
+║   Installing NET-SNMP (RHEL/CentOS)                                                                                                                                     ║
+║   ---------------------------------                                                                                                                                     ║
+║      https://www.liquidweb.com/kb/how-to-install-and-configure-snmp-on-centos/                                                                                          ║
+║                                                                                                                                                                         ║
+║   MIB Broswer Based On NET-SNMP (RHEL/CentOS)                                                                                                                           ║
+║   -------------------------------------------                                                                                                                           ║
+║      https://linuxsoft.cern.ch/cern/centos/7/updates/x86_64/repoview/net-snmp-gui.html                                                                                  ║
+║                                                                                                                                                                         ║
+║   Monitoring Performance With NET-SNMP (RHEL/CentOS)                                                                                                                    ║
+║   --------------------------------------------------                                                                                                                    ║
+║      https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/system_administrators_guide/sect-system_monitoring_tools-net-snmp                    ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                Notes                                                                                    ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║   Ion MIBs                                                                                                                                                              ║
+║   --------                                                                                                                                                              ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Management/Zabbix/ion_mibs/                                                                     ║
+║                                                                                                                                                                         ║
+║   Zabbix MIBs                                                                                                                                                           ║
+║   -----------                                                                                                                                                           ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Management/Zabbix/zabbix_mibs/                                                                  ║
+║                                                                                                                                                                         ║
+║                                                                                                                                                                         ║
+║   harris.mib                                                                                                                                                            ║
+║   ----------                                                                                                                                                            ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Management/Zabbix/ion_mibs/harris.mib                                                           ║
+║                                                                                                                                                                         ║
+║   ION-MIB.mib                                                                                                                                                           ║
+║   -----------                                                                                                                                                           ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Management/Zabbix/ion_mibs/ION-MIB.mib                                                          ║
+║                                                                                                                                                                         ║
+║   ION-COMMONNODE.mib                                                                                                                                                    ║
+║   ------------------                                                                                                                                                    ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Management/Zabbix/ion_mibs/ION-COMMONNODE.mib                                                   ║
+║                                                                                                                                                                         ║
+║   ION-CWP.mib                                                                                                                                                           ║
+║   -----------                                                                                                                                                           ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Management/Zabbix/ion_mibs/ION-CWP.mib                                                          ║
+║                                                                                                                                                                         ║
+║   ION-QMG.mib                                                                                                                                                           ║
+║   -----------                                                                                                                                                           ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Management/Zabbix/ion_mibs/ION-QMG.mib                                                          ║
+║                                                                                                                                                                         ║
+║   ION-RDT.mib                                                                                                                                                           ║
+║   -----------                                                                                                                                                           ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Management/Zabbix/ion_mibs/ION-RDT.mib                                                          ║
+║                                                                                                                                                                         ║
+║   ION-RIU.mib                                                                                                                                                           ║
+║   -----------                                                                                                                                                           ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Management/Zabbix/ion_mibs/ION-RIU.mib                                                          ║
+║                                                                                                                                                                         ║
+║   ION-RMG.mib                                                                                                                                                           ║
+║   -----------                                                                                                                                                           ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Management/Zabbix/ion_mibs/ION-RMG.mib                                                          ║
+║                                                                                                                                                                         ║
+║   ION-SIPCONF.mib                                                                                                                                                       ║
+║   ----------------                                                                                                                                                      ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Management/Zabbix/ion_mibs/ION-SIPCONF.mib                                                      ║
+║                                                                                                                                                                         ║
+║   ION-SIPPROXY.mib                                                                                                                                                      ║
+║   ----------------                                                                                                                                                      ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Management/Zabbix/ion_mibs/ION-SIPPROXY.mib                                                     ║
+║                                                                                                                                                                         ║
+║   ION-TMG.mib                                                                                                                                                           ║
+║   -----------                                                                                                                                                           ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Management/Zabbix/ion_mibs/ION-TMG.mib                                                          ║
+║                                                                                                                                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                        Harris OID Definitions                                                                           ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   SMI Network Management Private Enterprise Codes
+   ═══════════════════════════════════════════════
+      iso(1).org(3).dod(6).internet(1).private(4).enterprises(1) (refer to "OID Repository" for other options)
+      NOTE: This denotes that ALL oid values will begin with the following - 1.3.6.1.4.1
+
+            290 - Harris Corporation (number assigned by IANA)              [harris             OBJECT IDENTIFIER ::= { enterprises 290 }] (defined in harris.mib)
+
+                    6 - Government Communications System Division           [gcsd2              OBJECT IDENTIFIER ::= { harris 6 }]        (defined in harris.mib)
+
+                          7 - ION Project                                   [ion                OBJECT IDENTIFIER ::= { gcsd2 7 }]         (defined in harris.mib)
+
+                                1 - Local Manager                           [lm                 OBJECT IDENTIFIER ::= { ion 1 }]           (defined in ion-mib.mib)
+                                2 - Common Node                             [commonNode         OBJECT IDENTIFIER ::= { ion 2 }]           (defined in ion-mib.mib)
+
+                                      1 - Common Node Objects               [commonNodeObjects  OBJECT IDENTIFIER ::= { commonNode 1 }]    (defined in ion-commonnode.mib)
+                                      ...
+
+      <1.3.6.1.4.1.290.6.7.3>   3 - Controller Working Position (CWP)       [cwp                OBJECT IDENTIFIER ::= { ion 3 }]           (defined in ion-mib.mib)
+
+                                      1 - CWP Objects                       [cwpObjects         OBJECT IDENTIFIER ::= { cwp 1 }]           (defined in ion-cwp.mib)
+                                      ...
+
+      <1.3.6.1.4.1.290.6.7.4>   4 - Radio Media Gateway                     [rmg                OBJECT IDENTIFIER ::= { ion 4 }]           (defined in ion-mib.mib)
+
+                                      1 - RMG Objects                       [rmgObjects         OBJECT IDENTIFIER ::= { rmg 1 }]           (defined in ion-rmg.mib)
+                                      ...
+
+      <1.3.6.1.4.1.290.6.7.5>   5 - Trunk Media Gateway                     [tmg                OBJECT IDENTIFIER ::= { ion 5 }]           (defined in ion-mib.mib)
+
+                                      1 - TMG Objects                       [tmgObjects         OBJECT IDENTIFIER ::= { tmg 1 }]           (defined in ion-tmg.mib)
+                                      ...
+
+      <1.3.6.1.4.1.290.6.7.6>   6 - Radio Interface Unit                    [riu                OBJECT IDENTIFIER ::= { ion 6 }]           (defined in ion-mib.mib)
+
+                                      1 - RIU Objects                       [riuObjects         OBJECT IDENTIFIER ::= { riu 1 }]           (defined in ion-riu.mib)
+                                      ...
+
+      <1.3.6.1.4.1.290.6.7.7>   7 - ?? Media Gateway                        [fmg                OBJECT IDENTIFIER ::= { ion 7 }]           (defined in ion-mib.mib)
+      <1.3.6.1.4.1.290.6.7.8>   8 - ?? Media Gateway                        [qmg                OBJECT IDENTIFIER ::= { ion 8 }]           (defined in ion-mib.mib)
+
+                                      1 - QMG Objects                       [qmgObjects         OBJECT IDENTIFIER ::= { qmg 1 }]           (defined in ion-qmg.mib)
+                                      ...
+
+      <1.3.6.1.4.1.290.6.7.9>   9 - SIP Proxy                               [sipproxy           OBJECT IDENTIFIER ::= { ion 9 }]           (defined in ion-mib.mib)
+
+                                      1 - SIP Proxy Objects                 [sipproxyObjects    OBJECT IDENTIFIER ::= { sipproxy 1 }]      (defined in ion-sipproxy.mib)
+                                      ...
+
+      <1.3.6.1.4.1.290.6.7.10> 10 - Radio ??                                [rdt                OBJECT IDENTIFIER ::= { ion 10 }]          (defined in ion-mib.mib)
+
+                                      1 - RDT Objects                       [rdtObjects         OBJECT IDENTIFIER ::= { rdt 1 }]           (defined in ion-rdt.mib)
+                                      ...
+
+      <1.3.6.1.4.1.290.6.7.11> 11 - SIP Conference                          [sipconf            OBJECT IDENTIFIER ::= { ion 11 }]          (defined in ion-mib.mib)
+
+                                      1 - SIP Conf Objects                  [sipconfObjects     OBJECT IDENTIFIER ::= { sipconf 1 }]       (defined in ion-sipconf.mib)
+                                      ...
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                 Common                                                                                  ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Prerequisites For Installation
+   ══════════════════════════════
+      1. An account on the VCS21 configuration management repository
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                               Tool Installation                                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Installing Command Line SNMP Tools (RHEL/CentOS)
+   ════════════════════════════════════════════════
+      1. Open a terminal window
+      2. Login as the superuser (root on CentOS/RHEL)
+      3. Install the command line SNMP components by typing the following command(s) into the terminal window:
+
+            yum --enablerepo "*" install net-snmp net-snmp-utils net-snmp-perl perl-Tk
+
+      4. Create a configuraton storage directory for the tools by typing the following command(s) into the terminal window:
+
+            mkdir ~/.snmp
+
+      5. Create a MIB storage directory for the tools by typing the following command(s) into the terminal window:
+
+            mkdir ~/.snmp/mibs
+
+
+   Install ION MIB Files
+   ═════════════════════
+      1. Open a terminal window
+      2. Copy the latest MIB files into the net-snmp mib directory by typing the following command(s) into the terminal window:
+
+            Local MIB Files
+            ───────────────
+               cp <local-branch-mib-dir>/*.mib <local-net-snmp-mib-dir>
+               (ex: cp /data/dataworkspace/bc0-mibs/*.mib ~/.snmp/mibs)
+
+
+            Repository MIB Files
+            ────────────────────
+               svn co <repository-mib-dir> <local-net-snmp-mib-dir>
+               (ex: svn co https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Management/Zabbix/ion_mibs ~/.snmp/mibs)
+
+
+   Install GUI MIB Browser Utility (tkmib)
+   ═══════════════════════════════════════
+      1. Open a terminal window
+      2. Login as the superuser (root on CentOS/RHEL)
+      3. Download and install the utility by typing the following command(s) into the terminal window:
+
+            cd /usr/src
+            wget https://linuxsoft.cern.ch/cern/centos/7/updates/x86_64/Packages/net-snmp-gui-5.7.2-33.el7_5.2.x86_64.rpm
+            rpm -ivh net-snmp-gui-5.7.2-33.el7_5.2.x86_64.rpm
+
+
+   Configure GUI MIB Browser Utility (tkmib)
+   ═════════════════════════════════════════
+      1. Open a terminal window
+      2. Run the MIB browser to create the configuration files by typing the following command(s) into the terminal window:
+
+            tkmib
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                          Tool Usage / Common Queries                                                                    ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Graphically Examine SNMP Agent Values With MIB Browser
+   ══════════════════════════════════════════════════════
+      1. Open a terminal window
+      2. Run the MIB browser by typing the following command(s) into the terminal window:
+
+            tkmib -o <mib-module>::<mib-object> <device-ip-address>
+            (ex: tkmib -o ION-CWPMIB::backwardCompatibility 172.24.24.159)
+            (ex: tkmib -o ION-RMGMIB::backwardCompatibility 172.24.24.185)
+            (ex: tkmib -o ION-TMGMIB::backwardCompatibility 172.24.24.169)
+            (ex: tkmib -o ION-SIPCONF::backwardCompatibility 172.24.24.138)
+            (ex: tkmib -o ION-SIPPROXY::backwardCompatibility 172.24.24.140)
+
+
+   Display All Instance Values Of A MIB Object
+   ═══════════════════════════════════════════
+      1. Open a terminal window
+      2. Display all instance values of a MIB object by typing the following command(s) into the terminal window:
+
+            snmpwalk -v 2c -c <community-name> <device-ip-address> <mib-module>::<mib-object>
+            (ex: snmpwalk -v 2c -c public 172.24.24.159 ION-CWPMIB::backwardCompatibility)
+            (ex: snmpwalk -v 2c -c public 172.24.24.185 ION-RMGMIB::backwardCompatibility)
+            (ex: snmpwalk -v 2c -c public 172.24.24.169 ION-TMGMIB::backwardCompatibility)
+            (ex: snmpwalk -v 2c -c public 172.24.24.138 ION-SIPCONF::backwardCompatibility)
+            (ex: snmpwalk -v 2c -c public 172.24.24.140 ION-SIPPROXY::backwardCompatibility)
+
+
+   Display Instance Values Of A Single MIB Object
+   ══════════════════════════════════════════════
+      1. Open a terminal window
+      2. Display a MIB object by typing the following command(s) into the terminal window:
+
+            Using MIB Module
+            ────────────────
+               snmpget -v 2c -c <community-name> <device-ip-address> <mib-module>::<mib-object>
+               (ex: snmpget -v 2c -c public 172.24.24.159 ION-CWPMIB::currentReleaseVersion.0)
+
+
+            Using Object Id (OID)
+            ─────────────────────
+               snmpget -v 2c -c <community-name> <device-ip-address> <object-id>
+               (ex: snmpget -v 2c -c public 172.24.24.159 1.3.6.1.4.1.290.6.7.3.1.8.1.0)
+
+
+   Display MIB Objects An Agent Supports
+   ═════════════════════════════════════
+      1. Open a terminal window
+      2. Display MIB objects by typing the following command(s) into the terminal window:
+
+            snmpwalk -v 2c -c <community-name> <device-ip-address>
+            (ex: snmpwalk -v 2c -c public 172.24.24.140)
+
+
+   Display A MIB Table An Agent Supports
+   ═════════════════════════════════════
+      1. Open a terminal window
+      2. Display all entries in a MIB table by typing the following command(s) into the terminal window:
+
+            snmptable -v 2c -c <community-name> <device-ip-address> <mib-module>::<mib-table>
+            (ex: snmptable -v 2c -c public 172.24.24.185 ION-RMGMIB::vcsConnectionTable)
+            (ex: snmptable -v 2c -c public 172.24.24.140 HOST-RESOURCES-MIB::hrFSTable)
+
+
+   Convert Between MIB Module Object And OID
+   ═════════════════════════════════════════
+      1. Open a terminal window
+      2. Perform the desired conversion by typing the following command(s) into the terminal window:
+
+            Generate An Object Id (OID) From A MIB Module Object
+            ────────────────────────────────────────────────────
+               snmptranslate -On <mib-module>::<mib-object>
+               (ex: snmptranslate -On ION-SIPPROXY::previousReleaseVersion.0)
+
+
+            Generate A MIB Module Object From An Object Id (OID)
+            ────────────────────────────────────────────────────
+               snmptranslate -m <first-mib-module>:<second-mib-module>:<nth-mib-module> <object-id>
+               (ex: snmptranslate -m +HARRIS-MIB:ION-MIB:ION-SIPPROXY .1.3.6.1.4.1.290.6.7.9.1.3.2.0)

@@ -1,0 +1,81 @@
+
+----- Include Section File Changes -----
+
+#ifndef SL_LOG_H_
+
+// We don't want you use the linux network includes from os_types.h
+#define __M5T_DEBUG
+#include "sl_log.h"
+#endif
+
+#undef FL
+#undef __SOLACOM_FILE__
+#define  __SOLACOM_FILE__ "CEventDriven.h"
+#define FL __SOLACOM_FILE__, __LINE__
+
+
+----- Function Changes -----
+
+   const char*   fName = "CEventDriven::PostMessage";
+
+   UL_Entry_Log_SC(UL_Log_GetSIPFunctionsComponent(), fName);
+
+
+   UL_Log_C_S(FL, UL_Log_GetSIPFunctionsComponent(), fName, TRACE,
+              "      Message Service is NULL (From Check)");
+
+
+   UL_Exit_Log_SC(UL_Log_GetSIPFunctionsComponent(), fName);
+
+
+
+----- Header File Changes -----
+
+
+#include "stdio.h"
+
+
+// In private area
+
+
+FILE* logFile;
+bool  logFileValid;
+
+
+
+----- Source File Changes -----
+
+// In Constructor
+
+logFileValid = false;
+logFile = fopen("/tmp/filename.txt", "w");
+if (logFile)
+{
+   logFileValid = true;
+}
+
+
+
+// In Destructor
+
+
+if (logFileValid)
+{
+   fclose(logFile);
+}
+
+
+
+----- In functions -----
+
+if (logFileValid)
+{
+    fprintf(logFile, "class::function Entering");
+}
+
+
+if (logFileValid)
+{
+    fprintf(logFile, "class::function Exiting");
+}
+

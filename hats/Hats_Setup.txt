@@ -1,0 +1,145 @@
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ Hats_Setup.txt                                                                                                                                                          ║
+║                                                                                                                                                                         ║
+║ Document Encoding           : UTF-8, UNIX Line Terminator                                                                                                               ║
+║ Document Best Viewed/Printed: Page{Ledger, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                                                         ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                            Revision History                                                                             ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development/Update/Maintenance Update                                                                                     ║
+║                                                                                                                                                                         ║
+║  1.00.34718.xx (13 Dec 18) - Initial Creation {J. Laccone}                                                                                                              ║
+║                                 Added header, added reference data                                                                                                      ║
+║  1.01.09319.xx (03 Apr 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Updated for new versions                                                                                                                ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                Reference                                                                                ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║   Docker Information                                                                                                                                                    ║
+║   ------------------                                                                                                                                                    ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/jlaccone/reference/Docker_Info.txt                                                       ║
+║                                                                                                                                                                         ║
+║   Hats Docker Image Source                                                                                                                                              ║
+║   ------------------------                                                                                                                                              ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/ccu/base/tools/emb/hats-docker-image/                                                  ║
+║                                                                                                                                                                         ║
+║   Hats Development                                                                                                                                                      ║
+║   ----------------                                                                                                                                                      ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/jlaccone/reference/Hats_Development.txt                                                  ║
+║                                                                                                                                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Prerequisites For Both Local And Remote Installations
+   ═════════════════════════════════════════════════════
+      1. An account on the VCS21 configuration management repository
+      2. Docker installed locally with experimental features enabled (ref: "Docker Information" above)
+      3. Docker volume created (volume on the local workstation for local installations, volume on the remote Hats Docker Server for remote installations)
+
+
+   Additional Prerequisites For Remote Installations
+   ═════════════════════════════════════════════════
+      1. A Linux user account on the remote Hats Docker Server
+      2. A configured desktop environment for the Linux user account on the remote Hats Docker Server
+      3. A VNC account on the remote Hats Docker Server
+      4. SSH Server on the remote Hats Docker Server
+      5. VNC Server on the remote Hats Docker Server
+      6. SSH Client on the local workstation
+      7. VNC Client on the local workstation
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                         Docker Hats Installation                                                                        ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Local Installation
+   ══════════════════
+      1. Open a terminal window
+      2. Make a directory for the Hats Docker Image Source by typing the following command(s) into the terminal window:
+
+            mkdir <hats-docker-image-source-dir>
+            (ex: mkdir ~/hats-docker)
+
+      3. Checkout the Hats Docker Image Source from source code management by typing the following command(s) into the terminal window:
+
+            svn co <repository-location-of-hats-docker-image-source> <local-destination-dir>
+            (ex: svn co hhttps://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/ccu/base/tools/emb/hats-docker-image ~/hats-docker)
+
+      4. Build the Hats Docker Image by typing the following command(s) into the terminal window:
+
+            cd <hats-docker-image-source-dir>
+            (ex: cd ~/hats-docker)
+
+            ./build-hats-docker-image.sh
+
+      5. Verify that the Hats Docker Image build by typing the following command(s) into the terminal window and scanning the resulting output for the
+         image (the image name defaults to "hats-platform"):
+
+            docker images
+
+      6. Create a new container based on the Hats Docker Image by typing the following command(s) into the terminal window:
+
+            cd <hats-docker-image-source-dir>
+            (ex: cd ~/hats-docker)
+
+            ./create_hats_docker_container.sh -c
+            NOTE1: The command above script command uses the default values, to use other values, refer to the script help
+            NOTE2: If you are running as root, before creating a new container, enable the X-Server connection between the remote Docker Server and any
+                   Docker Containers by typing the following command(s) into the terminal window (terminal window in the remote desktop environment):
+
+                      xhost +
+
+
+   Remote Installation
+   ═══════════════════
+      1. Connect to a desktop environment on the remote Hats Docker Server, as a Linux user, using a SSH/VNC client
+      2. Follow the "Local Installation" instructions substituting the remote desktop environment for the local desktop environment
+         NOTE: Before creating a new container, enable the X-Server connection between the remote Hat Docker Server and any
+               Docker Containers by typing the following command(s) into the terminal window (terminal window in the remote desktop environment):
+
+                  su
+                  xhost +
+                  (IMPORTANT: This will only allow X capability for the duration of this VNC session. This command MUST be run each time the VNCServer is restarted)
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                       Creating A Local Source Code Working Directory: Subversion                                                        ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Create A Repository Workspace/Local Workspace
+   ═════════════════════════════════════════════
+      1. Create a new container based on the Hats Docker Image
+      2. Populate the empty Docker volume with source code from one of the following repositories:
+
+         VCS21 Branch: Create A New Local Embedded Source Code Workspace (Populate Empty Docker Volume)
+         ──────────────────────────────────────────────────────────────────────────────────────────────
+            1. Populate the empty Docker Volume with the embedded source code from the repository by typing the following command(s) into the containers terminal window:
+
+                  trunk
+                  -----
+                     svn_make_vcs21_workspace --profile <checkout-type> --workspace <name-for-the-new-local-src-directory> --onbranch <src-branch-in-repo>
+                     (ex: svn_make_vcs21_workspace --profile appdev --workspace /home/developer/svn-working-dir --onbranch trunk)
+
+                  dev
+                  ---
+                     svn_make_vcs21_workspace --profile <checkout-type> --workspace <name-for-the-new-local-src-directory> --onbranch <src-branch-in-repo>
+                     (ex: svn_make_vcs21_workspace --profile appdev --workspace /home/developer/svn-working-dir --onbranch /branches/dev/jlaccone/DE19715D)
+
+
+         FreeSwitch branch: Create A New Local Conference Server Source Code Workspace (Populate Empty Docker Volume)
+         ────────────────────────────────────────────────────────────────────────────────────────────────────────────
+            1. Populate the empty Docker Volume with the conference server source code from the repository by typing the following command(s)
+               into the containers terminal window:
+
+               svn co https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Infrastructure/Freeswitch_RPM_Files /home/developer/svn-working-dir
+
+
+         OpenSIPS branch: Create A New Local Proxy Server Source Code Workspace (Populate Empty Docker Volume)
+         ─────────────────────────────────────────────────────────────────────────────────────────────────────
+            1. Populate the empty Docker Volume with the proxy server source code from the repository by typing the following command(s)
+               into the containers terminal window:
+
+               svn co https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Infrastructure/Opensips_RPM_Files /home/developer/svn-working-dir

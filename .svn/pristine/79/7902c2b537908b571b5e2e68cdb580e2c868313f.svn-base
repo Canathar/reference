@@ -1,0 +1,161 @@
+###################################################################################################################################
+# config                                                                                                                          #
+#                                                                                                                                 #
+#    Document Best Viewed/Printed: Page{Legal, Landscape, 0.25in Side Margins} Font{Monospace Font, Normal, 10pt}                 #
+#                                                                                                                                 #
+###################################################################################################################################
+#                                                         Revision History                                                        #
+###################################################################################################################################
+# VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                             #
+#                                                                                                                                 #
+#  1.00.12118.xx (01 May 18) - Initial Creation {J. Laccone}                                                                      #
+#                                 Added section headers, added reference data                                                     #
+#  1.01.16918.xx (18 Jun 18) - Maintenance Update {J. Laccone}                                                                    #
+#                                 Added SIM AVN                                                                                   #
+#                                 Modified all HSC links to separate AVNs                                                         #
+#  1.02.17918.xx (28 jun 18) - Maintenance Update {J. Laccone}                                                                    #
+#                                 Added UKN AVN (PS Lab)                                                                          #
+#                                                                                                                                 #
+###################################################################################################################################
+#                                                              Notes                                                              #
+###################################################################################################################################
+#                                                                                                                                 #
+#   HSC System Info                                                                                                               #
+#   ---------------                                                                                                               #
+#      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/jlaccone/reference/HSC_System_Info.txt           #
+#                                                                                                                                 #
+###################################################################################################################################
+#                                                            Reference                                                            #
+###################################################################################################################################
+#                                                                                                                                 #
+#   Configure Custon Connections For Your SSH Client                                                                              #
+#   ------------------------------------------------                                                                              #
+#      https://www.digitalocean.com/community/tutorials/how-to-configure-custom-connection-options-for-your-ssh-client            #
+#                                                                                                                                 #
+###################################################################################################################################
+
+###################################################################################################################################
+#                                         MLB NATS UKN AVN Devices (ukn-p.demo.ionharris.com)                                     #
+#                                                       Use nm-01 as a proxy                                                      #
+###################################################################################################################################
+Host 10.9.40*
+   User root
+   ProxyCommand sshpass -p natslab ssh root@172.24.10.170 -W %h:%p
+   ServerAliveInterval 120
+
+Host 10.9.41*
+   User root
+   ProxyCommand sshpass -p natslab ssh root@172.24.10.170 -W %h:%p
+   ServerAliveInterval 120
+
+
+
+###################################################################################################################################
+#                                         HSC NATS OPS AVN Devices (ops-p.vcp.ionharris.com)                                      #
+#                                                 Use ops-linux-jump as a proxy                                                   #
+###################################################################################################################################
+Host 10.122.32*
+   User root
+   ProxyCommand sshpass -p natslab ssh root@10.144.16.155 -W %h:%p
+   ServerAliveInterval 120
+
+Host 10.122.34*
+   User root
+   ProxyCommand sshpass -p natslab ssh root@10.144.16.155 -W %h:%p
+   ServerAliveInterval 120
+
+Host 10.122.35*
+   User root
+   ProxyCommand sshpass -p natslab ssh root@10.144.16.155 -W %h:%p
+   ServerAliveInterval 120
+
+Host 10.122.36*
+   User root
+   ProxyCommand sshpass -p natslab ssh root@10.144.16.155 -W %h:%p
+   ServerAliveInterval 120
+
+Host 10.122.37*
+   User root
+   ProxyCommand sshpass -p natslab ssh root@10.144.16.155 -W %h:%p
+   ServerAliveInterval 120
+
+Host 10.122.52*
+   User root
+   ProxyCommand sshpass -p natslab ssh root@10.144.16.155 -W %h:%p
+   ServerAliveInterval 120
+
+Host 10.122.54*
+   User root
+   ProxyCommand sshpass -p natslab ssh root@10.144.16.155 -W %h:%p
+   ServerAliveInterval 120
+
+Host 10.122.58*
+   User root
+   ProxyCommand sshpass -p natslab ssh root@10.144.16.155 -W %h:%p
+   ServerAliveInterval 120
+
+Host 10.122.70*
+   User root
+   ProxyCommand sshpass -p natslab ssh root@10.144.16.155 -W %h:%p
+   ServerAliveInterval 120
+
+Host 10.122.71*
+   User root
+   ProxyCommand sshpass -p natslab ssh root@10.144.16.155 -W %h:%p
+   ServerAliveInterval 120
+
+Host 10.122.72*
+   User root
+   ProxyCommand sshpass -p natslab ssh root@10.144.16.155 -W %h:%p
+   ServerAliveInterval 120
+
+Host 10.122.80*
+   User root
+   ProxyCommand sshpass -p natslab ssh root@10.144.16.155 -W %h:%p
+   ServerAliveInterval 120
+
+Host 10.122.82*
+   User root
+   ProxyCommand sshpass -p natslab ssh root@10.144.16.155 -W %h:%p
+   ServerAliveInterval 120
+
+Host 10.122.84*
+   User root
+   ProxyCommand sshpass -p natslab ssh root@10.144.16.155 -W %h:%p
+   ServerAliveInterval 120
+
+Host 10.122.94*
+   User root
+   ProxyCommand sshpass -p natslab ssh root@10.144.16.155 -W %h:%p
+   ServerAliveInterval 120
+
+
+
+###################################################################################################################################
+#                                         HSC NATS SIM AVN Devices (sim-p.vcp.ionharris.com)                                      #
+#                                                 Use sim-linux-jump as a proxy                                                   #
+###################################################################################################################################
+Host 10.122.55*
+   User root
+   ProxyCommand sshpass -p natslab ssh root@10.144.16.151 -W %h:%p
+   ServerAliveInterval 120
+
+Host 10.122.56*
+   User root
+   ProxyCommand sshpass -p natslab ssh root@10.144.16.151 -W %h:%p
+   ServerAliveInterval 120
+
+Host 10.122.57*
+   User root
+   ProxyCommand sshpass -p natslab ssh root@10.144.16.151 -W %h:%p
+   ServerAliveInterval 120
+
+Host 10.122.106*
+   User root
+   ProxyCommand sshpass -p natslab ssh root@10.144.16.151 -W %h:%p
+   ServerAliveInterval 120
+
+Host 10.122.108*
+   User root
+   ProxyCommand sshpass -p natslab ssh root@10.144.16.151 -W %h:%p
+   ServerAliveInterval 120

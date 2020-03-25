@@ -1,0 +1,172 @@
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ VectorCAST_Structure.txt                                                                                                        ║
+║                                                                                                                                 ║
+║ Document Best Viewed/Printed: Page{Legal, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                  ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                         Revision History                                                        ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                             ║
+║                                                                                                                                 ║
+║  1.00.12318.xx (03 May 18) - Initial Creation {J. Laccone}                                                                      ║
+║                                 Added header, added reference data                                                              ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                            Reference                                                            ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                 ║
+║                                                                                                                                 ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+╔═╦═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╦═╗
+╠═╬═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬═╣
+║ ║                                                                                                                             ║ ║
+║ ║                                                 VectorCAST Project Structure                                                ║ ║
+║ ║                                                                                                                             ║ ║
+╠═╬═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬═╣
+╚═╩═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╩═╝
+
+   Project: VCS21 ===== << No "Hoverable" Configuration Options >> =====
+   ──┬───────────
+     │
+     │
+     └── Source ===== << No "Hoverable" Configuration Options >> =====
+         ──┬───
+           │
+           │
+           └── Platform: Linux ===== << No "Hoverable" Configuration Options >> =====
+               ──┬────────────
+                 │
+                 │
+                 ├── Compiler: GNU_ARM_4.3_C++
+                 │   ──┬──────────────────────
+                 │     │
+                 │     │
+                 │     ├── Test Suite: common
+                 │     │   ──┬───────────────
+                 │     │     │
+                 │     │     │
+                 │     │     ├── Group: cmn_ag
+                 │     │     │   ──┬──────────
+                 │     │     │     │
+                 │     │     │     │
+                 │     │     │     ├── Unit Test Environment: APPI_AG_COMMONGRSENDPOINT
+                 │     │     │     │
+                 │     │     │     │
+                 │     │     │     ├── Unit Test Environment: APPI_AG_COMMONGRSRECIEVER
+                 │     │     │     │
+                 │     │     │
+                 │     │     │     ----- Remaining Environments In This Group Not Shown -----
+                 │     │     │
+                 │     │     │     │
+                 │     │     │     └── Unit Test Environment: APPI_AG_STRINGPOLL
+                 │     │     │
+                 │     │
+                 │     │     ----- Remaining Groups In This Test Suite Not Shown -----
+                 │     │
+                 │     │     │
+                 │     │     └── Group: cmn_snmp
+                 │     │         ──┬────────────
+                 │     │           │
+                 │     │
+                 │     │           ----- Environments In This Group Not Shown -----
+                 │     │
+                 │
+                 │     ----- Remaining Test Suites In This Compiler Not Shown -----
+                 │
+                 │     │
+                 │     └── Test Suite: RMG
+                 │         ──┬────────────
+                 │           │
+                 │
+                 │           ----- Groups In This Test Suite Not Shown -----
+                 │
+                 │
+                 └── Compiler: GNU_Native_4.8_C++
+                     ──┬─────────────────────────
+                       │
+                       │
+                       ├── Test Suite: common
+                       │   ──┬───────────────
+                       │     │
+                       │     │
+                       │     ├── Group: cmn_ag
+                       │     │   ──┬──────────
+                       │     │     │
+                       │     │     │
+                       │     │     ├── Unit Test Environment: APPI_AG_COMMONGRSENDPOINT
+                       │     │     │
+                       │     │     │
+                       │     │     ├── Unit Test Environment: APPI_AG_COMMONGRSRECIEVER
+                       │     │     │
+                       │     │
+                       │     │     ----- Remaining Environments In This Group Not Shown -----
+                       │     │
+                       │     │     │
+                       │     │     └── Unit Test Environment: APPI_AG_STRINGPOLL
+                       │     │
+                       │
+                       │     ----- Remaining Groups In This Test Suite Not Shown -----
+                       │
+                       │     │
+                       │     └── Group: cmn_snmp
+                       │         ──┬────────────
+                       │           │
+                       │
+                       │           ----- Environments In This Group Not Shown -----
+                       │
+
+                       ----- Remaining Test Suites In This Compiler Not Shown -----
+
+                       │
+                       └── Test Suite: TMG_Libraries
+                           ──┬──────────────────────
+                             │
+
+                             ----- Groups In This Test Suite Not Shown -----
+
+
+
+╔═╦═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╦═╗
+╠═╬═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬═╣
+║ ║                                                                                                                             ║ ║
+║ ║                                            Linker Options Modification Procedure                                            ║ ║
+║ ║                                                                                                                             ║ ║
+╠═╬═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬═╣
+╚═╩═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╩═╝
+
+   Modifications To The Compiler: GNU_Native_4.8_C++ And Its Child Nodes
+   ═════════════════════════════════════════════════════════════════════
+      1. Start VectorCAST on your local computer
+      2. Open the VCS21 project
+      3. Modify the following nodes under the GNU_Native_4.8_C++ Compiler node
+
+
+         Node: GNU_Native_4.8_C++ Compiler
+         ─────────────────────────────────
+            1. Using your mouse, right click on the configuration options icon to the right of the node.
+               Select the "Linker options" menu item from the pop-up menu. This action will open the "Configuration" tab.
+            2. Verify that the following parameters are in the "Linker options:" text box (all parameters WILL be on one line,
+               but are shown below on multiple lines for clarity):
+
+                  -Wl,-Map,vcast.map $(VCAST_VCS21_SRC_BASE)/third_party/agent++/lib/i386/libagent++.so
+                  $(VCAST_VCS21_SRC_BASE)/third_party/snmp++/lib/i386/libsnmp++.so -lpthread -lcrypto -llttng-ust
+
+
+         Test Suite Nodes
+         ────────────────
+            1. For each Test Suite Node under the compiler node (see above diagram), repeat the following steps
+            2. Using your mouse, hover over the configuration options icon to the right of the node.
+            3. If there are "Linker options:", right click on the configuration options icon to the right of the node and select
+               the "Clear Single Option -> Linker options:" menu item from the pop-up menu.
+            4. Repeat step two and verify that there are no "Linker options:" listed.
+
+
+         Unit Test Environment Nodes
+         ───────────────────────────
+            1. For each Unit Test Node under each Group node under the compiler node (see above diagram),
+               repeat the following steps
+            2. Using your mouse, hover over the configuration options icon to the right of the node.
+            3. If there are "Linker options:", right click on the configuration options icon to the right of the node and select
+               the "Clear Single Option -> Linker options:" menu item from the pop-up menu.
+            4. Repeat step two and verify that there are no "Linker options:" listed.

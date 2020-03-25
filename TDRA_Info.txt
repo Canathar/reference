@@ -1,0 +1,75 @@
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ TDRA_Info.txt                                                                                                                                                           ║
+║                                                                                                                                                                         ║
+║ Document Encoding           : UTF-8, UNIX Line Terminator                                                                                                               ║
+║ Document Best Viewed/Printed: Page{Ledger, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                                                         ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                            Revision History                                                                             ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                                                                     ║
+║                                                                                                                                                                         ║
+║  1.00.33118.xx (27 Nov 18) - Initial Creation {J. Laccone}                                                                                                              ║
+║                                 Added sections                                                                                                                          ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                Reference                                                                                ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║   syslog - Wikipedia                                                                                                                                                    ║
+║   ------------------                                                                                                                                                    ║
+║      https://en.wikipedia.org/wiki/Syslog                                                                                                                               ║
+║                                                                                                                                                                         ║
+║   RFC 3164 - The BSD syslog Protocol                                                                                                                                    ║
+║   ----------------------------------                                                                                                                                    ║
+║      https://tools.ietf.org/html/rfc3164                                                                                                                                ║
+║                                                                                                                                                                         ║
+║   RFC 5424 - The Syslog Protocol                                                                                                                                        ║
+║   ------------------------------                                                                                                                                        ║
+║      https://tools.ietf.org/html/rfc5424                                                                                                                                ║
+║                                                                                                                                                                         ║
+║   RFC 5426 - Transmission of Syslog Messages over UDP                                                                                                                   ║
+║   ---------------------------------------------------                                                                                                                   ║
+║      https://tools.ietf.org/html/rfc5426                                                                                                                                ║
+║                                                                                                                                                                         ║
+║                                                                                                                                                                         ║
+║   TDRA Collection                                                                                                                                                       ║
+║   ---------------                                                                                                                                                       ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_docs/Data_Library/approved_baseline/Design_Documents/FDDs/FDDs_Latest/044a_TDRA_Collection_FDD.docx                  ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_docs/Data_Library/trunk/Design_Documents/FDDs/FDDs_Latest/044a_TDRA_Collection_FDD.docx                              ║
+║                                                                                                                                                                         ║
+║   TDRA Statistics & Analysis                                                                                                                                            ║
+║   --------------------------                                                                                                                                            ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_docs/Data_Library/approved_baseline/Design_Documents/FDDs/FDDs_Latest/044b_TDRA_Statistics_&_Analysis_FDD.docx       ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_docs/Data_Library/trunk/Design_Documents/FDDs/FDDs_Latest/044b_TDRA_Statistics_&_Analysis_FDD.docx                   ║
+║                                                                                                                                                                         ║
+║   TDRA Reduction                                                                                                                                                        ║
+║   --------------                                                                                                                                                        ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_docs/Data_Library/approved_baseline/Design_Documents/FDDs/FDDs_Latest/044c_TDRA_Reduction_FDD.docx                   ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_docs/Data_Library/trunk/Design_Documents/FDDs/FDDs_Latest/044c_TDRA_Reduction_FDD.docx                               ║
+║                                                                                                                                                                         ║
+║   TDRA General                                                                                                                                                          ║
+║   ------------                                                                                                                                                          ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_docs/Data_Library/approved_baseline/Design_Documents/FDDs/FDDs_Latest/044d_TDRA_General_FDD.docx                     ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_docs/Data_Library/trunk/Design_Documents/FDDs/FDDs_Latest/44d_TDRA_General_FDD.docx                                  ║
+║                                                                                                                                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+
+   Capture All Packets With TCPDUMP And Display Them With Wireshark Locally (Exclude ssh)
+   ──────────────────────────────────────────────────────────────────────────────────────
+      1. Open a terminal window on either one of the endpoint devices or a device able to "see" the packet traffic.
+      2. Verify (or install) an ssh key for the local user/machine on the endpoint device. This is required to allow the
+         packet data to travel from the endpoint device to your local machine
+      3. Run the following command to generate a packet capture and pipe the output to a local wireshark
+
+            ssh <user>@<ip-address> "tcpdump <options> -w -" | wireshark <options> -i -
+            (ex: ssh root@172.24.24.159 "tcpdump -Uvv -s 0 -A -i eth0 port 514 -w -" | wireshark -k -s 262144 -i -)
+
+
+   Message Format
+   ──────────────
+      Facility Code : 0 - user (User-level messages)
+      Severity Level: 6 - info (Informational)
+      Message       : <date> <time> <process><pid>: <msg>,<data-1>,<data-2>,<data-n>
+                      (Message is described in detail in FDD-044a, section 4.3.1.1)

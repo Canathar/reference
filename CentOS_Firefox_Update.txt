@@ -1,0 +1,114 @@
+╔══════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ CentOS_Firefox_Update.txt                                                                            ║
+║                                                                                                      ║
+║ Document Best Viewed/Printed: Page{Letter, Portrait, 0.25in Side Margins}                            ║
+║                               Font{Monospace Font, Normal, 10pt}                                     ║
+║                                                                                                      ║
+╠══════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                          Revision History                                            ║
+╠══════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                  ║
+║                                                                                                      ║
+║  1.00.28516.xx (10 Oct 16) - Initial Creation {J. Laccone}                                           ║
+║                                 Added header, added reference data                                   ║
+║                                                                                                      ║
+╠══════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                              Reference                                               ║
+╠══════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                      ║
+║   Basic Procedure Source Site                                                                        ║
+║   ───────────────────────────                                                                        ║
+║      http://tecadmin.net/install-firefox-on-linux/                                                   ║
+║                                                                                                      ║
+║   Adding Application Shorcut Source Site                                                             ║
+║   ──────────────────────────────────────                                                             ║
+║      http://unix.stackexchange.com/questions/70460/how-to-add-an-item-to-the-applications-menu       ║
+║                                                                                                      ║
+╚══════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Upgrade Procedure
+   ─────────────────
+
+   1. Open a terminal
+
+   2. Login as root, by typing the following command at the terminal prompt
+
+         su
+
+   3. Change directory by typing the following command at the terminal prompt
+
+          cd ~/Downloads
+
+   4. Find the downlaod location for the Firefox release you desire. The download location can be found
+      by using the exiting Firefox to navigate the Mozilla FTP site. All ESR releases will have the
+      esr suffix, all commercial releases will just have the release number. The lab machines are
+      64bit machines and we want the US English version of Firefox.
+
+      Base Location For Firefox Releases
+      ──────────────────────────────────
+      http://ftp.mozilla.org/pub/firefox/releases/
+
+      Example Firefox ESR Release URL (May NOT be the newest)
+      ───────────────────────────────────────────────────────
+      http://ftp.mozilla.org/pub/firefox/releases/45.4.0esr/linux-x86_64/en-US/firefox-45.4.0esr.tar.bz2
+
+      Example Firefox Commercial Release URL (May NOT be the newest)
+      ──────────────────────────────────────────────────────────────
+      http://ftp.mozilla.org/pub/firefox/releases/49.0.1/linux-x86_64/en-US/firefox-49.0.1.tar.bz2
+
+   5. Download the desired release by typing the following command at the terminal prompt
+
+         wget <release URL>
+
+   6. Remove the existing Firefox by typing the following command at the terminal prompt
+
+         yum remove firefox
+
+   7. Copy the downloaded file to a common area for extraction by typing the following command at the
+      terminal prompt
+
+         cp firefox-YOUR_VERSION_HERE.tar.bz2 /usr/local
+
+   8. Change directory by typing the following command at the terminal prompt
+
+         cd /usr/local
+
+   9. Extract the archive contents by typing the following command at the terminal prompt
+
+         tar xvjf firefox-YOUR_VERSION_HERE.tar.bz2
+
+  10. Add a program link so any user can execute the program by typing the following command at the
+      terminal prompt
+
+         ln -s /usr/local/firefox/firefox /usr/bin/firefox
+
+
+   Firefox is now ready to be run from the command line by any user. To configure Firefox to have
+   links in in the Applications Menu, execute the following procedure
+
+
+   Applciation Shortcut Procedure
+   ──────────────────────────────
+
+   1. Using the same terminal as above (a terminal looged in as the root user), create a desktop
+      shortcut file by typing the following command at the terminal prompt
+
+      gedit /usr/share/applications/firefox.desktop &
+
+   2. Enter the following text into the gedit editor
+
+         [Desktop Entry]
+         Version=1.0
+         Name=Firefox
+         Exec=/usr/bin/firefox %u
+         Icon=/usr/local/firefox/browser/icons/mozicon128.png
+         Terminal=false
+         Type=Application
+         StartupNotify=true
+         Categories=Network;WebBrowser;
+         X-Desktop-File-Install-Version=0.15
+
+   3. Save the file and exit gedit
+
+
+

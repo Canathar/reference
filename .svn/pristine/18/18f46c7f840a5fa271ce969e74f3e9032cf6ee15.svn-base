@@ -1,0 +1,67 @@
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ Jump_Server_Modifications.txt                                                                                                                                           ║
+║                                                                                                                                                                         ║
+║ Document Best Viewed/Printed: Page{Ledger, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                                                         ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                            Revision History                                                                             ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                                                                     ║
+║                                                                                                                                                                         ║
+║  1.00.16918.xx (18 Jun 18) - Initial Creation {J. Laccone}                                                                                                              ║
+║                                 Added header, added reference data                                                                                                      ║
+║  1.01.17018.xx (19 Jun 18) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added steps, created procedure                                                                                                          ║
+║  1.02.17118.xx (20 Jun 18) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Clarified steps                                                                                                                         ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                Reference                                                                                ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║   Adding A Static Route To Linux Server                                                                                                                                 ║
+║   -------------------------------------                                                                                                                                 ║
+║      https://linuxconfig.org/how-to-add-new-static-route-on-rhel7-linux                                                                                                 ║
+║                                                                                                                                                                         ║
+║   Adding A Static Route To CentOS Server                                                                                                                                ║
+║   --------------------------------------                                                                                                                                ║
+║      https://my.esecuredata.com/index.php?/knowledgebase/article/2/add-a-static-route-on-centos                                                                         ║
+║                                                                                                                                                                         ║
+║   Using Network Manager Text User Interface                                                                                                                             ║
+║   -----------------------------------------                                                                                                                             ║
+║      https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/networking_guide/sec-networking_config_using_nmtui                                   ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                  Notes                                                                                  ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║   Network adaper configuration is stored in the following file:                                                                                                         ║
+║                                                                                                                                                                         ║
+║      /etc/sysconfig/network-scritps/ifcfg-<ethernet adapter>                                                                                                            ║
+║                                                                                                                                                                         ║
+║                                                                                                                                                                         ║
+║   Static route configuration for a network adaper is stored in the following file:                                                                                      ║
+║                                                                                                                                                                         ║
+║      /etc/sysconfig/network-scritps/route-<ethernet adapter>                                                                                                            ║
+║                                                                                                                                                                         ║
+║                                                                                                                                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Modify The Hostname
+   ═══════════════════
+      1. Open a terminal window as a root user
+      2. Display the current server hostname by typing the following command(s) into the terminal window:
+
+            hostname
+
+      3. Modify the server hostname by typing the following command(s) into the terminal window:
+
+            hostnamectl set-hostname your-new-hostname
+
+
+   Modify The Network(s)
+   ═════════════════════
+      1. Open a terminal window as a root user
+      2. Display/modify the current network configuration by typing the following command(s) into the terminal window:
+
+            nmtui

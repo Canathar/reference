@@ -1,0 +1,346 @@
+﻿╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ Handy Commands.txt                                                                                                                                                      ║
+║                                                                                                                                                                         ║
+║ Document Best Viewed/Printed: Page{Ledger, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                                                         ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                            Revision History                                                                             ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development/Update/Maintenance Update                                                                                     ║
+║                                                                                                                                                                         ║
+║  1.00.11216.xx (21 Apr 16) - Initial Creation {J. Laccone}                                                                                                              ║
+║                                 Added header, added reference data                                                                                                      ║
+║  1.01.14716.xx (26 May 16) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added header, added reference data                                                                                                      ║
+║  1.02.18816.xx (06 Jul 16) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Corrected corrupted file                                                                                                                ║
+║  1.03.34617.xx (12 Dec 17) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Expanded file width, added additional reference data                                                                                    ║
+║  1.04.35217.xx (18 Dec 17) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Expanded file width, added additional reference data                                                                                    ║
+║  1.05.12118.xx (01 May 18) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added additional reference data                                                                                                         ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                Reference                                                                                ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║                                                                                                                                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                     Red Hat Subscription Management                                                                     ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   subscription-manager refresh
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                      Red Hat Subscription Classic                                                                       ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Check the status of the Redhat network subscription
+   ───────────────────────────────────────────────────
+      rhn_check -v
+
+
+   Register the machine to the Redhat network subscription service
+   ───────────────────────────────────────────────────────────────
+      rhn_register
+
+         Login: kswatek
+         System ID: ID-1000035945
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                               Repositories                                                                              ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Display the currently configured repositories
+   ─────────────────────────────────────────────
+      yum repolist
+
+
+   Display the currently installed packages
+   ────────────────────────────────────────
+      yum list installed
+
+
+   Select A Specific Repository
+   ────────────────────────────
+      yum --noplugins --disablerepo "*" --enablerepo "<repo name>" command
+
+      e.g.
+
+         yum --noplugins --disablerepo "*" --enablerepo "epel" list available
+
+      Repositories
+      ────────────
+         CentOS-Base.repo
+            base
+            centosplus
+            contrib
+            extras
+            updates
+
+         epel
+            epel
+            epel-debuginfo
+            epel-source
+
+         rhel-source.repo
+            rhel-source
+
+         vcs21-custom-packages.repo
+            vcs21-custom-packages
+
+         vcs21-deps-devel.repo
+            vcs21-deps-devel
+
+         vcs21-os-patches.repo
+            vcs21-os-patches
+
+         wandisco-svn.repo
+            WandiscoSVN
+
+
+      yum -y install samba
+
+      yum -y install subversion
+      yum -y install subversion-javahl
+
+      yum -y install tftp-server
+
+
+
+
+      yum --disablerepo "*" --enablerepo "base" install kernel-headers
+      uname -r
+      yum --disablerepo "*" --enablerepo "base" update kernel
+
+
+
+
+   Copy capture from PBI sip proxy
+   ───────────────────────────────
+      scp root@172.24.24.82:/tmp/jjl_stuff.pcap /tftpboot/captures/sipproxy-01-pbi-p_07062016_00.pcap
+
+
+   Copy capture from SFB sip proxy
+   ───────────────────────────────
+      scp root@172.24.24.22:/tmp/jjl_stuff.pcap /tftpboot/captures/sipproxy-01-sfb_07062016_00.pcap
+
+
+rpm -qa | grep samba
+
+
+
+
+https://lnsvr0011.cs.myharris.net/repositories/ion/vcs21/irad/branches/dev/jlaccone
+
+
+tar -cvf <filename> * --exclude=<dir>
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                               File System                                                                               ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+#
+# /etc/fstab
+# Created by anaconda on Wed Apr 20 09:38:33 2016
+#
+# Accessible filesystems, by reference, are maintained under '/dev/disk'
+# See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info
+#
+/dev/vg00/root                              /                       ext3    defaults                                                                           1 1
+UUID=5aabd36e-8a37-460d-8082-8fd1fc4516b6   /boot                   ext3    defaults                                                                           1 2
+/dev/mapper/vg00-scratch                    /scratchnobackup        ext3    defaults                                                                           1 2
+/dev/mapper/vg00-tmp                        /tmp                    ext3    defaults                                                                           1 2
+/dev/mapper/vg00-var                        /var                    ext3    defaults                                                                           1 2
+/dev/mapper/vg00-swap                       swap                    swap    defaults                                                                           0 0
+tmpfs                                       /dev/shm                tmpfs   defaults                                                                           0 0
+devpts                                      /dev/pts                devpts  gid=5,mode=620                                                                     0 0
+sysfs                                       /sys                    sysfs   defaults                                                                           0 0
+proc                                        /proc                   proc    defaults                                                                           0 0
+//pbygfsevs01/wsv100/jlaccone               /mnt/jlaccone           cifs    rw,noauto,username=jlaccone,nounix,iocharset=utf8,file_mode=0777,dir_mode=0777     0 0
+
+   Mount new location once fstab is modified
+   ─────────────────────────────────────────
+      mount -t cifs -o user=jlaccone //pbygfsevs01/wsv100/jlaccone /mnt/jlaccone
+
+
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                               Connection                                                                                ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Linux SSH Tunnel
+   ────────────────
+      https://community.time4vps.eu/discussion/120/how-to-connect-to-vnc-server-ussing-ssh-tunnel
+
+      ssh -L 5901:localhost:5901 -N -C -f -l vncuser IP_of_the_server
+      (ex: ssh -L 5904:localhost:5904 -N -C -l jlaccone 10.144.16.155)
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                  Search                                                                                 ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+
+   nslookup -type=ns tpa-p.atct.ionharris.com
+
+
+   Search for text in files
+   ────────────────────────
+      https://stackoverflow.com/questions/16956810/how-do-i-find-all-files-containing-specific-text-on-linux
+
+      grep -rnw . -e 'prepare_install'
+
+
+   VectorCAST Unit Test Breakdown
+   ──────────────────────────────
+      1. Open a terminal window as a non-root user
+      2. Change to your local source code repository VectorCAST directory by typing the following command(s) into the terminal window:
+
+            cd <local-src-directory>/ccu/base/tools/vcast/VCS21/environment
+            (ex: /data/dataworkspace/trunk/ccu/base/tools/vcast/VCS21/environment)
+
+      3. Search for the total number of test cases written by typing the following command(s) into the terminal window:
+
+            grep -rnw . -e '-- Test Case:' | wc -l
+
+      4. Search for the total number of auto-generated test cases written by typing the following command(s) into the terminal window:
+
+            grep -rnw . -e '-- Test Case: BASIS' | wc -l
+
+      5. Search for the total number of manual test cases written by typing the following command(s) into the terminal window:
+
+            grep -rnw . -e '-- Test Case:' | grep -v 'BASIS' | wc -l
+
+      6. Search for the approximate total number of RIU test cases written by typing the following command(s) into the terminal window:
+
+            grep -rnw . --include '*RIU*' -e '-- Test Case:' | wc -l
+            (NOTE: This will only capture tests denoted with the text RIU present in the environment)
+
+      7. Search for the approximate total number of RIU auto-generated test cases written by typing the following command(s) into the terminal window:
+
+            grep -rnw . --include '*RIU*' -e '-- Test Case: BASIS' | wc -l
+            (NOTE: This will only capture tests denoted with the text RIU present in the environment)
+
+      8. Search for the approximate total number of RIU manual test cases written by typing the following command(s) into the terminal window:
+
+            grep -rnw . --include '*RIU*' -e '-- Test Case:' | grep -v 'BASIS' | wc -l
+            (NOTE: This will only capture tests denoted with the text RIU present in the environment)
+
+      9. Search for the approximate total number of RMG test cases written by typing the following command(s) into the terminal window:
+
+            grep -rnw . --include '*RMG*' -e '-- Test Case:' | wc -l
+            (NOTE: This will only capture tests denoted with the text RIU present in the environment)
+
+     10. Search for the approximate total number of RMG auto-generated test cases written by typing the following command(s) into the terminal window:
+
+            grep -rnw . --include '*RMG*' -e '-- Test Case: BASIS' | wc -l
+            (NOTE: This will only capture tests denoted with the text RIU present in the environment)
+
+     11. Search for the approximate total number of RMG manual test cases written by typing the following command(s) into the terminal window:
+
+            grep -rnw . --include '*RMG*' -e '-- Test Case:' | grep -v 'BASIS' | wc -l
+            (NOTE: This will only capture tests denoted with the text RIU present in the environment)
+
+
+
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                  Docker                                                                                 ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   systemctl start docker
+   systemctl status docker
+
+   docker info
+
+
+   Work with images
+   ────────────────
+
+      docker images
+
+      docker image ls
+      docker image rm <image-id>
+
+
+   Work with containers
+   ────────────────────
+
+      docker ps -a
+      docker container ls
+      docker container rm <container-id>
+
+
+   docker search <package-name>
+   docker pull <package-name>
+
+
+   Building Images
+   ───────────────
+
+      docker build -t <tag> <source-dir>
+
+      docker build -t hats-platform .
+
+
+   Running An Image (Creating A Container)
+   ───────────────────────────────────────
+
+      docker run -it <container-name> <image-name>
+
+      docker run -it --name hats_test hats-platform
+      # docker run --rm -it -e "TERM=xterm-256color" --mount type=tmpfs,destination=/tmp --name hats_test hats-platform
+      # docker run -it -e "TERM=xterm-256color" --name hats_test hats-platform
+
+
+
+   docker rm `docker ps --no-trunc -a -q`
+
+
+   docker exec -it <container-id> bash
+
+
+   docker cp foo.txt mycontainer:/foo.txt
+   docker cp mycontainer:/foo.txt foo.txt
+
+
+
+   python2.7 invite_hats_UAC.py -i eth0 --conf ~/hats_cwp-002_mlbembdevnan.conf --nopcap --log -*
+
+
+
+yum install -y http://files.freeswitch.org/freeswitch-release-1-6.noarch.rpm epel-release
+yum install -y git alsa-lib-devel autoconf automake bison broadvoice-devel bzip2 curl-devel db-devel e2fsprogs-devel flite-devel g722_1-devel gcc-c++ gdbm-devel gnutls-devel ilbc2-devel ldns-devel libcodec2-devel libcurl-devel libedit-devel libidn-devel libjpeg-devel libmemcached-devel libogg-devel libsilk-devel libsndfile-devel libtheora-devel libtiff-devel libtool libuuid-devel libvorbis-devel libxml2-devel lua-devel lzo-devel mongo-c-driver-devel ncurses-devel net-snmp-devel openssl-devel opus-devel pcre-devel perl perl-ExtUtils-Embed pkgconfig portaudio-devel postgresql-devel python26-devel python-devel soundtouch-devel speex-devel sqlite-devel unbound-devel unixODBC-devel wget which yasm zlib-devel
+
+cd /usr/local/src
+git clone -b v1.6 https://freeswitch.org/stash/scm/fs/freeswitch.git freeswitch
+cd /usr/local/src/freeswitch
+./bootstrap.sh -j
+./configure -C --enable-portable-binary --enable-sctp\
+            --prefix=/usr --localstatedir=/var --sysconfdir=/etc \
+            --with-gnu-ld --with-python --with-erlang --with-openssl \
+            --enable-core-odbc-support --enable-zrtp \
+            --enable-core-pgsql-support \
+            --enable-static-v8 --disable-parallel-build-v8
+make
+make -j install
+make -j cd-sounds-install
+make -j cd-moh-install
+
+
+

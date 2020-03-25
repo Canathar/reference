@@ -1,0 +1,1430 @@
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ Backward_Compatibility_Database_Creation.txt                                                                                                                            ║
+║                                                                                                                                                                         ║
+║ Document Encoding           : UTF-8, UNIX Line Terminator                                                                                                               ║
+║ Document Best Viewed/Printed: Page{Ledger, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                                                         ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                            Revision History                                                                             ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                                                                     ║
+║                                                                                                                                                                         ║
+║  1.00.35418.xx (20 Nov 18) - Initial Creation {J. Laccone}                                                                                                              ║
+║                                 Added sections                                                                                                                          ║
+║  1.01.00719.xx (07 Jan 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Corrected SQL to allow it to be run from any location                                                                                   ║
+║  1.02.00819.xx (08 Jan 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Modified GenerateBuildXML to add additional values                                                                                      ║
+║  1.03.00919.xx (09 Jan 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Updated documentation                                                                                                                   ║
+║  1.04.01619.xx (16 Jan 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added LM components                                                                                                                     ║
+║  1.05.02219.xx (19 Jan 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Change key for SNMP to Vcs21SnmpParser                                                                                                  ║
+║  1.06.02819.xx (28 Jan 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added RMG                                                                                                                               ║
+║                                 Added default data                                                                                                                      ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                              Reference                                                                                  ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                Notes                                                                                    ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║   Backward Compatibility Build System                                                                                                                                   ║
+║   -----------------------------------                                                                                                                                   ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/jlaccone/US22895/Backward_Compatibility_Build_System.txt                                 ║
+║                                                                                                                                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                      SQL Commands To Create Database                                                                    ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+DROP DATABASE IF EXISTS `builds`;
+CREATE DATABASE builds;
+GRANT ALL ON db.builds to root@localhost;
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                       SQL Commands To Create Tables                                                                     ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+# ------------------------------------------------------------------------------------------------------
+# -- Build Table                                                                                      --
+# ------------------------------------------------------------------------------------------------------
+DROP TABLE IF EXISTS `builds`.`build`;
+
+CREATE TABLE `builds`.`build` (
+  `id` bigint(20) unsigned NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `buildnum` int NOT NULL,
+  `date` timestamp NOT NULL,
+  `previous-release-id` varchar(20) NOT NULL,
+  `current-release-id` varchar(20) NOT NULL,
+  UNIQUE KEY `id` (`id`),
+  UNIQUE KEY `key_Date_Release` (`date`, `current-release-id`, `previous-release-id` )
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+
+# ------------------------------------------------------------------------------------------------------
+# -- CWP Tables                                                                                       --
+# ------------------------------------------------------------------------------------------------------
+DROP TABLE IF EXISTS `builds`.`device-cwp-lm-interface`;
+
+CREATE TABLE `builds`.`device-cwp-lm-interface` (
+  `id` bigint(20) unsigned NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `release-id` varchar(20) NOT NULL,
+  `tdra-version` varchar(20) NOT NULL,
+  `vcs21-multicast-version` varchar(20) NOT NULL,
+  `vcs21-snmp-parser-version` varchar(20) NOT NULL,
+  `xml-config-version` varchar(20) NOT NULL,
+  UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+DROP TABLE IF EXISTS `builds`.`device-cwp-sip-interface`;
+
+CREATE TABLE `builds`.`device-cwp-sip-interface` (
+  `id` bigint(20) unsigned NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `release-id` varchar(20) NOT NULL,
+  `r2s-version` varchar(20) NOT NULL,
+  `rtp-version` varchar(20) NOT NULL,
+  `rtsp-version` varchar(20) NOT NULL,
+  `sip-version` varchar(20) NOT NULL,
+  UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+
+# ------------------------------------------------------------------------------------------------------
+# -- RMG Tables                                                                                       --
+# ------------------------------------------------------------------------------------------------------
+DROP TABLE IF EXISTS `builds`.`device-rmg-lm-interface`;
+
+CREATE TABLE `builds`.`device-rmg-lm-interface` (
+  `id` bigint(20) unsigned NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `release-id` varchar(20) NOT NULL,
+  `tdra-version` varchar(20) NOT NULL,
+  `vcs21-multicast-version` varchar(20) NOT NULL,
+  `vcs21-snmp-parser-version` varchar(20) NOT NULL,
+  `xml-config-version` varchar(20) NOT NULL,
+  UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+DROP TABLE IF EXISTS `builds`.`device-rmg-sip-interface`;
+
+CREATE TABLE `builds`.`device-rmg-sip-interface` (
+  `id` bigint(20) unsigned NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `release-id` varchar(20) NOT NULL,
+  `r2s-version` varchar(20) NOT NULL,
+  `rtp-version` varchar(20) NOT NULL,
+  `rtsp-version` varchar(20) NOT NULL,
+  `sip-version` varchar(20) NOT NULL,
+  UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+
+# ------------------------------------------------------------------------------------------------------
+# -- SIPCONF Tables                                                                                   --
+# ------------------------------------------------------------------------------------------------------
+DROP TABLE IF EXISTS `builds`.`device-sipconf-lm-interface`;
+
+CREATE TABLE `builds`.`device-sipconf-lm-interface` (
+  `id` bigint(20) unsigned NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `release-id` varchar(20) NOT NULL,
+  `vcs21-snmp-parser-version` varchar(20) NOT NULL,
+  `xml-config-version` varchar(20) NOT NULL,
+  UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+DROP TABLE IF EXISTS `builds`.`device-sipconf-sip-interface`;
+
+CREATE TABLE `builds`.`device-sipconf-sip-interface` (
+  `id` bigint(20) unsigned NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `release-id` varchar(20) NOT NULL,
+  `rtp-version` varchar(20) NOT NULL,
+  `rtsp-version` varchar(20) NOT NULL,
+  `sip-version` varchar(20) NOT NULL,
+  UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+
+# ------------------------------------------------------------------------------------------------------
+# -- SIPPROXY Tables                                                                                  --
+# ------------------------------------------------------------------------------------------------------
+DROP TABLE IF EXISTS `builds`.`device-sipproxy-lm-interface`;
+
+CREATE TABLE `builds`.`device-sipproxy-lm-interface` (
+  `id` bigint(20) unsigned NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `release-id` varchar(20) NOT NULL,
+  `vcs21-snmp-parser-version` varchar(20) NOT NULL,
+  `xml-config-version` varchar(20) NOT NULL,
+  UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+DROP TABLE IF EXISTS `builds`.`device-sipproxy-sip-interface`;
+
+CREATE TABLE `builds`.`device-sipproxy-sip-interface` (
+  `id` bigint(20) unsigned NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `release-id` varchar(20) NOT NULL,
+  `sip-version` varchar(20) NOT NULL,
+  UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+
+# ------------------------------------------------------------------------------------------------------
+# -- TMG Tables                                                                                       --
+# ------------------------------------------------------------------------------------------------------
+DROP TABLE IF EXISTS `builds`.`device-tmg-lm-interface`;
+
+CREATE TABLE `builds`.`device-tmg-lm-interface` (
+  `id` bigint(20) unsigned NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `release-id` varchar(20) NOT NULL,
+  `tdra-version` varchar(20) NOT NULL,
+  `vcs21-multicast-version` varchar(20) NOT NULL,
+  `vcs21-snmp-parser-version` varchar(20) NOT NULL,
+  `xml-config-version` varchar(20) NOT NULL,
+  UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+DROP TABLE IF EXISTS `builds`.`device-tmg-sip-interface`;
+
+CREATE TABLE `builds`.`device-tmg-sip-interface` (
+  `id` bigint(20) unsigned NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `release-id` varchar(20) NOT NULL,
+  `rtp-version` varchar(20) NOT NULL,
+  `sip-version` varchar(20) NOT NULL,
+  UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                  SQL Commands To Create Stored Procedures                                                               ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+# ------------------------------------------------------------------------------------------------------
+# -- GenerateBuildXML                                                                                 --
+# ------------------------------------------------------------------------------------------------------
+DROP PROCEDURE IF EXISTS `builds`.`GenerateBuildXML`;
+
+DELIMITER $$
+
+CREATE PROCEDURE `builds`.`GenerateBuildXML` (IN buildNumber INT, INOUT buildXML TEXT)
+BEGIN
+
+   -- File Variables
+   DECLARE fileName TEXT;
+   DECLARE copyYear TEXT;
+   DECLARE curDate TEXT;
+
+   DECLARE xmlHeader TEXT;
+
+   -- Build Variables
+   DECLARE curRelease TEXT;
+   DECLARE preRelease TEXT;
+   DECLARE buildDateTime TEXT;
+
+   -- Set the file name
+   SET fileName = 'build_data.xml';
+
+   -- Obtain the current date data
+   SELECT DATE_FORMAT(CURDATE(), '%d%b%y') INTO curDate;
+   SELECT DATE_FORMAT(CURDATE(), '%Y') INTO copyYear;
+
+
+   # ---------------------------------------------------------------------------------------------------
+   # --                                 Generate the header for the XML                               --
+   # ---------------------------------------------------------------------------------------------------
+   SET xmlHeader = '<?xml version="1.0" encoding="UTF-8"?>\n';
+   SET buildXML = xmlHeader;
+
+   -- Add the identification data
+   SELECT CONCAT(buildXML, '<!--\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '   Copyright (C) Harris Corporation ', copyYear, '\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '   Harris Proprietary Information\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '   FILE:              ', fileName, '\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '   DESCRIPTION:       This file contains protocol version data and release version reference data\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '   NOTES:\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '                                               LM INTERFACE\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '                                               ────────────\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '      Protocol            |   cwp   |   rmg   |   tmg   |    sipproxy   |   sipconf   |\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '      ────────             ───────── ───────── ───────── ─────────────── ─────────────\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '      tdra                |    x    |    x    |    x    |               |             |\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '      vcs21-multicast     |    x    |    x    |    x    |               |             |\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '      vcs21-snmp-parser   |    x    |    x    |    x    |       x       |      x      |\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '      xml-config          |    x    |    x    |    x    |       x       |      x      |\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '                                               SIP INTERFACE\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '                                               ─────────────\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '      Protocol            |   cwp   |   rmg   |   tmg   |    sipproxy   |   sipconf   |\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '      ────────             ───────── ───────── ───────── ─────────────── ─────────────\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '      r2s                 |    x    |    x    |         |               |             |\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '      rtp                 |    x    |    x    |    x    |               |      x      |\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '      rtsp                |    x    |    x    |         |               |      x      |\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '      sip                 |    x    |    x    |    x    |       x       |      x      |\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '   SOFTWARE HISTORY:\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '    Date     US/DE    Name        Description\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '    ───────  ───────  ──────────  ───────────────────────────────────────────────────────────────────\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '    ', curDate, '    ───    jenkins     Generated XML data file (this file) based on build: ', buildNumber, '\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '  ******************************************************************************************************\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '-->\n') INTO buildXML;
+
+   -- Add the root start tag
+   SELECT CONCAT(buildXML, '<build>\n') INTO buildXML;
+
+
+   # ---------------------------------------------------------------------------------------------------
+   # --                                     Retreive the build data                                   --
+   # ---------------------------------------------------------------------------------------------------
+   SELECT `date`, `previous-release-id`, `current-release-id`
+   INTO   buildDateTime, preRelease, curRelease
+   FROM   `build`
+   WHERE `buildnum` = buildNumber
+   LIMIT 1;
+
+   -- Add the build data to the XML
+   SELECT CONCAT(buildXML, '   <buildnum>', buildNumber, '</buildnum>\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '   <date>', buildDateTime, '</date>\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '   <release-versions>\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '      <current>', curRelease, '</current>\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '      <previous>', preRelease, '</previous>\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '   </release-versions>\n') INTO buildXML;
+
+
+   # ---------------------------------------------------------------------------------------------------
+   # --                                Generate the embedded section                                  --
+   # ---------------------------------------------------------------------------------------------------
+   -- Generate the section header XML
+   SELECT CONCAT(buildXML, '   <emb>\n') INTO buildXML;
+
+   -- Generate the cwp device XML
+   CALL GenerateCwpXml(TRUE, curRelease, preRelease, buildXML);
+
+   -- Generate the rmg device XML
+   CALL GenerateRmgXml(TRUE, curRelease, preRelease, buildXML);
+
+   -- Generate the sipconf device XML
+   CALL GenerateSipConfXml(TRUE, curRelease, preRelease, buildXML);
+
+   -- Generate the sipproxy device XML
+   CALL GenerateSipProxyXml(TRUE, curRelease, preRelease, buildXML);
+
+   -- Generate the tmg device XML
+   CALL GenerateTmgXml(TRUE, curRelease, preRelease, buildXML);
+
+   -- Generate the section footer XML
+   SELECT CONCAT(buildXML, '   </emb>\n') INTO buildXML;
+
+
+   # ---------------------------------------------------------------------------------------------------
+   # --                               Generate the local manager section                              --
+   # ---------------------------------------------------------------------------------------------------
+   -- Generate the section header XML
+   SELECT CONCAT(buildXML, '   <lm>\n') INTO buildXML;
+
+   -- Generate the cwp device XML
+   CALL GenerateCwpXml(FALSE, curRelease, preRelease, buildXML);
+
+   -- Generate the rmg device XML
+   CALL GenerateRmgXml(FALSE, curRelease, preRelease, buildXML);
+
+   -- Generate the sipconf device XML
+   CALL GenerateSipConfXml(FALSE, curRelease, preRelease, buildXML);
+
+   -- Generate the sipproxy device XML
+   CALL GenerateSipProxyXml(FALSE, curRelease, preRelease, buildXML);
+
+   -- Generate the tmg device XML
+   CALL GenerateTmgXml(FALSE, curRelease, preRelease, buildXML);
+
+   -- Generate the section footer XML
+   SELECT CONCAT(buildXML, '   </lm>\n') INTO buildXML;
+
+   -- Add the root end tag
+   SELECT CONCAT(buildXML, '</build>\n') INTO buildXML;
+
+END
+$$
+
+DELIMITER ;
+
+
+# ------------------------------------------------------------------------------------------------------
+# -- GenerateCwpXml                                                                                   --
+# ------------------------------------------------------------------------------------------------------
+DROP PROCEDURE IF EXISTS `builds`.`GenerateCwpXml`;
+
+DELIMITER $$
+
+CREATE PROCEDURE `builds`.`GenerateCwpXml` (
+   IN isEmb BOOLEAN,
+   IN curRelease TEXT,
+   IN preRelease TEXT,
+   INOUT buildXML TEXT)
+BEGIN
+
+   -- Device start tag
+   SELECT CONCAT(buildXML, '      <cwp>\n') INTO buildXML;
+
+   # ---------------------------------------------------------------------------------------------------
+   # --                        Retreive the current version protocol data                             --
+   # ---------------------------------------------------------------------------------------------------
+   SELECT CONCAT(buildXML, '         <current>\n') INTO buildXML;
+
+   -- For emb devices, add interface tags
+   IF (isEmb IS TRUE) THEN
+
+      SELECT CONCAT(buildXML, '            <lm-interface-versions>\n') INTO buildXML;
+
+   END IF;
+
+   -- Local Manager Interface Version Data
+   CALL GenerateCwpLmInfXml(curRelease, buildXML);
+
+   -- For emb devices, add interface tags and generate non-lm interfaces
+   IF (isEmb IS TRUE) THEN
+
+      SELECT CONCAT(buildXML, '            </lm-interface-versions>\n') INTO buildXML;
+      SELECT CONCAT(buildXML, '            <sip-interface-versions>\n') INTO buildXML;
+
+      -- SIP Interface Version Data
+      CALL GenerateCwpSipInfXml(curRelease, buildXML);
+
+      SELECT CONCAT(buildXML, '            </sip-interface-versions>\n') INTO buildXML;
+
+   END IF;
+
+   SELECT CONCAT(buildXML, '         </current>\n') INTO buildXML;
+
+
+   # ---------------------------------------------------------------------------------------------------
+   # --                        Retreive the previous version protocol data                            --
+   # ---------------------------------------------------------------------------------------------------
+   SELECT CONCAT(buildXML, '         <previous>\n') INTO buildXML;
+
+   -- For emb devices, add interface tags
+   IF (isEmb IS TRUE) THEN
+
+      SELECT CONCAT(buildXML, '            <lm-interface-versions>\n') INTO buildXML;
+
+   END IF;
+
+   -- Local Manager Interface Version Data
+   CALL GenerateCwpLmInfXml(preRelease, buildXML);
+
+   -- For emb devices, add interface tags and generate non-lm interfaces
+   IF (isEmb IS TRUE) THEN
+
+      SELECT CONCAT(buildXML, '            </lm-interface-versions>\n') INTO buildXML;
+      SELECT CONCAT(buildXML, '            <sip-interface-versions>\n') INTO buildXML;
+
+      -- SIP Interface Version Data
+      CALL GenerateCwpSipInfXml(preRelease, buildXML);
+
+      SELECT CONCAT(buildXML, '            </sip-interface-versions>\n') INTO buildXML;
+
+   END IF;
+
+   SELECT CONCAT(buildXML, '         </previous>\n') INTO buildXML;
+
+   -- Device end tag
+   SELECT CONCAT(buildXML, '      </cwp>\n') INTO buildXML;
+
+END
+$$
+
+DELIMITER ;
+
+
+# ------------------------------------------------------------------------------------------------------
+# -- GenerateCwpLmInfXml                                                                              --
+# ------------------------------------------------------------------------------------------------------
+DROP PROCEDURE IF EXISTS `builds`.`GenerateCwpLmInfXml`;
+
+DELIMITER $$
+
+CREATE PROCEDURE `builds`.`GenerateCwpLmInfXml` (IN relId TEXT, INOUT buildXML TEXT)
+BEGIN
+
+   -- Device Variables
+   DECLARE tdraVer TEXT;
+   DECLARE vcs21MultiVer TEXT;
+   DECLARE vcs21SnmpParserVer TEXT;
+   DECLARE xmlConfigVer TEXT;
+
+   --  Query the CWP for LM Interface version data
+   SELECT `tdra-version`, `vcs21-multicast-version`, `vcs21-snmp-parser-version`, `xml-config-version`
+   INTO   tdraVer, vcs21MultiVer, vcs21SnmpParserVer, xmlConfigVer
+   FROM   `device-cwp-lm-interface`
+   WHERE `release-id` = relId
+   LIMIT 1;
+
+   -- Add the device version data to the XML
+   SELECT CONCAT(buildXML, '               <tdra>', tdraVer, '</tdra>\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '               <vcs21-multicast>', vcs21MultiVer, '</vcs21-multicast>\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '               <vcs21-snmp-parser>', vcs21SnmpParserVer, '</vcs21-snmp-parser>\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '               <xml-config>', xmlConfigVer, '</xml-config>\n') INTO buildXML;
+
+END
+$$
+
+DELIMITER ;
+
+
+# ------------------------------------------------------------------------------------------------------
+# -- GenerateCwpSipInfXml                                                                             --
+# ------------------------------------------------------------------------------------------------------
+DROP PROCEDURE IF EXISTS `builds`.`GenerateCwpSipInfXml`;
+
+DELIMITER $$
+
+CREATE PROCEDURE `builds`.`GenerateCwpSipInfXml` (IN relId TEXT, INOUT buildXML TEXT)
+BEGIN
+
+   -- Device Variables
+   DECLARE r2sVer TEXT;
+   DECLARE rtpVer TEXT;
+   DECLARE rtspVer TEXT;
+   DECLARE sipVer TEXT;
+
+   --  Query the CWP for SIP Interface version data
+   SELECT `r2s-version`, `rtp-version`, `rtsp-version`, `sip-version`
+   INTO   r2sVer, rtpVer, rtspVer, sipVer
+   FROM   `device-cwp-sip-interface`
+   WHERE `release-id` = relId
+   LIMIT 1;
+
+   -- Add the device version data to the XML
+   SELECT CONCAT(buildXML, '               <r2s>', r2sVer, '</r2s>\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '               <rtp>', rtpVer, '</rtp>\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '               <rtsp>', rtspVer, '</rtsp>\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '               <sip>', sipVer, '</sip>\n') INTO buildXML;
+
+END
+$$
+
+DELIMITER ;
+
+
+
+# ------------------------------------------------------------------------------------------------------
+# -- GenerateRmgXml                                                                                   --
+# ------------------------------------------------------------------------------------------------------
+DROP PROCEDURE IF EXISTS `builds`.`GenerateRmgXml`;
+
+DELIMITER $$
+
+CREATE PROCEDURE `builds`.`GenerateRmgXml` (
+   IN isEmb BOOLEAN,
+   IN curRelease TEXT,
+   IN preRelease TEXT,
+   INOUT buildXML TEXT)
+BEGIN
+
+   -- Device start tag
+   SELECT CONCAT(buildXML, '      <rmg>\n') INTO buildXML;
+
+   # ---------------------------------------------------------------------------------------------------
+   # --                        Retreive the current version protocol data                             --
+   # ---------------------------------------------------------------------------------------------------
+   SELECT CONCAT(buildXML, '         <current>\n') INTO buildXML;
+
+   -- For emb devices, add interface tags
+   IF (isEmb IS TRUE) THEN
+
+      SELECT CONCAT(buildXML, '            <lm-interface-versions>\n') INTO buildXML;
+
+   END IF;
+
+   -- Local Manager Interface Version Data
+   CALL GenerateRmgLmInfXml(curRelease, buildXML);
+
+   -- For emb devices, add interface tags and generate non-lm interfaces
+   IF (isEmb IS TRUE) THEN
+
+      SELECT CONCAT(buildXML, '            </lm-interface-versions>\n') INTO buildXML;
+      SELECT CONCAT(buildXML, '            <sip-interface-versions>\n') INTO buildXML;
+
+      -- SIP Interface Version Data
+      CALL GenerateRmgSipInfXml(curRelease, buildXML);
+
+      SELECT CONCAT(buildXML, '            </sip-interface-versions>\n') INTO buildXML;
+
+   END IF;
+
+   SELECT CONCAT(buildXML, '         </current>\n') INTO buildXML;
+
+
+   # ---------------------------------------------------------------------------------------------------
+   # --                        Retreive the previous version protocol data                            --
+   # ---------------------------------------------------------------------------------------------------
+   SELECT CONCAT(buildXML, '         <previous>\n') INTO buildXML;
+
+   -- For emb devices, add interface tags
+   IF (isEmb IS TRUE) THEN
+
+      SELECT CONCAT(buildXML, '            <lm-interface-versions>\n') INTO buildXML;
+
+   END IF;
+
+   -- Local Manager Interface Version Data
+   CALL GenerateRmgLmInfXml(preRelease, buildXML);
+
+   -- For emb devices, add interface tags and generate non-lm interfaces
+   IF (isEmb IS TRUE) THEN
+
+      SELECT CONCAT(buildXML, '            </lm-interface-versions>\n') INTO buildXML;
+      SELECT CONCAT(buildXML, '            <sip-interface-versions>\n') INTO buildXML;
+
+      -- SIP Interface Version Data
+      CALL GenerateRmgSipInfXml(preRelease, buildXML);
+
+      SELECT CONCAT(buildXML, '            </sip-interface-versions>\n') INTO buildXML;
+
+   END IF;
+
+   SELECT CONCAT(buildXML, '         </previous>\n') INTO buildXML;
+
+   -- Device end tag
+   SELECT CONCAT(buildXML, '      </rmg>\n') INTO buildXML;
+
+END
+$$
+
+DELIMITER ;
+
+
+# ------------------------------------------------------------------------------------------------------
+# -- GenerateRmgLmInfXml                                                                              --
+# ------------------------------------------------------------------------------------------------------
+DROP PROCEDURE IF EXISTS `builds`.`GenerateRmgLmInfXml`;
+
+DELIMITER $$
+
+CREATE PROCEDURE `builds`.`GenerateRmgLmInfXml` (IN relId TEXT, INOUT buildXML TEXT)
+BEGIN
+
+   -- Device Variables
+   DECLARE tdraVer TEXT;
+   DECLARE vcs21MultiVer TEXT;
+   DECLARE vcs21SnmpParserVer TEXT;
+   DECLARE xmlConfigVer TEXT;
+
+   --  Query the RMG for LM Interface version data
+   SELECT `tdra-version`, `vcs21-multicast-version`, `vcs21-snmp-parser-version`, `xml-config-version`
+   INTO   tdraVer, vcs21MultiVer, vcs21SnmpParserVer, xmlConfigVer
+   FROM   `device-rmg-lm-interface`
+   WHERE `release-id` = relId
+   LIMIT 1;
+
+   -- Add the device version data to the XML
+   SELECT CONCAT(buildXML, '               <tdra>', tdraVer, '</tdra>\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '               <vcs21-multicast>', vcs21MultiVer, '</vcs21-multicast>\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '               <vcs21-snmp-parser>', vcs21SnmpParserVer, '</vcs21-snmp-parser>\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '               <xml-config>', xmlConfigVer, '</xml-config>\n') INTO buildXML;
+
+END
+$$
+
+DELIMITER ;
+
+
+# ------------------------------------------------------------------------------------------------------
+# -- GenerateRmgSipInfXml                                                                             --
+# ------------------------------------------------------------------------------------------------------
+DROP PROCEDURE IF EXISTS `builds`.`GenerateRmgSipInfXml`;
+
+DELIMITER $$
+
+CREATE PROCEDURE `builds`.`GenerateRmgSipInfXml` (IN relId TEXT, INOUT buildXML TEXT)
+BEGIN
+
+   -- Device Variables
+   DECLARE r2sVer TEXT;
+   DECLARE rtpVer TEXT;
+   DECLARE rtspVer TEXT;
+   DECLARE sipVer TEXT;
+
+   --  Query the RMG for SIP Interface version data
+   SELECT `r2s-version`, `rtp-version`, `rtsp-version`, `sip-version`
+   INTO   r2sVer, rtpVer, rtspVer, sipVer
+   FROM   `device-rmg-sip-interface`
+   WHERE `release-id` = relId
+   LIMIT 1;
+
+   -- Add the device version data to the XML
+   SELECT CONCAT(buildXML, '               <r2s>', r2sVer, '</r2s>\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '               <rtp>', rtpVer, '</rtp>\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '               <rtsp>', rtspVer, '</rtsp>\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '               <sip>', sipVer, '</sip>\n') INTO buildXML;
+
+END
+$$
+
+DELIMITER ;
+
+
+
+# ------------------------------------------------------------------------------------------------------
+# -- GenerateSipConfXml                                                                               --
+# ------------------------------------------------------------------------------------------------------
+DROP PROCEDURE IF EXISTS `builds`.`GenerateSipConfXml`;
+
+DELIMITER $$
+
+CREATE PROCEDURE `builds`.`GenerateSipConfXml` (
+   IN isEmb BOOLEAN,
+   IN curRelease TEXT,
+   IN preRelease TEXT,
+   INOUT buildXML TEXT)
+BEGIN
+
+   -- Device start tag
+   SELECT CONCAT(buildXML, '      <sipconf>\n') INTO buildXML;
+
+   # ---------------------------------------------------------------------------------------------------
+   # --                        Retreive the current version protocol data                             --
+   # ---------------------------------------------------------------------------------------------------
+   SELECT CONCAT(buildXML, '         <current>\n') INTO buildXML;
+
+   -- For emb devices, add interface tags
+   IF (isEmb IS TRUE) THEN
+
+      SELECT CONCAT(buildXML, '            <lm-interface-versions>\n') INTO buildXML;
+
+   END IF;
+
+   -- Local Manager Interface Version Data
+   CALL GenerateSipConfLmInfXml(curRelease, buildXML);
+
+   -- For emb devices, add interface tags and generate non-lm interfaces
+   IF (isEmb IS TRUE) THEN
+
+      SELECT CONCAT(buildXML, '            </lm-interface-versions>\n') INTO buildXML;
+      SELECT CONCAT(buildXML, '            <sip-interface-versions>\n') INTO buildXML;
+
+      -- SIP Interface Version Data
+      CALL GenerateSipConfSipInfXml(curRelease, buildXML);
+
+      SELECT CONCAT(buildXML, '            </sip-interface-versions>\n') INTO buildXML;
+
+   END IF;
+
+   SELECT CONCAT(buildXML, '         </current>\n') INTO buildXML;
+
+
+   # ---------------------------------------------------------------------------------------------------
+   # --                        Retreive the previous version protocol data                            --
+   # ---------------------------------------------------------------------------------------------------
+   SELECT CONCAT(buildXML, '         <previous>\n') INTO buildXML;
+
+   -- For emb devices, add interface tags
+   IF (isEmb IS TRUE) THEN
+
+      SELECT CONCAT(buildXML, '            <lm-interface-versions>\n') INTO buildXML;
+
+   END IF;
+
+   -- Local Manager Interface Version Data
+   CALL GenerateSipConfLmInfXml(preRelease, buildXML);
+
+   -- For emb devices, add interface tags and generate non-lm interfaces
+   IF (isEmb IS TRUE) THEN
+
+      SELECT CONCAT(buildXML, '            </lm-interface-versions>\n') INTO buildXML;
+      SELECT CONCAT(buildXML, '            <sip-interface-versions>\n') INTO buildXML;
+
+      -- SIP Interface Version Data
+      CALL GenerateSipConfSipInfXml(preRelease, buildXML);
+
+      SELECT CONCAT(buildXML, '            </sip-interface-versions>\n') INTO buildXML;
+
+   END IF;
+
+   SELECT CONCAT(buildXML, '         </previous>\n') INTO buildXML;
+
+   -- Device end tag
+   SELECT CONCAT(buildXML, '      </sipconf>\n') INTO buildXML;
+
+END
+$$
+
+DELIMITER ;
+
+
+# ------------------------------------------------------------------------------------------------------
+# -- GenerateSipConfLmInfXml                                                                          --
+# ------------------------------------------------------------------------------------------------------
+DROP PROCEDURE IF EXISTS `builds`.`GenerateSipConfLmInfXml`;
+
+DELIMITER $$
+
+CREATE PROCEDURE `builds`.`GenerateSipConfLmInfXml` (IN relId TEXT, INOUT buildXML TEXT)
+BEGIN
+
+   -- Device Variables
+   DECLARE vcs21SnmpParserVer TEXT;
+   DECLARE xmlConfigVer TEXT;
+
+   --  Query the SIPCONF for LM Interface version data
+   SELECT `vcs21-snmp-parser-version`, `xml-config-version`
+   INTO   vcs21SnmpParserVer, xmlConfigVer
+   FROM   `device-sipconf-lm-interface`
+   WHERE `release-id` = relId
+   LIMIT 1;
+
+   -- Add the device version data to the XML
+   SELECT CONCAT(buildXML, '               <vcs21-snmp-parser>', vcs21SnmpParserVer, '</vcs21-snmp-parser>\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '               <xml-config>', xmlConfigVer, '</xml-config>\n') INTO buildXML;
+
+END
+$$
+
+DELIMITER ;
+
+
+# ------------------------------------------------------------------------------------------------------
+# -- GenerateSipConfSipInfXml                                                                         --
+# ------------------------------------------------------------------------------------------------------
+DROP PROCEDURE IF EXISTS `builds`.`GenerateSipConfSipInfXml`;
+
+DELIMITER $$
+
+CREATE PROCEDURE `builds`.`GenerateSipConfSipInfXml` (IN relId TEXT, INOUT buildXML TEXT)
+BEGIN
+
+   -- Device Variables
+   DECLARE rtpVer TEXT;
+   DECLARE rtspVer TEXT;
+   DECLARE sipVer TEXT;
+
+   --  Query the TMG for SIP Interface version data
+   SELECT `rtp-version`, `rtsp-version`, `sip-version`
+   INTO   rtpVer, rtspVer, sipVer
+   FROM   `device-sipconf-sip-interface`
+   WHERE `release-id` = relId
+   LIMIT 1;
+
+   -- Add the device version data to the XML
+   SELECT CONCAT(buildXML, '               <rtp>', rtpVer, '</rtp>\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '               <rtsp>', rtspVer, '</rtsp>\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '               <sip>', sipVer, '</sip>\n') INTO buildXML;
+
+END
+$$
+
+DELIMITER ;
+
+
+
+# ------------------------------------------------------------------------------------------------------
+# -- GenerateSipProxyXml                                                                              --
+# ------------------------------------------------------------------------------------------------------
+DROP PROCEDURE IF EXISTS `builds`.`GenerateSipProxyXml`;
+
+DELIMITER $$
+
+CREATE PROCEDURE `builds`.`GenerateSipProxyXml` (
+   IN isEmb BOOLEAN,
+   IN curRelease TEXT,
+   IN preRelease TEXT,
+   INOUT buildXML TEXT)
+BEGIN
+
+   -- Device start tag
+   SELECT CONCAT(buildXML, '      <sipproxy>\n') INTO buildXML;
+
+   # ---------------------------------------------------------------------------------------------------
+   # --                        Retreive the current version protocol data                             --
+   # ---------------------------------------------------------------------------------------------------
+   SELECT CONCAT(buildXML, '         <current>\n') INTO buildXML;
+
+   -- For emb devices, add interface tags
+   IF (isEmb IS TRUE) THEN
+
+      SELECT CONCAT(buildXML, '            <lm-interface-versions>\n') INTO buildXML;
+
+   END IF;
+
+   -- Local Manager Interface Version Data
+   CALL GenerateSipProxyLmInfXml(curRelease, buildXML);
+
+   -- For emb devices, add interface tags and generate non-lm interfaces
+   IF (isEmb IS TRUE) THEN
+
+      SELECT CONCAT(buildXML, '            </lm-interface-versions>\n') INTO buildXML;
+      SELECT CONCAT(buildXML, '            <sip-interface-versions>\n') INTO buildXML;
+
+      -- SIP Interface Version Data
+      CALL GenerateSipProxySipInfXml(curRelease, buildXML);
+
+      SELECT CONCAT(buildXML, '            </sip-interface-versions>\n') INTO buildXML;
+
+   END IF;
+
+   SELECT CONCAT(buildXML, '         </current>\n') INTO buildXML;
+
+
+   # ---------------------------------------------------------------------------------------------------
+   # --                        Retreive the previous version protocol data                            --
+   # ---------------------------------------------------------------------------------------------------
+   SELECT CONCAT(buildXML, '         <previous>\n') INTO buildXML;
+
+   -- For emb devices, add interface tags
+   IF (isEmb IS TRUE) THEN
+
+      SELECT CONCAT(buildXML, '            <lm-interface-versions>\n') INTO buildXML;
+
+   END IF;
+
+   -- Local Manager Interface Version Data
+   CALL GenerateSipProxyLmInfXml(preRelease, buildXML);
+
+   -- For emb devices, add interface tags and generate non-lm interfaces
+   IF (isEmb IS TRUE) THEN
+
+      SELECT CONCAT(buildXML, '            </lm-interface-versions>\n') INTO buildXML;
+      SELECT CONCAT(buildXML, '            <sip-interface-versions>\n') INTO buildXML;
+
+      -- SIP Interface Version Data
+      CALL GenerateSipProxySipInfXml(preRelease, buildXML);
+
+      SELECT CONCAT(buildXML, '            </sip-interface-versions>\n') INTO buildXML;
+
+   END IF;
+
+   SELECT CONCAT(buildXML, '         </previous>\n') INTO buildXML;
+
+   -- Device end tag
+   SELECT CONCAT(buildXML, '      </sipproxy>\n') INTO buildXML;
+
+END
+$$
+
+DELIMITER ;
+
+
+# ------------------------------------------------------------------------------------------------------
+# -- GenerateSipProxyLmInfXml                                                                         --
+# ------------------------------------------------------------------------------------------------------
+DROP PROCEDURE IF EXISTS `builds`.`GenerateSipProxyLmInfXml`;
+
+DELIMITER $$
+
+CREATE PROCEDURE `builds`.`GenerateSipProxyLmInfXml` (IN relId TEXT, INOUT buildXML TEXT)
+BEGIN
+
+   -- Device Variables
+   DECLARE vcs21SnmpParserVer TEXT;
+   DECLARE xmlConfigVer TEXT;
+
+   --  Query the SIPPROXY for LM Interface version data
+   SELECT `vcs21-snmp-parser-version`, `xml-config-version`
+   INTO   vcs21SnmpParserVer, xmlConfigVer
+   FROM   `device-sipproxy-lm-interface`
+   WHERE `release-id` = relId
+   LIMIT 1;
+
+   -- Add the device version data to the XML
+   SELECT CONCAT(buildXML, '               <vcs21-snmp-parser>', vcs21SnmpParserVer, '</vcs21-snmp-parser>\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '               <xml-config>', xmlConfigVer, '</xml-config>\n') INTO buildXML;
+
+END
+$$
+
+DELIMITER ;
+
+
+# ------------------------------------------------------------------------------------------------------
+# -- GenerateSipProxySipInfXml                                                                        --
+# ------------------------------------------------------------------------------------------------------
+DROP PROCEDURE IF EXISTS `builds`.`GenerateSipProxySipInfXml`;
+
+DELIMITER $$
+
+CREATE PROCEDURE `builds`.`GenerateSipProxySipInfXml` (IN relId TEXT, INOUT buildXML TEXT)
+BEGIN
+
+   -- Device Variables
+   DECLARE sipVer TEXT;
+
+   --  Query the SIPPROXY for SIP Interface version data
+   SELECT `sip-version`
+   INTO   sipVer
+   FROM   `device-sipproxy-sip-interface`
+   WHERE `release-id` = relId
+   LIMIT 1;
+
+   -- Add the device version data to the XML
+   SELECT CONCAT(buildXML, '               <sip>', sipVer, '</sip>\n') INTO buildXML;
+
+END
+$$
+
+DELIMITER ;
+
+
+
+# ------------------------------------------------------------------------------------------------------
+# -- GenerateTmgXml                                                                                   --
+# ------------------------------------------------------------------------------------------------------
+DROP PROCEDURE IF EXISTS `builds`.`GenerateTmgXml`;
+
+DELIMITER $$
+
+CREATE PROCEDURE `builds`.`GenerateTmgXml` (
+   IN isEmb BOOLEAN,
+   IN curRelease TEXT,
+   IN preRelease TEXT,
+   INOUT buildXML TEXT)
+BEGIN
+
+   -- Device start tag
+   SELECT CONCAT(buildXML, '      <tmg>\n') INTO buildXML;
+
+   # ---------------------------------------------------------------------------------------------------
+   # --                        Retreive the current version protocol data                             --
+   # ---------------------------------------------------------------------------------------------------
+   SELECT CONCAT(buildXML, '         <current>\n') INTO buildXML;
+
+   -- For emb devices, add interface tags
+   IF (isEmb IS TRUE) THEN
+
+      SELECT CONCAT(buildXML, '            <lm-interface-versions>\n') INTO buildXML;
+
+   END IF;
+
+   -- Local Manager Interface Version Data
+   CALL GenerateTmgLmInfXml(curRelease, buildXML);
+
+   -- For emb devices, add interface tags and generate non-lm interfaces
+   IF (isEmb IS TRUE) THEN
+
+      SELECT CONCAT(buildXML, '            </lm-interface-versions>\n') INTO buildXML;
+      SELECT CONCAT(buildXML, '            <sip-interface-versions>\n') INTO buildXML;
+
+      -- SIP Interface Version Data
+      CALL GenerateTmgSipInfXml(curRelease, buildXML);
+
+      SELECT CONCAT(buildXML, '            </sip-interface-versions>\n') INTO buildXML;
+
+   END IF;
+
+   SELECT CONCAT(buildXML, '         </current>\n') INTO buildXML;
+
+
+   # ---------------------------------------------------------------------------------------------------
+   # --                        Retreive the previous version protocol data                            --
+   # ---------------------------------------------------------------------------------------------------
+   SELECT CONCAT(buildXML, '         <previous>\n') INTO buildXML;
+
+   -- For emb devices, add interface tags
+   IF (isEmb IS TRUE) THEN
+
+      SELECT CONCAT(buildXML, '            <lm-interface-versions>\n') INTO buildXML;
+
+   END IF;
+
+   -- Local Manager Interface Version Data
+   CALL GenerateTmgLmInfXml(preRelease, buildXML);
+
+   -- For emb devices, add interface tags and generate non-lm interfaces
+   IF (isEmb IS TRUE) THEN
+
+      SELECT CONCAT(buildXML, '            </lm-interface-versions>\n') INTO buildXML;
+      SELECT CONCAT(buildXML, '            <sip-interface-versions>\n') INTO buildXML;
+
+      -- SIP Interface Version Data
+      CALL GenerateTmgSipInfXml(preRelease, buildXML);
+
+      SELECT CONCAT(buildXML, '            </sip-interface-versions>\n') INTO buildXML;
+
+   END IF;
+
+   SELECT CONCAT(buildXML, '         </previous>\n') INTO buildXML;
+
+   -- Device end tag
+   SELECT CONCAT(buildXML, '      </tmg>\n') INTO buildXML;
+
+END
+$$
+
+DELIMITER ;
+
+
+# ------------------------------------------------------------------------------------------------------
+# -- GenerateTmgLmInfXml                                                                              --
+# ------------------------------------------------------------------------------------------------------
+DROP PROCEDURE IF EXISTS `builds`.`GenerateTmgLmInfXml`;
+
+DELIMITER $$
+
+CREATE PROCEDURE `builds`.`GenerateTmgLmInfXml` (IN relId TEXT, INOUT buildXML TEXT)
+BEGIN
+
+   -- Device Variables
+   DECLARE tdraVer TEXT;
+   DECLARE vcs21MultiVer TEXT;
+   DECLARE vcs21SnmpParserVer TEXT;
+   DECLARE xmlConfigVer TEXT;
+
+   --  Query the TMG for LM Interface version data
+   SELECT `tdra-version`, `vcs21-multicast-version`, `vcs21-snmp-parser-version`, `xml-config-version`
+   INTO   tdraVer, vcs21MultiVer, vcs21SnmpParserVer, xmlConfigVer
+   FROM   `device-tmg-lm-interface`
+   WHERE `release-id` = relId
+   LIMIT 1;
+
+   -- Add the device version data to the XML
+   SELECT CONCAT(buildXML, '               <tdra>', tdraVer, '</tdra>\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '               <vcs21-multicast>', vcs21MultiVer, '</vcs21-multicast>\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '               <vcs21-snmp-parser>', vcs21SnmpParserVer, '</vcs21-snmp-parser>\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '               <xml-config>', xmlConfigVer, '</xml-config>\n') INTO buildXML;
+
+END
+$$
+
+DELIMITER ;
+
+
+# ------------------------------------------------------------------------------------------------------
+# -- GenerateTmgSipInfXml                                                                             --
+# ------------------------------------------------------------------------------------------------------
+DROP PROCEDURE IF EXISTS `builds`.`GenerateTmgSipInfXml`;
+
+DELIMITER $$
+
+CREATE PROCEDURE `builds`.`GenerateTmgSipInfXml` (IN relId TEXT, INOUT buildXML TEXT)
+BEGIN
+
+   -- Device Variables
+   DECLARE rtpVer TEXT;
+   DECLARE sipVer TEXT;
+
+   --  Query the TMG for SIP Interface version data
+   SELECT `rtp-version`, `sip-version`
+   INTO   rtpVer, sipVer
+   FROM   `device-tmg-sip-interface`
+   WHERE `release-id` = relId
+   LIMIT 1;
+
+   -- Add the device version data to the XML
+   SELECT CONCAT(buildXML, '               <rtp>', rtpVer, '</rtp>\n') INTO buildXML;
+   SELECT CONCAT(buildXML, '               <sip>', sipVer, '</sip>\n') INTO buildXML;
+
+END
+$$
+
+DELIMITER ;
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                 SQL Commands To Populate Table(s): build                                                                ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+TRUNCATE TABLE `builds`.`build`;
+
+INSERT INTO `builds`.`build`
+   (`buildnum`,`date`,`previous-release-id`,`current-release-id`)
+VALUES
+   (0,'2019-01-28 09:44:00','invalid','invalid');
+
+
+INSERT INTO `builds`.`build`
+   (`buildnum`,`date`,`previous-release-id`,`current-release-id`)
+VALUES
+   (118,'2018-12-20 16:21:00','1.17.4','2.34.8');
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                             SQL Commands To Populate Table(s): device-cwp-lm-interface, device-cwp-sip-interface                                        ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+TRUNCATE TABLE `builds`.`device-cwp-lm-interface`;
+TRUNCATE TABLE `builds`.`device-cwp-sip-interface`;
+
+
+#
+# Release 0
+#
+INSERT INTO `builds`.`device-cwp-lm-interface`
+   (`release-id`,`tdra-version`,`vcs21-multicast-version`,`vcs21-snmp-parser-version`,`xml-config-version`)
+VALUES
+   ('invalid','invalid','invalid','invalid','invalid');
+
+INSERT INTO `builds`.`device-cwp-sip-interface`
+  (`release-id`,`r2s-version`,`rtp-version`,`rtsp-version`,`sip-version`)
+VALUES
+   ('invalid','invalid','invalid','invalid','invalid');
+
+
+#
+# Release 2.34.8
+#
+INSERT INTO `builds`.`device-cwp-lm-interface`
+   (`release-id`,`tdra-version`,`vcs21-multicast-version`,`vcs21-snmp-parser-version`,`xml-config-version`)
+VALUES
+   ('2.34.8','2.4.67','26.3','1.18.25','18.1');
+
+INSERT INTO `builds`.`device-cwp-sip-interface`
+  (`release-id`,`r2s-version`,`rtp-version`,`rtsp-version`,`sip-version`)
+VALUES
+   ('2.34.8','1.0','2.1','1.0','2');
+
+
+#
+# Release 1.17.4
+#
+INSERT INTO `builds`.`device-cwp-lm-interface`
+   (`release-id`,`tdra-version`,`vcs21-multicast-version`,`vcs21-snmp-parser-version`,`xml-config-version`)
+VALUES
+   ('1.17.4','1.3.8','22.4','1.4.12','18.1');
+
+INSERT INTO `builds`.`device-cwp-sip-interface`
+  (`release-id`,`r2s-version`,`rtp-version`,`rtsp-version`,`sip-version`)
+VALUES
+   ('1.17.4','1.0','2.0','1.0','1');
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                             SQL Commands To Populate Table(s): device-rmg-lm-interface, device-rmg-sip-interface                                        ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+TRUNCATE TABLE `builds`.`device-rmg-lm-interface`;
+TRUNCATE TABLE `builds`.`device-rmg-sip-interface`;
+
+
+#
+# Release 0
+#
+INSERT INTO `builds`.`device-rmg-lm-interface`
+   (`release-id`,`tdra-version`,`vcs21-multicast-version`,`vcs21-snmp-parser-version`,`xml-config-version`)
+VALUES
+   ('invalid','invalid','invalid','invalid','invalid');
+
+INSERT INTO `builds`.`device-rmg-sip-interface`
+  (`release-id`,`r2s-version`,`rtp-version`,`rtsp-version`,`sip-version`)
+VALUES
+   ('invalid','invalid','invalid','invalid','invalid');
+
+
+#
+# Release 2.34.8
+#
+INSERT INTO `builds`.`device-rmg-lm-interface`
+   (`release-id`,`tdra-version`,`vcs21-multicast-version`,`vcs21-snmp-parser-version`,`xml-config-version`)
+VALUES
+   ('2.34.8','2.4.67','26.3','1.18.25','18.1');
+
+INSERT INTO `builds`.`device-rmg-sip-interface`
+  (`release-id`,`r2s-version`,`rtp-version`,`rtsp-version`,`sip-version`)
+VALUES
+   ('2.34.8','1.0','2.1','1.0','2');
+
+
+#
+# Release 1.17.4
+#
+INSERT INTO `builds`.`device-rmg-lm-interface`
+   (`release-id`,`tdra-version`,`vcs21-multicast-version`,`vcs21-snmp-parser-version`,`xml-config-version`)
+VALUES
+   ('1.17.4','1.3.8','22.4','1.4.12','18.1');
+
+INSERT INTO `builds`.`device-rmg-sip-interface`
+  (`release-id`,`r2s-version`,`rtp-version`,`rtsp-version`,`sip-version`)
+VALUES
+   ('1.17.4','1.0','2.0','1.0','1');
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                             SQL Commands To Populate Table(s): device-sipconf-lm-interface, device-sipconf-sip-interface                                ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+TRUNCATE TABLE `builds`.`device-sipconf-lm-interface`;
+TRUNCATE TABLE `builds`.`device-sipconf-sip-interface`;
+
+
+#
+# Release 0
+#
+INSERT INTO `builds`.`device-sipconf-lm-interface`
+   (`release-id`,`vcs21-snmp-parser-version`,`xml-config-version`)
+VALUES
+   ('invalid','invalid','invalid');
+
+INSERT INTO `builds`.`device-sipconf-sip-interface`
+  (`release-id`,`rtp-version`,`rtsp-version`,`sip-version`)
+VALUES
+   ('invalid','invalid','invalid','invalid');
+
+
+#
+# Release 2.34.8
+#
+INSERT INTO `builds`.`device-sipconf-lm-interface`
+   (`release-id`,`vcs21-snmp-parser-version`,`xml-config-version`)
+VALUES
+   ('2.34.8','1.18.25','18.1');
+
+INSERT INTO `builds`.`device-sipconf-sip-interface`
+  (`release-id`,`rtp-version`,`rtsp-version`,`sip-version`)
+VALUES
+   ('2.34.8','2.1','1.0','2');
+
+
+#
+# Release 1.17.4
+#
+INSERT INTO `builds`.`device-sipconf-lm-interface`
+   (`release-id`,`vcs21-snmp-parser-version`,`xml-config-version`)
+VALUES
+   ('1.17.4','1.4.12','18.1');
+
+INSERT INTO `builds`.`device-sipconf-sip-interface`
+  (`release-id`,`rtp-version`,`rtsp-version`,`sip-version`)
+VALUES
+   ('1.17.4','2.0','1.0','1');
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                             SQL Commands To Populate Table(s): device-sipproxy-lm-interface, device-sipproxy-sip-interface                              ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+TRUNCATE TABLE `builds`.`device-sipproxy-lm-interface`;
+TRUNCATE TABLE `builds`.`device-sipproxy-sip-interface`;
+
+
+#
+# Release 0
+#
+INSERT INTO `builds`.`device-sipproxy-lm-interface`
+   (`release-id`,`vcs21-snmp-parser-version`,`xml-config-version`)
+VALUES
+   ('invalid','invalid','invalid');
+
+INSERT INTO `builds`.`device-sipproxy-sip-interface`
+  (`release-id`,`sip-version`)
+VALUES
+   ('invalid','invalid');
+
+
+#
+# Release 2.34.8
+#
+INSERT INTO `builds`.`device-sipproxy-lm-interface`
+   (`release-id`,`vcs21-snmp-parser-version`,`xml-config-version`)
+VALUES
+   ('2.34.8','1.18.25','18.1');
+
+INSERT INTO `builds`.`device-sipproxy-sip-interface`
+  (`release-id`,`sip-version`)
+VALUES
+   ('2.34.8','2');
+
+
+#
+# Release 1.17.4
+#
+INSERT INTO `builds`.`device-sipproxy-lm-interface`
+   (`release-id`,`vcs21-snmp-parser-version`,`xml-config-version`)
+VALUES
+   ('1.17.4','1.4.12','18.1');
+
+INSERT INTO `builds`.`device-sipproxy-sip-interface`
+  (`release-id`,`sip-version`)
+VALUES
+   ('1.17.4','1');
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                             SQL Commands To Populate Table(s): device-tmg-lm-interface, device-tmg-sip-interface                                        ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+TRUNCATE TABLE `builds`.`device-tmg-lm-interface`;
+TRUNCATE TABLE `builds`.`device-tmg-sip-interface`;
+
+
+#
+# Release 0
+#
+INSERT INTO `builds`.`device-tmg-lm-interface`
+   (`release-id`,`tdra-version`,`vcs21-multicast-version`,`vcs21-snmp-parser-version`,`xml-config-version`)
+VALUES
+   ('invalid','invalid','invalid','invalid','invalid');
+
+INSERT INTO `builds`.`device-tmg-sip-interface`
+  (`release-id`,`rtp-version`,`sip-version`)
+VALUES
+   ('invalid','invalid','invalid');
+
+
+#
+# Release 2.34.8
+#
+INSERT INTO `builds`.`device-tmg-lm-interface`
+   (`release-id`,`tdra-version`,`vcs21-multicast-version`,`vcs21-snmp-parser-version`,`xml-config-version`)
+VALUES
+   ('2.34.8','2.4.67','26.3','1.18.25','18.1');
+
+INSERT INTO `builds`.`device-tmg-sip-interface`
+  (`release-id`,`rtp-version`,`sip-version`)
+VALUES
+   ('2.34.8','2.1','2');
+
+
+#
+# Release 1.17.4
+#
+INSERT INTO `builds`.`device-tmg-lm-interface`
+   (`release-id`,`tdra-version`,`vcs21-multicast-version`,`vcs21-snmp-parser-version`,`xml-config-version`)
+VALUES
+   ('1.17.4','1.3.8','22.4','1.4.12','18.1');
+
+INSERT INTO `builds`.`device-tmg-sip-interface`
+  (`release-id`,`rtp-version`,`sip-version`)
+VALUES
+   ('1.17.4','2.0','1');
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                             SQL Commands To Demonstrate Operation Of Stored Procedures                                                  ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+set @build = 0;
+call `builds`.`GenerateBuildXML`(@build, @xml);
+select @xml;
+
+
+set @build = 118;
+call `builds`.`GenerateBuildXML`(@build, @xml);
+select @xml;

@@ -1,0 +1,687 @@
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ SDP_Flow_Demistified.txt                                                                                                                                                ║
+║                                                                                                                                                                         ║
+║ Document Best Viewed/Printed: Page{Ledger, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                                                         ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                             Revision History                                                                            ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                                                                     ║
+║                                                                                                                                                                         ║
+║  1.00.29517.xx (22 Oct 17) - Initial Creation {J. Laccone}                                                                                                              ║
+║                                 Added header, added reference data                                                                                                      ║
+║  1.01.29617.xx (23 Oct 17) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added clarification to several steps                                                                                                    ║
+║  1.01.29617.xx (23 Oct 17) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added clarification to several steps                                                                                                    ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                 Reference                                                                               ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║   ION Repository                                                                                                                                                        ║
+║   --------------                                                                                                                                                        ║
+║      https://lnsvr0011/repositories/ion/                                                                                                                                ║
+║                                                                                                                                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                    Common Code Path For Any Calls                                                                       ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+When SDPHandler is constructed, the builder pointer is initialized to one of the following:
+
+   builder = SDPBuilder   (Base Class)
+   builder = SDPAGBuilder (For AG Calls)
+   builder = SDPGGBuilder (For GG Calls)
+
+   builder->setAudioStreamInfo ***** Base Class Function Implemented In SDPBuilder.h *****
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                       Code Path To Create SDP For Invite Request - UAC (Outbound Call)                                                  ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+OutgoingCallState::initiateCall
+──┬────────────────────────────
+  │
+  │
+  ├── SDPHandler::generateSDPOffer
+  │   ──┬─────────────────────────
+  │     │
+  │     │
+  │     └── builder->generateSDPPacketFromLocalCap <<<<< Virtual Function, Not Currently Overridden >>>>>
+  │         ──┬───────────────────────────────────
+  │           │
+  │           │
+  │           ├── SDPBuilder::setupCallInformation
+  │           │
+  │           │
+  │           ├── builder->setupCapabilities <<<<< Virtual Function, Not Currently Overridden >>>>>
+  │           │   ──┬───────────────────────
+  │           │     │
+  │           │     │
+  │           │     ├── SDPBuilder::setupAudioStreamLocalInfo
+  │           │     │
+  │           │     │
+  │           │     ├── builder->setupLocalSdpCapSessionAttributes <<<<< Virtual Function, Not Currently Overridden >>>>>
+  │           │     │
+  │           │     │
+  │           │     └── builder->setupMediaAttributes <<<<< Virtual Function, Overridden By AG / GG >>>>>
+  │           │         ──┬──────────────────────────
+  │           │           │
+  │           │           │   ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │           │           │   │  Both Overridden Functions Call The Same Base Class Function Before Any Additional Processing  │
+  │           │           │   └────────────────────────────────────────────────────────────────────────────────────────────────┘
+  │           │           │
+  │           │           ├── SDPBuilder::setupAudioMediaCommonAttributes
+  │           │           │   ──┬────────────────────────────────────────
+  │           │           │     │
+  │           │           │     │
+  │           │           │     ├── SDPBuilder::determineCommunicationDomainForCodecs
+  │           │           │     │
+  │           │           │     │
+  │           │           │     ├── SDPHelper::getMediaFormatFromCodecInfo
+  │           │           │     │
+  │           │           │     │
+  │           │           │     ├── SDPHelper::getPtimeValue
+  │           │           │     │
+  │           │           │     │
+  │           │           │     ├── SDPHelper::createMediaAnnouncement
+  │           │           │     │   ──┬───────────────────────────────
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     ├── ===== m5t::CSdpFieldMediaAnnouncement::SetMediaTypeId =====
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     ├── ===== m5t::CSdpFieldMediaAnnouncement::SetMediaTypeString =====
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     ├── ===== m5t::CSdpFieldMediaAnnouncement::SetTransportProtocolId =====
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     ├── ===== m5t::CSdpFieldMediaAnnouncement::SetTransportProtocolString =====
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     ├── ===== m5t::CSdpFieldMediaAnnouncement::SetTransportPort =====
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     ├── ===== m5t::CSdpFieldMediaAnnouncement::AddMediaFormat =====
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     └── ===== m5t::CSdpFieldMediaAnnouncement::Validate =====
+  │           │           │     │
+  │           │           │     │
+  │           │           │     ├── ===== m5t::CSdpLevelMedia::SetMediaAnnouncement =====
+  │           │           │     │
+  │           │           │     │
+  │           │           │     ├── SDPHelper::createRtpmapAttribute
+  │           │           │     │   ──┬─────────────────────────────
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     ├── ===== m5t::CSdpFieldAttributeRtpmap::SetPayloadType =====
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     ├── ===== m5t::CSdpFieldAttributeRtpmap::SetClockRate =====
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     ├── ===== m5t::CSdpFieldAttributeRtpmap::SetEncodingName =====
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     ├── SDPHelper::getEncodingNameFromPayloadType
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     └── ===== m5t::CSdpFieldAttributeRtpmap::Validate =====
+  │           │           │     │
+  │           │           │     │
+  │           │           │     ├── ===== m5t::CSdpLevelMedia::AddRtpmap =====
+  │           │           │     │
+  │           │           │     │
+  │           │           │     ├── SDPHelper::createPtimeAttribute
+  │           │           │     │   ──┬─────────────────────────────
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     ├── ===== m5t::CSdpFieldAttributePtime::SetPacketTime =====
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     └── ===== m5t::CSdpFieldAttributeRtpmap::Validate =====
+  │           │           │     │
+  │           │           │     │
+  │           │           │     ├── ===== m5t::CSdpLevelMedia::SetPtime =====
+  │           │           │     │
+  │           │           │     │
+  │           │           │     ├── SDPHelper::createOtherAttribute << Two Parameter Function >>
+  │           │           │     │   ──┬────────────────────────────
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     ├── ===== m5t::CSdpFieldAttributeOther::SetName =====
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     ├── ===== m5t::CSdpFieldAttributeOther::SetValue =====
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     └── ===== m5t::CSdpFieldAttributeOther::Validate =====
+  │           │           │     │
+  │           │           │     │
+  │           │           │     ├── ===== m5t::CSdpLevelMedia::AddOtherAttribute ===== << maxptime >>
+  │           │           │     │
+  │           │           │     │
+  │           │           │     ├── ===== m5t::CSdpLevelMedia::SetSendOnly =====
+  │           │           │     │
+  │           │           │     │
+  │           │           │     ├── ===== m5t::CSdpLevelMedia::SetRecvOnly =====
+  │           │           │     │
+  │           │           │     │
+  │           │           │     ├── ===== m5t::CSdpLevelMedia::SetSendRecv =====
+  │           │           │     │
+  │           │           │     │
+  │           │           │     ├── ===== m5t::CSdpLevelMedia::SetInactive =====
+  │           │           │     │
+  │           │           │     │
+  │           │           │     ├── SDPBuilder::setSingularOrMDAttribute
+  │           │           │     │   ──┬─────────────────────────────────
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     ├── SDPHelper::createOtherAttribute << One Parameter Function >>
+  │           │           │     │     │   ──┬────────────────────────────
+  │           │           │     │     │     │
+  │           │           │     │     │     │
+  │           │           │     │     │     ├── ===== m5t::CSdpFieldAttributeOther::SetName =====
+  │           │           │     │     │     │
+  │           │           │     │     │     │
+  │           │           │     │     │     └── ===== m5t::CSdpFieldAttributeOther::Validate =====
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     └── ===== m5t::CSdpLevelMedia::AddOtherAttribute ===== << multcalling / singcalling >>
+  │           │           │     │
+  │           │           │     │
+  │           │           │     ├── ===== m5t::CSdpLevelMedia::SetSession =====
+  │           │           │     │
+  │           │           │     │
+  │           │           │     └── ===== m5t::CSdpLevelMedia::Validate =====
+  │           │           │
+  │           │
+  │           │      ┌──────────────────────────────────────────────────────────────────────────────────┐
+  │           │      │  For AG, Additional Code Handled In Override SDPAGBuilder::setupMediaAttributes  │
+  │           │      └──────────────────────────────────────────────────────────────────────────────────┘
+  │           │
+  │           │           ├── SDPAGBuilder::setupMediaAGAttributes
+  │           │           │   ──┬─────────────────────────────────
+  │           │           │     │
+  │           │           │     │
+  │           │           │     ├── SDPAGBuilder::addR2SVocoder
+  │           │           │     │   ──┬────────────────────────
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     ├── ===== m5t::CSdpFieldAttributeRtpmap::SetPayloadType =====
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     ├── ===== m5t::CSdpFieldAttributeRtpmap::SetClockRate =====
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     ├── ===== m5t::CSdpFieldAttributeRtpmap::SetEncodingName =====
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     ├── ===== m5t::CSdpLevelMedia::AddRtpmap =====
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     └── ===== m5t::CSdpFieldMediaAnnouncement::AddMediaFormat =====
+  │           │           │     │
+  │           │           │     │
+  │           │           │     ├── SDPAGBuilder::setPttRep
+  │           │           │     │   ──┬────────────────────
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     ├── ===== m5t::CSdpFieldAttributeOther::SetName =====
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     ├── ===== m5t::CSdpFieldAttributeOther::SetValue =====
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     ├── ===== m5t::CSdpFieldAttributeOther::Validate =====
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     └── ===== m5t::CSdpLevelMedia::AddOtherAttribute ===== << ptt_rep >>
+  │           │           │     │
+  │           │           │     │
+  │           │           │     ├── SDPAGBuilder::setVCSCallType
+  │           │           │     │   ──┬─────────────────────────
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     ├── ===== m5t::CSdpFieldAttributeOther::SetName =====
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     ├── SDPHelper::vcsStringFromCallType
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     ├── ===== m5t::CSdpFieldAttributeOther::SetValue =====
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     ├── ===== m5t::CSdpFieldAttributeOther::Validate =====
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     └── ===== m5t::CSdpLevelMedia::AddOtherAttribute ===== << type >>
+  │           │           │     │
+  │           │           │     │
+  │           │           │     ├── SDPAGBuilder::setBSS
+  │           │           │     │   ──┬─────────────────
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     ├── ===== m5t::CSdpFieldAttributeOther::SetName =====
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     ├── SDPHelper::generateBSSstring
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     ├── ===== m5t::CSdpFieldAttributeOther::SetValue =====
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     ├── ===== m5t::CSdpFieldAttributeOther::Validate =====
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     └── ===== m5t::CSdpLevelMedia::AddOtherAttribute ===== << bss >>
+  │           │           │     │
+  │           │           │     │
+  │           │           │     ├── SDPAGBuilder::setR2SKeepAlivePeriod
+  │           │           │     │   ──┬────────────────────────────────
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     ├── ===== m5t::CSdpFieldAttributeOther::SetName =====
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     ├── ===== m5t::CSdpFieldAttributeOther::SetValue =====
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     ├── ===== m5t::CSdpFieldAttributeOther::Validate =====
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     └── ===== m5t::CSdpLevelMedia::AddOtherAttribute ===== << R2S-KeepAlivePeriod >>
+  │           │           │     │
+  │           │           │     │
+  │           │           │     ├── SDPAGBuilder::setR2SKeepAliveMultiplier
+  │           │           │     │   ──┬────────────────────────────────────
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     ├── ===== m5t::CSdpFieldAttributeOther::SetName =====
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     ├── ===== m5t::CSdpFieldAttributeOther::SetValue =====
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     ├── ===== m5t::CSdpFieldAttributeOther::Validate =====
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     └── ===== m5t::CSdpLevelMedia::AddOtherAttribute ===== << R2S-KeepAliveMultiplier >>
+  │           │           │     │
+  │           │           │     │
+  │           │           │     ├── SDPAGBuilder::setRTPHeaderVersion
+  │           │           │     │   ──┬──────────────────────────────
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     ├── ===== m5t::CSdpFieldAttributeOther::SetName =====
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     ├── ===== m5t::CSdpFieldAttributeOther::SetValue =====
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     ├── ===== m5t::CSdpFieldAttributeOther::Validate =====
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     └── ===== m5t::CSdpLevelMedia::AddOtherAttribute ===== << rtphe >>
+  │           │           │     │
+  │           │           │     │
+  │           │           │     ├── SDPAGBuilder::setTxRxMode
+  │           │           │     │   ──┬──────────────────────
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     ├── ===== m5t::CSdpFieldAttributeOther::SetName =====
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     ├── ===== m5t::CSdpFieldAttributeOther::SetValue =====
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     ├── ===== m5t::CSdpFieldAttributeOther::Validate =====
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     └── ===== m5t::CSdpLevelMedia::AddOtherAttribute ===== << txrxmode >>
+  │           │           │     │
+  │           │           │     │
+  │           │           │     ├── SDPAGBuilder::setFrequencyID
+  │           │           │     │   ──┬─────────────────────────
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     ├── ===== m5t::CSdpFieldAttributeOther::SetName =====
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     ├── ===== m5t::CSdpFieldAttributeOther::SetValue =====
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     ├── ===== m5t::CSdpFieldAttributeOther::Validate =====
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     └── ===== m5t::CSdpLevelMedia::AddOtherAttribute ===== << fid >>
+  │           │           │     │
+  │           │           │     │
+  │           │           │     ├── SDPAGBuilder::setCcplCapability
+  │           │           │     │   ──┬────────────────────────────
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     ├── ===== m5t::CSdpFieldAttributeOther::SetName =====
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     ├── ===== m5t::CSdpFieldAttributeOther::SetValue =====
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     ├── ===== m5t::CSdpFieldAttributeOther::Validate =====
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     └── ===== m5t::CSdpLevelMedia::AddOtherAttribute ===== << ccpl >>
+  │           │           │     │
+  │           │           │     │
+  │           │           │     ├── SDPAGBuilder::setRemoteAVN
+  │           │           │     │   ──┬───────────────────────
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     ├── ===== m5t::CSdpFieldAttributeOther::SetName =====
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     ├── ===== m5t::CSdpFieldAttributeOther::SetValue =====
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     ├── ===== m5t::CSdpFieldAttributeOther::Validate =====
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     └── ===== m5t::CSdpLevelMedia::AddOtherAttribute ===== << remoteAVN >>
+  │           │           │     │
+  │           │           │     │
+  │           │           │     ├── SDPAGBuilder::setPttID
+  │           │           │     │   ──┬───────────────────
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     ├── ===== m5t::CSdpFieldAttributeOther::SetName =====
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     ├── ===== m5t::CSdpFieldAttributeOther::SetValue =====
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     ├── ===== m5t::CSdpFieldAttributeOther::Validate =====
+  │           │           │     │     │
+  │           │           │     │     │
+  │           │           │     │     └── ===== m5t::CSdpLevelMedia::AddOtherAttribute ===== << ptt-id >>
+  │           │           │     │
+  │           │           │     │
+  │           │           │     ├── ===== m5t::CSdpLevelMedia::SetSession =====
+  │           │           │     │
+  │           │           │     │
+  │           │           │     └── ===== m5t::CSdpLevelMedia::Validate =====
+  │           │           │
+  │           │           │
+  │           │           └── ===== m5t::CSdpCapabilitiesMgr::AddStream ===== << localSdpCap >>
+  │           │
+  │           │
+  │           │      ┌──────────────────────────────────────────────────────────────────────────────────┐
+  │           │      │  For GG, Additional Code Handled In Override SDPGGBuilder::setupMediaAttributes  │
+  │           │      └──────────────────────────────────────────────────────────────────────────────────┘
+  │           │
+  │           │           ├── SDPGGBuilder::setupMediaGGAttributes
+  │           │           │   ──┬─────────────────────────────────
+  │           │           │     │
+  │           │           │     │
+  │           │           │     ├── ===== m5t::CSdpFieldAttributeOther::SetName =====
+  │           │           │     │
+  │           │           │     │
+  │           │           │     ├── ===== m5t::CSdpFieldAttributeOther::SetValue =====
+  │           │           │     │
+  │           │           │     │
+  │           │           │     ├── ===== m5t::CSdpLevelMedia::AddOtherAttribute ===== << service >>
+  │           │           │     │
+  │           │           │     │
+  │           │           │     ├── ===== m5t::CSdpFieldAttributeOther::SetName =====
+  │           │           │     │
+  │           │           │     │
+  │           │           │     ├── SDPHelper::generateSpaceSeparatedString
+  │           │           │     │
+  │           │           │     │
+  │           │           │     ├── ===== m5t::CSdpFieldAttributeOther::SetValue =====
+  │           │           │     │
+  │           │           │     │
+  │           │           │     ├── ===== m5t::CSdpLevelMedia::AddOtherAttribute ===== << sid >>
+  │           │           │     │
+  │           │           │     │
+  │           │           │     ├── ===== m5t::CSdpFieldAttributeOther::SetName =====
+  │           │           │     │
+  │           │           │     │
+  │           │           │     ├── SDPHelper::generateSpaceSeparatedString
+  │           │           │     │
+  │           │           │     │
+  │           │           │     ├── ===== m5t::CSdpFieldAttributeOther::SetValue =====
+  │           │           │     │
+  │           │           │     │
+  │           │           │     ├── ===== m5t::CSdpLevelMedia::AddOtherAttribute ===== << epid >>
+  │           │           │     │
+  │           │           │     │
+  │           │           │     ├── ===== m5t::CSdpFieldAttributeOther::SetName =====
+  │           │           │     │
+  │           │           │     │
+  │           │           │     ├── ===== m5t::CSdpFieldAttributeOther::SetValue =====
+  │           │           │     │
+  │           │           │     │
+  │           │           │     ├── ===== m5t::CSdpLevelMedia::AddOtherAttribute ===== << Restrict >>
+  │           │           │     │
+  │           │           │     │
+  │           │           │     ├── ===== m5t::CSdpFieldAttributeOther::SetName =====
+  │           │           │     │
+  │           │           │     │
+  │           │           │     ├── ===== m5t::CSdpFieldAttributeOther::SetValue =====
+  │           │           │     │
+  │           │           │     │
+  │           │           │     ├── ===== m5t::CSdpLevelMedia::AddOtherAttribute ===== << DigitCount >>
+  │           │           │     │
+  │           │           │     │
+  │           │           │     ├── ===== m5t::CSdpFieldAttributeOther::SetName =====
+  │           │           │     │
+  │           │           │     │
+  │           │           │     ├── ===== m5t::CSdpFieldAttributeOther::SetValue =====
+  │           │           │     │
+  │           │           │     │
+  │           │           │     ├── ===== m5t::CSdpLevelMedia::AddOtherAttribute ===== << resetDigit >>
+  │           │           │     │
+  │           │           │     │
+  │           │           │     ├── ===== m5t::CSdpFieldAttributeOther::SetName =====
+  │           │           │     │
+  │           │           │     │
+  │           │           │     ├── ===== m5t::CSdpFieldAttributeOther::SetValue =====
+  │           │           │     │
+  │           │           │     │
+  │           │           │     └── ===== m5t::CSdpLevelMedia::AddOtherAttribute ===== << continousDialing >>
+  │           │           │
+  │           │           │
+  │           │           ├── ===== m5t::CSdpLevelMedia::SetSession =====
+  │           │           │
+  │           │           │
+  │           │           ├── ===== m5t::CSdpCapabilitiesMgr::AddStream ===== << localSdpCap >>
+  │           │           │
+  │           │           │
+  │           │           └── SDPGGBuilder::setupTelephoneEventStream
+  │           │               ──┬────────────────────────────────────
+  │           │                 │
+  │           │                 │
+  │           │                 ├── SDPGGBuilder::setTelephoneEventStreamDirection
+  │           │                 │   ──┬───────────────────────────────────────────
+  │           │                 │     │
+  │           │                 │     │
+  │           │                 │     ├── ===== m5t::CSdpLevelMedia::SetSendOnly =====
+  │           │                 │     │
+  │           │                 │     │
+  │           │                 │     ├── ===== m5t::CSdpLevelMedia::SetRecvOnly =====
+  │           │                 │     │
+  │           │                 │     │
+  │           │                 │     └── ===== m5t::CSdpLevelMedia::SetSendRecv =====
+  │           │                 │
+  │           │                 │
+  │           │                 ├── ===== m5t::CSdpFieldMediaAnnouncement::SetMediaTypeId =====
+  │           │                 │
+  │           │                 │
+  │           │                 ├── ===== m5t::CSdpFieldMediaAnnouncement::SetMediaTypeString =====
+  │           │                 │
+  │           │                 │
+  │           │                 ├── ===== m5t::CSdpFieldMediaAnnouncement::SetTransportPort =====
+  │           │                 │
+  │           │                 │
+  │           │                 ├── ===== m5t::CSdpFieldMediaAnnouncement::SetTransportProtocolId =====
+  │           │                 │
+  │           │                 │
+  │           │                 ├── ===== m5t::CSdpFieldMediaAnnouncement::SetTransportProtocolString =====
+  │           │                 │
+  │           │                 │
+  │           │                 ├── ===== m5t::CSdpFieldMediaAnnouncement::Validate =====
+  │           │                 │
+  │           │                 │
+  │           │                 ├── ===== m5t::CSdpFieldAttributePtime::SetPacketTime =====
+  │           │                 │
+  │           │                 │
+  │           │                 ├── ===== m5t::CSdpLevelMedia::SetPtime =====
+  │           │                 │
+  │           │                 │
+  │           │                 ├── ===== m5t::CSdpLevelMedia::SetMediaAnnouncement =====
+  │           │                 │
+  │           │                 │
+  │           │                 ├── ===== m5t::CSdpCapabilitiesMgr::AddStream ===== << localSdpCap / Second Media Description >>
+  │           │                 │
+  │           │                 │
+  │           │                 ├── ===== m5t::CSdpCapabilitiesMgr::AddPayloadType ===== << localSdpCap / Second Media Description / Telephone Event >>
+  │           │                 │
+  │           │                 │
+  │           │                 ├── ===== m5t::CSdpFmtpTelEvent::SetTelEventSupport ===== << DTMFTones / tone206 / tone 207 / toneWait / tonePause >>
+  │           │                 │
+  │           │                 │
+  │           │                 └── ===== m5t::CSdpCapabilitiesMgr::ReplaceFmtpTelEvent ===== << localSdpCap / Second Media Description >>
+  │           │
+  │           │
+  │           └── ===== m5t::CSdpCapabilitiesMgr::CreateSdpPacket ===== << localSdpCap >>
+  │
+  │
+  └── ===== m5t::CSipMessageBody::AddBody ===== << bodySdp >>
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                                                                                                         ║
+║                                             Code Path To Create SDP For 200 OK Response To Invite Request - UAC (Outbound Call)                                         ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+OutgoingCallState::EvSuccess
+──┬─────────────────────────
+  │
+  │
+  ├── CallHandler::SDPHandler::translateSDPOffer
+  │   ──┬───────────────────────────────────────
+  │     │
+  │     │
+  │     ├── SDPBuilder::updateRemoteSDPCap
+  │     │   ──┬───────────────────────────
+  │     │     │
+  │     │     │
+  │     │     ├── ===== m5t::CSdpCapabilitiesMgr::reset ===== << remoteSdpCap >>
+  │     │     │
+  │     │     │
+  │     │     ├── ===== m5t::CSdpCapabilitiesMgr::CopyCapsFromPacket ===== << remoteSdpCap >>
+  │     │     │
+  │     │     │
+  │     │     ├── ===== m5t::CSdpCapabilitiesMgr::GetStreamPtimeMs ===== << remoteSdpCap / All Media Descriptions >> [NOTE: CURRENTLY, NO CHECK FOR MISSING PTIME!!!]
+  │     │     │
+  │     │     │
+  │     │     ├── SDPBuilder::validateMediaDescPtime
+  │     │     │
+  │     │     │
+  │     │     ├── ===== m5t::CSdpCapabilitiesMgr::GetStream::GetOtherAttribute ===== << remoteSdpCap / First Media Description / ccpl >>
+  │     │     │
+  │     │     │
+  │     │     ├── ===== m5t::CSdpCapabilitiesMgr::GetStream::GetOtherAttribute ===== << remoteSdpCap / First Media Description / remoteAVN >>
+  │     │     │
+  │     │     │
+  │     │     ├── ===== m5t::CSdpCapabilitiesMgr::GetStream::GetOtherAttribute ===== << remoteSdpCap / Second Media Description / remoteAVN >>
+  │     │     │
+  │     │     │
+  │     │     ├── ===== m5t::CSdpCapabilitiesMgr::GetStream::GetOtherAttribute ===== << remoteSdpCap / First Media Description / fid >>
+  │     │     │
+  │     │     │
+  │     │     ├── ===== m5t::CSdpCapabilitiesMgr::GetStream::GetOtherAttribute ===== << remoteSdpCap / Second Media Description / fid >>
+  │     │     │
+  │     │     │
+  │     │     ├── ===== m5t::CSdpCapabilitiesMgr::GetStream::GetOtherAttribute ===== << remoteSdpCap / First Media Description / Restrict >>
+  │     │     │
+  │     │     │
+  │     │     ├── ===== m5t::CSdpCapabilitiesMgr::GetStream::GetOtherAttribute ===== << remoteSdpCap / First Media Description / DigitCount >>
+  │     │     │
+  │     │     │
+  │     │     ├── ===== m5t::CSdpCapabilitiesMgr::GetStream::GetOtherAttribute ===== << remoteSdpCap / First Media Description / resetDigit >>
+  │     │     │
+  │     │     │
+  │     │     ├── ===== m5t::CSdpCapabilitiesMgr::GetStream::GetOtherAttribute ===== << remoteSdpCap / First Media Description / continousDialing >>
+  │     │     │
+  │     │     │
+  │     │     └── ===== m5t::CSdpCapabilitiesMgr::GetStream::GetOtherAttribute ===== << remoteSdpCap / First Media Description / ptt_rep >>
+  │     │
+  │     │
+  │     ├── ===== m5t::CSdpCapabilitiesMgr::VerifyAnswer ===== << localSdpCap >>
+  │     │
+  │     │
+  │     ├── SDPHelper::verifySDPHasVoiceStream
+  │     │
+  │     │
+  │     ├── builder->updateAudioStreamRemoteInfo <<<<< Virtual Function, Not Currently Overridden >>>>>
+  │     │
+  │     │
+  │     ├── builder->updateAudioStreamWithNegrResult <<<<< Virtual Function, Overridden By AG / GG >>>>>
+  │     │   ──┬─────────────────────────────────────
+  │     │     │
+  │     │     │   ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │     │     │   │  Both Overridden Functions Call The Same Base Class Function Before Any Additional Processing  │
+  │     │     │   └────────────────────────────────────────────────────────────────────────────────────────────────┘
+  │     │     │
+  │     │     ├── SDPBuilder::updateAudioStreamWithNegrResult
+  │     │     │   ──┬────────────────────────────────────────
+  │     │     │     │
+  │     │     │     │
+
+  │     │   ┌─────────────────────────────────────────────────────────────────────────────────────────────┐
+  │     │   │  For AG, Additional Code Handled In Override SDPAGBuilder::updateAudioStreamWithNegrResult  │
+  │     │   └─────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+
+  │     │   ┌─────────────────────────────────────────────────────────────────────────────────────────────┐
+  │     │   │  For GG, Additional Code Handled In Override SDPGGBuilder::updateAudioStreamWithNegrResult  │
+  │     │   └─────────────────────────────────────────────────────────────────────────────────────────────┘
+  │     │
+  │     │     └── SDPGGBuilder::updateTelephoneEventInfo
+  │     │         ──┬───────────────────────────────────
+  │     │           │
+  │     │           │
+  │     │           ├── SDPGGBuilder::isTelephoneEventEnabled
+  │     │           │   ──┬───────────────────────────────────
+  │     │           │     │
+  │     │           │     │
+  │     │           │     ├── ===== m5t::CSdpCapabilitiesMgr::GetNbStreams && ::IsStreamSupported ===== << localSdpCap / Second Media Description >>
+  │     │           │     │
+  │     │           │     │
+  │     │           │     ├── ===== m5t::CSdpCapabilitiesMgr::GetNbStreams && ::IsStreamSupported ===== << remoteSdpCap / Second Media Description >>
+
+
+  │     │
+  │     │
+  │     ├── builder->retrieveRemoteOVRSids <<<<< Virtual Function, Overridden By GG >>>>>
+  │     │
+  │     │
+  │     └── builder->retrieveRemoteEpidList <<<<< Virtual Function, Overridden By GG >>>>>
+  │
+  │
+  ├── CallHandler::SDPHandler::SDPBuilder::getNeedReInvite
+  │
+  │
+  └── CallHandler::sendReInvite

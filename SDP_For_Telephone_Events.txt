@@ -1,0 +1,73 @@
+An analysis of how se do telephone events in VSE
+========================================================================================================
+
+RFC 2198: RTP Payload for Redundant Audio Data
+
+   Section 2: Requirements/Motivation
+
+      Para 6: There are two essential means by which redundant audio may be added to the standard RTP
+              specification:  a header extension may hold the redundancy, or one, or more, additional
+              payload types may be defined
+
+--------------------------------------------------------------------------------------------------------
+
+RFC 2833: RTP Payload for DTMF Digits, Telephony Tones and Telephony Signals
+
+   Section 3.2: Simultaneous Generation of Audio and Events
+
+      Para 1: A source MAY send events and coded audio packets for the same time instants, using
+              events as the redundant encoding for the audio stream ...
+
+   Section 3.3: Event Types
+
+      Para 1: This payload format is used for five different types of signals:
+
+                 o  DTMF tones (Section 3.10);
+
+                 o  fax-related tones (Section 3.11);
+
+                 o  standard subscriber line tones (Section 3.12);
+
+                 o  country-specific subscriber line tones (Section 3.13) and;
+
+                 o  trunk events (Section 3.14).
+
+--------------------------------------------------------------------------------------------------------
+
+RFC 4733: RTP Payload for DTMF Digits, Telephony Tones and Telephony Signals (Updates RFC 2833)
+
+   Section 2.5.1.1: Negotiation of Payloads
+
+      Para 1: Events are usually sent in combination with or alternating with other payload types.
+              Payload negotiation may specify separate event and other payload streams, or it may
+              specify a combined stream that mixes other payload types with events using RFC 2198 [2]
+              redundancy headers.
+
+      Para 2: Negotiation of payloads between sender and receiver is achieved by out-of-band means,
+              using SDP, for example.
+
+--------------------------------------------------------------------------------------------------------
+
+RFC 6354: Forward-Shifted RTP Redundancy Payload Support (Updates RFC 2198)
+
+   Section 1.1: Sending Redundant Data Inband vs. Out-of-Band
+   [[[ Different use of out-of-band from RFC 4733 ]]]
+
+      Para 1: ... there is always the option of sending the redundant data and the primary data
+              either in the same RTP session (i.e., inband) or in separate RTP sessions
+              (i.e., out-of-band)
+
+      Para 4: It is noteworthy that the specification of inband payload formats, as described in this
+              document and in RFC 2198, does not preclude a deployment from using the out-of-band
+              approach.  Rather, it gives the deployment the choice to use whichever approach is
+              deemed most beneficial under a given circumstance.
+
+--------------------------------------------------------------------------------------------------------
+
+Summary: We can combine the audio data and the telephone event data on the same RTP stream
+         (combined stream --> Single m= in SDP) or we can have the autio data on one stream and the
+         telephone event data on another stream (separate streams --> Two m= in SDP).
+
+         What we CAN'T do is send SDP indicating separate streams and them send data as a
+         combined stream (which is what we do now).
+

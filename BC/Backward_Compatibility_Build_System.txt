@@ -1,0 +1,1070 @@
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ Backward_Compatibility_Build_System.txt                                                                                                                                 ║
+║                                                                                                                                                                         ║
+║ Document Encoding           : UTF-8, UNIX Line Terminator                                                                                                               ║
+║ Document Best Viewed/Printed: Page{Ledger, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                                                         ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                            Revision History                                                                             ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                                                                     ║
+║                                                                                                                                                                         ║
+║  1.00.35218.xx (18 Dec 18) - Initial Creation {J. Laccone}                                                                                                              ║
+║                                 Added sections                                                                                                                          ║
+║  1.01.00719.xx (07 Jan 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added additional "how-to" procedures                                                                                                    ║
+║  1.02.00819.xx (08 Jan 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added additional reference data                                                                                                         ║
+║  1.03.00919.xx (09 Jan 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Clarified instructions and created multiple sections                                                                                    ║
+║  1.04.01119.xx (11 Jan 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added MIB creation information                                                                                                          ║
+║  1.05.01619.xx (16 Jan 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added instructions for Emb agent creation                                                                                               ║
+║  1.06.02219.xx (22 Jan 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added testing procedure and reorganized sections                                                                                        ║
+║  1.07.02919.xx (29 Jan 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added instructions for rmg/tmg push                                                                                                     ║
+║  1.08.04419.xx (13 Feb 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added instructions for script agent operation                                                                                           ║
+║  1.09.04919.xx (18 Feb 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added section headers and specific oids for call control server testing                                                                 ║
+║  1.10.05019.xx (19 Feb 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Cleanup and spellcheck                                                                                                                  ║
+║  1.11.05219.xx (21 Feb 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added specifics for call control servers                                                                                                ║
+║  1.12.05819.xx (27 Feb 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added details for closing stories                                                                                                       ║
+║  1.13.05919.xx (28 Feb 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added additional details for closing stories                                                                                            ║
+║  1.14.06319.xx (04 Mar 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added automation details                                                                                                                ║
+║  1.15.06419.xx (05 Mar 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added merge details                                                                                                                     ║
+║  1.16.16119.xx (10 Jun 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added diagnostic details                                                                                                                ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                              Reference                                                                                  ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║   Extending snmpd Using Shell Scripts                                                                                                                                   ║
+║   -----------------------------------                                                                                                                                   ║
+║      http://net-snmp.sourceforge.net/wiki/index.php/Tut:Extending_snmpd_using_shell_scripts                                                                             ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                Notes                                                                                    ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║   Docker Information                                                                                                                                                    ║
+║   ------------------                                                                                                                                                    ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/jlaccone/reference/Docker_Info.txt                                                       ║
+║                                                                                                                                                                         ║
+║                                                                                                                                                                         ║
+║   MySQL/phpMyAdmin Information                                                                                                                                          ║
+║   ----------------------------                                                                                                                                          ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/jlaccone/reference/MySQL_Info.txt                                                        ║
+║                                                                                                                                                                         ║
+║   Jenkins Information                                                                                                                                                   ║
+║   -------------------                                                                                                                                                   ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/jlaccone/reference/Jenkins_Info.txt                                                      ║
+║                                                                                                                                                                         ║
+║                                                                                                                                                                         ║
+║   Backward Compatibility Database Creation                                                                                                                              ║
+║   ----------------------------------------                                                                                                                              ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/jlaccone/US22895/Backward_Compatibility_Database_Creation.txt                            ║
+║                                                                                                                                                                         ║
+║   Backward Compatibility MIB Creation                                                                                                                                   ║
+║   -----------------------------------                                                                                                                                   ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/jlaccone/US22895/Backward_Compatibility_MIB_Creation.txt                                 ║
+║                                                                                                                                                                         ║
+║                                                                                                                                                                         ║
+║   SNMP Information                                                                                                                                                      ║
+║   ----------------                                                                                                                                                      ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/jlaccone/reference/SNMP_Info.txt                                                         ║
+║                                                                                                                                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                        Build System Overview                                                                            ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+
+
+      ┌───────────────────────┐              ┌───────────────────────┐              ┌───────────────────────┐
+      │                       │   Call sp    │                       │  Modify src  │                       │
+      │   Docker Container    ╠──────────────┤    Docker Container   ├──────────────╣    Docker Container   │
+      │                       │              │                       │              │                       │
+      │         MySQL         ├──────────────╣        Jenkins        ├──────────────╣    Emb Build Agent    │
+      │                       │  Return XML  │                       │ Launch Build │                       │
+      └───────────╦───────────┘              └───────────────────────┘              └───────────────────────┘
+                  │
+     Add data/sp  │
+                  │
+      ┌───────────┴───────────┐
+      │                       │
+      │   Docker Container    │
+      │                       │
+      │      phpMyAdmin       │
+      │                       │
+      └───────────────────────┘
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                 Common                                                                                  ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Prerequisites For Installation
+   ══════════════════════════════
+      1. An account on the VCS21 configuration management repository
+      2. Docker installed with experimental features enabled (ref: "Docker Information" above)
+      3. Desired Docker image(s) built within Docker installation (ref: "MySQL/phpMyAdmin Information" & "Jenkins Information" above)
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                          Docker Container Setup                                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Building MySQL Container
+   ════════════════════════
+      See the "Create A New MySQL Container" section of the "MySQL/phpMyAdmin Information" file above
+
+
+   Building phpMyAdmin Container
+   ═════════════════════════════
+      See the "Create A New phpMyAdmin Container" section of the "MySQL/phpMyAdmin Information" file above
+
+
+   Building Jenkins Container
+   ══════════════════════════
+      See the "Create A New Jenkins Container With MySQL Connection" section of the "Jenkins Information" file above
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                Database Setup                                                                           ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Building The SQL Database
+   ═════════════════════════
+      1. Open a web browser on the machine running the phpMyAdmin Docker container
+      2. Navigate to the following URL
+
+            http://127.0.0.1:8085
+
+      3. Login to phpMyAdmin using the credentials from above
+      4. Build the database using the following:
+         NOTE: For SQL source data, see "Backward Compatibility Database Creation" above
+
+      Create The "builds" Database
+      ────────────────────────────
+         1. On the main phpMyAdmin page, left click the "phpMyAdmin" logo on the left side
+         2. Left click the "SQL" tab
+         3. Copy all the SQL commands from the "SQL Commands To Create Database" section into the "Run SQL query/queries on server" textbox
+         4. Left click the "Go" button
+         5. Verify that MySQL does not return any errors after query execution
+
+      Create The Tables In The "builds" Database
+      ──────────────────────────────────────────
+         1. On the main phpMyAdmin page, left click the "phpMyAdmin" logo on the left side
+         2. Left click the "SQL" tab
+         3. Copy all the SQL commands from the "SQL Commands To Create Tables" section into the "Run SQL query/queries on server" textbox
+         4. Left click the "Go" button
+         5. Verify that MySQL does not return any errors after query execution
+
+      Create The Stored Procedures In The "builds" Database
+      ─────────────────────────────────────────────────────
+         1. On the main phpMyAdmin page, left click the "phpMyAdmin" logo on the left side
+         2. Left click the "SQL" tab
+         3. Copy all the SQL commands from the "SQL Commands To Create Stored Procedures" section into the "Run SQL query/queries on server" textbox
+         4. Left click the "Go" button
+         5. Verify that MySQL does not return any errors after query execution
+
+      Add Data To The "build" Table
+      ─────────────────────────────
+         1. On the main phpMyAdmin page, left click the "phpMyAdmin" logo on the left side
+         2. Left click the "SQL" tab
+         3. Copy all the SQL commands from the "SQL Commands To Populate Table(s): build" section into the "Run SQL query/queries on server" textbox
+         4. Left click the "Go" button
+         5. Verify that MySQL does not return any errors after query execution
+
+      Add Data To The CWP Tables
+      ──────────────────────────
+         1. On the main phpMyAdmin page, left click the "phpMyAdmin" logo on the left side
+         2. Left click the "SQL" tab
+         3. Copy all the SQL commands from the "SQL Commands To Populate Table(s): device-cwp-lm-interface, device-cwp-sip-interface" section
+            into the "Run SQL query/queries on server" textbox
+         4. Left click the "Go" button
+         5. Verify that MySQL does not return any errors after query execution
+
+      Add Data To The TMG Tables
+      ──────────────────────────
+         1. On the main phpMyAdmin page, left click the "phpMyAdmin" logo on the left side
+         2. Left click the "SQL" tab
+         3. Copy all the SQL commands from the "SQL Commands To Populate Table(s): device-tmg-lm-interface, device-tmg-sip-interface" section
+            into the "Run SQL query/queries on server" textbox
+         4. Left click the "Go" button
+         5. Verify that MySQL does not return any errors after query execution
+
+      Verify Database Was Setup Correctly
+      ───────────────────────────────────
+         1. On the main phpMyAdmin page, left click the "phpMyAdmin" logo on the left side
+         2. Left click the "SQL" tab
+         3. Copy all the SQL commands from the "SQL Commands To Demonstrate Operation Of Stored Procedures" section into the "Run SQL query/queries on server" textbox
+         4. Left click the "Go" button
+         5. Verify that MySQL does not return any errors after query execution
+         6. Examine the returned text and verify that the XML was created correctly
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                           Build System Setup                                                                            ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Docker Container Setup
+   ══════════════════════
+      1. Verify that all prerequisite steps listed in the "Common" section have been completed
+      2. Create a MySQL Docker container using the following database credentials
+         (ref: "Building MySQL Container" steps under "Docker Container Setup")
+
+            Username: root
+            Password: BcD3moP@ssw0rd
+
+      3. Create a phpMyAdmin Docker container
+         (ref: "Building phpMyAdmin Container" steps under "Docker Container Setup")
+
+      4. Create/Populate the SQL database
+         (ref: "Building The SQL Database" steps under "Database Setup")
+
+      5. Create a Jenkins Master Docker container
+         (ref: "Building Jenkins Container" steps under "Docker Container Setup")
+
+      6. Configure Jenkins Master Docker container for database operation using the following parameters
+         (ref: "Jenkins Configuration For MySQL Databases" section of the "Jenkins Information" file above)
+
+            Host Name       : bc-demo-sql
+            Database        : builds
+            Username        : root
+            Password        : BcD3moP@ssw0rd
+            Validation Query: select * from build;
+
+      6. Create a Jenkins job to interact with the database (ref: "Jenkins MySQL Job Configuration" section of the "Jenkins Information" file above)
+      7. Execute the Jenkins job multiple times to approve all the required script permissions
+         NOTE: The job may need to be run 8-10x to obtain all the necessary approvals
+
+      8. Configure Jenkins Master Docker container for ephemeral agent operation
+         (ref: "Jenkins Configuration For Ephemeral Docker Containers" section of the "Jenkins Information" file above)
+
+      9. Configure Jenkins Master Docker container agent template
+         (ref: "Configure VCAST Platform Docker Agent Template (Ephemeral Container)" section of the "Jenkins Information" file above)
+
+     10. Create a Jenkins job to build the embedded software on an ephemeral agent
+         (ref: "Configure High Level Robustness MAP Pipeline Job" section of the "Jenkins Information" file above)
+
+
+   Source Code Setup
+   ═════════════════
+      1. Open a terminal window
+      2. Pull the SNMP MIBs from the repo to a local branch by typing the following command(s) into the terminal window:
+
+            svn co <repo-mib-directory> <local-branch-mib-directory>
+            (ex: svn co https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/feature_branches/_Backward_Compatibility_0/Management/Zabbix/ion_mibs/ \
+                        /data/dataworkspace/bc0-mibs)
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                                                                                                         ║
+║                                                                       ===  Diagnostic Notes  ===                                                                        ║
+║                                                                                                                                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                       Development Branch MIB/Agent                                                                      ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   User Stories
+   ════════════
+      US23394 - Build System changes to support version reporting (--- in trunk ---)                    -- Jenkins changes
+      US23589 - Build System changes to support deployment of version reporting (--- in trunk ---)      -- Additional Jenkins changes
+
+      US23627 - Deployment of version reporting, Jenkins Verification
+
+      US23501 - Installation support for Backwards Compatibility feature for Call Control               -- Infrastructure changes for call control servers
+
+      US23395 - Prototype SNMP version reporting Mechanism (--- in trunk ---)                           -- MIB Changes
+
+      US23396 - Implement SNMP version reporting mechanism for CWP (--- in trunk ---)                   -- SNMP Agent in CWP
+      US23397 - Implement SNMP Version reporting Mechanism for TMG (--- in trunk ---)                   -- SNMP Agent in TMG
+      US23398 - Implement SNMP Version reporting Mechanism for RMG (--- in trunk ---)                   -- SNMP Agent in RMG
+      US23526 - Implement SNMP Version reporting Mechanism for SIP Conference Server (--- in trunk ---) -- SNMP Agent in SIP Conf
+      US23527 - Implement SNMP Version reporting Mechanism for SIP Proxy Server (--- in trunk ---)      -- SNMP Agent in SIP Proxy
+
+
+   Commit Commands
+   ═══════════════
+      svn commit -m "US23394 Build System changes to support version reporting"
+      svn commit -m "US23589 Build System changes to support deployment of version reporting"
+
+      svn commit -m "US23627 Deployment of version reporting, Jenkins Verification"
+
+      svn commit -m "US23501 Installation support for Backwards Compatibility feature for Call Control"
+
+      svn commit -m "US23395 Prototype SNMP version reporting Mechanism"
+
+      svn commit -m "US23396 Implement SNMP version reporting mechanism for CWP"
+      svn commit -m "US23397 Implement SNMP Version reporting Mechanism for TMG"
+      svn commit -m "US23398 Implement SNMP Version reporting Mechanism for RMG"
+      svn commit -m "US23526 Implement SNMP Version reporting Mechanism for SIP Conference Server"
+      svn commit -m "US23527 Implement SNMP Version reporting Mechanism for SIP Proxy Server"
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                       Integration Branch MIB/Agent                                                                      ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Show The Embedded Changes Committed In The Integration Branch
+   ═════════════════════════════════════════════════════════════
+      1. Open a terminal window
+      2. Show the changes by typing the following command(s) into the terminal window:
+
+            cd <local-branch-embedded-dir>
+            (ex: cd /data/dataworkspace/bc0)
+
+            svn log --verbose -r <revision>
+            (ex: svn log --verbose -r 254570)
+            (ex: svn log --verbose -r 254577)
+            (ex: svn log --verbose -r 254972)
+            (ex: svn log --verbose -r 255233)
+            (ex: svn log --verbose -r 255245)
+            (ex: svn log --verbose -r 255808)
+            (ex: svn log --verbose -r 255855)
+
+      Files Changed
+      ─────────────
+         (US23394)   /Embedded/bin/update_source.sh                                        // script to modify source headers with values from build data
+
+
+
+ - OBE - (US23397)   /Embedded/ccu/base/app/common/include/appi_snmpproc_thread.h          // defines setBCVersionValuesForXMG (for rmg/tmg)
+         (US23397)   /Embedded/ccu/base/app/common/include/ion_xmgmib.h                    // defines RMG/TMG MIB oids, MIB classes and MIB values
+
+
+ - OBE - (US23397)   /Embedded/ccu/base/app/common/src/snmp/appi_snmpproc_thread.cpp       // implements setBCVersionValuesForXMG (for rmg/tmg)
+         (US23397)   /Embedded/ccu/base/app/common/src/ion_xmgmib.cpp                      // creates RMG/TMG MIB and values in constructor
+
+
+
+         (US23396)   /Embedded/ccu/base/app/map/include/appi_snmpproc_thread_map.h         // defines setBCVersionValues (for map)
+         (US23396)   /Embedded/ccu/base/app/map/include/ion_cwpmib.h                       // defines CWP MIB oids, MIB classes and MIB values
+
+
+         (US23396)   /Embedded/ccu/base/app/map/src/ion_cwpmib.cpp                         // creates CWP MIB and values in constructor
+
+         (US23396)   /Embedded/ccu/base/app/map/src/snmp/appi_snmpproc_thread_map.cpp      // implements setBCVersionValues (for map), calls setBCVersionValues (for map)
+
+
+
+         (US23397)   /Embedded/ccu/base/app/qmg/include/appi_snmpproc_thread_qmg.h         // defines setBCVersionValuesForXMG (for qmg)
+
+         (US23397)   /Embedded/ccu/base/app/qmg/src/snmp/appi_snmpproc_thread_qmg.cpp      // calls setBCVersionValuesForXMG (for qmg)
+
+
+         (US23398)   /Embedded/ccu/base/app/rmg/include/appi_snmpproc_thread_rmg.h         // defines setBCVersionValuesForXMG (for rmg)
+
+         (US23398)   /Embedded/ccu/base/app/rmg/src/snmp/appi_snmpproc_thread_rmg.cpp      // calls setBCVersionValuesForXMG (for rmg)
+
+
+         (US23397)   /Embedded/ccu/base/app/tmg/include/appi_snmpproc_thread_tmg.h         // defines setBCVersionValuesForXMG (for tmg)
+
+         (US23397)   /Embedded/ccu/base/app/tmg/src/snmp/appi_snmpproc_thread_tmg.cpp      // calls setBCVersionValuesForXMG (for tmg)
+
+
+   Show The Management Changes Committed In The Integration Branch
+   ═══════════════════════════════════════════════════════════════
+      1. Open a terminal window
+      2. Show the changes by typing the following command(s) into the terminal window:
+
+            cd <local-branch-embedded-dir>
+            (ex: cd /data/dataworkspace/bc0-mibs)
+
+            svn log --verbose -r <revision>
+            (ex: svn log --verbose -r 255244)
+            (ex: svn log --verbose -r 255807)
+
+      Files Changed
+      ─────────────
+         /Management/Zabbix/ion_mibs/ION-CWP.mib                               // defines cwp MIB
+         /Management/Zabbix/ion_mibs/ION-RMG.mib                               // defines rmg MIB
+         /Management/Zabbix/ion_mibs/ION-TMG.mib                               // defines tmg MIB
+
+      Preliminary Code Review
+      ───────────────────────
+         https://lnsvr0012.cs.myharris.net:8443/ui#review:id=17848
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                MIB Changes                                                                              ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Create A Branch For Management MIB Development
+   ══════════════════════════════════════════════
+      1. Open a terminal window
+      2. Create a new management branch for MIB development by typing the following command(s) into the terminal window:
+
+            svn cp --parents -m "US23395 Prototype SNMP version reporting mechanism branch creation" \
+                                 https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Management/Zabbix/ion_mibs \
+                                 https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/jlaccone/US23395
+
+
+
+   Create A Local Workspace For Management MIB Development
+   ═══════════════════════════════════════════════════════
+      1. Open a terminal window
+      2. Create a new local workspace for MIB development by typing the following command(s) into the terminal window:
+
+            svn co https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/jlaccone/US23395 \
+                   /data/dataworkspace/bc1-mibs
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                               Build System                                                                              ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Create A Branch For Management Development
+   ══════════════════════════════════════════
+      1. Open a terminal window
+      2. Create a new management branch for MIB development by typing the following command(s) into the terminal window:
+
+            svn cp --parents -m "US23589 Build System changes to support deployment of version reporting" \
+                                 https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Common/jenkins \
+                                 https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/jlaccone/US23589
+
+
+
+   Create A Local Workspace For Management MIB Development
+   ═══════════════════════════════════════════════════════
+      1. Open a terminal window
+      2. Create a new local workspace for MIB development by typing the following command(s) into the terminal window:
+
+            svn co --depth immediates https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/jlaccone/US23589 \
+                   /data/dataworkspace/US23589
+
+
+
+   Create A Branch For Embedded Build System Changes
+   ═════════════════════════════════════════════════
+      1. Open a terminal window
+      2. Create a new embedded branch for cwp development by typing the following command(s) into the terminal window:
+
+            svn_mkbranch -t US23394 -f trunk
+
+
+
+   Create A Local Workspace For Embedded Build System Changes
+   ══════════════════════════════════════════════════════════
+      1. Open a terminal window
+      2. Create a new local workspace for MIB development by typing the following command(s) into the terminal window:
+
+            svn_make_vcs21_workspace --profile appdev --workspace /data/dataworkspace/US23394 --onbranch /branches/dev/jlaccone/US23394
+
+
+
+   Show The Changes To The Branch Since Branch Creation
+   ════════════════════════════════════════════════════
+      1. Open a terminal window
+      2. Change to the desired Subversion working directory directory by typing the following command(s) into the terminal window:
+
+            cd <working-directory-specified-with-svn_make_vcs21_workspace-script>
+            (ex: cd /data/dataworkspace/US23394)
+
+      3. Determine the Subversion branch revision by typing the following command(s) into the terminal window:
+
+            svn log | grep -A 1 -B 3 "svn_mkbranch_Branch_Creation_From_trunk"
+            (note the revision the branch was made)
+
+      4. Show the files that have changed in the branch by typing the following command(s) into the terminal window:
+
+            svn diff -r <revision-branch-was-made>:HEAD --summarize https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/<user>/<branch>/Embedded
+            (ex: svn diff -r 256676:HEAD --summarize https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/jlaccone/US23394/Embedded)
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                   CWP Agent                                                                             ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Create A Branch For Embedded CWP Development
+   ════════════════════════════════════════════
+      1. Open a terminal window
+      2. Create a new embedded branch for cwp development by typing the following command(s) into the terminal window:
+
+            svn_mkbranch -t US23396 -f trunk
+
+
+
+   Create A Local Workspace For Embedded CWP Development
+   ═════════════════════════════════════════════════════
+      1. Open a terminal window
+      2. Create a new local workspace for MIB development by typing the following command(s) into the terminal window:
+
+            svn_make_vcs21_workspace --profile appdev --workspace /data/dataworkspace/US23396 --onbranch /branches/dev/jlaccone/US23396
+
+
+
+   Show The Changes To The Branch Since Branch Creation
+   ════════════════════════════════════════════════════
+      1. Open a terminal window
+      2. Change to the desired Subversion working directory directory by typing the following command(s) into the terminal window:
+
+            cd <working-directory-specified-with-svn_make_vcs21_workspace-script>
+            (ex: cd /data/dataworkspace/US23396)
+
+      3. Determine the Subversion branch revision by typing the following command(s) into the terminal window:
+
+            svn log | grep -A 1 -B 3 "svn_mkbranch_Branch_Creation_From_trunk"
+            (note the revision the branch was made)
+
+      4. Show the files that have changed in the branch by typing the following command(s) into the terminal window:
+
+            svn diff -r <revision-branch-was-made>:HEAD --summarize https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/<user>/<branch>/Embedded
+            (ex: svn diff -r 256649:HEAD --summarize https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/jlaccone/US23396/Embedded)
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                   TMG Agent                                                                             ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Create A Branch For Embedded TMG Development
+   ════════════════════════════════════════════
+      1. Open a terminal window
+      2. Create a new embedded branch for cwp development by typing the following command(s) into the terminal window:
+
+            svn_mkbranch -t US23397 -f trunk
+
+
+
+   Create A Local Workspace For Embedded TMG Development
+   ═════════════════════════════════════════════════════
+      1. Open a terminal window
+      2. Create a new local workspace for MIB development by typing the following command(s) into the terminal window:
+
+            svn_make_vcs21_workspace --profile appdev --workspace /data/dataworkspace/US23397 --onbranch /branches/dev/jlaccone/US23397
+
+
+
+   Show The Changes To The Branch Since Branch Creation
+   ════════════════════════════════════════════════════
+      1. Open a terminal window
+      2. Change to the desired Subversion working directory directory by typing the following command(s) into the terminal window:
+
+            cd <working-directory-specified-with-svn_make_vcs21_workspace-script>
+            (ex: cd /data/dataworkspace/US23397)
+
+      3. Determine the Subversion branch revision by typing the following command(s) into the terminal window:
+
+            svn log | grep -A 1 -B 3 "svn_mkbranch_Branch_Creation_From_trunk"
+            (note the revision the branch was made)
+
+      4. Show the files that have changed in the branch by typing the following command(s) into the terminal window:
+
+            svn diff -r <revision-branch-was-made>:HEAD --summarize https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/<user>/<branch>/Embedded
+            (ex: svn diff -r 256672:HEAD --summarize https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/jlaccone/US23397/Embedded)
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                   RMG Agent                                                                             ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Create A Branch For Embedded TMG Development
+   ════════════════════════════════════════════
+      1. Open a terminal window
+      2. Create a new embedded branch for cwp development by typing the following command(s) into the terminal window:
+
+            svn_mkbranch -t US23398 -f trunk
+
+
+
+   Create A Local Workspace For Embedded TMG Development
+   ═════════════════════════════════════════════════════
+      1. Open a terminal window
+      2. Create a new local workspace for MIB development by typing the following command(s) into the terminal window:
+
+            svn_make_vcs21_workspace --profile appdev --workspace /data/dataworkspace/US23398 --onbranch /branches/dev/jlaccone/US23398
+
+
+
+   Show The Changes To The Branch Since Branch Creation
+   ════════════════════════════════════════════════════
+      1. Open a terminal window
+      2. Change to the desired Subversion working directory directory by typing the following command(s) into the terminal window:
+
+            cd <working-directory-specified-with-svn_make_vcs21_workspace-script>
+            (ex: cd /data/dataworkspace/US23398)
+
+      3. Determine the Subversion branch revision by typing the following command(s) into the terminal window:
+
+            svn log | grep -A 1 -B 3 "svn_mkbranch_Branch_Creation_From_trunk"
+            (note the revision the branch was made)
+
+      4. Show the files that have changed in the branch by typing the following command(s) into the terminal window:
+
+            svn diff -r <revision-branch-was-made>:HEAD --summarize https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/<user>/<branch>/Embedded
+            (ex: svn diff -r 257724:HEAD --summarize https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/jlaccone/US23398/Embedded)
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                             Call Control Server Common                                                                  ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Call Control Server Debug Modifications
+   ═══════════════════════════════════════
+      1. Open a root user terminal window on a call control server
+      2. To Modify the deamon configuration, open the config file by typing the following command(s) into the terminal window:
+
+            vi /etc/snmp/snmp.conf
+
+      3. Edit the the file, adding the entries below:
+
+            #dumpPacket yes
+            doDebugging 1
+            debugTokens snmp_agent,ucd-snmp/pass,exec,run
+            mibAllowUnderline true
+            showMibErrors true
+
+      4. Save the file and exit vi
+      5. To Modify the deamon startup configuration, open the config file by typing the following command(s) into the terminal window:
+
+            vi /etc/sysconfig/snmpd
+
+      6. Edit the the file, to reflect the entries below:
+
+            # snmpd command line options
+            # '-f' is implicitly added by snmpd systemd unit file
+            # OPTIONS="-LS0-6d"
+            #OPTIONS="-Lf /dev/null -p /var/run/snmpd.pid"
+            OPTIONS="-LF d /var/log/snmpd.log -p /var/run/snmpd.pid"
+
+      7. Save the file and exit vi
+      8. Restart the snmp daemon by typing the following command(s) into the terminal window:
+
+            systemctl daemon-reload
+            systemctl restart snmpd
+
+      9. Monitor the snmp daemon by typing the following command(s) into the terminal window:
+
+            tail -f /var/log/snmpd.log
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                              SIP Conference Server                                                                      ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Create A Branch For SIP Conference Server Development
+   ═════════════════════════════════════════════════════
+      1. Open a terminal window
+      2. Create a new management branch for MIB development by typing the following command(s) into the terminal window:
+
+            svn cp --parents -m "US23526 Implement SNMP Version reporting Mechanism for SIP Conference Server" \
+                                 https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Management/Zabbix \
+                                 https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/jlaccone/US23526
+
+
+
+   Create A Local Workspace For SIP Conference Server Development
+   ══════════════════════════════════════════════════════════════
+      1. Open a terminal window
+      2. Create a new local workspace for MIB development by typing the following command(s) into the terminal window:
+
+            svn co https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/jlaccone/US23526 \
+                   /data/dataworkspace/US23526
+
+
+
+   Show The Changes To The Branch Since Branch Creation
+   ════════════════════════════════════════════════════
+      1. Open a terminal window
+      2. Change to the desired Subversion working directory directory by typing the following command(s) into the terminal window:
+
+            cd <working-directory-specified-with-svn_make_vcs21_workspace-script>
+            (ex: cd /data/dataworkspace/US23526)
+
+      3. Determine the Subversion branch revision by typing the following command(s) into the terminal window:
+
+            svn log | grep -A 1 -B 3 "svn_mkbranch_Branch_Creation_From_trunk"
+            (note the revision the branch was made)
+
+      4. Show the files that have changed in the branch by typing the following command(s) into the terminal window:
+
+            svn diff -r <revision-branch-was-made>:HEAD --summarize https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/<user>/<branch>
+            (ex: svn diff -r 257731:HEAD --summarize https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/jlaccone/US23526)
+
+
+
+   Show The Management Changes Committed In The Integration Branch
+   ═══════════════════════════════════════════════════════════════
+      1. Open a terminal window
+      2. Show the changes by typing the following command(s) into the terminal window:
+
+            cd <local-branch-embedded-dir>
+            (ex: cd /data/dataworkspace/US23526)
+
+            svn log --verbose -r <revision>
+            (ex: svn log --verbose -r 257734)
+
+      Files Changed
+      ─────────────
+         /Management/Zabbix/datafiles/bc                                       // directory for bc version data
+         /Management/Zabbix/datafiles/bc/build_data.dat                        // binary bc version file
+         /Management/Zabbix/datafiles/bc/build_data.dat.md5                    // checksum file for binary bc version file
+         /Management/Zabbix/scripts/net-snmp_bc.bash                           // SNMP script agent for SIP Conf and SIP Proxy
+         /Management/Zabbix/snmp/snmp.conf                                     // Net-SNMP configuration file, used to include MIBs
+         /Management/Zabbix/snmp_cc/snmpd_cc.conf                              // Net-SNMP configuration file, used to direct requests to SNMP script agent
+
+
+
+   Conference Server MIB Upload
+   ════════════════════════════
+      1. Open a terminal window
+      2. Copy the latest MIB files to the conference server by typing the following command(s) into the terminal window:
+
+            scp /data/dataworkspace/bc1-mibs/harris.mib root@<sip-conf-server-ip>:/usr/share/snmp/mibs
+            (ex: scp /data/dataworkspace/bc1-mibs/harris.mib root@172.24.24.138:/usr/share/snmp/mibs)
+
+            scp /data/dataworkspace/bc1-mibs/ION*.mib root@<sip-conf-server-ip>:/usr/share/snmp/mibs
+            (ex: scp /data/dataworkspace/bc1-mibs/ION*.mib root@172.24.24.138:/usr/share/snmp/mibs)
+
+
+   Conference Server Build Data Upload
+   ═══════════════════════════════════
+      1. Open a terminal window
+      2. Copy the latest build data to the conference server by typing the following command(s) into the terminal window:
+
+            scp /data/dataworkspace/US22895/build_data.dat* root@<sip-conf-server-ip>:/home/zabbix/datafiles/bc
+            (ex: scp /data/dataworkspace/US22895/build_data.dat* root@172.24.24.138:/home/zabbix/datafiles/bc)
+
+
+   Conference Server Script Agent Upload
+   ═════════════════════════════════════
+      1. Open a terminal window
+      2. Copy the latest script agent file to the conference server by typing the following command(s) into the terminal window:
+
+            scp /data/dataworkspace/US22895/net-snmp_bc.bash root@<sip-conf-server-ip>:/home/zabbix/scripts
+            (ex: scp /data/dataworkspace/US22895/net-snmp_bc.bash root@172.24.24.138:/home/zabbix/scripts)
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                            SIP Proxy Server                                                                             ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   See the "SIP Conference Server" section above
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                                                                                                         ║
+║                                                                            ===  Tests  ===                                                                              ║
+║                                                                                                                                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                               SNMP Common                                                                               ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Graphically Examine SNMP Agent Values With MIB Browser
+   ══════════════════════════════════════════════════════
+      1. Open a terminal window
+      2. Copy the latest MIB files into the library directory by typing the following command(s) into the terminal window:
+
+            cp <local-branch-mib-dir>/*.mib <local-library-dir>
+            (ex: cp /data/dataworkspace/bc0-mibs/*.mib ~/.snmp/mibs)
+
+      3. Run the MIB browser by typing the following command(s) into the terminal window:
+
+            tkmib -o <device-mib-module>::backwardCompatibility <emb-device-ip>
+            (ex: tkmib -o ION-RMGMIB::backwardCompatibility 172.24.24.185)
+            (ex: tkmib -o ION-TMGMIB::backwardCompatibility 172.24.24.169)
+
+
+   Display Instance Values Of All BC Objects
+   ═════════════════════════════════════════
+      1. Open a terminal window
+      2. Display values of all BC MIB objects by typing the following command(s) into the terminal window:
+
+            snmpwalk -v 2c -c <community-name> <host-ip-address> <device-mib-module>::backwardCompatibility
+            (ex: snmpwalk -v 2c -c public 172.24.24.159 ION-CWPMIB::backwardCompatibility)
+            (ex: snmpwalk -v 2c -c public 172.24.24.185 ION-RMGMIB::backwardCompatibility)
+            (ex: snmpwalk -v 2c -c public 172.24.24.169 ION-TMGMIB::backwardCompatibility)
+
+
+   Display Instance Values Of A Single MIB Object
+   ══════════════════════════════════════════════
+      1. Open a terminal window
+      2. Display a MIB object by typing the following command(s) into the terminal window:
+
+            cd ~/.snmp/mibs
+
+            snmpget -v 2c -c <community-name> <host-ip-address> <mib>::<mib-object>
+            (ex: snmpget -v 2c -c public 172.24.24.159 ION-CWPMIB::currentReleaseVersion.0)
+            (ex: snmpget -v 2c -c public 172.24.24.159 1.3.6.1.4.1.290.6.7.3.1.8.1.0)
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                         Source Code Modifications                                                                       ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Copy The Source Modification Script Into Docker Container
+   ═════════════════════════════════════════════════════════
+      1. Verify that all steps listed in the "Build System Setup" section have been completed
+      2. Open a terminal window
+      3. Copy the modification script by typing the following command(s) into the terminal window:
+
+            docker cp <script-source-dir>/update_source.sh <docker-instance-name>:<script-target-dir-in-container>
+            (ex: docker cp /data/dataworkspace/jenkins-docker/update_source.sh vcast_instance:/home/developer/svn-working-dir/bin)
+
+
+   Run The Modification Script On A Local Branch
+   ═════════════════════════════════════════════
+      1. Verify that all steps listed in the "Build System Setup" section have been completed
+      2. Open a terminal window
+      3. Copy the latest build data and modification script to the local branch by typing the following command(s) into the terminal window:
+
+            cp <local-tool-dir>/<build-data-file> <local-tool-dir>/<modification-script> <local-branch-embedded-dir>/bin
+            (ex: cp /data/dataworkspace/jenkins-docker/build_data.xml /data/dataworkspace/jenkins-docker/update_source.sh /data/dataworkspace/bc0/bin)
+
+      4. Run the modification script by typing the following command(s) into the terminal window:
+
+            <local-branch-embedded-dir>/bin/update_source.sh --build-file <version-data-source-dir>/build_data.xml --src-path <local-branch-embedded-dir>/ccu/base/app -u
+            (ex: /data/dataworkspace/bc0/bin/update_source.sh --build-file /data/dataworkspace/jenkins-docker/build_data.xml --src-path /data/dataworkspace/bc0/ccu/base/app -u)
+
+
+   Compile A Local Branch
+   ══════════════════════
+      1. Verify that all steps listed in the "Run The Modification Script On A Local Branch" procedure have been completed
+      2. Open a terminal window
+      3. Build the local branch by typing the following command(s) into the terminal window:
+
+            cd <local-branch-embedded-dir>/ccu/_build/app
+            (ex: cd /data/dataworkspace/bc0/ccu/_build/app)
+
+            make -j <number-of-processors> install/strip
+            (ex: make -j 12 install/strip)
+
+
+   Push Local Build Artifacts To A Test Device
+   ═══════════════════════════════════════════
+      1. Verify that all steps listed in the "Compile A Local Branch" procedure have been completed
+      2. Verify that the "~/vdriveDEV" symbolic link is pointing to the local branch
+      3. Open a terminal window
+      4. Push the local build artifacts to a device by typing the following command(s) into the terminal window:
+
+            ~/bp -n <first-three-octets-of-ip-address> -m <last-octet-of-ip-address> -a <build-artifacts> -p
+            (ex: ~/bp -n 172.24.24 -m 159 -a "map pui" -p)
+            (ex: ~/bp -n 172.24.24 -m 185 -a "rmg" -p)
+            (ex: ~/bp -n 172.24.24 -m 169 -a "tmg" -p)
+
+
+   Revert Local Branch Version Modifications
+   ═════════════════════════════════════════
+      1. Verify that all steps listed in the "Build System Setup" section have been completed
+      2. Open a terminal window
+      3. Revert the modifications by typing the following command(s) into the terminal window:
+
+            cd <local-branch-embedded-dir>/ccu/base/app/map/include
+            (ex: cd /data/dataworkspace/bc0/ccu/base/app/map/include)
+
+            svn revert ion_cwpmib.h
+
+            cd <local-branch-embedded-dir>/ccu/base/app/common/include
+            (ex: cd /data/dataworkspace/bc0/ccu/base/app/common/include)
+
+            svn revert ion_xmgmib.h
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                          SIP Conference Server                                                                          ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Conference Server Librabry Package Validation
+   ═════════════════════════════════════════════
+      1. Open a root user terminal window on a conference server
+      2. Verify that the support libraries are installed by typing the following command(s) into the terminal window:
+
+            rpm -q vim-filesystem vim-common
+
+
+   Conference Server SNMP Daemon Validation
+   ════════════════════════════════════════
+      1. Open a root user terminal window on a conference server
+      2. Verify that the SNMP daemon is running by typing the following command(s) into the terminal window:
+
+            systemctl status snmpd
+
+
+   Conference Server BC Version Data Validation
+   ════════════════════════════════════════════
+      1. Open a root user terminal window on a conference server
+      2. Verify that the Backward Compatibility version data is present on the server by typing the following command(s) into the terminal window:
+         NOTE: Version data consists of two files: build_data.dat, build_data.dat.md5
+
+            ls -l /home/zabbix/datafiles/bc
+
+
+   Conference Server BC SNMP Processing Script Existance Validation
+   ════════════════════════════════════════════════════════════════
+      1. Open a root user terminal window on a conference server
+      2. Verify that the Backward Compatibility SNMP processing script exists on the server by typing the following command(s) into the terminal window:
+
+            ls -l /home/zabbix/scripts/net-snmp_bc.bash
+
+
+   Conference Server BC SNMP Processing Script Validation
+   ══════════════════════════════════════════════════════
+      1. Open a root user terminal window on a conference server
+      2. Verify that the Backward Compatibility script agent is working by typing the following command(s) into the terminal window:
+
+            cd /home/zabbix/scripts
+            ./net-snmp_bc.bash -g .1.3.6.1.4.1.290.6.7.11.1.1.2.0
+            ./net-snmp_bc.bash -n .1.3.6.1.4.1.290.6.7.11.1.1
+
+
+   Conference Server SNMP Tests
+   ════════════════════════════
+      1. Open a root user terminal window on a conference server
+      2. Verify that the VCS21 MIB files are on the server by typing the following command(s) into the terminal window:
+
+            ls -l /usr/share/snmp/mibs/harris*
+            ls -l /usr/share/snmp/mibs/ION-*
+
+      3. Verify that the HARRIS/ION MIB structure is processing correctly by typing the following command(s) into the terminal window:
+
+            (generates oid): snmptranslate -m +HARRIS-MIB -On HARRIS-MIB::gcsd2
+            (generates oid): snmptranslate -m +HARRIS-MIB:ION-MIB -On ION-MIB::sipconf
+
+            (generates txt): snmptranslate -m +HARRIS-MIB .1.3.6.1.4.1.290.6
+            (generates txt): snmptranslate -m +HARRIS-MIB:ION-MIB .1.3.6.1.4.1.290.6.7.11
+
+      4. Verify that the Backward Compatibility MIB structure is processing correctly by typing the following command(s) into the terminal window:
+
+            (generates oid): snmptranslate -m +HARRIS-MIB:ION-MIB:ION-SIPCONF -On ION-SIPCONF::previousReleaseVersion.0
+            (generates txt): snmptranslate -m +HARRIS-MIB:ION-MIB:ION-SIPCONF .1.3.6.1.4.1.290.6.7.11.1.1.2.0
+
+      5. Determine the correct community string by typing the following command(s) into the terminal window:
+         NOTE: The string is listed in the "Access Control" section under the "community" column
+
+            less /etc/snmp/snmpd.conf
+
+      6. Verify that the SNMP agent is processing GET REQUESTS by typing the following command(s) into the terminal window:
+
+            snmpget -v 2c -c <community-string> <sip-conf-server-ip> SNMPv2-MIB::sysDescr.0
+            (ex: snmpget -v 2c -c testwrite localhost SNMPv2-MIB::sysDescr.0)
+
+      7. Verify that the SNMP agent is processing GET NEXT REQUESTS by typing the following command(s) into the terminal window:
+
+            snmpwalk -v 2c -c <community-string> <sip-conf-server-ip> .1
+            (ex: snmpwalk -v 2c -c testwrite localhost .1)
+
+      8. Verify that the Backward Compatibility script agent is processing GET REQUESTS by typing the following command(s) into the terminal window:
+
+            snmpget -v 2c -c <community-string> <sip-conf-server-ip> ION-SIPCONF::previousReleaseVersion.0
+            (ex: snmpget -v 2c -c testwrite localhost ION-SIPCONF::previousReleaseVersion.0)
+
+      9. Verify that the Backward Compatibility script agent is processing GET NEXT REQUESTS by typing the following command(s) into the terminal window:
+
+            snmpwalk -v 2c -c <community-string> <sip-conf-server-ip> ION-SIPCONF::backwardCompatibility
+            (ex: snmpwalk -v 2c -c testwrite localhost ION-SIPCONF::backwardCompatibility)
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                           SIP Proxy Server                                                                              ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Proxy Server Validation
+   ═══════════════════════
+      1. Open a root user terminal window on a proxy server
+      2. Verify that the Backward Compatibility script agent is working by typing the following command(s) into the terminal window:
+
+            cd /home/zabbix/scripts
+            ./net-snmp_bc.bash -g .1.3.6.1.4.1.290.6.7.9.1.3.2.0
+
+
+   Proxy Server Tests
+   ══════════════════
+      1. Open a terminal window
+      2. Copy the latest MIB files into the library directory by typing the following command(s) into the terminal window:
+
+            cp <local-branch-mib-dir>/*.mib <local-library-dir>
+            (ex: cp /data/dataworkspace/bc1-mibs/*.mib ~/.snmp/mibs)
+
+      3. Verify that the Backward Compatibility MIB is available locally by typing the following command(s) into the terminal window:
+
+            (generates oid): snmptranslate -m +HARRIS-MIB:ION-MIB:ION-SIPPROXY -On ION-SIPPROXY-MIB::previousReleaseVersion.0
+            (generates txt): snmptranslate -m +HARRIS-MIB:ION-MIB:ION-SIPPROXY .1.3.6.1.4.1.290.6.7.9.1.3.2.0
+
+      4. Verify that the Backward Compatibility script agent is working by typing the following command(s) into the terminal window:
+
+            snmpget -v 2c -c public <sip-proxy-server-ip> ION-SIPPROXY::previousReleaseVersion.0
+            (ex: snmpget -v 2c -c public 172.24.24.140 ION-SIPPROXY::previousReleaseVersion.0)
+
+      5. Run the MIB browser by typing the following command(s) into the terminal window:
+
+            tkmib -o ION-SIPPROXY::backwardCompatibility <sip-proxy-server-ip>
+            (ex: tkmib -o ION-SIPPROXY::backwardCompatibility 172.24.24.140)
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                           Automation Tests                                                                              ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Create A Branch For Automation Test Development
+   ═══════════════════════════════════════════════
+      1. Open a terminal window
+      2. Create a new branch for autotest development by typing the following command(s) into the terminal window:
+
+            svn cp --parents -m "US23627 Deployment of version reporting, Jenkins Verification" \
+                                 https://lnsvr0016.cs.myharris.net/vcs21/vcs21_LAB/AutoTest/trunk/jenkins \
+                                 https://lnsvr0016.cs.myharris.net/vcs21/vcs21_LAB/AutoTest/branches/dev/jlaccone/US23627
+
+            svn cp --parents -m "US23886 Update deploy with Harden Dream Application INCO change" \
+                                 https://lnsvr0016.cs.myharris.net/vcs21/vcs21_LAB/AutoTest/branches/dev/dmota/US23886/jenkins \
+                                 https://lnsvr0016.cs.myharris.net/vcs21/vcs21_LAB/AutoTest/branches/dev/jlaccone/US23886
+
+
+   Create A Local Workspace For Automation Test Development
+   ════════════════════════════════════════════════════════
+      1. Open a terminal window
+      2. Create a new local workspace for autotest development by typing the following command(s) into the terminal window:
+
+            svn co https://lnsvr0016.cs.myharris.net/vcs21/vcs21_LAB/AutoTest/branches/dev/jlaccone/US23627 \
+                   /data/dataworkspace/US23627
+
+            svn co https://lnsvr0016.cs.myharris.net/vcs21/vcs21_LAB/AutoTest/branches/dev/jlaccone/US23886 \
+                   /data/dataworkspace/US23886
+
+
+
+
+https://lnsvr0016.cs.myharris.net/vcs21/vcs21_LAB/AutoTest/trunk/jenkins/pipelines/DeployVerification.pipeline
+
+
+
+
+
+
+
+
+

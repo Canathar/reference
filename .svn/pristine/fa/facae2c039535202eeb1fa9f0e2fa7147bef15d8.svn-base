@@ -1,0 +1,250 @@
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ Development_Partition_Plan.txt                                                                                                  ║
+║                                                                                                                                 ║
+║ Document Best Viewed/Printed: Page{Letter, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                 ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                         Revision History                                                        ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                             ║
+║                                                                                                                                 ║
+║  1.00.05118.xx (20 Feb 18) - Initial Creation {J. Laccone}                                                                      ║
+║                                 Added header, added reference data                                                              ║
+║  1.01.06818.xx (09 Mar 18) - Development Update {J. Laccone}                                                                    ║
+║                                 Modified partition sizes                                                                        ║
+║  1.02.07118.xx (12 Mar 18) - Development Update {J. Laccone}                                                                    ║
+║                                 Modified partition table layout                                                                 ║
+║  1.03.07218.xx (13 Mar 18) - Development Update {J. Laccone}                                                                    ║
+║                                 Modified partition table layout                                                                 ║
+║                                 Added additional ssm instructions                                                               ║
+║  1.04.09618.xx (06 Apr 18) - Development Update {J. Laccone}                                                                    ║
+║                                 Added minimal sizes to partition table layout                                                   ║
+║  1.05.09918.xx (09 Apr 18) - Development Update {J. Laccone}                                                                    ║
+║                                 Added minimal size notes to partition table layout                                              ║
+║  1.06.12418.xx (04 May 18) - Development Update {J. Laccone}                                                                    ║
+║                                 Added data for Ubuntu                                                                           ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                            Reference                                                            ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                 ║
+║   System Storage Manager                                                                                                        ║
+║   ----------------------                                                                                                        ║
+║      https://github.com/system-storage-manager/ssm                                                                              ║
+║                                                                                                                                 ║
+║   Unix/Linux Disk Partitioning Guide                                                                                            ║
+║   ----------------------------------                                                                                            ║
+║      https://wpollock.com/AUnix1/Partitioning.htm                                                                               ║
+║                                                                                                                                 ║
+║   Understanding LVM (redhat)                                                                                                    ║
+║   --------------------------                                                                                                    ║
+║      https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/installation_guide/sn-partitioning-lvm       ║
+║                                                                                                                                 ║
+║   Recommended Partitioning Scheme (redhat)                                                                                      ║
+║   ----------------------------------------                                                                                      ║
+║      https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/installation_guide/s2-diskpartrecommend-x86  ║
+║                                                                                                                                 ║
+║   How To Resize Hard Drive On Linux Systems With LVM                                                                            ║
+║   --------------------------------------------------                                                                            ║
+║      https://support.plesk.com/hc/en-us/articles/115001270933-How-to-resize-hard-drive-on-Linux-systems-with-LVM-               ║
+║                                                                                                                                 ║
+║   How To Manage LVM Volumes On CentOS / RHEL 7 With System Storage Manager                                                      ║
+║   ------------------------------------------------------------------------                                                      ║
+║      http://xmodulo.com/manage-lvm-volumes-centos-rhel-7-system-storage-manager.html                                            ║
+║                                                                                                                                 ║
+║   Linux Filesystem Hierarchy Standard 3.0                                                                                       ║
+║   ---------------------------------------                                                                                       ║
+║      http://refspecs.linuxfoundation.org/FHS_3.0/fhs/index.html                                                                 ║
+║                                                                                                                                 ║
+║   Linux Files And Directories                                                                                                   ║
+║   ---------------------------                                                                                                   ║
+║      http://www.linfo.org/file_index.html                                                                                       ║
+║                                                                                                                                 ║
+║   Howto Install CentOS 7 and RHEL 7 Minimal Server                                                                              ║
+║   ------------------------------------------------                                                                              ║
+║      http://landoflinux.com/linux_install_centos_7_minimal_server.html                                                          ║
+║                                                                                                                                 ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                 Logical Volume Management (LVM)                                                 ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   LVM (Logical Volume Management) partitions provide a number of advantages over standard partitions.
+
+   LVM partitions are formatted as physical volumes.
+   One or more physical volumes are combined to form a volume group.
+   Each volume group's total storage is then divided into one or more logical volumes.
+
+   The logical volumes function much like standard partitions. They have a file system type, such as ext4, and a mount point.
+
+
+   LVM Physical Volume Display
+   ───────────────────────────
+      1. Open a terminal window
+      2. Login as the superuser (root on CentOS/RHEL, sudo su on Ubuntu)
+      3. To display the details of lvm's physical volumes, execute the following command
+
+            pvdisplay (or pvs)
+
+
+   LVM Volume Group Display
+   ────────────────────────
+      1. Open a terminal window
+      2. Login as the superuser (root on CentOS/RHEL, sudo su on Ubuntu)
+      3. To display the details of lvm's volume groups, execute the following command
+
+            vgdisplay (or vgs)
+
+
+   LVM Logical Volume Display
+   ──────────────────────────
+      1. Open a terminal window
+      2. Login as the superuser (root on CentOS/RHEL, sudo su on Ubuntu)
+      3. To display the details of lvm's logical volumes, execute the following command
+
+            lvdisplay (or lvs)
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                        Storage Management                                                       ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Display Block Devices
+   ─────────────────────
+      1. Open a terminal window
+      2. Login as the superuser (root on CentOS/RHEL, sudo su on Ubuntu)
+      3. To display the layout of all the block devices, execute the following command
+
+            lsblk --all
+
+
+   System Storage Manager
+   ──────────────────────
+      1. Open a terminal window
+      2. Login as the superuser (root on CentOS/RHEL, sudo su on Ubuntu)
+      3. If the tool is not installed, execute the following command:
+
+            For CentOS:
+            -----------
+            yum --noplugins --enablerepo "*" --disablerepo "*media*" install system-storage-manager
+
+            For Ubuntu:
+            -----------
+            cd /usr/src
+            wget http://github.com/system-storage-manager/ssm/archive/master.zip
+            unzip master.zip
+            cd master
+            python setup.py install
+
+      4. To manage the storage on the system, execute the following command:
+
+            ssm list
+
+      5. To add a new volume to an existing pool, execute the following command:
+
+            ssm create -s <size> -n <name> --fstype <type> -p <pool> <device> <mount-point>
+            (ex: ssm create -s 20G -n tftpboot --fstype xfs -p VG2 /dev/sda6 /tftpboot)
+
+      6. To resize an existing volume, execute the following command:
+
+            ssm resize -s<size> <volume>
+            (ex: ssm resize -s+20G /dev/VG2/tftpboot)
+
+
+   Gnome Partition Editor
+   ──────────────────────
+      1. Open a terminal window
+      2. Login as the superuser (root on CentOS/RHEL, sudo su on Ubuntu)
+      3. To manage the storage partitions on the system, execute the following command
+
+            gparted
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                          Partition Plan                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+
+                                         1000 GB (1 TB) HDD {or 40 GB HDD for min} /dev/sda
+  ┌─────────────┬─────────────────┬────────────┬────────────┬───────────────────────────────────────────────────────────────────┐
+  │   Part  #   │                 │            │            │                                                                   │
+  │     -or-    │   Mount Point   │    Size    │     Min    │                               Notes                               │
+  │   LV Name   │                 │            │            │                                                                   │
+  ├─────────────┼─────────────────┼────────────┼────────────┼───────────────────────────────────────────────────────────────────┤
+  │             │                 │            │            │                                                                   │
+  │      1      │   /boot         │     1 GB   │   500 MB   │ ──                                                                │
+  │             │                 │            │            │                                                                   │
+  ├─────────────┼─────────────────┼────────────┼────────────┼───────────────────────────────────────────────────────────────────┤
+  │             │                 │            │            │                                                                   │
+  │      2      │   ──            │   500 GB*  │    12 GB   │ LVM physical volume; fixed size; holds volume group VG1           │
+  │             │                 │            │            │                                                                   │
+  ├─────────────┴─────────────────┴────────────┴────────────┴───────────────────────────────────────────────────────────────────┤
+  │╔════════════╤═════════════════╤════════════╤════════════╤══════════════════════════════════════════════════════════════════╗│
+  │║            │                 │            │            │                                                                  ║│
+  │║   homeLV   │   /home         │   120 GB   │     2 GB   │ Logical volume in VG1                                            ║│
+  │║            │                 │            │            │                                                                  ║│
+  │╟────────────┼─────────────────┼────────────┼────────────┼──────────────────────────────────────────────────────────────────╢│
+  │║            │                 │            │            │                                                                  ║│
+  │║   tmpLV    │   /tmp          │    10 GB   │     1 GB** │ Logical volume in VG1                                            ║│
+  │║            │                 │            │            │                                                                  ║│
+  │╟────────────┼─────────────────┼────────────┼────────────┼──────────────────────────────────────────────────────────────────╢│
+  │║            │                 │            │            │                                                                  ║│
+  │║   varLV    │   /var          │    80 GB   │     5 GB   │ Logical volume in VG1                                            ║│
+  │║            │                 │            │            │                                                                  ║│
+  │╟────────────┼─────────────────┼────────────┼────────────┼──────────────────────────────────────────────────────────────────╢│
+  │║            │                 │            │            │                                                                  ║│
+  │║   optLV    │   /opt          │    40 GB   │     2 GB   │ Logical volume in VG1 (or could be /usr/local)                   ║│
+  │║            │                 │            │            │                                                                  ║│
+  │╟────────────┼─────────────────┼────────────┼────────────┼──────────────────────────────────────────────────────────────────╢│
+  │║            │                 │            │            │                                                                  ║│
+  │║            │   ──            │    fixed   │            │ volume group VG1 free space (depends on drive size)              ║│
+  │║            │                 │            │            │                                                                  ║│
+  │╚════════════╧═════════════════╧════════════╧════════════╧══════════════════════════════════════════════════════════════════╝│
+  ├─────────────┬─────────────────┬────────────┬────────────┬───────────────────────────────────────────────────────────────────┤
+  │             │                 │            │            │                                                                   │
+  │      3      │   / (root)      │    40 GB   │    12 GB   │ ──                                                                │
+  │             │                 │            │            │                                                                   │
+  ├─────────────┼─────────────────┼────────────┼────────────┼───────────────────────────────────────────────────────────────────┤
+  │             │                 │            │            │                                                                   │
+  │      5      │   swap          │    32 GB   │     2 GB   │ Sized to be 2x the amount of RAM (shown for 16 GB of RAM)         │
+  │             │                 │            │            │                                                                   │
+  ├─────────────┼─────────────────┼────────────┼────────────┼───────────────────────────────────────────────────────────────────┤
+  │             │                 │            │            │                                                                   │
+  │      6      │   ──            │   420 GB*  │    14 GB   │ LVM physical volume; as large as possible; holds volume group VG2 │
+  │             │                 │            │            │                                                                   │
+  ├─────────────┴─────────────────┴────────────┴────────────┴───────────────────────────────────────────────────────────────────┤
+  │╔════════════╤═════════════════╤════════════╤════════════╤══════════════════════════════════════════════════════════════════╗│
+  │║            │                 │            │            │                                                                  ║│
+  │║  dataLV    │   /data         │   120 GB   │     8 GB   │ Logical volume in VG2                                            ║│
+  │║            │                 │            │            │                                                                  ║│
+  │╟────────────┼─────────────────┼────────────┼────────────┼──────────────────────────────────────────────────────────────────╢│
+  │║            │                 │            │            │                                                                  ║│
+  │║ tftpbootLV │   /tftpboot     │    20 GB   │     2 GB   │ Logical volume in VG2                                            ║│
+  │║            │                 │            │            │                                                                  ║│
+  │╟────────────┼─────────────────┼────────────┼────────────┼──────────────────────────────────────────────────────────────────╢│
+  │║            │                 │            │            │                                                                  ║│
+  │║            │   ──            │  remaining │            │ volume group VG2 free space (depends on drive size)              ║│
+  │║            │                 │            │            │                                                                  ║│
+  │╚════════════╧═════════════════╧════════════╧════════════╧══════════════════════════════════════════════════════════════════╝│
+  └─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+            * The partition sizes shown in the "Size" column add up to a total allocated size of 464 GB.
+              The size breakdown is as follows:
+
+                 boot, root, and swap partitions -  74 GB
+                 LVM Physical Volume VG1         - 250 GB Allocated / 250 GB Free
+                 LVM Physical Volume VG2         - 140 GB Allocated / 280 GB Free
+
+              The partition sizes can be modified to suit the size of your hard drive(s). The sizes shown are for
+              a 1 TB hard drive, but with only a change in the free space of each LVM physical volume, a 500 GB hard drive
+              can be substituted (each volume group would have approximately 18 GB of free space). Partition sizes can be
+              adjusted all the way down a minimum footprint for a 40 GB hard drive (partition sizes shown in "Min" column).
+
+              The swap partition should be sized appropriately for the amount of RAM in your system.
+
+
+           ** During install of Qt, a minimum of 2 GB is required. This can be added temporarily and then removed using
+              system storage manager.

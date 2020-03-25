@@ -1,0 +1,219 @@
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ Device_Image.txt                                                                                                                ║
+║                                                                                                                                 ║
+║ Document Encoding           : UTF-8, UNIX Line Terminator                                                                       ║
+║ Document Best Viewed/Printed: Page{Legal, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                  ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                         Revision History                                                        ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                             ║
+║                                                                                                                                 ║
+║  1.00.23418.xx (22 Aug 18) - Initial Creation {J. Laccone}                                                                      ║
+║                                 Added header, added reference data                                                              ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                            Reference                                                            ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                 ║
+║   Terminal Server Procedures                                                                                                    ║
+║   --------------------------                                                                                                    ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/jlaccone/reference/Terminal_Server_Info.txt      ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                              Notes                                                              ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                 ║
+║                                                                                                                                 ║
+║                                                                                                                                 ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+
+   Pearle
+   ------
+   192.168.155.242 10008 NAN CWP-003
+
+   root
+   run flu
+   run flh
+   run flw
+   reset
+
+
+
+   Node Manager NAN
+   ----------------
+   172.24.24.201
+
+
+
+   ll /home/files/install/new
+   ll /home/files/install/current
+   ll /home/files/install/previous
+   scp /data/dataworkspace/DE14496A_trunk/bin/scripts/rollback.sh root@172.24.24.224:/home/bin/rollback.sh
+
+
+
+   Embedded Device Rollback Test Procedure
+   ═══════════════════════════════════════
+      1. Change operational mode of device
+      2. Add new files to device (populates /home/files/install/new)
+      3. Install new files on device (populates /home/files/install/current)
+
+            Device will reboot
+
+      4. Change operational mode of device
+      5. Add new files to device (populates /home/files/install/new)
+      6. Install new files on device (populates /home/files/install/previous)
+
+            Device will reboot
+
+      7. Manually execute software rollback by executing the following command
+
+            /home/bin/rollback.sh
+
+
+
+
+   Downloading Software To Device
+   ══════════════════════════════
+      In order to add software to a device, follow the procedure below
+
+
+      Change The Operational Mode Of The Device
+      ─────────────────────────────────────────
+         1. Open a terminal window on the device as a root user
+         2. Change the operational mode by typing the following command(s) into the terminal window:
+
+               vi /tmp/node_mode.txt
+               (change ONLINE to OFFLINE)
+
+
+      Download/Install Files To The Device
+      ────────────────────────────────────
+         1. Open a terminal window on the network manager (nm-01) of the AVN as a root user
+         2. Download files by typing the following command(s) into the terminal window:
+
+               CWP Device
+               ----------
+                  /opt/harris/embedded/download.sh /opt/harris/repo/cwp/cwp_wc2.1/ <emb-device>
+                  (ex: /opt/harris/embedded/download.sh /opt/harris/repo/cwp/cwp_wc2.1/ cwp-003)
+
+               RMG Device
+               ----------
+                  /opt/harris/embedded/download.sh /opt/harris/repo/rmg/rmg2.0/ <emb-device>
+                  (ex: /opt/harris/embedded/download.sh /opt/harris/repo/rmg/rmg2.0/ rmg001-02)
+
+               TMG Device
+               ----------
+                  /opt/harris/embedded/download.sh /opt/harris/repo/tmg/tmg2.0/ <emb-device>
+                  (ex: /opt/harris/embedded/download.sh /opt/harris/repo/tmg/tmg2.0/ tmg002-03)
+
+               NOTE: This command will populate the files in the "/home/files/install/new" directory
+
+         3. Install files by typing the following command(s) into the terminal window:
+
+               /opt/harris/embedded/install.sh <emb-device>
+               (ex: /opt/harris/embedded/install.sh cwp-003)
+
+               NOTE1: This command will take the files in the /home/files/install/new directory and place them into their
+                      designated locations according to the install script. When complete, a copy of these files will be located
+                      in the "/home/files/install/current" directory.
+
+               NOTE2: If there are files inside the "/home/files/install/current" directory, this command
+                      will move those files into the "/home/files/install/previous" directory.
+
+
+
+
+   Commands From U-Boot
+   ════════════════════
+      All of these commands are only applicable if your target device is already running U-Boot. The
+      commands listed below are meant to be entered into the U-Boot command prompt.
+
+
+      Erase U-Boot Environment Variables
+      ──────────────────────────────────
+         run fle
+
+
+
+      Erase & Restore U-Boot (U-Boot, Environment Variables)
+      ──────────────────────────────────────────────────────
+         Writes the new U-Boot from RAM to NAND
+
+            run flu
+
+         NOTE: This command is also available from the Linux command prompt, however, it does not
+               operate as intended.
+
+
+
+      Erase & Restore Linux
+      ─────────────────────
+         Writes Linux from RAM to NAND
+
+            run flk
+
+
+
+      Erase Home File System
+      ──────────────────────
+         After the next reboot, the Home File System will be populate with the factory image stored in
+         the User File System.
+
+            run flh
+
+         NOTE: This command is also available from the Linux command prompt, however, it does not
+               operate as intended.
+
+
+
+      Erase & Restore User File System
+      ────────────────────────────────
+         Writes User File System from RAM to NAND
+
+            run fly
+
+
+
+      Erase & Restore Whole Image (Linux, Root File System, User File System)
+      ───────────────────────────────────────────────────────────────────────
+         Writes Whole Image (Linux, Root File System, User File System) from RAM to NAND
+
+            run flw
+
+         NOTE: This command is also available from the Linux command prompt, however, it does not
+               operate as intended.
+
+
+
+
+   Commands From Linux
+   ═══════════════════
+
+
+      Determine The Status Of Binaries
+      ────────────────────────────────
+         appversion map.bin
+         appversion pui.bin
+
+
+
+
+
+
+
+
+
+
+
+   Update Whole Image
+   ------------------
+      flw -fr
+
+
+
+   Update U-Boot & Whole Image
+   ---------------------------
+      fluw -fr

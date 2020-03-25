@@ -1,0 +1,292 @@
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ Virtual_Machine_Info.txt                                                                                                                                                ║
+║                                                                                                                                                                         ║
+║ Document Encoding           : UTF-8, UNIX Line Terminator                                                                                                               ║
+║ Document Best Viewed/Printed: Page{Ledger, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                                                         ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                            Revision History                                                                             ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                                                                     ║
+║                                                                                                                                                                         ║
+║  1.00.02119.xx (21 Jan 19) - Initial Creation {J. Laccone}                                                                                                              ║
+║                                 Added sections                                                                                                                          ║
+║  1.01.02319.xx (23 Jan 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added instructions to build Ubuntu VM                                                                                                   ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                              Reference                                                                                  ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║   Oracle VM VirtualBox                                                                                                                                                  ║
+║   --------------------                                                                                                                                                  ║
+║      https://www.virtualbox.org/                                                                                                                                        ║
+║                                                                                                                                                                         ║
+║   How to Install Latest VirtualBox 6.0 in Linux (Debianm Ubuntu, Mint, RHEL/CentOS and Fedora)                                                                          ║
+║   --------------------------------------------------------------------------------------------                                                                          ║
+║      https://www.tecmint.com/install-virtualbox-on-redhat-centos-fedora/                                                                                                ║
+║                                                                                                                                                                         ║
+║                                                                                                                                                                         ║
+║   CentOS Distro - ISO Downloads                                                                                                                                         ║
+║   -----------------------------                                                                                                                                         ║
+║      https://www.centos.org/download/                                                                                                                                   ║
+║                                                                                                                                                                         ║
+║   Ubuntu Distro - Desktop ISO Downloads                                                                                                                                 ║
+║   -------------------------------------                                                                                                                                 ║
+║      https://www.ubuntu.com/download/desktop                                                                                                                            ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                Notes                                                                                    ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║   Docker Information                                                                                                                                                    ║
+║   ------------------                                                                                                                                                    ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/jlaccone/reference/Docker_Info.txt                                                       ║
+║                                                                                                                                                                         ║
+║   Development Partition Plan                                                                                                                                            ║
+║   --------------------------                                                                                                                                            ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/jlaccone/reference/Development_Partition_Plan.txt                                        ║
+║                                                                                                                                                                         ║
+║   Certificates And Tools                                                                                                                                                ║
+║   ----------------------                                                                                                                                                ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/jlaccone/security/Certificate-and-tools.tar.gz                                           ║
+║                                                                                                                                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                Common                                                                                   ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Prerequisites For Installations
+   ═══════════════════════════════
+      1. An account on the VCS21 configuration management repository
+      2. ISO file for desired Linux distribution (ref: desired Distro ISO download links above)
+      3. A plan for the partitioning of the virtual hard drive (ref: "Development Partition Plan" above)
+      4. Tool and certificates to allow virtual machines to reach external locations (ref: "Certificates And Tools" above)
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                         VirtualBox Installation                                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Installing VirtualBox
+   ═════════════════════
+      1. Open a terminal window
+      2. Login as the superuser (root on CentOS/RHEL)
+      3. Remove any existing VirtualBox components by typing the following command(s) into the terminal window:
+
+            yum remove VirtualBox*
+
+      4. Install the required docker components by typing the following command(s) into the terminal window:
+
+            yum --disablerepo "*" --enablerep "virtualbox" install <desired-virtualbox-version>
+            (ex: yum --disablerepo "*" --enablerep "virtualbox" install VirtualBox-6.0.x86_64)
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                       VirtualBox Virtual Machine Common                                                                 ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Building VirtualBox Virtual Machine
+   ═══════════════════════════════════
+      1. Open VirtualBox application
+      2. Create a new VM
+
+
+      Create Virtual Machine
+      ──────────────────────
+         1. On the main VirtualBox page, left click the "Machine" menu
+         2. On the "Machine" menu, left click the "New..." menu item
+         3. Add a name for this VM the to the "Name" textbox
+         4. Change (if desired) the location for the VM files by left clicking the "Machine Folder" combo box and selecting the desired location
+         5. Modify the "Type" dropdown combo box to have the following value:
+
+               Linux
+
+         6. Modify the "Version" dropdown combo box to have the following value:
+
+               <source-distro (64-bit)>
+               (ex:"Red Hat (64-bit)")
+               (ex: "Ubuntu (64-bit)")
+
+         7. Left click the "Next >" button
+         8. Modify the memory size slider to have AT LEAST the following value:
+
+               4 GB
+
+         9. Left click the "Next >" button
+        10. Select the "Create a virtual hard disk now" radio button
+        11. Left click the "Create" button
+        12. If this VM will not be ported to another virtual machine application, select the "VDI (VirtualBox Disk Image)" radio button
+        13. Left click the "Next >" button
+        14. Select the "Fixed size" radio button
+        15. Left click the "Next >" button
+        16. Unless special storage is required (on a network disk array for example), leave the virtual hard disk file name and location as the default
+        17. Modify the virtual hard disk size slider to have AT LEAST the following value:
+
+               20 GB
+
+        18. Left click the "Create" button
+
+
+      Configure Virtual Machine - General Options
+      ───────────────────────────────────────────
+         1. On the main VirtualBox page, left click on a VM
+         2. On the main VirtualBox page, with the desired VM selected, left click the "Machine" menu
+         3. On the "Machine" menu, left click the "Settings..." menu item
+         4. On the "Settings" page, left click the "General" TreeView item
+         5. On the "General" page, left click the "Advanced" tab
+         6. Modify the "Shared Clipboard" dropdown combo box to have the following value:
+
+               "Bidirectional"
+
+         7. Modify the "Drag'n'Drop" dropdown combo box to have the following value:
+
+               "Bidirectional"
+
+         8. Left click the "OK" button of the "Settings" page
+
+
+      Configure Virtual Machine - System Options
+      ──────────────────────────────────────────
+         1. On the main VirtualBox page, left click on a VM
+         2. On the main VirtualBox page, with the desired VM selected, left click the "Machine" menu
+         3. On the "Machine" menu, left click the "Settings..." menu item
+         4. On the "Settings" page, left click the "System" TreeView item
+         5. On the "System" page, left click the "Processor" tab
+         6. Modify the "Processor(s)" slider to have AT LEAST the following value:
+
+               2
+
+         7. Left click the "OK" button of the "Settings" page
+
+
+      Configure Virtual Machine - Display Options
+      ───────────────────────────────────────────
+         1. On the main VirtualBox page, left click on a VM
+         2. On the main VirtualBox page, with the desired VM selected, left click the "Machine" menu
+         3. On the "Machine" menu, left click the "Settings..." menu item
+         4. On the "Settings" page, left click the "Display" TreeView item
+         5. On the "Display" page, left click the "Screen" tab
+         6. Modify the "Video Memory" slider to have AT LEAST the following value:
+
+               128 MB
+
+         7. Modify the "Monitor Count" slider to have AT LEAST the following value:
+
+               2
+
+         8. Left click the "OK" button of the "Settings" page
+
+
+      Configure Virtual Machine - Storage Options
+      ───────────────────────────────────────────
+         1. On the main VirtualBox page, left click on a VM
+         2. On the main VirtualBox page, with the desired VM selected, left click the "Machine" menu
+         3. On the "Machine" menu, left click the "Settings..." menu item
+         4. On the "Settings" page, left click the "Storage" TreeView item
+         5. On the "Storage" page, select the "Empty" DVD drive item located in the "Storage Devices" group under the "Controller IDE:" TreeView item
+         6. Left click the DVD icon to the right of the "Optical Drive" textbox in the "Attributes" group
+         7. Choose the ISO file for the desired Linux distro
+         8. Left click the "OK" button of the "Settings" page
+
+
+      Configure Virtual Machine - Network Options
+      ───────────────────────────────────────────
+         1. On the main VirtualBox page, left click on a VM
+         2. On the main VirtualBox page, with the desired VM selected, left click the "Machine" menu
+         3. On the "Machine" menu, left click the "Settings..." menu item
+         4. On the "Settings" page, left click the "Network" TreeView item
+         5. On the "Network" page, left click the "Adapter 1" tab
+         6. Modify the "Attached to" dropdown combo box to have the following value:
+
+               <host-machine-interface-with-external-access>
+               (ex: eth0)
+               (ex: enp0s25)
+
+         7. Left click the "OK" button of the "Settings" page
+
+
+      Configure Virtual Machine - Shared Folders Options
+      ──────────────────────────────────────────────────
+         1. On the main VirtualBox page, left click on a VM
+         2. On the main VirtualBox page, with the desired VM selected, left click the "Machine" menu
+         3. On the "Machine" menu, left click the "Settings..." menu item
+         4. On the "Settings" page, left click the "Shared Folders" TreeView item
+         5. On the "Shared Folders" page, left click the folder icon on the right of the "Shared Folders" group
+         6. Modify the "Folder Path" dropdown combo box to have the following value:
+
+               <host-machine-folder>
+               (ex: /tftpboot)
+
+         7. Check the "Auto-mount" checkbox
+         8. If desired, modify the mount point by entering in the desired point into the "Mount point" textbox
+         9. Left click the "OK" button of the "Add Share" page
+        10. Left click the "OK" button of the "Settings" page
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                        VirtualBox Ubuntu Virtual Machine                                                                ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Installing Ubuntu On A Virtual Machine
+   ══════════════════════════════════════
+      1. Open VirtualBox application
+      2. Verify that the "Building VirtualBox Virtual Machine" section above has been completed
+      3. On the main VirtualBox page, left click on a VM
+      4. On the main VirtualBox page, left click the "Machine" menu
+      5. On the "Machine" menu, left click the "Start" menu item
+      6. Follow the prompts to install the operating system
+
+
+   Installing VirtualBox Guest Additions On An Ubuntu Virtual Machine
+   ══════════════════════════════════════════════════════════════════
+      1. Open VirtualBox application
+      2. Verify that the "Installing Ubuntu On A Virtual Machine" section above has been completed
+      3. On the main VirtualBox page, left click on a VM
+      4. On the main VirtualBox page, left click the "Machine" menu
+      5. On the "Machine" menu, left click the "Start" menu item
+      6. Open a terminal window inside the VM
+      7. Install the prerequisite libraries by typing the following command(s) into the terminal window:
+
+            sudo apt update
+            sudo apt install gcc make perl
+
+
+
+
+
+
+insert guest additions DVD
+
+
+
+
+
+
+sudo usermod -aG vboxsf jlaccone
+reboot
+
+
+
+sudo apt install subversion
+
+
+
+
+
+
+
+
+VMWare Workstation
+- make graphics memory 2GB
+
+
+
+
+
+
+

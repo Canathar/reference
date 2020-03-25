@@ -1,0 +1,20 @@
+[
+   {
+      "ip": "192.168.158.71",
+      "name": "tmg002-01",
+      "operation": "primary",
+      "password": "U2FsdGVkX19VcEQC/TatbMp11Rccb2h8y3nuqPqBDXQ=",
+      "sip_users": "TRUNK111",
+      "site_loc": "MLB_EMB_DEV_NAN",
+      "user": "root"
+   },
+   {
+      "ip": "192.168.158.73",
+      "name": "tmg002-02",
+      "operation": "primary",
+      "password": "U2FsdGVkX18cFu2PVlCZXyuVIrOsDUsWQYt7knxZBGE=",
+      "sip_users": "TRUNK002",
+      "site_loc": "MLB_EMB_DEV_NAN",
+      "user": "root"
+   }
+]

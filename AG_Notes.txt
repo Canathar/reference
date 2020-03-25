@@ -1,0 +1,60 @@
+﻿╔══════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ AG_Notes.txt                                                                                         ║
+║                                                                                                      ║
+║ Document Best Viewed/Printed: Page{Letter, Portrait, 0.25in Side Margins}                            ║
+║                               Font{Monospace Font, Normal, 10pt}                                     ║
+║                                                                                                      ║
+╠══════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                          Revision History                                            ║
+╠══════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                  ║
+║                                                                                                      ║
+║  1.00.28616.xx (11 Oct 16) - Initial Creation {J. Laccone}                                           ║
+║                                 Added header, added reference data                                   ║
+║                                                                                                      ║
+╠══════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                              Reference                                               ║
+╠══════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                      ║
+║   FDD 050: A/G Communications                                                                        ║
+║   FDD 053: Frequency Reallocation                                                                    ║
+║   FDD 083: Radio Retransmission                                                                      ║
+║   FDD 087: Radio Interface Control                                                                   ║
+║   FDD 088: A/G Multiple Site Groups                                                                  ║
+║   FDD 137: A/G PTT                                                                                   ║
+║   FDD 138: A/G PTT Preemption                                                                        ║
+║   FDD 141: A/G Audio                                                                                 ║
+║   FDD 142: A/G Signalling                                                                            ║
+║   FDD 152: Paired Frequencies                                                                        ║
+║   FDD 162: A/G Cross Coupling                                                                        ║
+║   FDD 164: A/G - G/G Coupling & Frequency Monitoring                                                 ║
+║   FDD 168: Radio IRD                                                                                 ║
+║                                                                                                      ║
+╚══════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   A/G Communications Channel
+      The connection between the RMG and the Radio
+
+   Three operational connection mode configurations for an A/G channel
+      - Single Trunk (ST)
+      - Dual Redundant Trunk (DRT)
+      - Dual Active Trunk (DAT)
+
+
+   Receive only radio configurations are applied to remote radio sites that do not have a transmitter
+
+
+   Combined GRS (Ground Radio Station) indicates that the radio transmitter and receiver are at the same
+   site and accessible from the IP network by one SIP URI
+
+   Separated GRS (Ground Radio Station) indicates that the radio transmitter and receiver are located at
+   diffrent sites (or the same site) but accessible by different SIP URIs
+
+
+
+
+
+
+
+
+

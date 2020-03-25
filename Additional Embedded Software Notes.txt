@@ -1,0 +1,66 @@
+﻿
+
+hotswap - service that detects a insertion/removal event
+          Runs as a service daemon (all the time)
+          GNU License
+
+inputattach - service that connects legacy serial devices (TED connection)
+              Runs as a service daemon (all the time)
+              GNU License
+
+musb-hdrc - service that connects ????
+
+
+ksoftirqd - kernel component (???)
+            Runs as part of the operating system (all the time)
+            GNU License
+
+kworker - kernel component
+          Runs as part of the operating system (all the time)
+          GNU License
+
+mtdblock - file system component
+           Runs as part of the operating system (all the time)
+           GNU License
+
+klogd - kernel component (message log)
+        Runs as part of the operating system (all the time)
+        GNU License
+
+usbhid - kernel component (keyboard driver)
+         Runs as part of the operating system (all the time)
+         GNU License
+
+bdi - kernel component (memory management)
+      Runs as part of the operating system (all the time)
+      GNU License
+
+kblockd - kernel component (block mode communications)
+          Runs as part of the operating system (all the time)
+          GNU License
+
+omap2 - kernel component (chip driver)
+        Runs as part of the operating system (all the time)
+        GNU License
+
+khubd - kernel component (host component of USB communication)
+        Runs as part of the operating system (all the time)
+        GNU License
+
+kseriod - service that ??????
+          Runs as a service daemon (all the time)
+          GNU License
+
+aio - service that handles asychronous input/output
+      Runs as part of the operating system (al the time)
+      GNU License
+
+sc16is7x2 - Converts SPI input to serial stream
+            Runs as a service daemon (all the time)
+            ??????
+
+getty - service that connects serial communications (terminal interface)
+        Runs as a service daemon (all the time)
+        GNU License
+
+mboxd - ???

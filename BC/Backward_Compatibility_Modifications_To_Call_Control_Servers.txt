@@ -1,0 +1,123 @@
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ Backward_Compatibility_Modifications_To_Call_Control_Servers.txt                                                                                                        ║
+║                                                                                                                                                                         ║
+║ Document Encoding           : UTF-8, UNIX Line Terminator                                                                                                               ║
+║ Document Best Viewed/Printed: Page{Ledger, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                                                         ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                            Revision History                                                                             ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                                                                     ║
+║                                                                                                                                                                         ║
+║  1.00.04419.xx (13 Feb 19) - Initial Creation {J. Laccone}                                                                                                              ║
+║                                 Added sections                                                                                                                          ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                              Reference                                                                                  ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║   Extending snmpd Using Shell Scripts                                                                                                                                   ║
+║   -----------------------------------                                                                                                                                   ║
+║      http://net-snmp.sourceforge.net/wiki/index.php/Tut:Extending_snmpd_using_shell_scripts                                                                             ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                Notes                                                                                    ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║   Backward Compatibility Database Creation                                                                                                                              ║
+║   ----------------------------------------                                                                                                                              ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/jlaccone/US22895/Backward_Compatibility_Database_Creation.txt                            ║
+║                                                                                                                                                                         ║
+║   Backward Compatibility MIB Creation                                                                                                                                   ║
+║   -----------------------------------                                                                                                                                   ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/jlaccone/US22895/Backward_Compatibility_MIB_Creation.txt                                 ║
+║                                                                                                                                                                         ║
+║                                                                                                                                                                         ║
+║   SNMP Information                                                                                                                                                      ║
+║   ----------------                                                                                                                                                      ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/jlaccone/reference/SNMP_Info.txt                                                         ║
+║                                                                                                                                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                 Common                                                                                  ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Prerequisites For Installations
+   ═══════════════════════════════
+      1. All modified MIB files have been copied to /usr/share/snmp/mibs
+      2. The bash script, "net-snmp_bc.bash", has been copied to /home/zabbix/scripts
+      3. The following files: build_data.dat, build_data.dat.md5, have been uploaded to /home/zabbix/datafiles/bc
+
+
+   Install RPM Package For xxd Utility
+   ═══════════════════════════════════
+      1. Open a terminal window
+      2. Login as the superuser (root on CentOS/RHEL)
+      3. Verify that the RPM package is available by typing the following command(s) into the terminal window:
+
+            yum --noplugins --disablerepo "*" --enablerepo "base" list vim-common
+
+      4. Provided the RPM package is available, install the RPM package by typing the following command(s) into the terminal window:
+
+            yum --noplugins --disablerepo "*" --enablerepo "base" install vim-common
+
+
+   Modify MIB Entries
+   ══════════════════
+      1. Open a terminal window
+      2. Login as the superuser (root on CentOS/RHEL)
+      3. To Modify the MIB entries, open the config file by typing the following command(s) into the terminal window:
+
+            vi /etc/snmp/snmp.conf
+
+      4. Edit the the file to reflect the changes below:
+
+            existing: mibs +ION-SIPPROXY
+            modified: mibs +ION-SIPPROXY-MIB
+
+      5. Edit the the file to reflect the changes below:
+
+            newentry: mibs +ION-SIPCONF-MIB
+
+      6. Save the file and exit vi
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                            SIP Conference Server                                                                        ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Modify Daemon Configuration
+   ═══════════════════════════
+      1. Open a terminal window
+      2. Login as the superuser (root on CentOS/RHEL)
+      3. To Modify the deamon configuration, open the config file by typing the following command(s) into the terminal window:
+
+            vi /etc/snmp/snmpd.conf
+
+      4. Edit the the file to reflect the changes below:
+
+            newentry: pass .1.3.6.1.4.1.290.6.7.11.1.1 /bin/sh /home/zabbix/scripts/net-snmp_bc.bash
+
+      5. Save the file and exit vi
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                SIP Proxy Server                                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Modify Daemon Configuration
+   ═══════════════════════════
+      1. Open a terminal window
+      2. Login as the superuser (root on CentOS/RHEL)
+      3. To Modify the deamon configuration, open the config file by typing the following command(s) into the terminal window:
+
+            vi /etc/snmp/snmpd.conf
+
+      4. Edit the the file to reflect the changes below:
+
+            newentry: pass .1.3.6.1.4.1.290.6.7.9.1.3 /bin/sh /home/zabbix/scripts/net-snmp_bc.bash
+
+      5. Save the file and exit vi

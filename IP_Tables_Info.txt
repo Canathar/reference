@@ -1,0 +1,187 @@
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ IP_Tables_Info.txt                                                                                                                                                      ║
+║                                                                                                                                                                         ║
+║ Document Encoding           : UTF-8, UNIX Line Terminator                                                                                                               ║
+║ Document Best Viewed/Printed: Page{Ledger, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                                                         ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                            Revision History                                                                             ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                                                                     ║
+║                                                                                                                                                                         ║
+║  1.00.03619.xx (05 Feb 19) - Initial Creation {J. Laccone}                                                                                                              ║
+║                                 Added sections                                                                                                                          ║
+║  1.01.03719.xx (06 Feb 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added additional notes and procedures                                                                                                   ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                Reference                                                                                ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║   Viewing All IP Table Rules                                                                                                                                            ║
+║   --------------------------                                                                                                                                            ║
+║      https://unix.stackexchange.com/questions/205867/viewing-all-iptables-rules                                                                                         ║
+║                                                                                                                                                                         ║
+║   Command Line Format For snmptrap                                                                                                                                      ║
+║   --------------------------------                                                                                                                                      ║
+║      https://stackoverflow.com/questions/19947680/what-is-the-correct-snmptrap-command-format                                                                           ║
+║                                                                                                                                                                         ║
+║   iptables And Port Mirroring                                                                                                                                           ║
+║   ---------------------------                                                                                                                                           ║
+║      https://unix.stackexchange.com/questions/15870/iptables-port-mirroring                                                                                             ║
+║                                                                                                                                                                         ║
+║   10 Useful ncat (nc) Commands For Linux Systems                                                                                                                        ║
+║   ----------------------------------------------                                                                                                                        ║
+║      https://www.linuxtechi.com/nc-ncat-command-examples-linux-systems/                                                                                                 ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                Notes                                                                                    ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║   Hats Docker Image Source                                                                                                                                              ║
+║   ------------------------                                                                                                                                              ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/ccu/base/tools/emb/hats-docker-image/                                                  ║
+║                                                                                                                                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                              Background                                                                                 ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Tables (from iptables man page)
+   ═══════════════════════════════
+      Iptables and ip6tables are used to set up, maintain, and inspect the tables of IPv4 and IPv6 packet filter rules in the Linux kernel.  Several different tables
+      may be defined.  Each table contains a number of built-in chains and may also contain user-defined chains.  Each chain is a list of rules which can match a set
+      of packets.  Each rule specifies what to do with a packet that matches.  This is called a `target', which may be a jump to a user-defined chain  in the same table.
+
+         filter   - This is the default table (if no -t option is passed). It contains the built-in chains INPUT (for packets destined to local sockets),
+                    FORWARD (for packets being routed through the box), and OUTPUT (for locally-generated packets).
+
+         nat      - This table is consulted when a packet that creates a new connection is encountered. It consists of three built-ins:
+                    PREROUTING (for altering packets as soon as they come in), OUTPUT (for altering locally-generated packets before routing), and
+                    POSTROUTING (for altering packets as they are about to go out).  IPv6 NAT support is available since kernel 3.7.
+
+         mangle   - This table is used for specialized packet alteration.  Until kernel 2.4.17 it had two built-in chains:
+                    PREROUTING (for altering incoming packets before routing) and OUTPUT (for  altering locally-generated packets before routing).
+                    Since kernel 2.4.18, three other built-in chains are also supported: INPUT (for packets coming into the box itself),
+                    FORWARD (for altering packets being routed through the box), and POSTROUTING (for altering packets as they are about to go out).
+
+         raw      - This table is used mainly for configuring exemptions from connection tracking in combination with the NOTRACK target.  It registers at the netfilter
+                    hooks with higher priority and is thus called before ip_conntrack, or any other IP tables.  It provides the following built-in chains:
+                    PREROUTING (for packets arriving via any network interface) OUTPUT (for packets generated by local processes)
+
+         security - This table is used for Mandatory Access Control (MAC) networking rules, such as those enabled by the SECMARK and CONNSECMARK targets.
+                    Mandatory Access Control is implemented by Linux Security  Modules such as SELinux.  The security table is called after the filter table, allowing
+                    any Discretionary Access Control (DAC) rules in the filter table to take effect before MAC rules.  This table provides the following built-in chains:
+                    INPUT (for packets coming into the box itself), OUTPUT (for altering locally-generated packets before routing), and
+                    FORWARD  (for altering packets being routed through the box).
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                              Configuration                                                                              ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   List All Chains In A Table
+   ══════════════════════════
+      1. Open a terminal window
+      2. Login as the superuser (root on CentOS/RHEL, add sudo in front of commands on Ubuntu)
+      3. List all the chains in a table by typing the following command(s) into the terminal window:
+
+            iptables -t <table> -nvL
+
+            (ex: iptables -t filter -nvL
+                 iptables -t nat -nvL
+                 iptables -t mangle -nvL
+                 iptables -t raw -nvL
+                 iptables -t security -nvL)
+
+
+
+   Flush All Chains In A Table
+   ═══════════════════════════
+      1. Open a terminal window
+      2. Login as the superuser (root on CentOS/RHEL, add sudo in front of commands on Ubuntu)
+      3. Flush all the chains in a table by typing the following command(s) into the terminal window:
+
+            iptables -t <table> -vF
+
+            (ex: iptables -t filter -vF  && \
+                 iptables -t nat -vF  && \
+                 iptables -t mangle -vF  && \
+                 iptables -t raw -vF  && \
+                 iptables -t security -vF)
+
+
+   Configure OS To Allow Local Forwarding On An Interface
+   ══════════════════════════════════════════════════════
+      1. Open a terminal window
+      2. Login as the superuser (root on CentOS/RHEL, add sudo in front of commands on Ubuntu)
+      3. Allow the OS to forward packets locally by typing the following command(s) into the terminal window:
+
+            sysctl -w net.ipv4.conf.<interface>.route_localnet=1
+            (ex: sysctl -w net.ipv4.conf.eth0.route_localnet=1)
+
+
+
+   Duplicate An Incoming Packet
+   ════════════════════════════
+      1. Open a terminal window
+      2. Login as the superuser (root on CentOS/RHEL, add sudo in front of commands on Ubuntu)
+      3. Create a rule to duplicate an incoming packet by typing the following command(s) into the terminal window:
+
+            iptables -t <table> -A <chain> <rule-specifications>
+            (ex: iptables -t mangle -A PREROUTING -i eth0 -p UDP --dport 162 -j TEE --gateway 127.0.0.1)
+
+
+
+   Route An Incoming Packet To A Different Port (Only For External Packets)
+   ════════════════════════════════════════════════════════════════════════
+      1. Open a terminal window
+      2. Login as the superuser (root on CentOS/RHEL, add sudo in front of commands on Ubuntu)
+      3. Create a rule to route an incoming packet to a different port by typing the following command(s) into the terminal window:
+
+            iptables -t <table> -A <chain> <rule-specifications>
+            (ex: iptables -t nat -A PREROUTING -p UDP --dport 162 -j DNAT --to-destination 127.0.0.1:1162)
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                 Testing                                                                                 ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Install Command Line Utility To Monitor Network Traffic
+   ═══════════════════════════════════════════════════════
+      1. Open a terminal window
+      2. Login as the superuser (root on CentOS/RHEL, add sudo in front of commands on Ubuntu)
+      3. Install the ncat utility by typing the following command(s) into the terminal window:
+
+            yum --enablerepo "*" --disablerepo "*media*" install nmap-ncat net-tools
+
+
+
+   Monitor Network Traffic For Test SNMP Trap
+   ══════════════════════════════════════════
+      1. Open a terminal window
+      2. Login as the superuser (root on CentOS/RHEL, add sudo in front of commands on Ubuntu)
+      3. Monitor the original SNMP trap port by typing the following command(s) into the terminal window:
+
+            nc -vv -u -l <original-snmp-trap-port>
+            (ex: nc -vv -u -l 162)
+
+      4. Open another terminal window
+      5. Login as the superuser (root on CentOS/RHEL, add sudo in front of commands on Ubuntu)
+      6. Monitor the duplicate SNMP trap port by typing the following command(s) into the terminal window:
+
+            nc -vv -u -l <duplicate-snmp-trap-port>
+            (ex: nc -vv -u -l 1162)
+
+
+
+   Send Test SNMP Trap
+   ═══════════════════
+      1. Open a terminal window
+      2. Send an SNMP trap to the Docker container by typing the following command(s) into the terminal window:
+
+            snmptrap -v 2c -c public <container-ip-address>:<container-port> <mib>::<trap> <value>
+            (ex: snmptrap -v 2c -c public 172.17.0.2:162 ION-CWPMIB::keyUpdateStatus 1)
