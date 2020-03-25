@@ -1,0 +1,10 @@
+
+
+
+cd /libs/unimrcp/plugins/demo-synth/src
+
+
+gcc demo_synth_engine.o -shared libapr-1.a libmpf.a libmrcpengine.a -o demosynth.so
+
+ldd -r demosynth.so
+

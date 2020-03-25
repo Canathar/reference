@@ -470,7 +470,8 @@ Adding RTSP Message
 1. Add the new method to the rtsp_method_id enumeration in /libs/unimrcp/libs/uni-rtsp/include/rtsp_start_line.h
 2. Add the text for the new method to the rtsp_method_string_table in /libs/unimrcp/libs/uni-rtsp/src/rtsp_start_line.c
 3. Add a new function prototype for the new RTSP Method in /libs/unimrcp/modules/mrcp-unirtsp/include/mrcp_unirtsp_sdp.h
-3. Add a new function for the new RTSP Method in /libs/unimrcp/modules/mrcp-unirtsp/src/mrcp_unirtsp_sdp.c
+4. Add a new function for the new RTSP Method in /libs/unimrcp/modules/mrcp-unirtsp/src/mrcp_unirtsp_sdp.c
+5. Add call to new function from the events that you want (most likely in/libs/unimrcp/modules/mrcp-unirtsp/src/mrcp_unirtsp_client_agent.c )
 
 
 

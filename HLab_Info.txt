@@ -1,0 +1,778 @@
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ HLab_Info.txt                                                                                                                                                           ║
+║                                                                                                                                                                         ║
+║ Document Encoding           : UTF-8, UNIX Line Terminator                                                                                                               ║
+║ Document Best Viewed/Printed: Page{Ledger, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                                                         ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                            Revision History                                                                             ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                                                                     ║
+║                                                                                                                                                                         ║
+║  1.00.24819.xx (05 Sep 19) - Initial Creation {J. Laccone}                                                                                                              ║
+║                                 Added sections                                                                                                                          ║
+║  1.01.29719.xx (24 Oct 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added SQL commands to modify SJU asset records                                                                                          ║
+║  1.02.30919.xx (05 Nov 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added SQL commands to modify NAN asset records                                                                                          ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                              Reference                                                                                  ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║   PM2 - Advanced Node.js Process Manager                                                                                                                                ║
+║   --------------------------------------                                                                                                                                ║
+║      http://pm2.keymetrics.io/                                                                                                                                          ║
+║                                                                                                                                                                         ║
+║   Melbourne Harris Lab Reservation Tool                                                                                                                                 ║
+║   -------------------------------------                                                                                                                                 ║
+║      http://192.168.157.19:4000/index                                                                                                                                   ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                Notes                                                                                    ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║   Reservation Tool Source                                                                                                                                               ║
+║   -----------------------                                                                                                                                               ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_tools/ReservationManagement                                                                                          ║
+║                                                                                                                                                                         ║
+║                                                                                                                                                                         ║
+║   Docker Information                                                                                                                                                    ║
+║   ------------------                                                                                                                                                    ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/jlaccone/reference/Docker_Info.txt                                                       ║
+║                                                                                                                                                                         ║
+║   MySQL Information                                                                                                                                                     ║
+║   -----------------                                                                                                                                                     ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/jlaccone/reference/MySQL_Info.txt                                                        ║
+║                                                                                                                                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                               Login                                                                                     ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   HLab Ubuntu Server Login
+   ════════════════════════
+      1. Open a terminal window
+      2. Connect to the hlab server by typing the following command(s) into the terminal window:
+
+            ssh <hlab-login-name>@<hlab-server-address>
+            (ex: ssh hlab@172.24.82.126 <using pw: hlab>)
+
+
+   Superuser Elevation
+   ═══════════════════
+      1. Verify that the "HLab Ubuntu Server Login" procedure has been completed
+      2. Elevate to the superuser account (root user) by typing the following command(s) into the terminal window:
+
+            sudo su <using pw: hlab>
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                    Superuser Based Server Maintenance                                                                   ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Service Monitoring (Requires Superuser)
+   ═══════════════════════════════════════
+      1. Verify that the "HLab Ubuntu Server Login" and "Superuser Elevation" procedures have been completed
+      2. Display the status of the services the hlab tool requires by typing the following command(s) into the terminal window:
+
+            systemctl status <service-name>
+            1. Database Service     -- (ex: systemctl status mysql)
+            2. Webserver Service    -- (ex: systemctl status apache2)
+            3. Lab Server Service   -- (ex: systemctl status hlab)
+            4. Node.js Apps Service -- (ex: systemctl status pm2-hlab)
+
+      3. Verify that all the services listed above are running. If any are not running, restart them by typing the following command(s) into the terminal window:
+
+            systemctl restart <service-name>
+            1. Database Service     -- (ex: systemctl restart mysql)
+            2. Webserver Service    -- (ex: systemctl restart apache2)
+            3. Lab Server Service   -- (ex: systemctl restart hlab)
+            4. Node.js Apps Service -- (ex: systemctl restart pm2-hlab)
+
+
+   Port Monitoring (Requires Superuser)
+   ════════════════════════════════════
+      1. Verify that the "HLab Ubuntu Server Login" and "Superuser Elevation" procedures have been completed
+      2. Verify that the server dual binds IPv6 ports by typing the following command(s) into the terminal window:
+
+            cat /proc/sys/net/ipv6/bindv6only
+            (a response of 0 indicates that the server dual binds a specific port to both IPv4 and IPv6)
+
+      3. Display the ports the hlab tool is using by typing the following command(s) into the terminal window:
+
+            netstat -plunt
+
+      4. Verify that the following entries are listed:
+
+            tcp        0      0 0.0.0.0:3000            0.0.0.0:*               LISTEN      <node-pid>/node
+            tcp        0      0 0.0.0.0:8080            0.0.0.0:*               LISTEN      <http-server-pid>/http-server
+            tcp        0      0 0.0.0.0:1234            0.0.0.0:*               LISTEN      <hlab-webssh.js-pid>/hlab-webssh.js
+            tcp6       0      0 :::4000                 :::*                    LISTEN      <hlab-client.js-pid>/hlab-client.js
+            tcp6       0      0 :::3306                 :::*                    LISTEN      <mysqld-pid>/mysqld
+            tcp6       0      0 :::80                   :::*                    LISTEN      <apache2-pid>/apache2
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                      User Based Server Maintenance                                                                      ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Node App Monitoring
+   ═══════════════════
+      1. Verify that the "HLab Ubuntu Server Login" procedure has been completed
+      2. Display the hlab node apps by typing the following command(s) into the terminal window:
+
+            pm2 list
+
+      3. Verify that the following hlab node apps are listed:
+
+            hlab-client
+            hlab-webserver
+            hlab-webssh
+
+      3. Display details of a specific hlab node app by typing the following command(s) into the terminal window:
+
+            pm2 show <hlab-node-app>
+            (ex: pm2 show hlab-client)
+            (ex: pm2 show hlab-webserver)
+            (ex: pm2 show hlab-webssh)
+
+      4. Display logs of a specific hlab node app by typing the following command(s) into the terminal window:
+
+            pm2 logs <hlab-node-app>
+            (ex: pm2 logs hlab-client)
+            (ex: pm2 logs hlab-webserver)
+            (ex: pm2 logs hlab-webssh)
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                     Graphical Database Maintenance                                                                      ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Create A New phpMyAdmin Container
+   ═════════════════════════════════
+      1. Open a terminal window
+      2. Verify that the MySQL server is running and listening (follow the "Port Monitoring (Requires Superuser)" procedure above)
+      3. Create a new container based on the phpMySQLAdmin Docker Image by typing the following command(s) into the terminal window:
+
+            docker run -d --hostname <mysql-server-hostname> \
+                          --name phpadmin_instance \
+                          -e PMA_ARBITRARY=1 \
+                          -e PMA_PORT=3306 \
+                          -p 8085:80 \
+                          phpmyadmin/phpmyadmin
+
+            (ex: docker run -d --hostname hlab-sql-admin \
+                               --name phpadmin_instance \
+                               -e PMA_ARBITRARY=1 \
+                               -e PMA_PORT=3306 \
+                               -p 8085:80 \
+                               phpmyadmin/phpmyadmin)
+
+      4. Open a web browser on the machine running the phpMyAdmin Docker container
+      5. Navigate to the following URL
+
+            http://127.0.0.1:8085
+
+      6. Using the following credentials, verify that the root user can login:
+
+            Server   : 192.168.157.19
+            User     : root
+            Password : nvslab
+
+      7. When finished, stop the phpMySQLAdmin Docker Container by typing the following command(s) into the terminal window:
+
+            docker stop phpadmin_instance
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                    Command Line Database Maintenance                                                                    ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   MySQL Command Line Interface (CLI)
+   ══════════════════════════════════
+      1. Open a terminal window
+      2. Verify that the "HLab Ubuntu Server Login" procedure has been completed
+      3. Login into the MySQL server command line interface, by typing the following command(s) into the terminal window:
+
+            mysql --default-character-set=utf8 -u root -p
+
+
+   Display Child Folders Of The Root Folder
+   ════════════════════════════════════════
+      1. Verify that the "MySQL Command Line Interface (CLI)" procedure has been completed
+      2. Change the database, by typing the following command(s) into the terminal window at the mysql prompt:
+
+            use hlab
+
+      3. Display the child folders, by typing the following command(s) into the terminal window at the mysql prompt:
+
+            SELECT * FROM `folders` WHERE `parentFolderID` = 1;
+
+
+   Display Child Folders Of An AVN Folder
+   ══════════════════════════════════════
+      1. Perform the "Display Child Folders Of The Root Folder" procedure and note the "folderID" of the desired AVN
+      2. Display the child folders of the desired AVN folder, by typing the following command(s) into the terminal window at the mysql prompt:
+
+            SELECT * FROM `folders` WHERE `parentFolderID` = <id-of-avn-root-folder>;
+            (ex SJU: SELECT * FROM `folders` WHERE `parentFolderID` = 3;)
+            (ex NAN: SELECT * FROM `folders` WHERE `parentFolderID` = 69;)
+
+
+   Display AVN Assets
+   ══════════════════
+      1. Verify that the "MySQL Command Line Interface (CLI)" procedure has been completed
+      2. Change the database, by typing the following command(s) into the terminal window at the mysql prompt:
+
+            use hlab
+
+      3. Display the AVN assets, by typing the following command(s) into the terminal window at the mysql prompt:
+
+            SELECT * FROM `assets` WHERE `dns` LIKE "<avn-name-parameter>" ORDER BY `displayName`;
+            (ex SJU: SELECT * FROM `assets` WHERE `dns` LIKE "%sju%" ORDER BY `displayName`;)
+            (ex NAN: SELECT * FROM `assets` WHERE `dns` LIKE "%nan%" ORDER BY `displayName`;)
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                                                                                                         ║
+║                                                                           ===  SJU AVN  ===                                                                             ║
+║                                                                                                                                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                   Database Maintenance: CWP Assets                                                                      ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   CWP DNS Updates
+   ═══════════════
+      1. Open a terminal window
+      2. Using "%sju%" as the avn-name-parameter to the like SQL clause, perform the "Display AVN Assets" procedure
+      3. Modify the DNS values of the CWP assets, by typing the following command(s) into the terminal window at the mysql prompt:
+
+            UPDATE `assets` SET `dns` = "cwp-001@sju-p.atct.garage-dc.devlab.vcs21.com" WHERE `ipAddress` = "172.24.80.60"; \
+            UPDATE `assets` SET `dns` = "cwp-002@sju-p.atct.garage-dc.devlab.vcs21.com" WHERE `ipAddress` = "172.24.80.62"; \
+            UPDATE `assets` SET `dns` = "cwp-003@sju-p.atct.garage-dc.devlab.vcs21.com" WHERE `ipAddress` = "172.24.80.64"; \
+            UPDATE `assets` SET `dns` = "cwp-004@sju-p.atct.garage-dc.devlab.vcs21.com" WHERE `ipAddress` = "172.24.80.66"; \
+            UPDATE `assets` SET `dns` = "cwp-005@sju-p.atct.garage-dc.devlab.vcs21.com" WHERE `ipAddress` = "172.24.80.68"; \
+
+            UPDATE `assets` SET `dns` = "cwp-006@sju-p.atct.garage-dc.devlab.vcs21.com" WHERE `ipAddress` = "172.24.80.70"; \
+            UPDATE `assets` SET `dns` = "cwp-007@sju-p.atct.garage-dc.devlab.vcs21.com" WHERE `ipAddress` = "172.24.80.72"; \
+            UPDATE `assets` SET `dns` = "cwp-008@sju-p.atct.garage-dc.devlab.vcs21.com" WHERE `ipAddress` = "172.24.80.74"; \
+            UPDATE `assets` SET `dns` = "cwp-009@sju-p.atct.garage-dc.devlab.vcs21.com" WHERE `ipAddress` = "172.24.80.76"; \
+            UPDATE `assets` SET `dns` = "cwp-010@sju-p.atct.garage-dc.devlab.vcs21.com" WHERE `ipAddress` = "172.24.80.78";
+
+      4. Using "%sju%" as the avn-name-parameter to the like SQL clause, verify that the above changes were made by performing
+         the "Display AVN Assets" procedure and noting that the above changes succeeded
+
+
+   CWP IP Address Updates
+   ══════════════════════
+      1. Open a terminal window
+      2. Using "%sju%" as the avn-name-parameter to the like SQL clause, perform the "Display AVN Assets" procedure
+      3. Modify the ipAddress values of the CWP assets, by typing the following command(s) into the terminal window at the mysql prompt:
+
+            UPDATE `assets` SET `ipAddress` = "172.24.80.60" WHERE `dns` = "cwp-001@sju-p.atct.garage-dc.devlab.vcs21.com"; \
+            UPDATE `assets` SET `ipAddress` = "172.24.80.62" WHERE `dns` = "cwp-002@sju-p.atct.garage-dc.devlab.vcs21.com"; \
+            UPDATE `assets` SET `ipAddress` = "172.24.80.64" WHERE `dns` = "cwp-003@sju-p.atct.garage-dc.devlab.vcs21.com"; \
+            UPDATE `assets` SET `ipAddress` = "172.24.80.66" WHERE `dns` = "cwp-004@sju-p.atct.garage-dc.devlab.vcs21.com"; \
+            UPDATE `assets` SET `ipAddress` = "172.24.80.68" WHERE `dns` = "cwp-005@sju-p.atct.garage-dc.devlab.vcs21.com"; \
+
+            UPDATE `assets` SET `ipAddress` = "172.24.80.70" WHERE `dns` = "cwp-006@sju-p.atct.garage-dc.devlab.vcs21.com"; \
+            UPDATE `assets` SET `ipAddress` = "172.24.80.72" WHERE `dns` = "cwp-007@sju-p.atct.garage-dc.devlab.vcs21.com"; \
+            UPDATE `assets` SET `ipAddress` = "172.24.80.74" WHERE `dns` = "cwp-008@sju-p.atct.garage-dc.devlab.vcs21.com"; \
+            UPDATE `assets` SET `ipAddress` = "172.24.80.76" WHERE `dns` = "cwp-009@sju-p.atct.garage-dc.devlab.vcs21.com"; \
+            UPDATE `assets` SET `ipAddress` = "172.24.80.78" WHERE `dns` = "cwp-010@sju-p.atct.garage-dc.devlab.vcs21.com";
+
+      4. Using "%sju%" as the avn-name-parameter to the like SQL clause, verify that the above changes were made by performing
+         the "Display AVN Assets" procedure and noting that the above changes succeeded
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                    Database Maintenance: RDT Assets                                                                     ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   RDT DNS Updates
+   ═══════════════
+      1. Open a terminal window
+      2. Using "%sju%" as the avn-name-parameter to the like SQL clause, perform the "Display AVN Assets" procedure
+      3. Modify the DNS values of the RDT assets, by typing the following command(s) into the terminal window at the mysql prompt:
+
+            UPDATE `assets` SET `dns` = "rdt002-03@sju-p.atct.garage-dc.devlab.vcs21.com" WHERE `ipAddress` = "172.24.80.80"; \
+            UPDATE `assets` SET `dns` = "rdt002-04@sju-p.atct.garage-dc.devlab.vcs21.com" WHERE `ipAddress` = "172.24.80.82";
+
+      4. Using "%sju%" as the avn-name-parameter to the like SQL clause, verify that the above changes were made by performing
+         the "Display AVN Assets" procedure and noting that the above changes succeeded
+
+
+   RDT IP Address Updates
+   ══════════════════════
+      1. Open a terminal window
+      2. Using "%sju%" as the avn-name-parameter to the like SQL clause, perform the "Display AVN Assets" procedure
+      3. Modify the ipAddress values of the RDT assets, by typing the following command(s) into the terminal window at the mysql prompt:
+
+            UPDATE `assets` SET `ipAddress` = "172.24.80.80" WHERE `dns` = "rdt002-03@sju-p.atct.garage-dc.devlab.vcs21.com"; \
+            UPDATE `assets` SET `ipAddress` = "172.24.80.82" WHERE `dns` = "rdt002-04@sju-p.atct.garage-dc.devlab.vcs21.com";
+
+      4. Using "%sju%" as the avn-name-parameter to the like SQL clause, verify that the above changes were made by performing
+         the "Display AVN Assets" procedure and noting that the above changes succeeded
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                               Database Maintenance: SIP Conference Assets                                                               ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   SIP Conference DNS Updates
+   ══════════════════════════
+      1. Open a terminal window
+      2. Using "%sju%" as the avn-name-parameter to the like SQL clause, perform the "Display AVN Assets" procedure
+      3. Modify the DNS values of the SIP Conference assets, by typing the following command(s) into the terminal window at the mysql prompt:
+
+            UPDATE `assets` SET `dns` = "sipconf-01@sju-p.atct.garage-dc.devlab.vcs21.com" WHERE `ipAddress` = "172.24.80.22"; \
+            UPDATE `assets` SET `dns` = "sipconf-02@sju-p.atct.garage-dc.devlab.vcs21.com" WHERE `ipAddress` = "172.24.80.23";
+
+      4. Using "%sju%" as the avn-name-parameter to the like SQL clause, verify that the above changes were made by performing
+         the "Display AVN Assets" procedure and noting that the above changes succeeded
+
+
+   SIP Conference IP Address Updates
+   ═════════════════════════════════
+      1. Open a terminal window
+      2. Using "%sju%" as the avn-name-parameter to the like SQL clause, perform the "Display AVN Assets" procedure
+      3. Modify the ipAddress values of the SIP Conference assets, by typing the following command(s) into the terminal window at the mysql prompt:
+
+            UPDATE `assets` SET `ipAddress` = "172.24.80.22" WHERE `dns` = "sipconf-01@sju-p.atct.garage-dc.devlab.vcs21.com"; \
+            UPDATE `assets` SET `ipAddress` = "172.24.80.23" WHERE `dns` = "sipconf-02@sju-p.atct.garage-dc.devlab.vcs21.com";
+
+      4. Using "%sju%" as the avn-name-parameter to the like SQL clause, verify that the above changes were made by performing
+         the "Display AVN Assets" procedure and noting that the above changes succeeded
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                   Database Maintenance: SIP Proxy Assets                                                                ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   SIP Proxy DNS Updates
+   ═════════════════════
+      1. Open a terminal window
+      2. Using "%sju%" as the avn-name-parameter to the like SQL clause, perform the "Display AVN Assets" procedure
+      3. Modify the DNS values of the SIP Proxy assets, by typing the following command(s) into the terminal window at the mysql prompt:
+
+            UPDATE `assets` SET `dns` = "sipproxy-01@sju-p.atct.garage-dc.devlab.vcs21.com" WHERE `ipAddress` = "172.24.80.18"; \
+            UPDATE `assets` SET `dns` = "sipproxy-02@sju-p.atct.garage-dc.devlab.vcs21.com" WHERE `ipAddress` = "172.24.80.19";
+
+      4. Using "%sju%" as the avn-name-parameter to the like SQL clause, verify that the above changes were made by performing
+         the "Display AVN Assets" procedure and noting that the above changes succeeded
+
+
+   SIP Proxy IP Address Updates
+   ════════════════════════════
+      1. Open a terminal window
+      2. Using "%sju%" as the avn-name-parameter to the like SQL clause, perform the "Display AVN Assets" procedure
+      3. Modify the ipAddress values of the SIP Proxy assets, by typing the following command(s) into the terminal window at the mysql prompt:
+
+            UPDATE `assets` SET `ipAddress` = "172.24.80.18" WHERE `dns` = "sipproxy-01@sju-p.atct.garage-dc.devlab.vcs21.com"; \
+            UPDATE `assets` SET `ipAddress` = "172.24.80.19" WHERE `dns` = "sipproxy-02@sju-p.atct.garage-dc.devlab.vcs21.com";
+
+      4. Using "%sju%" as the avn-name-parameter to the like SQL clause, verify that the above changes were made by performing
+         the "Display AVN Assets" procedure and noting that the above changes succeeded
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                                                                                                         ║
+║                                                                           ===  NAN AVN  ===                                                                             ║
+║                                                                                                                                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                   Database Maintenance: CWP Assets                                                                      ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   CWP DNS Updates
+   ═══════════════
+      1. Open a terminal window
+      2. Using "%nan%" as the avn-name-parameter to the like SQL clause, perform the "Display AVN Assets" procedure
+      3. Modify the DNS values of the CWP assets, by typing the following command(s) into the terminal window at the mysql prompt:
+
+            UPDATE `assets` SET `dns` = "cwp-001@nan-p.atct.garage-dc.devlab.vcs21.com" WHERE `ipAddress` = "192.168.158.45"; \
+            UPDATE `assets` SET `dns` = "cwp-002@nan-p.atct.garage-dc.devlab.vcs21.com" WHERE `ipAddress` = "192.168.158.47"; \
+            UPDATE `assets` SET `dns` = "cwp-003@nan-p.atct.garage-dc.devlab.vcs21.com" WHERE `ipAddress` = "192.168.158.49"; \
+            UPDATE `assets` SET `dns` = "cwp-004@nan-p.atct.garage-dc.devlab.vcs21.com" WHERE `ipAddress` = "192.168.158.51"; \
+            UPDATE `assets` SET `dns` = "cwp-005@nan-p.atct.garage-dc.devlab.vcs21.com" WHERE `ipAddress` = "192.168.158.53"; \
+
+            UPDATE `assets` SET `dns` = "cwp-006@nan-p.atct.garage-dc.devlab.vcs21.com" WHERE `ipAddress` = "192.168.158.55"; \
+            UPDATE `assets` SET `dns` = "cwp-007@nan-p.atct.garage-dc.devlab.vcs21.com" WHERE `ipAddress` = "192.168.158.57"; \
+            UPDATE `assets` SET `dns` = "cwp-008@nan-p.atct.garage-dc.devlab.vcs21.com" WHERE `ipAddress` = "192.168.158.59"; \
+            UPDATE `assets` SET `dns` = "cwp-009@nan-p.atct.garage-dc.devlab.vcs21.com" WHERE `ipAddress` = "192.168.158.61"; \
+            UPDATE `assets` SET `dns` = "cwp-010@nan-p.atct.garage-dc.devlab.vcs21.com" WHERE `ipAddress` = "192.168.158.63"; \
+
+            UPDATE `assets` SET `dns` = "cwp-011@nan-p.atct.garage-dc.devlab.vcs21.com" WHERE `ipAddress` = "192.168.158.65"; \
+            UPDATE `assets` SET `dns` = "cwp-012@nan-p.atct.garage-dc.devlab.vcs21.com" WHERE `ipAddress` = "192.168.158.67";
+
+      4. Using "%nan%" as the avn-name-parameter to the like SQL clause, verify that the above changes were made by performing
+         the "Display AVN Assets" procedure and noting that the above changes succeeded
+
+
+   CWP IP Address Updates
+   ══════════════════════
+      1. Open a terminal window
+      2. Using "%nan%" as the avn-name-parameter to the like SQL clause, perform the "Display AVN Assets" procedure
+      3. Modify the ipAddress values of the CWP assets, by typing the following command(s) into the terminal window at the mysql prompt:
+
+            UPDATE `assets` SET `ipAddress` = "172.24.79.240" WHERE `dns` = "cwp-001@nan-p.atct.garage-dc.devlab.vcs21.com"; \
+            UPDATE `assets` SET `ipAddress` = "172.24.79.241" WHERE `dns` = "cwp-002@nan-p.atct.garage-dc.devlab.vcs21.com"; \
+            UPDATE `assets` SET `ipAddress` = "172.24.79.242" WHERE `dns` = "cwp-003@nan-p.atct.garage-dc.devlab.vcs21.com"; \
+            UPDATE `assets` SET `ipAddress` = "172.24.79.243" WHERE `dns` = "cwp-004@nan-p.atct.garage-dc.devlab.vcs21.com"; \
+            UPDATE `assets` SET `ipAddress` = "172.24.79.244" WHERE `dns` = "cwp-005@nan-p.atct.garage-dc.devlab.vcs21.com"; \
+
+            UPDATE `assets` SET `ipAddress` = "172.24.79.245" WHERE `dns` = "cwp-006@nan-p.atct.garage-dc.devlab.vcs21.com"; \
+            UPDATE `assets` SET `ipAddress` = "172.24.79.246" WHERE `dns` = "cwp-007@nan-p.atct.garage-dc.devlab.vcs21.com"; \
+            UPDATE `assets` SET `ipAddress` = "172.24.79.247" WHERE `dns` = "cwp-008@nan-p.atct.garage-dc.devlab.vcs21.com"; \
+            UPDATE `assets` SET `ipAddress` = "172.24.79.248" WHERE `dns` = "cwp-009@nan-p.atct.garage-dc.devlab.vcs21.com"; \
+            UPDATE `assets` SET `ipAddress` = "172.24.79.249" WHERE `dns` = "cwp-010@nan-p.atct.garage-dc.devlab.vcs21.com"; \
+
+            UPDATE `assets` SET `ipAddress` = "172.24.79.250" WHERE `dns` = "cwp-011@nan-p.atct.garage-dc.devlab.vcs21.com"; \
+            UPDATE `assets` SET `ipAddress` = "172.24.79.251" WHERE `dns` = "cwp-012@nan-p.atct.garage-dc.devlab.vcs21.com";
+
+      4. Using "%nan%" as the avn-name-parameter to the like SQL clause, verify that the above changes were made by performing
+         the "Display AVN Assets" procedure and noting that the above changes succeeded
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                    Database Maintenance: RMG Assets                                                                     ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   RMG DNS Updates
+   ═══════════════
+      1. Open a terminal window
+      2. Using "%sju%" as the avn-name-parameter to the like SQL clause, perform the "Display AVN Assets" procedure
+      3. Modify the DNS values of the RDT assets, by typing the following command(s) into the terminal window at the mysql prompt:
+
+            UPDATE `assets` SET `dns` = "rmg001-01@nan-p.atct.garage-dc.devlab.vcs21.com" WHERE `ipAddress` = "192.168.158.85"; \
+            UPDATE `assets` SET `dns` = "rmg001-02@nan-p.atct.garage-dc.devlab.vcs21.com" WHERE `ipAddress` = "192.168.158.87"; \
+            UPDATE `assets` SET `dns` = "rmg001-03@nan-p.atct.garage-dc.devlab.vcs21.com" WHERE `ipAddress` = "192.168.158.89"; \
+            UPDATE `assets` SET `dns` = "rmg001-04@nan-p.atct.garage-dc.devlab.vcs21.com" WHERE `ipAddress` = "192.168.158.91";
+
+      4. Using "%nan%" as the avn-name-parameter to the like SQL clause, verify that the above changes were made by performing
+         the "Display AVN Assets" procedure and noting that the above changes succeeded
+
+
+   RMG IP Address Updates
+   ══════════════════════
+      1. Open a terminal window
+      2. Using "%nan%" as the avn-name-parameter to the like SQL clause, perform the "Display AVN Assets" procedure
+      3. Modify the ipAddress values of the RDT assets, by typing the following command(s) into the terminal window at the mysql prompt:
+
+            UPDATE `assets` SET `ipAddress` = "172.24.79.98" WHERE `dns` = "rmg001-01@nan-p.atct.garage-dc.devlab.vcs21.com"; \
+            UPDATE `assets` SET `ipAddress` = "172.24.79.100" WHERE `dns` = "rmg001-02@nan-p.atct.garage-dc.devlab.vcs21.com"; \
+            UPDATE `assets` SET `ipAddress` = "172.24.79.102" WHERE `dns` = "rmg001-03@nan-p.atct.garage-dc.devlab.vcs21.com"; \
+            UPDATE `assets` SET `ipAddress` = "172.24.79.104" WHERE `dns` = "rmg001-04@nan-p.atct.garage-dc.devlab.vcs21.com";
+
+      4. Using "%nan%" as the avn-name-parameter to the like SQL clause, verify that the above changes were made by performing
+         the "Display AVN Assets" procedure and noting that the above changes succeeded
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                    Database Maintenance: TMG Assets                                                                     ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   TMG DNS Updates
+   ═══════════════
+      1. Open a terminal window
+      2. Using "%sju%" as the avn-name-parameter to the like SQL clause, perform the "Display AVN Assets" procedure
+      3. Modify the DNS values of the RDT assets, by typing the following command(s) into the terminal window at the mysql prompt:
+
+            UPDATE `assets` SET `dns` = "tmg002-01@nan-p.atct.garage-dc.devlab.vcs21.com" WHERE `ipAddress` = "192.168.158.71"; \
+            UPDATE `assets` SET `dns` = "tmg002-02@nan-p.atct.garage-dc.devlab.vcs21.com" WHERE `ipAddress` = "192.168.158.73"; \
+            UPDATE `assets` SET `dns` = "tmg002-03@nan-p.atct.garage-dc.devlab.vcs21.com" WHERE `ipAddress` = "192.168.158.75"; \
+            UPDATE `assets` SET `dns` = "tmg002-04@nan-p.atct.garage-dc.devlab.vcs21.com" WHERE `ipAddress` = "192.168.158.77"; \
+            UPDATE `assets` SET `dns` = "tmg002-05@nan-p.atct.garage-dc.devlab.vcs21.com" WHERE `ipAddress` = "192.168.158.79"; \
+
+            UPDATE `assets` SET `dns` = "tmg002-09@nan-p.atct.garage-dc.devlab.vcs21.com" WHERE `ipAddress` = "192.168.158.81"; \
+            UPDATE `assets` SET `dns` = "tmg002-11@nan-p.atct.garage-dc.devlab.vcs21.com" WHERE `ipAddress` = "192.168.158.83";
+
+      4. Using "%nan%" as the avn-name-parameter to the like SQL clause, verify that the above changes were made by performing
+         the "Display AVN Assets" procedure and noting that the above changes succeeded
+
+
+   TMG IP Address Updates
+   ══════════════════════
+      1. Open a terminal window
+      2. Using "%nan%" as the avn-name-parameter to the like SQL clause, perform the "Display AVN Assets" procedure
+      3. Modify the ipAddress values of the RDT assets, by typing the following command(s) into the terminal window at the mysql prompt:
+
+            UPDATE `assets` SET `ipAddress` = "172.24.79.84" WHERE `dns` = "tmg002-01@nan-p.atct.garage-dc.devlab.vcs21.com"; \
+            UPDATE `assets` SET `ipAddress` = "172.24.79.86" WHERE `dns` = "tmg002-02@nan-p.atct.garage-dc.devlab.vcs21.com"; \
+            UPDATE `assets` SET `ipAddress` = "172.24.79.88" WHERE `dns` = "tmg002-03@nan-p.atct.garage-dc.devlab.vcs21.com"; \
+            UPDATE `assets` SET `ipAddress` = "172.24.79.90" WHERE `dns` = "tmg002-04@nan-p.atct.garage-dc.devlab.vcs21.com"; \
+            UPDATE `assets` SET `ipAddress` = "172.24.79.92" WHERE `dns` = "tmg002-05@nan-p.atct.garage-dc.devlab.vcs21.com"; \
+
+            UPDATE `assets` SET `ipAddress` = "172.24.79.94" WHERE `dns` = "tmg002-09@nan-p.atct.garage-dc.devlab.vcs21.com"; \
+            UPDATE `assets` SET `ipAddress` = "172.24.79.96" WHERE `dns` = "tmg002-11@nan-p.atct.garage-dc.devlab.vcs21.com";
+
+      4. Using "%nan%" as the avn-name-parameter to the like SQL clause, verify that the above changes were made by performing
+         the "Display AVN Assets" procedure and noting that the above changes succeeded
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                               Database Maintenance: SIP Conference Assets                                                               ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   SIP Conference DNS Updates
+   ══════════════════════════
+      1. Open a terminal window
+      2. Using "%nan%" as the avn-name-parameter to the like SQL clause, perform the "Display AVN Assets" procedure
+      3. Modify the DNS values of the SIP Conference assets, by typing the following command(s) into the terminal window at the mysql prompt:
+
+            UPDATE `assets` SET `dns` = "sipconf-01@nan-p.atct.garage-dc.devlab.vcs21.com" WHERE `ipAddress` = "192.168.158.14"; \
+            UPDATE `assets` SET `dns` = "sipconf-02@nan-p.atct.garage-dc.devlab.vcs21.com" WHERE `ipAddress` = "192.168.158.15";
+
+      4. Using "%nan%" as the avn-name-parameter to the like SQL clause, verify that the above changes were made by performing
+         the "Display AVN Assets" procedure and noting that the above changes succeeded
+
+
+   SIP Conference IP Address Updates
+   ═════════════════════════════════
+      1. Open a terminal window
+      2. Using "%nan%" as the avn-name-parameter to the like SQL clause, perform the "Display AVN Assets" procedure
+      3. Modify the ipAddress values of the SIP Conference assets, by typing the following command(s) into the terminal window at the mysql prompt:
+
+            UPDATE `assets` SET `ipAddress` = "172.24.79.22" WHERE `dns` = "sipconf-01@nan-p.atct.garage-dc.devlab.vcs21.com"; \
+            UPDATE `assets` SET `ipAddress` = "172.24.79.23" WHERE `dns` = "sipconf-02@nan-p.atct.garage-dc.devlab.vcs21.com";
+
+      4. Using "%nan%" as the avn-name-parameter to the like SQL clause, verify that the above changes were made by performing
+         the "Display AVN Assets" procedure and noting that the above changes succeeded
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                   Database Maintenance: SIP Proxy Assets                                                                ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   SIP Proxy DNS Updates
+   ═════════════════════
+      1. Open a terminal window
+      2. Using "%sju%" as the avn-name-parameter to the like SQL clause, perform the "Display AVN Assets" procedure
+      3. Modify the DNS values of the SIP Proxy assets, by typing the following command(s) into the terminal window at the mysql prompt:
+
+            UPDATE `assets` SET `dns` = "sipproxy-01@sju-p.atct.garage-dc.devlab.vcs21.com" WHERE `ipAddress` = "172.24.80.18"; \
+            UPDATE `assets` SET `dns` = "sipproxy-02@sju-p.atct.garage-dc.devlab.vcs21.com" WHERE `ipAddress` = "172.24.80.19";
+
+      4. Using "%sju%" as the avn-name-parameter to the like SQL clause, verify that the above changes were made by performing
+         the "Display AVN Assets" procedure and noting that the above changes succeeded
+
+
+   SIP Proxy IP Address Updates
+   ════════════════════════════
+      1. Open a terminal window
+      2. Using "%sju%" as the avn-name-parameter to the like SQL clause, perform the "Display AVN Assets" procedure
+      3. Modify the ipAddress values of the SIP Proxy assets, by typing the following command(s) into the terminal window at the mysql prompt:
+
+            UPDATE `assets` SET `ipAddress` = "172.24.80.18" WHERE `dns` = "sipproxy-01@sju-p.atct.garage-dc.devlab.vcs21.com"; \
+            UPDATE `assets` SET `ipAddress` = "172.24.80.19" WHERE `dns` = "sipproxy-02@sju-p.atct.garage-dc.devlab.vcs21.com";
+
+      4. Using "%sju%" as the avn-name-parameter to the like SQL clause, verify that the above changes were made by performing
+         the "Display AVN Assets" procedure and noting that the above changes succeeded
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ALTER TABLE `assets` MODIFY COLUMN `type`
+enum('CWP','RMG','TMG','RIU','RIU2','IP Generic','CCS');
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                  Development                                                                            ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+
+
+
+
+
+/home/hlab/hlab/hlab-client/controllers {grep -rnw . -e 'app.get*'}
+   {login.js}         - http://<server>:<port>/
+   {database.js}      - http://<server>:<port>/add
+   {edit.js}          - http://<server>:<port>/edit
+   {index.js}         - http://<server>:<port>/index
+   {login.js}         - http://<server>:<port>/logout
+   {notifications.js} - http://<server>:<port>/not
+
+
+
+
+
+
+helpers/assets
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+nodejs -> /usr/lib/nodejs/node-v8.9.4/bin/node*
+npm -> ../share/npm/bin/npm-cli.js*
+
+
+
+
+npm list
+npm list -g
+
+
+npm root
+npm root -g
+export NODE_PATH=$NODE_PATH:`npm root -g`
+
+
+
+
+sudo apt update && sudo apt-get upgrade
+sudo apt-get install mysql-server
+
+
+
+
+
+
+
+
+
+
+https://tecadmin.net/install-latest-nodejs-and-npm-on-centos/
+https://phoenixnap.com/kb/install-latest-node-js-and-nmp-on-ubuntu
+https://github.com/nodesource/distributions
+
+
+sudo apt update
+sudo apt purge nodejs
+
+
+curl -sL https://deb.nodesource.com/setup_12.x | sudo bash -
+sudo apt install nodejs
+
+sudo npm install pm2 -g
+sudo npm install socket.io -g
+sudo npm install tftp -g
+
+sudo npm update -g
+npm update
+
+
+mkdir ~/hlab-client
+cd ~/hlab-client
+cp <files into dir>
+mkdir downloads
+mkdir tftp
+
+
+
+
+npm list
+npm install express
+npm install ssh2
+npm install xterm
+
+
+pm2 start hlab-client.js
+pm2 list
+
+
+
+
+
+
+
+vim ~/hlab-client/helpers/globals.js
+vim ~/hlab-client/views/global_defines.pug
+
+sudo vim /etc/mysql/mysql.conf.d/mysqld.cnf
+
+
+
+
+
+
+
+
+
+
+
+https://github.com/billchurch/webssh2
+git clone https://github.com/billchurch/webssh2.git hlab-webssh
+cd hlab-webssh/app
+ln -s index.js hlab-webssh.js
+cp config.json.sample config.json
+edit config.json to set port to 1234
+pm2 start hlab-webssh.js
+
+
+NODE_DEBUG=cluster,net,http,fs,tls,module,timers node hlab-client
+
+
+
+
+
+
+
+cd hlab-server
+ln -s app.js hlab-server.js
+
+cd /home/jlaccone/hlab-server && pm2 start hlab-server.js
+cd /home/jlaccone/hlab-client && pm2 start hlab-client.js
+cd /home/jlaccone/hlab-webssh/app && pm2 start hlab-webssh.js
+
+
+
+
+CREATE USER 'hlabuser'@'localhost' IDENTIFIED BY 'hlabpassword';
+GRANT ALL PRIVILEGES ON * . * TO 'hlabuser'@'localhost';
+FLUSH PRIVILEGES;
+

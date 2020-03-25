@@ -43,6 +43,8 @@
 ║                                 Added merge details                                                                                                                     ║
 ║  1.16.16119.xx (10 Jun 19) - Development Update {J. Laccone}                                                                                                            ║
 ║                                 Added diagnostic details                                                                                                                ║
+║  1.17.30819.xx (04 Nov 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Debug of permissions for script execution                                                                                               ║
 ║                                                                                                                                                                         ║
 ╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                              Reference                                                                                  ║
@@ -408,6 +410,79 @@
 
 
 ╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                         Source Code Modifications                                                                       ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Copy The Source Modification Script Into Docker Container
+   ═════════════════════════════════════════════════════════
+      1. Verify that all steps listed in the "Build System Setup" section have been completed
+      2. Open a terminal window
+      3. Copy the modification script by typing the following command(s) into the terminal window:
+
+            docker cp <script-source-dir>/update_source.sh <docker-instance-name>:<script-target-dir-in-container>
+            (ex: docker cp /data/dataworkspace/jenkins-docker/update_source.sh vcast_instance:/home/developer/svn-working-dir/bin)
+
+
+   Run The Modification Script On A Local Branch
+   ═════════════════════════════════════════════
+      1. Verify that all steps listed in the "Build System Setup" section have been completed
+      2. Open a terminal window
+      3. Copy the latest build data and modification script to the local branch by typing the following command(s) into the terminal window:
+
+            cp <local-tool-dir>/<build-data-file> <local-tool-dir>/<modification-script> <local-branch-embedded-dir>/bin
+            (ex: cp /data/dataworkspace/jenkins-docker/build_data.xml /data/dataworkspace/jenkins-docker/update_source.sh /data/dataworkspace/bc0/bin)
+
+      4. Run the modification script by typing the following command(s) into the terminal window:
+
+            <local-branch-embedded-dir>/bin/update_source.sh --build-file <version-data-source-dir>/build_data.xml --src-path <local-branch-embedded-dir>/ccu/base/app -u
+            (ex: /data/dataworkspace/bc0/bin/update_source.sh --build-file /data/dataworkspace/jenkins-docker/build_data.xml --src-path /data/dataworkspace/bc0/ccu/base/app -u)
+
+
+   Compile A Local Branch
+   ══════════════════════
+      1. Verify that all steps listed in the "Run The Modification Script On A Local Branch" procedure have been completed
+      2. Open a terminal window
+      3. Build the local branch by typing the following command(s) into the terminal window:
+
+            cd <local-branch-embedded-dir>/ccu/_build/app
+            (ex: cd /data/dataworkspace/bc0/ccu/_build/app)
+
+            make -j <number-of-processors> install/strip
+            (ex: make -j 12 install/strip)
+
+
+   Push Local Build Artifacts To A Test Device
+   ═══════════════════════════════════════════
+      1. Verify that all steps listed in the "Compile A Local Branch" procedure have been completed
+      2. Verify that the "~/vdriveDEV" symbolic link is pointing to the local branch
+      3. Open a terminal window
+      4. Push the local build artifacts to a device by typing the following command(s) into the terminal window:
+
+            ~/bp -n <first-three-octets-of-ip-address> -m <last-octet-of-ip-address> -a <build-artifacts> -p
+            (ex: ~/bp -n 172.24.24 -m 159 -a "map pui" -p)
+            (ex: ~/bp -n 172.24.24 -m 185 -a "rmg" -p)
+            (ex: ~/bp -n 172.24.24 -m 169 -a "tmg" -p)
+
+
+   Revert Local Branch Version Modifications
+   ═════════════════════════════════════════
+      1. Verify that all steps listed in the "Build System Setup" section have been completed
+      2. Open a terminal window
+      3. Revert the modifications by typing the following command(s) into the terminal window:
+
+            cd <local-branch-embedded-dir>/ccu/base/app/map/include
+            (ex: cd /data/dataworkspace/bc0/ccu/base/app/map/include)
+
+            svn revert ion_cwpmib.h
+
+            cd <local-branch-embedded-dir>/ccu/base/app/common/include
+            (ex: cd /data/dataworkspace/bc0/ccu/base/app/common/include)
+
+            svn revert ion_xmgmib.h
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
 ║                                                                                MIB Changes                                                                              ║
 ╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
@@ -622,50 +697,6 @@
 
 
 ╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                                                                             Call Control Server Common                                                                  ║
-╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
-
-   Call Control Server Debug Modifications
-   ═══════════════════════════════════════
-      1. Open a root user terminal window on a call control server
-      2. To Modify the deamon configuration, open the config file by typing the following command(s) into the terminal window:
-
-            vi /etc/snmp/snmp.conf
-
-      3. Edit the the file, adding the entries below:
-
-            #dumpPacket yes
-            doDebugging 1
-            debugTokens snmp_agent,ucd-snmp/pass,exec,run
-            mibAllowUnderline true
-            showMibErrors true
-
-      4. Save the file and exit vi
-      5. To Modify the deamon startup configuration, open the config file by typing the following command(s) into the terminal window:
-
-            vi /etc/sysconfig/snmpd
-
-      6. Edit the the file, to reflect the entries below:
-
-            # snmpd command line options
-            # '-f' is implicitly added by snmpd systemd unit file
-            # OPTIONS="-LS0-6d"
-            #OPTIONS="-Lf /dev/null -p /var/run/snmpd.pid"
-            OPTIONS="-LF d /var/log/snmpd.log -p /var/run/snmpd.pid"
-
-      7. Save the file and exit vi
-      8. Restart the snmp daemon by typing the following command(s) into the terminal window:
-
-            systemctl daemon-reload
-            systemctl restart snmpd
-
-      9. Monitor the snmp daemon by typing the following command(s) into the terminal window:
-
-            tail -f /var/log/snmpd.log
-
-
-
-╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
 ║                                                                              SIP Conference Server                                                                      ║
 ╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
@@ -773,6 +804,77 @@
 
 ╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
 ║                                                                                                                                                                         ║
+║                                                                            ===  Debug  ===                                                                              ║
+║                                                                                                                                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                             Call Control Server Common                                                                  ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Net-Snmp Daemon Debug Modifications
+   ═══════════════════════════════════
+      1. Open a root user terminal window on a call control server
+      2. To Modify the net-snmp deamon configuration, open the config file by typing the following command(s) into the terminal window:
+
+            vi /etc/snmp/snmp.conf
+
+      3. Edit the the file, adding the entries below:
+         NOTE: The "snmp_agent" debug token WILL cause issues with pass script processing
+
+            #dumpPacket yes
+            doDebugging 1
+            debugTokens snmp_agent,ucd-snmp/pass,exec,run
+            mibAllowUnderline true
+            showMibErrors true
+
+      4. Save the file and exit vi
+
+
+   Daemon Debug Operation
+   ══════════════════════
+      1. Verify that the "Net-Snmp Daemon Debug Modifications" procedure has been completed
+      2. Open a root user terminal window on a call control server
+      3. To Modify the net-snmp deamon startup configuration, open the config file by typing the following command(s) into the terminal window:
+
+            vi /etc/sysconfig/snmpd
+
+      4. Edit the the file, to reflect the entries below:
+
+            # snmpd command line options
+            # '-f' is implicitly added by snmpd systemd unit file
+            # OPTIONS="-LS0-6d"
+            #OPTIONS="-Lf /dev/null -p /var/run/snmpd.pid"
+            OPTIONS="-LF d /var/log/snmpd.log -p /var/run/snmpd.pid"
+
+      5. Save the file and exit vi
+      6. Restart the net-snmp daemon by typing the following command(s) into the terminal window:
+
+            systemctl daemon-reload
+            systemctl restart snmpd
+
+      7. Monitor the net-snmp daemon by typing the following command(s) into the terminal window:
+
+            tail -f /var/log/snmpd.log
+
+
+   Manual Debug Operation
+   ══════════════════════
+      1. Open a root user terminal window on a call control server
+      2. Stop the net-snmp daemon by typing the following command(s) into the terminal window:
+
+            systemctl stop snmpd
+
+      3. Start net-snmp in foreground mode by typing the following command(s) into the terminal window:
+
+            To Log To stdout And Debug pass, ecec, and run Operations
+            ─────────────────────────────────────────────────────────
+               snmpd -f -Lo -Ducd-snmp/pass,exec,run
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                                                                                                         ║
 ║                                                                            ===  Tests  ===                                                                              ║
 ║                                                                                                                                                                         ║
 ╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
@@ -821,114 +923,55 @@
 
 
 ╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                                                                         Source Code Modifications                                                                       ║
+║                                                                          Call Control Server Common                                                                     ║
 ╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
-   Copy The Source Modification Script Into Docker Container
-   ═════════════════════════════════════════════════════════
-      1. Verify that all steps listed in the "Build System Setup" section have been completed
-      2. Open a terminal window
-      3. Copy the modification script by typing the following command(s) into the terminal window:
-
-            docker cp <script-source-dir>/update_source.sh <docker-instance-name>:<script-target-dir-in-container>
-            (ex: docker cp /data/dataworkspace/jenkins-docker/update_source.sh vcast_instance:/home/developer/svn-working-dir/bin)
-
-
-   Run The Modification Script On A Local Branch
-   ═════════════════════════════════════════════
-      1. Verify that all steps listed in the "Build System Setup" section have been completed
-      2. Open a terminal window
-      3. Copy the latest build data and modification script to the local branch by typing the following command(s) into the terminal window:
-
-            cp <local-tool-dir>/<build-data-file> <local-tool-dir>/<modification-script> <local-branch-embedded-dir>/bin
-            (ex: cp /data/dataworkspace/jenkins-docker/build_data.xml /data/dataworkspace/jenkins-docker/update_source.sh /data/dataworkspace/bc0/bin)
-
-      4. Run the modification script by typing the following command(s) into the terminal window:
-
-            <local-branch-embedded-dir>/bin/update_source.sh --build-file <version-data-source-dir>/build_data.xml --src-path <local-branch-embedded-dir>/ccu/base/app -u
-            (ex: /data/dataworkspace/bc0/bin/update_source.sh --build-file /data/dataworkspace/jenkins-docker/build_data.xml --src-path /data/dataworkspace/bc0/ccu/base/app -u)
-
-
-   Compile A Local Branch
-   ══════════════════════
-      1. Verify that all steps listed in the "Run The Modification Script On A Local Branch" procedure have been completed
-      2. Open a terminal window
-      3. Build the local branch by typing the following command(s) into the terminal window:
-
-            cd <local-branch-embedded-dir>/ccu/_build/app
-            (ex: cd /data/dataworkspace/bc0/ccu/_build/app)
-
-            make -j <number-of-processors> install/strip
-            (ex: make -j 12 install/strip)
-
-
-   Push Local Build Artifacts To A Test Device
-   ═══════════════════════════════════════════
-      1. Verify that all steps listed in the "Compile A Local Branch" procedure have been completed
-      2. Verify that the "~/vdriveDEV" symbolic link is pointing to the local branch
-      3. Open a terminal window
-      4. Push the local build artifacts to a device by typing the following command(s) into the terminal window:
-
-            ~/bp -n <first-three-octets-of-ip-address> -m <last-octet-of-ip-address> -a <build-artifacts> -p
-            (ex: ~/bp -n 172.24.24 -m 159 -a "map pui" -p)
-            (ex: ~/bp -n 172.24.24 -m 185 -a "rmg" -p)
-            (ex: ~/bp -n 172.24.24 -m 169 -a "tmg" -p)
-
-
-   Revert Local Branch Version Modifications
-   ═════════════════════════════════════════
-      1. Verify that all steps listed in the "Build System Setup" section have been completed
-      2. Open a terminal window
-      3. Revert the modifications by typing the following command(s) into the terminal window:
-
-            cd <local-branch-embedded-dir>/ccu/base/app/map/include
-            (ex: cd /data/dataworkspace/bc0/ccu/base/app/map/include)
-
-            svn revert ion_cwpmib.h
-
-            cd <local-branch-embedded-dir>/ccu/base/app/common/include
-            (ex: cd /data/dataworkspace/bc0/ccu/base/app/common/include)
-
-            svn revert ion_xmgmib.h
-
-
-
-╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                                                                          SIP Conference Server                                                                          ║
-╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
-
-   Conference Server Librabry Package Validation
-   ═════════════════════════════════════════════
-      1. Open a root user terminal window on a conference server
+   Library Package Validation
+   ══════════════════════════
+      1. Open a root user terminal window on a conference/proxy server
       2. Verify that the support libraries are installed by typing the following command(s) into the terminal window:
 
             rpm -q vim-filesystem vim-common
 
 
-   Conference Server SNMP Daemon Validation
-   ════════════════════════════════════════
-      1. Open a root user terminal window on a conference server
+   SNMP Daemon Validation
+   ══════════════════════
+      1. Open a root user terminal window on a conference/proxy server
       2. Verify that the SNMP daemon is running by typing the following command(s) into the terminal window:
 
             systemctl status snmpd
 
 
-   Conference Server BC Version Data Validation
-   ════════════════════════════════════════════
-      1. Open a root user terminal window on a conference server
+   BC Version Data Validation
+   ══════════════════════════
+      1. Open a root user terminal window on a conference/proxy server
       2. Verify that the Backward Compatibility version data is present on the server by typing the following command(s) into the terminal window:
          NOTE: Version data consists of two files: build_data.dat, build_data.dat.md5
 
             ls -l /home/zabbix/datafiles/bc
 
 
-   Conference Server BC SNMP Processing Script Existance Validation
-   ════════════════════════════════════════════════════════════════
-      1. Open a root user terminal window on a conference server
+   BC SNMP Processing Script Existance Validation
+   ══════════════════════════════════════════════
+      1. Open a root user terminal window on a conference/proxy server
       2. Verify that the Backward Compatibility SNMP processing script exists on the server by typing the following command(s) into the terminal window:
 
             ls -l /home/zabbix/scripts/net-snmp_bc.bash
 
+
+   Credentials File Permissions Validation
+   ═══════════════════════════════════════
+      1. Open a root user terminal window on a conference/proxy server
+      2. Verify that the credentials.bash file has the correct permissions (755) by typing the following command(s) into the terminal window:
+
+            cd /auth/home/zabbix/scripts
+            ll
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                          SIP Conference Server                                                                          ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
    Conference Server BC SNMP Processing Script Validation
    ══════════════════════════════════════════════════════
@@ -938,6 +981,12 @@
             cd /home/zabbix/scripts
             ./net-snmp_bc.bash -g .1.3.6.1.4.1.290.6.7.11.1.1.2.0
             ./net-snmp_bc.bash -n .1.3.6.1.4.1.290.6.7.11.1.1
+
+      3. Verify that the zabbix user can execute the Backward Compatibility script agent by typing the following command(s) into the terminal window:
+         NOTE: If this retruns any "permission denied" messages, execute the "Credentials File Permissions Validation" procedure
+
+            cd /home/zabbix/scripts
+            su -s /bin/bash -c '/home/zabbix/scripts/net-snmp_bc.bash -g .1.3.6.1.4.1.290.6.7.11.1.1.2.0' -g zabbix zabbix
 
 
    Conference Server SNMP Tests
@@ -992,37 +1041,67 @@
 ║                                                                           SIP Proxy Server                                                                              ║
 ╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
-   Proxy Server Validation
-   ═══════════════════════
+   Proxy Server BC SNMP Processing Script Validation
+   ═════════════════════════════════════════════════
       1. Open a root user terminal window on a proxy server
       2. Verify that the Backward Compatibility script agent is working by typing the following command(s) into the terminal window:
 
             cd /home/zabbix/scripts
             ./net-snmp_bc.bash -g .1.3.6.1.4.1.290.6.7.9.1.3.2.0
+            ./net-snmp_bc.bash -n .1.3.6.1.4.1.290.6.7.9.1.3
+
+      3. Verify that the zabbix user can execute the Backward Compatibility script agent by typing the following command(s) into the terminal window:
+         NOTE: If this retruns any "permission denied" messages, execute the "Credentials File Permissions Validation" procedure
+
+            cd /home/zabbix/scripts
+            su -s /bin/bash -c '/home/zabbix/scripts/net-snmp_bc.bash -g .1.3.6.1.4.1.290.6.7.9.1.3.2.0' -g zabbix zabbix
 
 
-   Proxy Server Tests
-   ══════════════════
-      1. Open a terminal window
-      2. Copy the latest MIB files into the library directory by typing the following command(s) into the terminal window:
+   Proxy Server SNMP Tests
+   ═══════════════════════
+      1. Open a root user terminal window on a proxy server
+      2. Verify that the VCS21 MIB files are on the server by typing the following command(s) into the terminal window:
 
-            cp <local-branch-mib-dir>/*.mib <local-library-dir>
-            (ex: cp /data/dataworkspace/bc1-mibs/*.mib ~/.snmp/mibs)
+            ls -l /usr/share/snmp/mibs/harris*
+            ls -l /usr/share/snmp/mibs/ION-*
 
-      3. Verify that the Backward Compatibility MIB is available locally by typing the following command(s) into the terminal window:
+      3. Verify that the HARRIS/ION MIB structure is processing correctly by typing the following command(s) into the terminal window:
 
-            (generates oid): snmptranslate -m +HARRIS-MIB:ION-MIB:ION-SIPPROXY -On ION-SIPPROXY-MIB::previousReleaseVersion.0
+            (generates oid): snmptranslate -m +HARRIS-MIB -On HARRIS-MIB::gcsd2
+            (generates oid): snmptranslate -m +HARRIS-MIB:ION-MIB -On ION-MIB::sipproxy
+
+            (generates txt): snmptranslate -m +HARRIS-MIB .1.3.6.1.4.1.290.6
+            (generates txt): snmptranslate -m +HARRIS-MIB:ION-MIB .1.3.6.1.4.1.290.6.7.9
+
+      4. Verify that the Backward Compatibility MIB is available locally by typing the following command(s) into the terminal window:
+
+            (generates oid): snmptranslate -m +HARRIS-MIB:ION-MIB:ION-SIPPROXY -On ION-SIPPROXY::previousReleaseVersion.0
             (generates txt): snmptranslate -m +HARRIS-MIB:ION-MIB:ION-SIPPROXY .1.3.6.1.4.1.290.6.7.9.1.3.2.0
 
-      4. Verify that the Backward Compatibility script agent is working by typing the following command(s) into the terminal window:
+      5. Determine the correct community string by typing the following command(s) into the terminal window:
+         NOTE: The string is listed in the "Access Control" section under the "community" column
 
-            snmpget -v 2c -c public <sip-proxy-server-ip> ION-SIPPROXY::previousReleaseVersion.0
-            (ex: snmpget -v 2c -c public 172.24.24.140 ION-SIPPROXY::previousReleaseVersion.0)
+            less /etc/snmp/snmpd.conf
 
-      5. Run the MIB browser by typing the following command(s) into the terminal window:
+      6. Verify that the SNMP agent is processing GET REQUESTS by typing the following command(s) into the terminal window:
 
-            tkmib -o ION-SIPPROXY::backwardCompatibility <sip-proxy-server-ip>
-            (ex: tkmib -o ION-SIPPROXY::backwardCompatibility 172.24.24.140)
+            snmpget -v 2c -c <community-string> <sip-proxy-server-ip> SNMPv2-MIB::sysDescr.0
+            (ex: snmpget -v 2c -c public localhost SNMPv2-MIB::sysDescr.0)
+
+      7. Verify that the SNMP agent is processing GET NEXT REQUESTS by typing the following command(s) into the terminal window:
+
+            snmpwalk -v 2c -c <community-string> <sip-proxy-server-ip> .1
+            (ex: snmpwalk -v 2c -c public localhost .1)
+
+      8. Verify that the Backward Compatibility script agent is processing GET REQUESTS by typing the following command(s) into the terminal window:
+
+            snmpget -v 2c -c <community-string> <sip-proxy-server-ip> ION-SIPPROXY::previousReleaseVersion.0
+            (ex: snmpget -v 2c -c public localhost ION-SIPPROXY::previousReleaseVersion.0)
+
+      9. Verify that the Backward Compatibility script agent is processing GET NEXT REQUESTS by typing the following command(s) into the terminal window:
+
+            snmpwalk -v 2c -c <community-string> <sip-proxy-server-ip> ION-SIPPROXY::backwardCompatibility
+            (ex: snmpwalk -v 2c -c public localhost ION-SIPPROXY::backwardCompatibility)
 
 
 
@@ -1065,6 +1144,8 @@ https://lnsvr0016.cs.myharris.net/vcs21/vcs21_LAB/AutoTest/trunk/jenkins/pipelin
 
 
 
+/var/lib/net-snmp
+   .snmp-exec-cache
 
 
 

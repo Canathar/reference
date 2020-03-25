@@ -1,0 +1,138 @@
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ DEB_Info.txt                                                                                                                                                            ║
+║                                                                                                                                                                         ║
+║ Document Encoding           : UTF-8, UNIX Line Terminator                                                                                                               ║
+║ Document Best Viewed/Printed: Page{Ledger, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                                                         ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                            Revision History                                                                             ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                                                                     ║
+║                                                                                                                                                                         ║
+║  1.00.06520.xx (05 Mar 20) - Initial Creation {J. Laccone}                                                                                                              ║
+║                                 Added sections                                                                                                                          ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                Reference                                                                                ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║   RPM Home                                                                                                                                                              ║
+║   --------                                                                                                                                                              ║
+║      https://rpm.org/                                                                                                                                                   ║
+║                                                                                                                                                                         ║
+║   Overview - Ubuntu Packaging Guide                                                                                                                                     ║
+║   ---------------------------------                                                                                                                                     ║
+║      https://packaging.ubuntu.com/html/                                                                                                                                 ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                Notes                                                                                    ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║   Overview - Ubuntu Packaging Guide                                                                                                                                     ║
+║   ---------------------------------                                                                                                                                     ║
+║      https://packaging.ubuntu.com/html/                                                                                                                                 ║
+║                                                                                                                                                                         ║
+║   HOWTO: Build Debian Packages For Simple Shell Scripts                                                                                                                 ║
+║   -----------------------------------------------------                                                                                                                 ║
+║      https://blog.packagecloud.io/eng/2016/12/15/howto-build-debian-package-containing-simple-shell-scripts/                                                            ║
+║                                                                                                                                                                         ║
+║   RPM vs DPKG Equivalent Commands                                                                                                                                       ║
+║   -------------------------------                                                                                                                                       ║
+║      https://tecadmin.net/rpm-vs-dpkg-commands/                                                                                                                         ║
+║                                                                                                                                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                              Common Query                                                                               ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Determine What Query Tags rpm Supports
+   ══════════════════════════════════════
+      1. Open a terminal window
+      2. Login as the superuser (root on CentOS/RHEL)
+      3. Display the query tags rpm supports by typing the following command(s) into the terminal window:
+
+            rpm --querytags
+
+
+   Determine What Query Tags repoquery Supports
+   ════════════════════════════════════════════
+      1. Open a terminal window
+      2. Login as the superuser (root on CentOS/RHEL)
+      3. Display the query tags repoquery supports by typing the following command(s) into the terminal window:
+
+            repoquery --querytags
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                        Stand Alone Package Query                                                                        ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Display The Detailed Information For A Stand Alone RPM Package File
+   ═══════════════════════════════════════════════════════════════════
+      1. Open a terminal window
+      2. Login as the superuser (root on CentOS/RHEL)
+      3. Display the detailed info for an rpm package by typing the following command(s) into the terminal window:
+
+            rpm -qip <file-name>
+            (ex: rpm -qip net-snmp-gui-5.7.2-33.el7_5.2.x86_64.rpm)
+
+
+   Display The Detailed File Layout For A Stand Alone RPM Package
+   ══════════════════════════════════════════════════════════════
+      1. Open a terminal window
+      2. Login as the superuser (root on CentOS/RHEL)
+      3. Display the detailed file layout for an rpm package by typing the following command(s) into the terminal window:
+
+            rpm -qvlp <file-name>
+            (ex: rpm -qvlp net-snmp-gui-5.7.2-33.el7_5.2.x86_64.rpm)
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                         Installed Package Query                                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Display All The Installed RPM Packages
+   ══════════════════════════════════════
+      1. Open a terminal window
+      2. Login as the superuser (root on CentOS/RHEL)
+      3. Display the installed rpm packages by typing the following command(s) into the terminal window:
+         Note: The list will have three columns showing: source repo, installed package, name
+
+            repoquery -a --installed --qf "%-30{ui_from_repo} %-105{nevra} %{name}"
+
+      4. Display the rpm packages installed outside of yum by typing the following command(s) into the terminal window:
+
+            repoquery -a --installed --qf "%-30{ui_from_repo} %-105{nevra} %{name}" | grep installed
+
+
+   Determine What Package A File Is Part Of
+   ════════════════════════════════════════
+      1. Open a terminal window
+      2. Login as the superuser (root on CentOS/RHEL)
+      3. Display the package containing a specified file by typing the following command(s) into the terminal window:
+
+            rpm -q --whatprovides <file-name>
+            (ex: rpm -q --whatprovides /usr/bin/netstat)
+
+
+   Display The Detailed Information For An Installed RPM Package
+   ═════════════════════════════════════════════════════════════
+      1. Open a terminal window
+      2. Login as the superuser (root on CentOS/RHEL)
+      3. Display the detailed info for an rpm package by typing the following command(s) into the terminal window:
+
+            rpm -qi <package> or <name>
+            (ex: rpm -qi net-snmp)
+
+
+   Display The Detailed File Layout For An Installed RPM Package
+   ═════════════════════════════════════════════════════════════
+      1. Open a terminal window
+      2. Login as the superuser (root on CentOS/RHEL)
+      3. Display the detailed file layout for an rpm package by typing the following command(s) into the terminal window:
+
+            rpm -qvl <package> or <name>
+            (ex: rpm -qvl net-snmp)

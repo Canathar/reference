@@ -11,12 +11,28 @@
 ║                                                                                                                                                                         ║
 ║  1.00.11519.xx (25 Apr 19) - Initial Creation {J. Laccone}                                                                                                              ║
 ║                                 Added sections                                                                                                                          ║
+║  1.01.21019.xx (29 Jul 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added additional tracing                                                                                                                ║
+║  1.02.21119.xx (30 Jul 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added additional tracing                                                                                                                ║
+║  1.03.21219.xx (31 Jul 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added further tracing                                                                                                                   ║
+║  1.04.21319.xx (01 Aug 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Determined how the multiple audio sources interact and added layer tracing                                                              ║
+║  1.05.21719.xx (05 Aug 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Continued layer tracing                                                                                                                 ║
+║  1.06.21819.xx (06 Aug 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Clarified several steps                                                                                                                 ║
+║  1.07.22419.xx (12 Aug 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added additional section headers                                                                                                        ║
 ║                                                                                                                                                                         ║
 ╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                              Reference                                                                                  ║
 ╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                                                                                                         ║
-║                                                                                                                                                                         ║
+║   ICD-013 ION APU to CCU                                                                                                                                                ║
+║   ----------------------                                                                                                                                                ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_docs/Data_Library/trunk/Design_Documents/ICDs/Software/Internal/SW_to_SW/ICD-013_ION-APU_CCU.docx                    ║
 ║                                                                                                                                                                         ║
 ╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                Notes                                                                                    ║
@@ -24,10 +40,7 @@
 ║                                                                                                                                                                         ║
 ║                                                                                                                                                                         ║
 ║                                                                                                                                                                         ║
-╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
-
-╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                                                               Code Path For Loading/Initializing XMG DSP                                                                ║
+║                                                                                                                                                                         ║
 ╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
       ┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
@@ -39,6 +52,524 @@
       │   ' ' - Blank line in the code path description denotes that the item (method/function) may not call all of the following paths                             │
       │                                                                                                                                                             │
       └─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+
+╔═╦═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╦═╗
+╠═╬═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬═╣
+║ ║                                                                                                                                                                     ║ ║
+║ ║                                                                                 CWP                                                                                 ║ ║
+║ ║                                                                                                                                                                     ║ ║
+╠═╬═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬═╣
+╚═╩═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╩═╝
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                       Bootup Code Path For CWP DSP                                                                      ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   main
+   ══╤═
+     ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app
+     ╎                   /cwp2/mapu0/src
+     ╎                   /main.c>
+     ╎  ──────────────────────────────────────────────────────────────────────────────────────────────────
+     ╎  Brief  : Application entry point
+     ╎
+     ╎
+     ├── appinfo_setSignature
+     ╎   ══╤═════════════════
+     ╎     ╎  Def    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app
+     ╎     ╎                   /common/include
+     ╎     ╎                   /appinfo.h>
+     ╎     ╎
+     ╎     ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app
+     ╎     ╎                   /common/src
+     ╎     ╎                   /appinfo.c>
+     ╎     ╎  ──────────────────────────────────────────────────────────────────────────────────────────────────
+     ╎     ╎  Brief  : Inform the ccu that the apu is ready
+     ╎     └────────────────────────────────────────────────────────────────────────────────────────────────────
+     ╎
+     ╎
+     └── BIOS_start
+         ══╤═══════
+           ╎  Def    : </opt/ti/bios_6_34_02_18/packages/ti/sysbios/BIOS.h>
+           ╎
+           ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app
+           ╎                   /cwp2/mapu0/src
+           ╎                   /main.c>
+           ╎  ───────────────────────────────────────────────────────────────────────────────────────────────────
+           ╎  Brief  : BIOS_start() runs the idle loop and will continue indefinitely until BIOS_exit() is called.
+           └─────────────────────────────────────────────────────────────────────────────────────────────────────
+
+                             From this point forward, the code tracing will depend on the thread of execution. See the data below for details.
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                       Thread Code Path For CWP DSP                                                                      ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Overall Thread Execution
+   ════════════════════════
+      - Once the BIOS is started, there are a number of threads that get started. Memory, function and priority data is defined in the following files:
+
+        Configuration File(s) For CWP Devices
+        ─────────────────────────────────────
+           Core 0: https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app/cwp2/mapu0/mapu0.cfg
+           Core 1: https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app/cwp2/mapu1/mapu1.cfg
+
+           - The threads for network initialization, audio processing, and CCU/APU message processing are shown below:
+
+
+             Source File For Network Initialization Function (ndkStart)
+             ----------------------------------------------------------
+                https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app/common/src/ndk.c
+
+
+             Source File For TDM Audio Processing Thread Function (thrAudioprocRun)
+             ----------------------------------------------------------------------
+                https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app/cwp2/mapu0/src/thraudioproc.c
+
+
+             Source File For HPI Message Processing Thread Function (thrComm)
+             ----------------------------------------------------------------
+                https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app/common/src/thrcomm.c
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+   thrAudioprocRun
+   ══╤════════════
+     ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app
+     ╎                   /cwp2/mapu0/src
+     ╎                   /thraudioproc.c>
+     ╎  ──────────────────────────────────────────────────────────────────────────────────────────────────
+     ╎  Brief  : CWP Audio Processing Thread Entry Point
+     ╎
+     ╎
+     └── ----- while -----
+         ══╤══════════════
+           ╎  Brief  : Monitors the TSIP buffers
+           ╎
+           ╎
+           ├── tsipRxReclaim
+           ╎   ══╤══════════
+           ╎     ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app
+           ╎     ╎                   /cwp2/mapu0/src
+           ╎     ╎                   /tsip.c>
+           ╎     ╎  ──────────────────────────────────────────────────────────────────────────────────────────────────
+           ╎     ╎  Brief  : Takes control of the RX buffer from the SYS/BIOS
+           ╎     ╎
+           ╎     ╎
+           ╎     └── tsipToApp
+           ╎         ══╤══════
+           ╎           ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app
+           ╎           ╎                   /cwp2/mapu0/src
+           ╎           ╎                   /tsip.c>
+           ╎           ╎  ──────────────────────────────────────────────────────────────────────────────────────────────────
+           ╎           ╎  Brief  : Converts the data in the input buffer from TSIP format to Application format
+           ╎           └────────────────────────────────────────────────────────────────────────────────────────────────────
+           ╎
+           ╎
+           ├── tsipTxReclaim
+           ╎   ══╤══════════
+           ╎     ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app
+           ╎     ╎                   /cwp2/mapu0/src
+           ╎     ╎                   /tsip.c>
+           ╎     ╎  ──────────────────────────────────────────────────────────────────────────────────────────────────
+           ╎     ╎  Brief  : Takes control of the TX buffer from the SYS/BIOS
+           ╎     └────────────────────────────────────────────────────────────────────────────────────────────────────
+           ╎
+           ╎
+           ╎
+           ╎
+           ├── Alg_RunAll
+           ╎   ══╤═══════
+           ╎     ╎  Def    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app
+           ╎     ╎                   /cwp2/mapu0/include
+           ╎     ╎                   /algcnt.h>
+           ╎     ╎
+           ╎     ╎  Init   : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app
+           ╎     ╎                   /common/src
+           ╎     ╎                   /algdef.c>
+           ╎     ╎
+           ╎     ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app
+           ╎     ╎                   /common/src
+           ╎     ╎                   /algrun.c>
+           ╎     ╎  ──────────────────────────────────────────────────────────────────────────────────────────────────
+           ╎     ╎  Brief  : Executes all initialized algorithms in the following order. Algorithms are enabled/disabled in the
+           ╎     ╎           'Def' file(s) shown above and initialized in the 'Init' file shown above.
+           ╎     ╎
+           ╎     ╎              Input Exceptions  (Algos that are not block based)
+           ╎     ╎              Input Blocks      (Pre-Input, Input, Post-Input)
+           ╎     ╎              Connections       (Not a block based algo)
+           ╎     ╎
+           ╎     ╎                                   Connection Layers (Buffers)
+           ╎     ╎                                   ---------------------------
+           ╎     ╎                                      0 - INBUF                <─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─    First Layer
+           ╎     ╎                                      1 - SHIN1  (Shadow In)   <─ ─ ─ ─ First Mid Layer  ─ ─ ─ ─ ─ ┐
+           ╎     ╎                                      2 - SHIN2  (Shadow In)
+           ╎     ╎                                      3 - CONF                                                    Mid
+           ╎     ╎                                      4 - SHOUT1 (Shadow Out)                                    Layer
+           ╎     ╎                                      5 - SHOUT2 (Shadow Out)
+           ╎     ╎                                      6 - SHOUT3 (Shadow Out)  <─ ─ ─ ─ Last Mid Layer   ─ ─ ─ ─ ─ ┘
+           ╎     ╎                                      7 - OUTBUF               <─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─    Last Layer
+           ╎     ╎
+           ╎     ╎              Output Blocks     (Pre-Output, Output, Post-Output)
+           ╎     ╎              Output Exceptions (Algos that are not block based)
+           ╎     ╎
+           ╎     ╎   ┌─────────────────────────────────────────────────────┐
+           ╎     ╎   │  Input Exceptions (Algos that are not block based)  │
+           ╎     ╎   └─────────────────────────────────────────────────────┘
+           ╎     ╎
+           ╎     ├── TONEDETECT_LoopBackTest
+           ╎     ╎   ══╤════════════════════
+           ╎     ╎     ╎  Def    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+           ╎     ╎     ╎                   /algtonedetect/api
+           ╎     ╎     ╎                   /tonedetect_imodule.c>
+           ╎     ╎     ╎
+           ╎     ╎     ╎  Init   : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+           ╎     ╎     ╎                   /algtonedetect/src
+           ╎     ╎     ╎                   /tonedetect_vt.c>
+           ╎     ╎     ╎
+           ╎     ╎     ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+           ╎     ╎     ╎                   /algtonedetect/src
+           ╎     ╎     ╎                   /tonedetect.c>
+           ╎     ╎     ╎  ───────────────────────────────────────────────────────────────────────────────────────────────────
+           ╎     ╎     ╎  Algo ID          : 14 (Tone Detector)
+           ╎     ╎     ╎  Virtual Function : LoopBackTest
+           ╎     ╎     ╎  Brief            : Attempts to detect a specific frequency tone
+           ╎     ╎     └─────────────────────────────────────────────────────────────────────────────────────────────────────
+           ╎     ╎
+           ╎     ╎
+           ╎     ├── GAIN_Apply_Input
+           ╎     ╎   ══╤═════════════
+           ╎     ╎     ╎  Def    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+           ╎     ╎     ╎                   /alggain/api
+           ╎     ╎     ╎                   /gain_imodule.c>
+           ╎     ╎     ╎
+           ╎     ╎     ╎  Init   : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+           ╎     ╎     ╎                   /alggain/src
+           ╎     ╎     ╎                   /gain_vt.c>
+           ╎     ╎     ╎
+           ╎     ╎     ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+           ╎     ╎     ╎                   /alggain/src
+           ╎     ╎     ╎                   /gain_api.c>
+           ╎     ╎     ╎  ───────────────────────────────────────────────────────────────────────────────────────────────────
+           ╎     ╎     ╎  Algo ID          : 6 (Gain)
+           ╎     ╎     ╎  Virtual Function : ApplyInput
+           ╎     ╎     ╎  Brief            : Applys gain to all instances
+           ╎     ╎     └─────────────────────────────────────────────────────────────────────────────────────────────────────
+           ╎     ╎
+           ╎     ╎
+           ╎     ├── MediaService_apply
+           ╎     ╎   ══╤═══════════════
+           ╎     ╎     ╎  Def    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+           ╎     ╎     ╎                   /algmediaservice/api
+           ╎     ╎     ╎                   /mediaservice_imodule.c>
+           ╎     ╎     ╎
+           ╎     ╎     ╎  Init   : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+           ╎     ╎     ╎                   /algmediaservice/src
+           ╎     ╎     ╎                   /mediaservice_vt.c>
+           ╎     ╎     ╎
+           ╎     ╎     ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+           ╎     ╎     ╎                   /algmediaservice/src
+           ╎     ╎     ╎                   /mediaservice.c>
+           ╎     ╎     ╎  ───────────────────────────────────────────────────────────────────────────────────────────────────
+           ╎     ╎     ╎  Algo ID          : 13 (Media Streams)
+           ╎     ╎     ╎  Virtual Function : MediaExecute
+           ╎     ╎     ╎  Brief            : 1) Scans all streams in the network input buffer for a squelch on a high
+           ╎     ╎     ╎                        priority stream every 10ms. If any are found, global mute is set to true.
+           ╎     ╎     ╎                     2) Scans all streams in the network input buffer for audio muting, process
+           ╎     ╎     ╎                        squelch, squelch holdover, climax etc...
+           ╎     ╎     ╎
+           ╎     ╎     ╎
+           ╎     ╎     └── MediaService_ExecuteInput
+           ╎     ╎         ══╤══════════════════════
+           ╎     ╎           ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+           ╎     ╎           ╎                   /algmediaservice/src
+           ╎     ╎           ╎                   /mediaservice.c>
+           ╎     ╎           ╎  ───────────────────────────────────────────────────────────────────────────────────────────────────
+           ╎     ╎           ╎  Brief  : 1) Processes several squelch parameters
+           ╎     ╎           ╎           2) Sends several event messages from APU to CCU
+           ╎     ╎           ╎           3) Dequeues audio from the jitter buffer and decodes it
+           ╎     ╎           ╎
+           ╎     ╎           ╎
+           ╎     ╎           └── MediaService_ApplyGain
+           ╎     ╎               ══╤═══════════════════
+           ╎     ╎                 ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+           ╎     ╎                 ╎                   /algmediaservice/src
+           ╎     ╎                 ╎                   /mediaservice.c>
+           ╎     ╎                 ╎  ───────────────────────────────────────────────────────────────────────────────────────────────────
+           ╎     ╎                 ╎  Brief  : Attenuates or mutes audio samples of the network streams based on their group membership
+           ╎     ╎                 ╎           and the attenuation value
+           ╎     ╎                 └─────────────────────────────────────────────────────────────────────────────────────────────────────
+           ╎     ╎
+           ╎     ╎
+           ╎     ├── CHIME_managechime
+           ╎     ╎   ══╤══════════════
+           ╎     ╎     ╎  Def    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+           ╎     ╎     ╎                   /algchime/api
+           ╎     ╎     ╎                   /chime_imodule.c>
+           ╎     ╎     ╎
+           ╎     ╎     ╎  Init   : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+           ╎     ╎     ╎                   /algchime/src
+           ╎     ╎     ╎                   /chime_vt.c>
+           ╎     ╎     ╎
+           ╎     ╎     ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+           ╎     ╎     ╎                   /algchime/src
+           ╎     ╎     ╎                   /chime_api.c>
+           ╎     ╎     ╎  ───────────────────────────────────────────────────────────────────────────────────────────────────
+           ╎     ╎     ╎  Algo ID          : 2 (Chime Generation)
+           ╎     ╎     ╎  Virtual Function : LegacyApply
+           ╎     ╎     ╎  Brief            : Generates a chime on all instances
+           ╎     ╎     └─────────────────────────────────────────────────────────────────────────────────────────────────────
+           ╎     ╎
+           ╎     ╎   ┌────────────────┐
+           ╎     ╎   │  Input Blocks  │
+           ╎     ╎   └────────────────┘
+           ╎     ╎
+           ╎     ├── ProcessBlocks
+           ╎     ╎   ══╤══════════
+           ╎     ╎     ╎  Def    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app
+           ╎     ╎     ╎                   /common/include
+           ╎     ╎     ╎                   /appblocs.h>
+           ╎     ╎     ╎
+           ╎     ╎     ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app
+           ╎     ╎     ╎                   /common/src
+           ╎     ╎     ╎                   /appblocs.c>
+           ╎     ╎     ╎  ──────────────────────────────────────────────────────────────────────────────────────────────────
+           ╎     ╎     ╎  Brief  : Executes the Apply virtual function defined for each algorithm in each input block
+           ╎     ╎     └────────────────────────────────────────────────────────────────────────────────────────────────────
+           ╎     ╎
+           ╎     ╎   ┌────────────────────────────────────────┐
+           ╎     ╎   │  Connections (Not a block based algo)  │
+           ╎     ╎   └────────────────────────────────────────┘
+           ╎     ╎
+           ╎     ├── CONNECTION_apply
+           ╎     ╎   ══╤═════════════
+           ╎     ╎     ╎  Def    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+           ╎     ╎     ╎                   /algconnection/api
+           ╎     ╎     ╎                   /connection_imodule.c>
+           ╎     ╎     ╎
+           ╎     ╎     ╎  Init   : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+           ╎     ╎     ╎                   /algconnection/src
+           ╎     ╎     ╎                   /connection_vt.c>
+           ╎     ╎     ╎
+           ╎     ╎     ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+           ╎     ╎     ╎                   /algconnection/src
+           ╎     ╎     ╎                   /connection_api.c>
+           ╎     ╎     ╎  ───────────────────────────────────────────────────────────────────────────────────────────────────
+           ╎     ╎     ╎  Algo ID          : 4 (Connection Manager)
+           ╎     ╎     ╎  Virtual Function : Apply
+           ╎     ╎     ╎  Brief            : 1) Manages the layer buffers
+           ╎     ╎     ╎                     2) Generates test tones
+           ╎     ╎     ╎                     3) Generates test patterns
+           ╎     ╎     ╎
+           ╎     ╎     ╎
+           ╎     ╎     └── CONNECTION_connection
+           ╎     ╎         ══╤══════════════════
+           ╎     ╎           ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+           ╎     ╎           ╎                   /algconnection/src
+           ╎     ╎           ╎                   /connection_api.c>
+           ╎     ╎           ╎  ───────────────────────────────────────────────────────────────────────────────────────────────────
+           ╎     ╎           ╎  Brief  : Performs all audio connections within each layer
+           ╎     ╎           └─────────────────────────────────────────────────────────────────────────────────────────────────────
+           ╎     ╎
+           ╎     ╎   ┌─────────────────┐
+           ╎     ╎   │  Output Blocks  │
+           ╎     ╎   └─────────────────┘
+           ╎     ╎
+           ╎     ├── ProcessBlocks
+           ╎     ╎   ══╤══════════
+           ╎     ╎     ╎  Def    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app
+           ╎     ╎     ╎                   /common/include
+           ╎     ╎     ╎                   /appblocs.h>
+           ╎     ╎     ╎
+           ╎     ╎     ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app
+           ╎     ╎     ╎                   /common/src
+           ╎     ╎     ╎                   /appblocs.c>
+           ╎     ╎     ╎  ──────────────────────────────────────────────────────────────────────────────────────────────────
+           ╎     ╎     ╎  Brief  : Executes the Apply virtual function defined for each algorithm in each output block
+           ╎     ╎     └────────────────────────────────────────────────────────────────────────────────────────────────────
+           ╎     ╎
+           ╎     ╎   ┌──────────────────────────────────────────────────────┐
+           ╎     ╎   │  Output Exceptions (Algos that are not block based)  │
+           ╎     ╎   └──────────────────────────────────────────────────────┘
+           ╎     ╎
+           ╎     ├── MediaService_apply
+           ╎     ╎   ══╤═══════════════
+           ╎     ╎     ╎  Def    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+           ╎     ╎     ╎                   /algmediaservice/api
+           ╎     ╎     ╎                   /mediaservice_imodule.c>
+           ╎     ╎     ╎
+           ╎     ╎     ╎  Init   : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+           ╎     ╎     ╎                   /algmediaservice/src
+           ╎     ╎     ╎                   /mediaservice_vt.c>
+           ╎     ╎     ╎
+           ╎     ╎     ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+           ╎     ╎     ╎                   /algmediaservice/src
+           ╎     ╎     ╎                   /mediaservice.c>
+           ╎     ╎     ╎  ───────────────────────────────────────────────────────────────────────────────────────────────────
+           ╎     ╎     ╎  Algo ID          : 13 (Media Streams)
+           ╎     ╎     ╎  Virtual Function : MediaExecute
+           ╎     ╎     ╎  Brief            : 1) Scans all streams in the network input buffer for a squelch on a high
+           ╎     ╎     ╎                        priority stream every 10ms. If any are found, global mute is set to true.
+           ╎     ╎     ╎                     2) Scans all streams in the network input buffer for audio muting, process
+           ╎     ╎     ╎                        squelch, squelch holdover, climax etc...
+           ╎     ╎     ╎
+           ╎     ╎     ╎
+           ╎     ╎     └── MediaService_ExecuteOutput
+           ╎     ╎         ══╤═══════════════════════
+           ╎     ╎           ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+           ╎     ╎           ╎                   /algmediaservice/src
+           ╎     ╎           ╎                   /mediaservice.c>
+           ╎     ╎           ╎  ───────────────────────────────────────────────────────────────────────────────────────────────────
+           ╎     ╎           ╎  Brief  : Deals with RTP transmit
+           ╎     ╎           └─────────────────────────────────────────────────────────────────────────────────────────────────────
+           ╎     ╎
+           ╎     ╎
+           ╎     ├── ELIMINATOR_ApplyOutput
+           ╎     ╎   ══╤═══════════════════
+           ╎     ╎     ╎  Def    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+           ╎     ╎     ╎                   /alglimiter/api
+           ╎     ╎     ╎                   /eliminator_imodule.c>
+           ╎     ╎     ╎
+           ╎     ╎     ╎  Init   : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+           ╎     ╎     ╎                   /alglimiter/src
+           ╎     ╎     ╎                   /eliminator_vt.c>
+           ╎     ╎     ╎
+           ╎     ╎     ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+           ╎     ╎     ╎                   /alglimiter/src
+           ╎     ╎     ╎                   /eliminator.c>
+           ╎     ╎     ╎  ───────────────────────────────────────────────────────────────────────────────────────────────────
+           ╎     ╎     ╎  Algo ID          : 17 (Tone Eliminator)
+           ╎     ╎     ╎  Virtual Function : ApplyOutput
+           ╎     ╎     ╎  Brief            : Applys low pass and notch filters on all instances
+           ╎     ╎     └─────────────────────────────────────────────────────────────────────────────────────────────────────
+           ╎     ╎
+           ╎     ╎
+           ╎     ├── LIMITER_ApplyOutput
+           ╎     ╎   ══╤════════════════
+           ╎     ╎     ╎  Def    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+           ╎     ╎     ╎                   /alglimiter/api
+           ╎     ╎     ╎                   /limiter_imodule.c>
+           ╎     ╎     ╎
+           ╎     ╎     ╎  Init   : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+           ╎     ╎     ╎                   /alglimiter/src
+           ╎     ╎     ╎                   /limiter_vt.c>
+           ╎     ╎     ╎
+           ╎     ╎     ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+           ╎     ╎     ╎                   /alglimiter/src
+           ╎     ╎     ╎                   /limiter.c>
+           ╎     ╎     ╎  ───────────────────────────────────────────────────────────────────────────────────────────────────
+           ╎     ╎     ╎  Algo ID          : 16 (Audio Limiter)
+           ╎     ╎     ╎  Virtual Function : ApplyOutput
+           ╎     ╎     ╎  Brief            : Applys an audio limit gain on all instances
+           ╎     ╎     └─────────────────────────────────────────────────────────────────────────────────────────────────────
+           ╎     ╎
+           ╎     ╎
+           ╎     ├── GAIN_Apply_Output
+           ╎     ╎   ══╤══════════════
+           ╎     ╎     ╎  Def    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+           ╎     ╎     ╎                   /alggain/api
+           ╎     ╎     ╎                   /gain_imodule.c>
+           ╎     ╎     ╎
+           ╎     ╎     ╎  Init   : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+           ╎     ╎     ╎                   /alggain/src
+           ╎     ╎     ╎                   /gain_vt.c>
+           ╎     ╎     ╎
+           ╎     ╎     ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+           ╎     ╎     ╎                   /alggain/src
+           ╎     ╎     ╎                   /gain_api.c>
+           ╎     ╎     ╎  ───────────────────────────────────────────────────────────────────────────────────────────────────
+           ╎     ╎     ╎  Algo ID          : 6 (Gain)
+           ╎     ╎     ╎  Virtual Function : ApplyOutput
+           ╎     ╎     ╎  Brief            : Applys gain to all instances
+           ╎     ╎     └─────────────────────────────────────────────────────────────────────────────────────────────────────
+           ╎     ╎
+           ╎     ╎
+           ╎     └── CHIME_LoopBackTest
+           ╎         ══╤═══════════════
+           ╎           ╎  Def    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+           ╎           ╎                   /algchime/api
+           ╎           ╎                   /chime_imodule.c>
+           ╎           ╎
+           ╎           ╎  Init   : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+           ╎           ╎                   /algchime/src
+           ╎           ╎                   /chime_vt.c>
+           ╎           ╎
+           ╎           ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+           ╎           ╎                   /algchime/src
+           ╎           ╎                   /chime_api.c>
+           ╎           ╎  ───────────────────────────────────────────────────────────────────────────────────────────────────
+           ╎           ╎  Algo ID          : 2 (Chime Generation)
+           ╎           ╎  Virtual Function : LoopBackTest
+           ╎           ╎  Brief            : Generates a chime on all instances
+           ╎           └─────────────────────────────────────────────────────────────────────────────────────────────────────
+           ╎
+           ╎
+           ├── tsipRxIssue
+           ╎   ══╤════════
+           ╎     ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app
+           ╎     ╎                   /cwp2/mapu0/src
+           ╎     ╎                   /tsip.c>
+           ╎     ╎  ──────────────────────────────────────────────────────────────────────────────────────────────────
+           ╎     ╎  Brief  : Gives control of the RX buffer back to the SYS/BIOS
+           ╎     └────────────────────────────────────────────────────────────────────────────────────────────────────
+           ╎
+           ╎
+           └── tsipTxIssue
+               ══╤════════
+                 ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app
+                 ╎                   /cwp2/mapu0/src
+                 ╎                   /tsip.c>
+                 ╎  ──────────────────────────────────────────────────────────────────────────────────────────────────
+                 ╎  Brief  : Gives control of the TX buffer back to the SYS/BIOS
+                 ╎
+                 ╎
+                 └── appToTsip
+                     ══╤══════
+                       ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app
+                       ╎                   /cwp2/mapu0/src
+                       ╎                   /tsip.c>
+                       ╎  ──────────────────────────────────────────────────────────────────────────────────────────────────
+                       ╎  Brief  : Converts the data in the output buffer from Application format to TSIP format
+                       └────────────────────────────────────────────────────────────────────────────────────────────────────
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+   thrComm
+   ══╤════
+     ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app
+     ╎                   /common/src
+     ╎                   /thrcommc.c>
+     ╎  ──────────────────────────────────────────────────────────────────────────────────────────────────
+     ╎  Brief  : CWP Host Communications Thread Entry Point
+     ╎
+     ╎
+     └── ----- for -----
+         ══╤════════════
+           ╎  Brief  : Infinite loop monitoring host to target messages
+           ╎
+           ╎
+           └── ----- switch -----
+               ══╤═══════════════
+                 ╎  Brief  : Processes/dispatches responses to received messages based on message type
+                 └────────────────────────────────────────────────────────────────────────────────────
+
+
+
+╔═╦═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╦═╗
+╠═╬═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬═╣
+║ ║                                                                                                                                                                     ║ ║
+║ ║                                                                                 XMG                                                                                 ║ ║
+║ ║                                                                                                                                                                     ║ ║
+╠═╬═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬═╣
+╚═╩═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╩═╝
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                       Bootup Code Path For XMG DSP                                                                      ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
    main
    ══╤═
@@ -59,7 +590,7 @@
      ╎     ╎                   /common/src
      ╎     ╎                   /telnetconsole.c>
      ╎     ╎  ──────────────────────────────────────────────────────────────────────────────────────────────────
-     ╎     ╎  Brief  : Initializes the thread on startup
+     ╎     ╎  Brief  : Initializes the Telnet thread on startup
      ╎     └────────────────────────────────────────────────────────────────────────────────────────────────────
      ╎
      ╎
@@ -123,8 +654,34 @@
      ╎     ╎                   /xsapu/src
      ╎     ╎                   /thraudioproc.c>
      ╎     ╎  ──────────────────────────────────────────────────────────────────────────────────────────────────
-     ╎     ╎  Brief  : Initialization function for the thread audio process
-     ╎     └────────────────────────────────────────────────────────────────────────────────────────────────────
+     ╎     ╎  Brief  : Initialization function for the McASP buffers, the Application audio buffer and all Algo's are instantiated here
+     ╎     ╎
+     ╎     ╎              TDMCodecAudioBuffer - Global PCMAudioBuffer_t object to represent McASP0
+     ╎     ╎                                       (TDM Data, RX Channel, Ping frame buffer, 4 timeslots/frame, 80 samples/timeslot, 32-bits/sample)
+     ╎     ╎                                       (TDM Data, RX Channel, Pong frame buffer, 4 timeslots/frame, 80 samples/timeslot, 32-bits/sample)
+     ╎     ╎                                       (TDM Data, TX Channel, Ping frame buffer, 4 timeslots/frame, 80 samples/timeslot, 32-bits/sample)
+     ╎     ╎                                       (TDM Data, TX Channel, Pong frame buffer, 4 timeslots/frame, 80 samples/timeslot, 32-bits/sample)
+     ╎     ╎              TDMMezzAudioBuffer  - Global PCMAudioBuffer_t object to represent McASP0
+     ╎     ╎                                       (TDM Data, RX Channel, Ping frame buffer, 4 timeslots/frame, 80 samples/timeslot, 32-bits/sample)
+     ╎     ╎                                       (TDM Data, RX Channel, Pong frame buffer, 4 timeslots/frame, 80 samples/timeslot, 32-bits/sample)
+     ╎     ╎                                       (TDM Data, TX Channel, Ping frame buffer, 4 timeslots/frame, 80 samples/timeslot, 32-bits/sample)
+     ╎     ╎                                       (TDM Data, TX Channel, Pong frame buffer, 4 timeslots/frame, 80 samples/timeslot, 32-bits/sample)
+     ╎     ╎              AudioBuffer         - Global AudioBuffer_t object to represent the application (we use 68 timeslots)
+     ╎     ╎                                       (TDM Data, RX Channel frame buffer, 128 timeslots/frame, 80 samples/timeslot, 16-bits/sample)
+     ╎     ╎                                       (TDM Data, TX Channel frame buffer, 128 timeslots/frame, 80 samples/timeslot, 16-bits/sample)
+     ╎     ╎
+     ╎     └── InitializeBlockControls
+     ╎         ══╤════════════════════
+     ╎           ╎  Def    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app
+     ╎           ╎                   /common/include
+     ╎           ╎                   /appblocs.h>
+     ╎           ╎
+     ╎           ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app
+     ╎           ╎                   /common/src
+     ╎           ╎                   /appblocs.c>
+     ╎           ╎  ──────────────────────────────────────────────────────────────────────────────────────────────────
+     ╎           ╎  Brief  : Initializes all the INPUT and OUTPUT blocks
+     ╎           └────────────────────────────────────────────────────────────────────────────────────────────────────
      ╎
      ╎
      ├── appinfo_setSignature
@@ -143,22 +700,599 @@
      ╎
      └── BIOS_start
          ══╤═══════
-           ╎  Def    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app
-           ╎                   /common/include
-           ╎                   /appinfo.h>
+           ╎  Def    : </opt/ti/bios_6_34_02_18/packages/ti/sysbios/BIOS.h>
            ╎
            ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app
-           ╎                   /common/src
-           ╎                   /appinfo.c>
-           ╎  ──────────────────────────────────────────────────────────────────────────────────────────────────
-           ╎  Brief  : Inform the ccu that the apu is ready
-           └────────────────────────────────────────────────────────────────────────────────────────────────────
+           ╎                   /xsapu/src
+           ╎                   /appmain.c>
+           ╎  ───────────────────────────────────────────────────────────────────────────────────────────────────
+           ╎  Brief  : BIOS_start() runs the idle loop and will continue indefinitely until BIOS_exit() is called.
+           └─────────────────────────────────────────────────────────────────────────────────────────────────────
+
+                             From this point forward, the code tracing will depend on the thread of execution. See the data below for details.
 
 
 
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                       Thread Code Path For XMG DSP                                                                      ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Overall Thread Execution
+   ════════════════════════
+      - Once the BIOS is started, there are a number of threads that get started. Memory, function and priority data is defined in the following files:
+
+        Configuration File For XMG Devices
+        ──────────────────────────────────
+           https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app/xsapu/xsapu.cfg
+
+           - The threads for network initialization, audio processing, and CCU/APU message processing are shown below:
 
 
+             Source File For Network Initialization Function (ndkStart)
+             ----------------------------------------------------------
+                https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app/common/src/ndk.c
 
 
+             Source File For TDM Audio Processing Thread Function (thrAudioprocRun)
+             ----------------------------------------------------------------------
+                https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app/xsapu/src/thraudioproc.c
 
+
+             Source File For HPI Message Processing Thread Function (thrComm)
+             ----------------------------------------------------------------
+                https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app/common/src/thrcomm.c
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+   thrAudioprocRun
+   ══╤════════════
+     ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app
+     ╎                   /xsapu/src
+     ╎                   /thraudioproc.c>
+     ╎  ──────────────────────────────────────────────────────────────────────────────────────────────────
+     ╎  Brief  : XMG Audio Processing Thread Entry Point
+     ╎
+     ╎
+     └── ----- while ----- (Outter Infinite Loop)
+         ══╤═════════════════════════════════════
+           ╎  Brief  : Monitors the status of McASP0 and McASP1, restarts any errant drivers if the inner loop exits
+           ╎
+           ╎
+           ├── thrAudioprocInitGIO
+           ╎   ══╤════════════════
+           ╎     ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app
+           ╎     ╎                   /xsapu/src
+           ╎     ╎                   /thraudioproc.c>
+           ╎     ╎  ──────────────────────────────────────────────────────────────────────────────────────────────────
+           ╎     ╎  Brief  : Configures and initializes McASP0 and McASP1
+           ╎     └────────────────────────────────────────────────────────────────────────────────────────────────────
+           ╎
+           ╎
+           └── ----- while ----- (Inner Infinite Loop)
+               ══╤════════════════════════════════════
+                 ╎  Brief  : Monitors the McASP buffers
+                 ╎
+                 ╎
+                 ├── thrAudioproc_BufferInConv0
+                 ╎   ══╤═══════════════════════
+                 ╎     ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app
+                 ╎     ╎                   /xsapu/src
+                 ╎     ╎                   /thraudioproc.c>
+                 ╎     ╎  ──────────────────────────────────────────────────────────────────────────────────────────────────
+                 ╎     ╎  Brief  : Converts the data in the McASP0 input buffer from a 32-bit frame to a 16-bit frame
+                 ╎     ╎
+                 ╎     ╎              PCMInputStream - Passed in buffer_t object containing raw data from the McASP0 input buffer
+                 ╎     ╎                                  (TDM Data, 4 timeslots/frame, 80 samples/timeslot, 32-bits/sample)
+                 ╎     ╎              AudioBuffer    - Populates timeslots 0-3 of the global AudioBuffer_t object, RX channel
+                 ╎     ╎                                  (TDM Data, 128 timeslots/frame, 80 samples/timeslot, 16-bits/sample)
+                 ╎     └────────────────────────────────────────────────────────────────────────────────────────────────────
+                 ╎
+                 ╎
+                 ├── thrAudioproc_BufferInConv1
+                 ╎   ══╤═══════════════════════
+                 ╎     ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app
+                 ╎     ╎                   /xsapu/src
+                 ╎     ╎                   /thraudioproc.c>
+                 ╎     ╎  ──────────────────────────────────────────────────────────────────────────────────────────────────
+                 ╎     ╎  Brief  : Converts the data in the McASP1 input buffer from a 32-bit frame to a 16-bit frame
+                 ╎     ╎
+                 ╎     ╎              PCMInputStream - Passed in buffer_t object containing raw data from the McASP1 input buffer
+                 ╎     ╎                                  (TDM Data, 4 timeslots/frame, 80 samples/timeslot, 32-bits/sample)
+                 ╎     ╎              AudioBuffer    - Populates timeslots 4-67 of the global AudioBuffer_t object, RX channel
+                 ╎     ╎                                  (TDM Data, 128 timeslots/frame, 80 samples/timeslot, 16-bits/sample)
+                 ╎     └────────────────────────────────────────────────────────────────────────────────────────────────────
+                 ╎
+                 ╎
+                 ├── Alg_RunAll
+                 ╎   ══╤═══════
+                 ╎     ╎  Def    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app
+                 ╎     ╎                   /xsapu/include
+                 ╎     ╎                   /algcnt.h>
+                 ╎     ╎
+                 ╎     ╎  Init   : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app
+                 ╎     ╎                   /common/src
+                 ╎     ╎                   /algdef.c>
+                 ╎     ╎
+                 ╎     ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app
+                 ╎     ╎                   /common/src
+                 ╎     ╎                   /algrun.c>
+                 ╎     ╎  ──────────────────────────────────────────────────────────────────────────────────────────────────
+                 ╎     ╎  Brief  : Executes all initialized algorithms in the following order. Algorithms are enabled/disabled in
+                 ╎     ╎           the 'Def' file(s) shown above and initialized in the 'Init' file shown above.
+                 ╎     ╎
+                 ╎     ╎              Input Exceptions  (Algos that are not block based)
+                 ╎     ╎              Input Blocks      (Pre-Input, Input, Post-Input)
+                 ╎     ╎              Connections       (Not a block based algo)
+                 ╎     ╎
+                 ╎     ╎                                   Connection Layers (Buffers)
+                 ╎     ╎                                   ---------------------------
+                 ╎     ╎                                      0 - INBUF                <─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─    First Layer
+                 ╎     ╎                                      1 - SHIN1  (Shadow In)   <─ ─ ─ ─ First Mid Layer  ─ ─ ─ ─ ─ ┐
+                 ╎     ╎                                      2 - SHIN2  (Shadow In)
+                 ╎     ╎                                      3 - CONF                                                    Mid
+                 ╎     ╎                                      4 - SHOUT1 (Shadow Out)                                    Layer
+                 ╎     ╎                                      5 - SHOUT2 (Shadow Out)
+                 ╎     ╎                                      6 - SHOUT3 (Shadow Out)  <─ ─ ─ ─ Last Mid Layer   ─ ─ ─ ─ ─ ┘
+                 ╎     ╎                                      7 - OUTBUF               <─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─    Last Layer
+                 ╎     ╎
+                 ╎     ╎              Output Blocks     (Pre-Output, Output, Post-Output)
+                 ╎     ╎              Output Exceptions (Algos that are not block based)
+                 ╎     ╎
+                 ╎     ╎   ┌─────────────────────────────────────────────────────┐
+                 ╎     ╎   │  Input Exceptions (Algos that are not block based)  │
+                 ╎     ╎   └─────────────────────────────────────────────────────┘
+                 ╎     ╎
+                 ╎     ├── HDLC_Receive
+                 ╎     ╎   ══╤═════════
+                 ╎     ╎     ╎  Def    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+                 ╎     ╎     ╎                   /alghdlc/api
+                 ╎     ╎     ╎                   /hdlc_imodule.c>
+                 ╎     ╎     ╎
+                 ╎     ╎     ╎  Init   : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+                 ╎     ╎     ╎                   /alghdlc/src
+                 ╎     ╎     ╎                   /hdlc_vt.c>
+                 ╎     ╎     ╎
+                 ╎     ╎     ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+                 ╎     ╎     ╎                   /alghdlc/src
+                 ╎     ╎     ╎                   /hdlc.c>
+                 ╎     ╎     ╎  ───────────────────────────────────────────────────────────────────────────────────────────────────
+                 ╎     ╎     ╎  Algo ID          : 26 (HDLC)
+                 ╎     ╎     ╎  Virtual Function : ApplyInput
+                 ╎     ╎     ╎  D2H Reply        : N/A
+                 ╎     ╎     ╎  Brief            : Processes samples configured on each instance
+                 ╎     ╎     └─────────────────────────────────────────────────────────────────────────────────────────────────────
+                 ╎     ╎
+                 ╎     ╎
+                 ╎     ├── PCM2Lin_Apply
+                 ╎     ╎   ══╤══════════
+                 ╎     ╎     ╎  Def    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+                 ╎     ╎     ╎                   /algpcm/api
+                 ╎     ╎     ╎                   /pcm_imodule.c>
+                 ╎     ╎     ╎
+                 ╎     ╎     ╎  Init   : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+                 ╎     ╎     ╎                   /algpcm/src
+                 ╎     ╎     ╎                   /pcm_vt.c>
+                 ╎     ╎     ╎
+                 ╎     ╎     ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+                 ╎     ╎     ╎                   /algpcm/src
+                 ╎     ╎     ╎                   /pcm.c>
+                 ╎     ╎     ╎  ───────────────────────────────────────────────────────────────────────────────────────────────────
+                 ╎     ╎     ╎  Algo ID          : 0 (PCM to Linear)
+                 ╎     ╎     ╎  Virtual Function : Apply
+                 ╎     ╎     ╎  D2H Reply        : N/A
+                 ╎     ╎     ╎  Brief            : Converts the data in the input buffer from PCM to Linear 16 (u-Law and A-Law)
+                 ╎     ╎     └────────────────────────────────────────────────────────────────────────────────────  ╎     └─────────────────────────────────────────────────────────────────────────────────────────────────────
+                 ╎     ╎
+                 ╎     ╎
+                 ╎     ├── TONEDETECT_LoopBackTest
+                 ╎     ╎   ══╤════════════════════
+                 ╎     ╎     ╎  Def    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+                 ╎     ╎     ╎                   /algtonedetect/api
+                 ╎     ╎     ╎                   /tonedetect_imodule.c>
+                 ╎     ╎     ╎
+                 ╎     ╎     ╎  Init   : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+                 ╎     ╎     ╎                   /algtonedetect/src
+                 ╎     ╎     ╎                   /tonedetect_vt.c>
+                 ╎     ╎     ╎
+                 ╎     ╎     ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+                 ╎     ╎     ╎                   /algtonedetect/src
+                 ╎     ╎     ╎                   /tonedetect.c>
+                 ╎     ╎     ╎  ───────────────────────────────────────────────────────────────────────────────────────────────────
+                 ╎     ╎     ╎  Algo ID          : 14 (Tone Detector)
+                 ╎     ╎     ╎  Virtual Function : LoopBackTest
+                 ╎     ╎     ╎  D2H Reply        : N/A
+                 ╎     ╎     ╎  Brief            : Attempts to detect a specific frequency tone
+                 ╎     ╎     └─────────────────────────────────────────────────────────────────────────────────────────────────────
+                 ╎     ╎
+                 ╎     ╎
+                 ╎     ├── GAIN_Apply_Input
+                 ╎     ╎   ══╤═════════════
+                 ╎     ╎     ╎  Def    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+                 ╎     ╎     ╎                   /alggain/api
+                 ╎     ╎     ╎                   /gain_imodule.c>
+                 ╎     ╎     ╎
+                 ╎     ╎     ╎  Init   : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+                 ╎     ╎     ╎                   /alggain/src
+                 ╎     ╎     ╎                   /gain_vt.c>
+                 ╎     ╎     ╎
+                 ╎     ╎     ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+                 ╎     ╎     ╎                   /alggain/src
+                 ╎     ╎     ╎                   /gain_api.c>
+                 ╎     ╎     ╎  ───────────────────────────────────────────────────────────────────────────────────────────────────
+                 ╎     ╎     ╎  Algo ID          : 6 (Gain)
+                 ╎     ╎     ╎  Virtual Function : ApplyInput
+                 ╎     ╎     ╎  D2H Reply        : N/A
+                 ╎     ╎     ╎  Brief            : Applys gain to all instances
+                 ╎     ╎     └─────────────────────────────────────────────────────────────────────────────────────────────────────
+                 ╎     ╎
+                 ╎     ╎
+                 ╎     ├── MediaService_apply
+                 ╎     ╎   ══╤═══════════════
+                 ╎     ╎     ╎  Def    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+                 ╎     ╎     ╎                   /algmediaservice/api
+                 ╎     ╎     ╎                   /mediaservice_imodule.c>
+                 ╎     ╎     ╎
+                 ╎     ╎     ╎  Init   : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+                 ╎     ╎     ╎                   /algmediaservice/src
+                 ╎     ╎     ╎                   /mediaservice_vt.c>
+                 ╎     ╎     ╎
+                 ╎     ╎     ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+                 ╎     ╎     ╎                   /algmediaservice/src
+                 ╎     ╎     ╎                   /mediaservice.c>
+                 ╎     ╎     ╎  ───────────────────────────────────────────────────────────────────────────────────────────────────
+                 ╎     ╎     ╎  Algo ID          : 13 (Media Streams)
+                 ╎     ╎     ╎  Virtual Function : MediaExecute
+                 ╎     ╎     ╎  D2H Reply        : N/A
+                 ╎     ╎     ╎  Brief            : 1) Scans all streams in the network input buffer for a squelch on a high
+                 ╎     ╎     ╎                        priority stream every 10ms. If any are found, global mute is set to true.
+                 ╎     ╎     ╎                     2) Scans all streams in the network input buffer for audio muting, process
+                 ╎     ╎     ╎                        squelch, squelch holdover, climax etc...
+                 ╎     ╎     ╎
+                 ╎     ╎     ╎
+                 ╎     ╎     └── MediaService_ExecuteInput
+                 ╎     ╎         ══╤══════════════════════
+                 ╎     ╎           ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+                 ╎     ╎           ╎                   /algmediaservice/src
+                 ╎     ╎           ╎                   /mediaservice.c>
+                 ╎     ╎           ╎  ───────────────────────────────────────────────────────────────────────────────────────────────────
+                 ╎     ╎           ╎  Brief  : 1) Processes several squelch parameters
+                 ╎     ╎           ╎           2) Sends several event messages from APU to CCU
+                 ╎     ╎           ╎           3) Dequeues audio from the jitter buffer and decodes it
+                 ╎     ╎           ╎
+                 ╎     ╎           ╎
+                 ╎     ╎           └── MediaService_ApplyGain
+                 ╎     ╎               ══╤═══════════════════
+                 ╎     ╎                 ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+                 ╎     ╎                 ╎                   /algmediaservice/src
+                 ╎     ╎                 ╎                   /mediaservice.c>
+                 ╎     ╎                 ╎  ───────────────────────────────────────────────────────────────────────────────────────────────────
+                 ╎     ╎                 ╎  Brief  : Attenuates or mutes audio samples of the network streams based on their group membership
+                 ╎     ╎                 ╎           and the attenuation value
+                 ╎     ╎                 └─────────────────────────────────────────────────────────────────────────────────────────────────────
+                 ╎     ╎
+                 ╎     ╎
+                 ╎     ├── ECHOCANCEL_ApplyECFilter
+                 ╎     ╎   ══╤═════════════════════
+                 ╎     ╎     ╎  Def    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+                 ╎     ╎     ╎                   /algechocancel/api
+                 ╎     ╎     ╎                   /echocancel_imodule.c>
+                 ╎     ╎     ╎
+                 ╎     ╎     ╎  Init   : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+                 ╎     ╎     ╎                   /algechocancel/src
+                 ╎     ╎     ╎                   /echocancel_vt.c>
+                 ╎     ╎     ╎
+                 ╎     ╎     ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+                 ╎     ╎     ╎                   /algechocancel/src
+                 ╎     ╎     ╎                   /echocancel_api.c>
+                 ╎     ╎     ╎  ───────────────────────────────────────────────────────────────────────────────────────────────────
+                 ╎     ╎     ╎  Algo ID          : 25 (Echo Cancel)
+                 ╎     ╎     ╎  Virtual Function : ApplyECFilter
+                 ╎     ╎     ╎  D2H Reply        : N/A
+                 ╎     ╎     ╎  Brief            : Applys the echo cancel algo to all instances
+                 ╎     ╎     └─────────────────────────────────────────────────────────────────────────────────────────────────────
+                 ╎     ╎
+                 ╎     ╎
+                 ╎     ├── ESNR_Apply
+                 ╎     ╎   ══╤═══════
+                 ╎     ╎     ╎  Def    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+                 ╎     ╎     ╎                   /algesnr/api
+                 ╎     ╎     ╎                   /esnr_imodule.c>
+                 ╎     ╎     ╎
+                 ╎     ╎     ╎  Init   : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+                 ╎     ╎     ╎                   /algesnr/src
+                 ╎     ╎     ╎                   /esnr_vt.c>
+                 ╎     ╎     ╎
+                 ╎     ╎     ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+                 ╎     ╎     ╎                   /algesnr/src
+                 ╎     ╎     ╎                   /algesnr.c>
+                 ╎     ╎     ╎  ───────────────────────────────────────────────────────────────────────────────────────────────────
+                 ╎     ╎     ╎  Algo ID          : 21 (ESNR)
+                 ╎     ╎     ╎  Virtual Function : Apply
+                 ╎     ╎     ╎  D2H Reply        : N/A
+                 ╎     ╎     ╎  Brief            : Applys the esnr algo to all instances
+                 ╎     ╎     └─────────────────────────────────────────────────────────────────────────────────────────────────────
+                 ╎     ╎
+                 ╎     ╎
+                 ╎     ├── CHIME_managechime
+                 ╎     ╎   ══╤══════════════
+                 ╎     ╎     ╎  Def    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+                 ╎     ╎     ╎                   /algchime/api
+                 ╎     ╎     ╎                   /chime_imodule.c>
+                 ╎     ╎     ╎
+                 ╎     ╎     ╎  Init   : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+                 ╎     ╎     ╎                   /algchime/src
+                 ╎     ╎     ╎                   /chime_vt.c>
+                 ╎     ╎     ╎
+                 ╎     ╎     ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+                 ╎     ╎     ╎                   /algchime/src
+                 ╎     ╎     ╎                   /chime_api.c>
+                 ╎     ╎     ╎  ───────────────────────────────────────────────────────────────────────────────────────────────────
+                 ╎     ╎     ╎  Algo ID          : 2 (Chime Generation)
+                 ╎     ╎     ╎  Virtual Function : LegacyApply
+                 ╎     ╎     ╎  D2H Reply        : N/A
+                 ╎     ╎     ╎  Brief            : Generates a chime on all instances
+                 ╎     ╎     └─────────────────────────────────────────────────────────────────────────────────────────────────────
+                 ╎     ╎
+                 ╎     ╎   ┌────────────────┐
+                 ╎     ╎   │  Input Blocks  │
+                 ╎     ╎   └────────────────┘
+                 ╎     ╎
+                 ╎     ├── ProcessBlocks
+                 ╎     ╎   ══╤══════════
+                 ╎     ╎     ╎  Def    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app
+                 ╎     ╎     ╎                   /common/include
+                 ╎     ╎     ╎                   /appblocs.h>
+                 ╎     ╎     ╎
+                 ╎     ╎     ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app
+                 ╎     ╎     ╎                   /common/src
+                 ╎     ╎     ╎                   /appblocs.c>
+                 ╎     ╎     ╎  ──────────────────────────────────────────────────────────────────────────────────────────────────
+                 ╎     ╎     ╎  Brief  : Executes the Apply virtual function defined for each algorithm in each input block
+                 ╎     ╎     └────────────────────────────────────────────────────────────────────────────────────────────────────
+                 ╎     ╎
+                 ╎     ╎   ┌────────────────────────────────────────┐
+                 ╎     ╎   │  Connections (Not a block based algo)  │
+                 ╎     ╎   └────────────────────────────────────────┘
+                 ╎     ╎
+                 ╎     ├── CONNECTION_apply
+                 ╎     ╎   ══╤═════════════
+                 ╎     ╎     ╎  Def    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+                 ╎     ╎     ╎                   /algconnection/api
+                 ╎     ╎     ╎                   /connection_imodule.c>
+                 ╎     ╎     ╎
+                 ╎     ╎     ╎  Init   : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+                 ╎     ╎     ╎                   /algconnection/src
+                 ╎     ╎     ╎                   /connection_vt.c>
+                 ╎     ╎     ╎
+                 ╎     ╎     ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+                 ╎     ╎     ╎                   /algconnection/src
+                 ╎     ╎     ╎                   /connection_api.c>
+                 ╎     ╎     ╎  ───────────────────────────────────────────────────────────────────────────────────────────────────
+                 ╎     ╎     ╎  Algo ID          : 4 (Connection Manager)
+                 ╎     ╎     ╎  Virtual Function : Apply
+                 ╎     ╎     ╎  D2H Reply        : N/A
+                 ╎     ╎     ╎  Brief            : 1) Manages the layer buffers
+                 ╎     ╎     ╎                     2) Generates test tones
+                 ╎     ╎     ╎                     3) Generates test patterns
+                 ╎     ╎     ╎
+                 ╎     ╎     ╎
+                 ╎     ╎     └── CONNECTION_connection
+                 ╎     ╎         ══╤══════════════════
+                 ╎     ╎           ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+                 ╎     ╎           ╎                   /algconnection/src
+                 ╎     ╎           ╎                   /connection_api.c>
+                 ╎     ╎           ╎  ───────────────────────────────────────────────────────────────────────────────────────────────────
+                 ╎     ╎           ╎  Brief  : Performs all audio connections within each layer
+                 ╎     ╎           └─────────────────────────────────────────────────────────────────────────────────────────────────────
+                 ╎     ╎
+                 ╎     ╎   ┌─────────────────┐
+                 ╎     ╎   │  Output Blocks  │
+                 ╎     ╎   └─────────────────┘
+                 ╎     ╎
+                 ╎     ├── ProcessBlocks
+                 ╎     ╎   ══╤══════════
+                 ╎     ╎     ╎  Def    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app
+                 ╎     ╎     ╎                   /common/include
+                 ╎     ╎     ╎                   /appblocs.h>
+                 ╎     ╎     ╎
+                 ╎     ╎     ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app
+                 ╎     ╎     ╎                   /common/src
+                 ╎     ╎     ╎                   /appblocs.c>
+                 ╎     ╎     ╎  ──────────────────────────────────────────────────────────────────────────────────────────────────
+                 ╎     ╎     ╎  Brief  : Executes the Apply virtual function defined for each algorithm in each output block
+                 ╎     ╎     └────────────────────────────────────────────────────────────────────────────────────────────────────
+                 ╎     ╎
+                 ╎     ╎   ┌──────────────────────────────────────────────────────┐
+                 ╎     ╎   │  Output Exceptions (Algos that are not block based)  │
+                 ╎     ╎   └──────────────────────────────────────────────────────┘
+                 ╎     ╎
+                 ╎     ├── MediaService_apply
+                 ╎     ╎   ══╤═══════════════
+                 ╎     ╎     ╎  Def    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+                 ╎     ╎     ╎                   /algmediaservice/api
+                 ╎     ╎     ╎                   /mediaservice_imodule.c>
+                 ╎     ╎     ╎
+                 ╎     ╎     ╎  Init   : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+                 ╎     ╎     ╎                   /algmediaservice/src
+                 ╎     ╎     ╎                   /mediaservice_vt.c>
+                 ╎     ╎     ╎
+                 ╎     ╎     ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+                 ╎     ╎     ╎                   /algmediaservice/src
+                 ╎     ╎     ╎                   /mediaservice.c>
+                 ╎     ╎     ╎  ───────────────────────────────────────────────────────────────────────────────────────────────────
+                 ╎     ╎     ╎  Algo ID          : 13 (Media Streams)
+                 ╎     ╎     ╎  Virtual Function : MediaExecute
+                 ╎     ╎     ╎  D2H Reply        : N/A
+                 ╎     ╎     ╎  Brief            : 1) Scans all streams in the network input buffer for a squelch on a high
+                 ╎     ╎     ╎                        priority stream every 10ms. If any are found, global mute is set to true.
+                 ╎     ╎     ╎                     2) Scans all streams in the network input buffer for audio muting, process
+                 ╎     ╎     ╎                        squelch, squelch holdover, climax etc...
+                 ╎     ╎     ╎
+                 ╎     ╎     ╎
+                 ╎     ╎     └── MediaService_ExecuteOutput
+                 ╎     ╎         ══╤═══════════════════════
+                 ╎     ╎           ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+                 ╎     ╎           ╎                   /algmediaservice/src
+                 ╎     ╎           ╎                   /mediaservice.c>
+                 ╎     ╎           ╎  ───────────────────────────────────────────────────────────────────────────────────────────────────
+                 ╎     ╎           ╎  Brief  : Deals with RTP transmit
+                 ╎     ╎           └─────────────────────────────────────────────────────────────────────────────────────────────────────
+                 ╎     ╎
+                 ╎     ╎
+                 ╎     ├── GAIN_Apply_Output
+                 ╎     ╎   ══╤══════════════
+                 ╎     ╎     ╎  Def    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+                 ╎     ╎     ╎                   /alggain/api
+                 ╎     ╎     ╎                   /gain_imodule.c>
+                 ╎     ╎     ╎
+                 ╎     ╎     ╎  Init   : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+                 ╎     ╎     ╎                   /alggain/src
+                 ╎     ╎     ╎                   /gain_vt.c>
+                 ╎     ╎     ╎
+                 ╎     ╎     ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+                 ╎     ╎     ╎                   /alggain/src
+                 ╎     ╎     ╎                   /gain_api.c>
+                 ╎     ╎     ╎  ───────────────────────────────────────────────────────────────────────────────────────────────────
+                 ╎     ╎     ╎  Algo ID          : 6 (Gain)
+                 ╎     ╎     ╎  Virtual Function : ApplyOutput
+                 ╎     ╎     ╎  D2H Reply        : N/A
+                 ╎     ╎     ╎  Brief            : Applys gain to all instances
+                 ╎     ╎     └─────────────────────────────────────────────────────────────────────────────────────────────────────
+                 ╎     ╎
+                 ╎     ╎
+                 ╎     ├── CHIME_LoopBackTest
+                 ╎     ╎   ══╤═══════════════
+                 ╎     ╎     ╎  Def    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+                 ╎     ╎     ╎                   /algchime/api
+                 ╎     ╎     ╎                   /chime_imodule.c>
+                 ╎     ╎     ╎
+                 ╎     ╎     ╎  Init   : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+                 ╎     ╎     ╎                   /algchime/src
+                 ╎     ╎     ╎                   /chime_vt.c>
+                 ╎     ╎     ╎
+                 ╎     ╎     ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+                 ╎     ╎     ╎                   /algchime/src
+                 ╎     ╎     ╎                   /chime_api.c>
+                 ╎     ╎     ╎  ───────────────────────────────────────────────────────────────────────────────────────────────────
+                 ╎     ╎     ╎  Algo ID          : 2 (Chime Generation)
+                 ╎     ╎     ╎  Virtual Function : LoopBackTest
+                 ╎     ╎     ╎  D2H Reply        : N/A
+                 ╎     ╎     ╎  Brief            : Generates a chime on all instances
+                 ╎     ╎     └─────────────────────────────────────────────────────────────────────────────────────────────────────
+                 ╎     ╎
+                 ╎     ╎
+                 ╎     ├── ECHOCANCEL_SaveOutbuffer
+                 ╎     ╎   ══╤═════════════════════
+                 ╎     ╎     ╎  Def    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+                 ╎     ╎     ╎                   /algechocancel/api
+                 ╎     ╎     ╎                   /echocancel_imodule.c>
+                 ╎     ╎     ╎
+                 ╎     ╎     ╎  Init   : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+                 ╎     ╎     ╎                   /algechocancel/src
+                 ╎     ╎     ╎                   /echocancel_vt.c>
+                 ╎     ╎     ╎
+                 ╎     ╎     ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+                 ╎     ╎     ╎                   /algechocancel/src
+                 ╎     ╎     ╎                   /echocancel_api.c>
+                 ╎     ╎     ╎  ───────────────────────────────────────────────────────────────────────────────────────────────────
+                 ╎     ╎     ╎  Algo ID          : 25 (Echo Cancel)
+                 ╎     ╎     ╎  Virtual Function : SaveOutbuffer
+                 ╎     ╎     ╎  D2H Reply        : N/A
+                 ╎     ╎     ╎  Brief            : Applys the echo cancel algo to all instances
+                 ╎     ╎     └─────────────────────────────────────────────────────────────────────────────────────────────────────
+                 ╎     ╎
+                 ╎     ╎
+                 ╎     ├── Lin2Pcm_Apply
+                 ╎     ╎   ══╤══════════
+                 ╎     ╎     ╎  Def    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+                 ╎     ╎     ╎                   /algpcm/api
+                 ╎     ╎     ╎                   /pcm_imodule.c>
+                 ╎     ╎     ╎
+                 ╎     ╎     ╎  Init   : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+                 ╎     ╎     ╎                   /algpcm/src
+                 ╎     ╎     ╎                   /pcm_vt.c>
+                 ╎     ╎     ╎
+                 ╎     ╎     ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+                 ╎     ╎     ╎                   /algpcm/src
+                 ╎     ╎     ╎                   /pcm.c>
+                 ╎     ╎     ╎  ───────────────────────────────────────────────────────────────────────────────────────────────────
+                 ╎     ╎     ╎  Algo ID          : 1 (Linear to PCM)
+                 ╎     ╎     ╎  Virtual Function : Apply
+                 ╎     ╎     ╎  D2H Reply        : N/A
+                 ╎     ╎     ╎  Brief            : Converts the data in the output buffer from Linear 16 to PCM
+                 ╎     ╎     └─────────────────────────────────────────────────────────────────────────────────────────────────────
+                 ╎     ╎
+                 ╎     ╎
+                 ╎     └── HDLC_Transmit
+                 ╎         ══╤══════════
+                 ╎           ╎  Def    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+                 ╎           ╎                   /alghdlc/api
+                 ╎           ╎                   /hdlc_imodule.c>
+                 ╎           ╎
+                 ╎           ╎  Init   : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+                 ╎           ╎                   /alghdlc/src
+                 ╎           ╎                   /hdlc_vt.c>
+                 ╎           ╎
+                 ╎           ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/algo
+                 ╎           ╎                   /alghdlc/src
+                 ╎           ╎                   /hdlc.c>
+                 ╎           ╎  ───────────────────────────────────────────────────────────────────────────────────────────────────
+                 ╎           ╎  Algo ID          : 26 (HDLC)
+                 ╎           ╎  Virtual Function : ApplyOutput
+                 ╎           ╎  D2H Reply        : N/A
+                 ╎           ╎  Brief            : Processes each instance into sample buffer
+                 ╎           └─────────────────────────────────────────────────────────────────────────────────────────────────────
+                 ╎
+                 ╎
+                 ├── thrAudioproc_BufferOutConv0
+                 ╎   ══╤════════════════════════
+                 ╎     ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app
+                 ╎     ╎                   /xsapu/src
+                 ╎     ╎                   /thraudioproc.c>
+                 ╎     ╎  ──────────────────────────────────────────────────────────────────────────────────────────────────
+                 ╎     ╎  Brief  : Converts the data from a 16-bit frame to a 32-bit frame for the McASP0 output buffer
+                 ╎     ╎
+                 ╎     ╎              PCMOutputStream - Passed in buffer_t object containing data for the McASP0 output buffer
+                 ╎     ╎                                   (TDM Data, 4 timeslots/frame, 80 samples/timeslot, 32-bits/sample)
+                 ╎     ╎              AudioBuffer     - Populates timeslots 0-3 of the McASP0 output buffer
+                 ╎     ╎                                from timeslots 0-3 of the global AudioBuffer_t object, TX channel
+                 ╎     ╎                                   (TDM Data, 128 timeslots/frame, 80 samples/timeslot, 16-bits/sample)
+                 ╎     └────────────────────────────────────────────────────────────────────────────────────────────────────
+                 ╎
+                 ╎
+                 └── thrAudioproc_BufferOutConv1
+                     ══╤════════════════════════
+                       ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app
+                       ╎                   /xsapu/src
+                       ╎                   /thraudioproc.c>
+                       ╎  ──────────────────────────────────────────────────────────────────────────────────────────────────
+                       ╎  Brief  : Converts the data from a 16-bit frame to a 32-bit frame for the McASP1 output buffer
+                       ╎
+                       ╎              PCMOutputStream - Passed in buffer_t object containing data for the McASP1 output buffer
+                       ╎                                   (TDM Data, 4 timeslots/frame, 80 samples/timeslot, 32-bits/sample)
+                       ╎              AudioBuffer     - Populates timeslots 0-3 of the McASP1 output buffer
+                       ╎                                from timeslots 4-67 of the global AudioBuffer_t object, TX channel
+                       ╎                                   (TDM Data, 128 timeslots/frame, 80 samples/timeslot, 16-bits/sample)
+                       └────────────────────────────────────────────────────────────────────────────────────────────────────
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+   thrComm
+   ══╤════
+     ╎  Imp    : <https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/base/app
+     ╎                   /common/src
+     ╎                   /thrcommc.c>
+     ╎  ──────────────────────────────────────────────────────────────────────────────────────────────────
+     ╎  Brief  : XMG Host Communications Thread Entry Point
+     ╎
+     ╎
+     └── ----- for -----
+         ══╤════════════
+           ╎  Brief  : Infinite loop monitoring host to target messages
+           ╎
+           ╎
+           └── ----- switch -----
+               ══╤═══════════════
+                 ╎  Brief  : Processes/dispatches responses to received messages based on message type
+                 └────────────────────────────────────────────────────────────────────────────────────
 

@@ -11,6 +11,8 @@
 ║                                                                                                                                                                         ║
 ║  1.00.33318.xx (29 Nov 18) - Initial Creation {J. Laccone}                                                                                                              ║
 ║                                 Added sections                                                                                                                          ║
+║  1.01.22519.xx (13 Aug 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added additional tracing                                                                                                                ║
 ║                                                                                                                                                                         ║
 ╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                Reference                                                                                ║
@@ -28,8 +30,18 @@
 
    /ccu/base/build/setup
 
-      calls: setup_externalprojects.cmake
-      calls: setup_apps.cmake
+      calls: cmake /ccu/base/build/setup_externalprojects.cmake
+
+         adds source files : /ccu/base/build/cmake/ExternalProjects.CMakeLists.cmake.in
+
+            adds project   : project_expat
+            adds project   : project_snmp
+            adds project   : project_agent
+            adds project   : project_sip
+
+         executes command  : /ccu/base/build/cmake/toolchain.arm.cmake
+
+      calls: cmake /ccu/base/build/setup_apps.cmake
 
              imports (for arm): toolchain.arm.cmake
              executes         : CMakeLists.txt

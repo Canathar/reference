@@ -21,18 +21,40 @@
 ║                                 Updated for new versions                                                                                                                ║
 ║  1.05.17019.xx (19 Jun 19) - Development Update {J. Laccone}                                                                                                            ║
 ║                                 Updated with new configraton procedure                                                                                                  ║
+║  1.06.28119.xx (08 Oct 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Updated procedures for current platform                                                                                                 ║
 ║                                                                                                                                                                         ║
 ╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
-║                                                                                Reference                                                                                ║
+║                                                                              Reference                                                                                  ║
 ╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║   Embedded Software Tool Repository Base                                                                                                                                ║
+║   --------------------------------------                                                                                                                                ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/ccu/base/tools/emb/                                                                    ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                Notes                                                                                    ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║   Automation Support Info                                                                                                                                               ║
+║   -----------------------                                                                                                                                               ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/jlaccone/reference/hats/Automation_Support_Info.txt                                      ║
 ║                                                                                                                                                                         ║
 ║   Docker Information                                                                                                                                                    ║
 ║   ------------------                                                                                                                                                    ║
 ║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/jlaccone/reference/Docker_Info.txt                                                       ║
 ║                                                                                                                                                                         ║
+║   Hats Docker Image Source                                                                                                                                              ║
+║   ------------------------                                                                                                                                              ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/ccu/base/tools/emb/hats-docker-image/                                                  ║
+║                                                                                                                                                                         ║
 ║   Hats Setup                                                                                                                                                            ║
 ║   ----------                                                                                                                                                            ║
-║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/jlaccone/reference/Hats_Setup.txt                                                        ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/jlaccone/reference/hats/Hats_Setup.txt                                                   ║
+║                                                                                                                                                                         ║
+║   Hats Usage                                                                                                                                                            ║
+║   ----------                                                                                                                                                            ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/jlaccone/reference/hats/Hats_Usage.txt                                                   ║
 ║                                                                                                                                                                         ║
 ╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 

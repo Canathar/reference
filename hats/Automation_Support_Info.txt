@@ -13,6 +13,8 @@
 ║                                 Added sections                                                                                                                          ║
 ║  1.01.16219.xx (11 Jun 19) - Development Update {J. Laccone}                                                                                                            ║
 ║                                 Clarified overview section                                                                                                              ║
+║  1.02.17519.xx (24 Jun 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added pipeline data to overview                                                                                                         ║
 ║                                                                                                                                                                         ║
 ╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                              Reference                                                                                  ║
@@ -73,33 +75,45 @@
       │                       │                                                      │
       │                       │                                          ┌───────────╩───────────┐                               ┌───────────────────────────────┐
       │                       │        SIP Scenario Creation -->         │                       ╠───────────────────────────────╣        SIPpXMLTools.py        │
-      │      hats script      ╠╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╣   SIP Creation Lib    │                               └───────────────────────────────┘
+      │                       ╠╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╣   SIP Creation Lib    │                               └───────────────────────────────┘
       │                       │                                          │                       │
-      │    xxxx_xxx_xxx.py    ╠╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╣       sip_api.py      │
-      │                       │          <-- script object -->           │                       ╠───────────────┐
-      │                       │                                          └───────────╦───────────┘               │
-      │                       │                                                      │                           │
-      │                       │                                                      │                           │
-      │                       │                                                      │ Scenario Instant Execute  │
-      │                       │                                                      │                           │
-      │                       │                                                      │                           │
-      │                       │                                          ┌───────────╩───────────┐               │
-      │                       │        SIP Scenario Execution -->        │                       │               │
-      │                       ╠╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╣     SIP Exec Lib      │               │
-      │                       │                                          │                       │               │ SIP Com Debug Menu Sess / Bash Cmd Prompt Term Sess
-      │                       ╠╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╣      exec_api.py      │               │
-      │                       │          <-- script object -->           │                       │               │
-      │                       │                                          └───────────╦───────────┘               │
-      │                       │                                                      │                           │
-      │                       │                                                      │                           │
-      │                       │                                                      │ Call Answer               │
-      │                       │                                                      │                           │
-      │                       │                                                      │                           │
-      │                       │                                          ┌───────────╩───────────┐               │
-      │                       │   <-- Debug Menu / Bash Term Sess -->    │                       ╠───────────────┘               ┌───────────────────────────────┐
-      │                       ╠╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╣    SSH Interaction    ╠───────────────────────────────╣     CommandExpectTools.py     │
-      │                       │                                          │                       │     <-- Bash Cmd Term -->     └───────────────────────────────┘
-      │                       ╠╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╣    session_api.py     │                               ┌───────────────────────────────┐
+      │                       ╠╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╣       sip_api.py      │
+      │                       │          <-- script object -->           │                       │
+      │                       │                                          └───────────╦───────────┘
+      │                       │                                                      │
+      │      hats script      │                                                      │
+      │                       │                                                      │ Scenario Instant Execute
+      │    xxxx_xxx_xxx.py    │                                                      │
+      │                       │                                                      │
+      │                       │                                          ┌───────────╩───────────┐
+      │                       │        SIP Scenario Execution -->        │                       │
+      │                       ╠╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╣     SIP Exec Lib      │
+      │                       │                                          │                       │
+      │                       ╠╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╣      exec_api.py      │        SIP Com Debug Menu Sess / Bash Cmd Prompt Term Sess
+      │                       │          <-- script object -->           │                       ╠────────────────────────────────────────────────────────────────────┐
+      │                       │                                          └───────────╦───────────┘                                                                    │
+      │                       │                                                      │                                                                                │
+      │                       │                                                      │                                                                                │
+      │                       │                                                      │ Scenario Callbacks                                                             │
+      │                       │                                                      │                                                                                │
+      │                       │                                                      │                                                                                │
+      │                       │                                          ┌───────────╩───────────┐                               ┌───────────────────────────────┐    │
+      │                       │          Pipeline Execution -->          │                       ╠───────────────────────────────╣     PipelineTestTools.py      │    │
+      │                       ╠╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╣     SIP Exec Lib      │                               └───────────────────────────────┘    │
+      │                       │                                          │                       │                                                                    │
+      │                       ╠╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╣    pipeline_api.py    │                                                                    │
+      │                       │          <-- script object -->           │                       │                                                                    │
+      │                       │                                          └───────────────────────┘                                                                    │
+      │                       │                                                                                                                                       │
+      │                       │                                                                                                                                       │
+      │                       │                                                                                                                                       │
+      │                       │                                                                                                                                       │
+      │                       │                                                                                                                                       │
+      │                       │                                          ┌───────────────────────┐                                                                    │
+      │                       │   <-- Debug Menu / Bash Term Sess -->    │                       ╠────────────────────────────────────────────────────────────────────┘
+      │                       ╠╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╣    SSH Interaction    │     <-- Bash Cmd Term -->     ┌───────────────────────────────┐
+      │                       │                                          │                       ╠───────────────────────────────╣     CommandExpectTools.py     │
+      │                       ╠╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╣    session_api.py     │                               ├───────────────────────────────┤
       │                       │          <-- script object -->           │                       ╠───────────────────────────────╣     DebugPexpectTools.py      │
       └───────────────────────┘                                          └───────────────────────┘      <-- Debug Menu -->       └───────────────────────────────┘
 
@@ -324,15 +338,24 @@
 
 
 
-   Test Specific Notes
-   ═══════════════════
-      ssh root@192.168.158.19 "tcpdump -Uvv -s 0 -A -i eth0 not port 22 -w -" | wireshark -k -s 262144 -i -
-      ssh root@192.168.158.20 "tcpdump -Uvv -s 0 -A -i eth0 not port 22 -w -" | wireshark -k -s 262144 -i -
+   DE21693: Call Termination during Media Renegotiation of an answered IC Chime Fork Call results in Hanging Application Call
+   ══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
 
-      DE21693: Call Termination during Media Renegotiation of an answered IC Chime Fork Call results in Hanging Application Call
-      ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-         python2.7 recon_role_tester.py role-add --cwp-ip 192.168.158.45 --roles "CD001" --log -*
-         python2.7 recon_role_tester.py role-add --cwp-ip 192.168.158.47 --roles "CD003" --log -*
+      SIP Packet Monitoring On The Proxy
+      ──────────────────────────────────
+         ssh root@192.168.158.19 "tcpdump -Uvv -s 0 -A -i eth0 not port 22 -w -" | wireshark -k -s 262144 -i -
+         ssh root@192.168.158.20 "tcpdump -Uvv -s 0 -A -i eth0 not port 22 -w -" | wireshark -k -s 262144 -i -
+
+
+      CWP Modifications
+      ─────────────────
+         Add multiple codecs to the cwp acting as the UAC
+
+
+      Script Functions
+      ────────────────
+         python2.7 recon_role_tester.py role-add --cwp-ip 192.168.158.45 --roles "CD1" --log -*
+         python2.7 recon_role_tester.py role-add --cwp-ip 192.168.158.47 --roles "JL001" --log -*
          python2.7 invite_hats.py invite-script-uas \
                                   -i enp0s25 \
                                   --log --sippalllog \
@@ -340,5 +363,37 @@
                                   --mediadesc-one-rtp-initial-codecs '0 8' \
                                   --mediadesc-one-rtp-follow-up-codecs 0 \
                                   --call-type IC_CHIME \
-                                  --initial-invite-end-with-bye \
+                                  --follow-up-invite-uas-bye \
                                   -*
+
+
+
+
+
+
+
+
+    # ===== Expand the archive =====
+    cd /usr/src && \
+    tar --no-same-owner -xJvf ${wireshark_archive} && \
+    cd /usr/src/${wireshark_dir} && \
+    # ===== Configure the options for cmake =====
+    cmake -DDUMPCAP_INSTALL_OPTION=suid && \
+    # ===== Build the software =====
+    make -j 2 && \
+    make rpm-package
+    yum install
+
+    #make install -j 2 && \
+    #dbus-uuidgen > /var/lib/dbus/machine-id && \
+    # ===== Clean-up =====
+    rm -rf /usr/src/${wireshark_dir} && \
+    rm -rf /usr/src/${wireshark_archive}
+
+setcap 'CAP_NET_RAW+eip CAP_NET_ADMIN+eip' /usr/local/bin/dumpcap
+
+
+
+
+
+

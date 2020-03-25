@@ -1,6 +1,7 @@
 ﻿╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║ hats-usage.txt                                                                                                                                                          ║
+║ Hats_Usage.txt                                                                                                                                                          ║
 ║                                                                                                                                                                         ║
+║ Document Encoding           : UTF-8, UNIX Line Terminator                                                                                                               ║
 ║ Document Best Viewed/Printed: Page{Ledger, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                                                         ║
 ║                                                                                                                                                                         ║
 ╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
@@ -16,191 +17,116 @@
 ║                                 Added header and reference links                                                                                                        ║
 ║  1.03.00818.xx (08 Jan 18) - Development Update {J. Laccone}                                                                                                            ║
 ║                                 Added docker installation commands                                                                                                      ║
+║  1.04.28119.xx (08 Oct 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Updated procedures for current platform                                                                                                 ║
 ║                                                                                                                                                                         ║
 ╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
-║                                                                                Reference                                                                                ║
+║                                                                              Reference                                                                                  ║
 ╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                                                                                                         ║
-║   Docker Networking                                                                                                                                                     ║
-║   ─────────────────                                                                                                                                                     ║
-║      http://www.elastic.co/blog/docker-networking                                                                                                                       ║
-║      https://docs.docker.com/engine/userguide/networking/                                                                                                               ║
+║   Embedded Software Tool Repository Base                                                                                                                                ║
+║   --------------------------------------                                                                                                                                ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/ccu/base/tools/emb/                                                                    ║
 ║                                                                                                                                                                         ║
-║   Docker X11                                                                                                                                                            ║
-║   ──────────                                                                                                                                                            ║
-║      https://blog.yadutaf.fr/2017/09/10/running-a-graphical-app-in-a-docker-container-on-a-remote-server/                                                               ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                Notes                                                                                    ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                                                                                                         ║
+║   Automation Support Info                                                                                                                                               ║
+║   -----------------------                                                                                                                                               ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/jlaccone/reference/hats/Automation_Support_Info.txt                                      ║
+║                                                                                                                                                                         ║
+║   Docker Information                                                                                                                                                    ║
+║   ------------------                                                                                                                                                    ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/jlaccone/reference/Docker_Info.txt                                                       ║
+║                                                                                                                                                                         ║
+║   Hats Docker Image Source                                                                                                                                              ║
+║   ------------------------                                                                                                                                              ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/ccu/base/tools/emb/hats-docker-image/                                                  ║
+║                                                                                                                                                                         ║
+║   Hats Setup                                                                                                                                                            ║
+║   ----------                                                                                                                                                            ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/jlaccone/reference/hats/Hats_Setup.txt                                                   ║
 ║                                                                                                                                                                         ║
 ╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Prerequisites
+   ═════════════
+      1. An account on the VCS21 configuration management repository
+      2. Docker installed with experimental features enabled (ref: "Docker Information" above)
+      3. Desired Docker image(s) built within Docker installation (ref: "Hats Setup" above)
+
+
 
 ╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                                                                           Docker Installation                                                                           ║
+║                                                                    Initial Environment Configuration                                                                    ║
 ╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
-   Bash Commands - Execute The Following In A Terminal Window As superuser
-   ───────────────────────────────────────────────────────────────────────
+   Setup Container For Hats Usage
+   ══════════════════════════════
       1. Open a terminal window
-      2. Login as the superuser (root on CentOS/RHEL)
-      3. Use yum to remove any existing docker components
+      2. Create a new container based on the hats Docker Image by typing the following command(s) into the terminal window:
 
-            yum remove docker docker-common docker-selinux docker-engine
+            cd <hats-docker-image-source-dir>
+            (ex: cd ~/hats-docker)
 
-      4. Use yum to install required docker components
+            ./create_hats_docker_container.sh --create-container --mirror-host-network
 
-            yum --noplugins --enablerepo "*" --disablerepo "*media*" install yum-utils device-mapper-persistent-data lvm2
 
-      5. Modify the yum configuration file, /etc/yum.conf, to suppress the checking of SSL certificates by adding the following line
+   OPTIONAL: Add hats Wheel Distribution To Container
+   ══════════════════════════════════════════════════
+      1. If a new hats distribution is required, verify that a hats wheel distribution is available
+      2. Open a terminal window
+      3. Add hats wheel distribution to a container by typing the following command(s) into the terminal window:
 
-            sslverify=False
+            docker cp  <hats-dev-distribution-dir>/<hats-whl-file-name> <hats-docker-container>:/tmp
+            (ex: docker cp /tmp/hats-dev/dist/hats-*.whl hats_instance:/tmp)
 
-      6. Use yum to add the docker repository
 
-            yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+   OPTIONAL: Add hats Wheel Distribution To pip
+   ════════════════════════════════════════════
+      1. If a new hats distribution is required, verify that a hats wheel distribution was added to the container (ref: "Add hats Wheel Distribution To Container" above)
+      2. Open a terminal window to an existing hats container
+      3. Add hats wheel distribution to pip by typing the following command(s) into the containers terminal window:
 
-      7. Use yum to add docker
+            sudo /usr/local/bin/pip2.7 install --upgrade /tmp/hats-<version-wildcard>.whl
+            (ex: sudo /usr/local/bin/pip2.7 install --upgrade /tmp/hats-0.19.*.whl)
 
-            yum --noplugins --enablerepo "*" --disablerepo "*media*" install docker-ce
+      4. Remove the existing hats scripts and copy the new hats scripts to the individuals script working directory by typing the following command(s) into
+         the containers terminal window:
 
-      8. Start the docker service
+            rm -f /home/developer/hats-working-scripts/*
+            cp /usr/local/hats-scripts/* /home/developer/hats-working-scripts
 
-            systemctl start docker
 
-      9. Create a directory to hold the certificates
+   Build hats Configuration Files
+   ══════════════════════════════
+      1. Open a terminal window
+      2. Add the desired hats config source files to the container by typing the following command(s) into the terminal window:
 
-            mkdir /root/security
+            cd <hats-config-source-dir>
+            for f in ./*.json; do docker cp $f <hats-docker-container>:/home/developer/hats-working-config/; done
 
-     10. Change to the new directory
+            ex:
+               cd ~/hats-working-config
+               for f in ./*.json; do docker cp $f hats_instance:/home/developer/hats-working-config/; done
 
-            cd /root/security
+      3. Open a terminal window to an existing hats container
+      4. Generate configuration files for hats by typing the following command(s) into the containers terminal window:
 
-     11. Copy the certificate tools
+            cd /home/developer/hats-working-scripts
 
-            scp root@<machine-ip-address>:/<source-path>/Certificate-and-tools.tar.gz .
+            python2.7 create_config_file.py --write-config --log \
+                                            --virtual-cwp-device-file <hats-working-config>~/<hats-virtual-cwps>.json \
+                                            --cwp-device-file <hats-working-config>~/<hats-required-cwps>.json \
+                                            --proxy-ccs-file <hats-working-config>~/<hats-required-proxies>.json \
+                                            --files-contain-encrypted-passwords \
+                                            --store-encrypted-passwords
 
-     12. Expand the archive
-
-            tar -xzvf Certificate-and-tools.tar.gz
-
-     13. Install the necessary certficates
-
-            ./AddCertsToAnchor.sh
-
-
-╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                                                                                 Docker                                                                                  ║
-╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
-
-   systemctl start docker
-   systemctl status docker
-
-   Work with images
-   ────────────────
-
-      docker images
-
-      docker image ls
-      docker image rm <image-id>
-
-
-   Work with containers
-   ────────────────────
-
-      docker ps -a
-      docker container ls
-      docker container rm <container-id>
-      docker rm `docker ps --no-trunc -a -q`
-
-
-   Building Images
-   ───────────────
-
-      docker build -t <tag> <source-dir>
-
-      docker build -t hats-platform .
-
-
-   Running An Image (Creating A Container)
-   ───────────────────────────────────────
-
-      docker run -it <container-name> <image-name>
-
-
-
-
-
-
-
-      docker run -it --privileged \
-         -e DISPLAY=:${CONTAINER_DISPLAY} \
-         -v ${PWD}/display/socket:/tmp/.X11-unix:rw \
-         -v ${PWD}/display/Xauthority:/home/developer/.Xauthority:rw \
-         --hostname ${CONTAINER_HOSTNAME} \
-         --name hats_instance \
-         hats-platform
-
-
-
-
-
-
-
-      # Working command for terminal session started on docker host
-      docker run -it --privileged -e DISPLAY=$DISPLAY \
-                                  -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
-                                  --name hats_test \
-                                  hats-platform
-
-
-      # docker run -it --net=host --privileged -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --name hats_test hats-platform
-      # docker run --rm -it -e "TERM=xterm-256color" --mount type=tmpfs,destination=/tmp --name hats_test hats-platform
-      # docker run -it -e "TERM=xterm-256color" --name hats_test hats-platform
-
-
-   Attaching To A Running Image (Creating A New Terminal)
-   ──────────────────────────────────────────────────────
-
-      docker exec -it <container-id> bash
-
-      docker exec -it -e DISPLAY=$DISPLAY hats_test bash
-
-
-   Copying a file to/from the host to/from a running container
-   ───────────────────────────────────────────────────────────
-
-      docker cp foo.txt mycontainer:/foo.txt
-      docker cp mycontainer:/foo.txt foo.txt
-
-      docker cp /tmp/hats-dev/dist/hats-0.18.0a1.dev79-py2-none-any.whl hats_test:/usr/src/hats
-
-
-   Networking
-   ──────────
-
-      docker network ls
-
-
-
-   xhost +local:<container-id>
-
-
-╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                                                                    Creating hats Configuration Files                                                                    ║
-╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
-
-   Melbourne Embedded Development - NAN
-   ────────────────────────────────────
-   python2.7 createConfigFile.py --script-avn mlb_emb_dev_nan --script-proxy-ip 172.24.24.204 --target-avn mlb_emb_dev_nan -n 172.24.24 -a "LC000 CD000 GC000 RC000 TM000" -m "220 222 224 226 228"
-
-
-   Melbourne Embedded Development - SJU
-   ────────────────────────────────────
-   python2.7 createConfigFile.py --script-avn mlb_emb_dev_sju --script-proxy-ip 172.24.24.140 --target-avn mlb_emb_dev_sju -n 172.24.24 -a "MNT001 CD000 GC000 RC000 TM000" -m "155 157 159 161 163"
-
-
-╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                                                                        Running hats Script Files                                                                        ║
-╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
-
-
-   python2.7 invite_hats_UAC.py -i eth0 --conf ~/hats-working-config/hats__script-mlb_emb_dev_sju__target-mlb_emb_dev_sju_GC000.conf --nopcap --log -*
+            (ex: python2.7 create_config_file.py --write-config --log \
+                                                 --virtual-cwp-device-file ~/hats-working-config/hats_virtual_cwps.json \
+                                                 --cwp-device-file ~/hats-working-config/hats_basic_cwps.json \
+                                                 --proxy-ccs-file ~/hats-working-config/hats_basic_proxies.json \
+                                                 --files-contain-encrypted-passwords \
+                                                 --store-encrypted-passwords)
 

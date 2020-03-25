@@ -19,6 +19,12 @@
 ║                                 Clarified steps and added SIP CONF                                                                                                      ║
 ║  1.04.06719.xx (08 Mar 19) - Development Update {J. Laccone}                                                                                                            ║
 ║                                 Documented additional MIB values                                                                                                        ║
+║  1.05.33819.xx (04 Dec 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added additional tests                                                                                                                  ║
+║  1.06.33919.xx (05 Dec 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Documented additional debug steps                                                                                                       ║
+║  1.07.34319.xx (09 Dec 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Further debug steps                                                                                                                     ║
 ║                                                                                                                                                                         ║
 ╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                              Reference                                                                                  ║
@@ -257,7 +263,7 @@
 ║                                                                          Tool Usage / Common Queries                                                                    ║
 ╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
-   Graphically Examine SNMP Agent Values With MIB Browser
+   Graphically Examine SNMP Agent Values With MIB BrowserD
    ══════════════════════════════════════════════════════
       1. Open a terminal window
       2. Run the MIB browser by typing the following command(s) into the terminal window:
@@ -327,10 +333,297 @@
             Generate An Object Id (OID) From A MIB Module Object
             ────────────────────────────────────────────────────
                snmptranslate -On <mib-module>::<mib-object>
-               (ex: snmptranslate -On ION-SIPPROXY::previousReleaseVersion.0)
+               (generates oid): snmptranslate -On ION-SIPPROXY::previousReleaseVersion.0
+               (generates oid): snmptranslate -m +HARRIS-MIB:ION-MIB:ION-SIPCONF -On ION-SIPCONF::gaats.lastLookup
 
 
             Generate A MIB Module Object From An Object Id (OID)
             ────────────────────────────────────────────────────
                snmptranslate -m <first-mib-module>:<second-mib-module>:<nth-mib-module> <object-id>
-               (ex: snmptranslate -m +HARRIS-MIB:ION-MIB:ION-SIPPROXY .1.3.6.1.4.1.290.6.7.9.1.3.2.0)
+               (generates txt): snmptranslate -m +HARRIS-MIB:ION-MIB:ION-SIPPROXY .1.3.6.1.4.1.290.6.7.9.1.3.2.0
+               (generates txt): snmptranslate -m +HARRIS-MIB:ION-MIB:ION-SIPCONF .1.3.6.1.4.1.290.6.7.11.1.1
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                                                                                                         ║
+║                                                                             ===  Debug  ===                                                                             ║
+║                                                                                                                                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                       Call Control Server Common                                                                        ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Net-Snmp Daemon Debug Modifications
+   ═══════════════════════════════════
+      1. Open a root user terminal window on a call control server
+      2. To Modify the net-snmp deamon configuration, open the config file by typing the following command(s) into the terminal window:
+
+            vi /etc/snmp/snmp.conf
+
+      3. Edit the the file, adding the entries below:
+         NOTE: The "snmp_agent" debug token WILL cause issues with pass script processing
+
+            #dumpPacket yes
+            doDebugging 1
+            debugTokens snmp_agent,ucd-snmp/pass,exec,run
+            mibAllowUnderline true
+            showMibErrors true
+
+      4. Save the file and exit vi
+
+
+   Net-Snmp Daemon Debug Operation
+   ═══════════════════════════════
+      1. Verify that the "Net-Snmp Daemon Debug Modifications" procedure has been completed
+      2. Open a root user terminal window on a call control server
+      3. To Modify the net-snmp deamon startup configuration, open the config file by typing the following command(s) into the terminal window:
+
+            vi /etc/sysconfig/snmpd
+
+      4. Edit the the file, to reflect the entries below:
+
+            # snmpd command line options
+            # '-f' is implicitly added by snmpd systemd unit file
+            # OPTIONS="-LS0-6d"
+            #OPTIONS="-Lf /dev/null -p /var/run/snmpd.pid"
+            OPTIONS="-LF d /var/log/snmpd.log -p /var/run/snmpd.pid"
+
+      5. Save the file and exit vi
+      6. Restart the net-snmp daemon by typing the following command(s) into the terminal window:
+
+            systemctl daemon-reload
+            systemctl restart snmpd
+
+      7. Monitor the net-snmp daemon by typing the following command(s) into the terminal window:
+
+            tail -f /var/log/snmpd.log
+
+
+   Net-Snmp Manual Debug Operation
+   ═══════════════════════════════
+      1. Open a root user terminal window on a call control server
+      2. Stop the net-snmp daemon by typing the following command(s) into the terminal window:
+
+            systemctl stop snmpd
+
+      3. Start net-snmp in foreground mode by typing the following command(s) into the terminal window:
+
+            To Log To stdout And Debug pass, ecec, and run Operations
+            ─────────────────────────────────────────────────────────
+               snmpd -f -Lo -Ducd-snmp/pass,exec,run
+
+
+   Net-Snmp Trap Daemon Debug Operation
+   ════════════════════════════════════
+      1. Open a root user terminal window on a call control server
+      2. To Modify the net-snmp trap deamon startup configuration, open the config file by typing the following command(s) into the terminal window:
+
+            vi /etc/sysconfig/snmptrapd
+
+      4. Edit the the file, to reflect the entries below:
+
+            # snmptrapd command line options
+            # '-f' is implicitly added by snmpd systemd unit file
+            # OPTIONS="-Lsd"
+            #OPTIONS="-Lf /dev/null -p /var/run/snmptrapd.pid"
+            OPTIONS="-LF d /var/log/snmptrapd.log -p /var/run/snmptrapd.pid"
+
+      5. Save the file and exit vi
+      6. Restart the net-snmp trap daemon by typing the following command(s) into the terminal window:
+
+            systemctl daemon-reload
+            systemctl restart snmptrapd
+
+      7. Monitor the net-snmp daemon by typing the following command(s) into the terminal window:
+
+            tail -f /var/log/snmptrapd.log
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                                                                                                         ║
+║                                                                  ===  SNMP Subsystem Verification  ===                                                                  ║
+║                                                                                                                                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                       Call Control Server Common                                                                        ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Library Package Validation
+   ══════════════════════════
+      1. Open a root user terminal window on a conference/proxy server
+      2. Verify that the support libraries are installed by typing the following command(s) into the terminal window:
+
+            rpm -q vim-filesystem vim-common
+            rpm -q libxml2
+
+
+   MIB File Validation
+   ═══════════════════
+      1. Open a root user terminal window on a conference/proxy server
+      2. Verify that the VCS21 MIB files are on the server and have access permisisons of 644 by typing the following command(s) into the terminal window:
+
+            ls -l /usr/share/snmp/mibs/harris*
+            ls -l /usr/share/snmp/mibs/ION-*
+
+
+   SNMP Daemon Validation
+   ══════════════════════
+      1. Open a root user terminal window on a conference/proxy server
+      2. Verify that the SNMP daemon is running by typing the following command(s) into the terminal window:
+
+            systemctl status snmpd
+
+   SNMP Trap Daemon Validation
+   ═══════════════════════════
+      1. Open a root user terminal window on a conference/proxy server
+      2. Verify that the SNMP Trap daemon is running by typing the following command(s) into the terminal window:
+
+            systemctl status snmptrapd
+
+
+   BC Version Data Validation
+   ══════════════════════════
+      1. Open a root user terminal window on a conference/proxy server
+      2. Verify that the Backward Compatibility version data is present on the server by typing the following command(s) into the terminal window:
+         NOTE: Version data consists of two files: build_data.dat, build_data.dat.md5
+
+            ls -l /home/zabbix/datafiles/bc
+
+
+   BC SNMP Processing Script Existance Validation
+   ══════════════════════════════════════════════
+      1. Open a root user terminal window on a conference/proxy server
+      2. Verify that the Backward Compatibility SNMP processing script exists on the server by typing the following command(s) into the terminal window:
+
+            ls -l /home/zabbix/scripts/net-snmp_bc.bash
+
+
+   GAATS SNMP Processing Script Existance Validation
+   ═════════════════════════════════════════════════
+      1. Open a root user terminal window on a conference/proxy server
+      2. Verify that the GAATS SNMP processing script exists on the server by typing the following command(s) into the terminal window:
+
+            ls -l /home/zabbix/scripts/net-snmp_gaats.bash
+
+
+   Credentials File Permissions Validation
+   ═══════════════════════════════════════
+      1. Open a root user terminal window on a conference/proxy server
+      2. Verify that the credentials.bash file has the correct permissions (755) by typing the following command(s) into the terminal window:
+
+            cd /auth/home/zabbix/scripts
+            ll
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                          SIP Conference Server                                                                          ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Conference Server BC SNMP Processing Script Validation
+   ══════════════════════════════════════════════════════
+      1. Open a root user terminal window on a conference server
+      2. Verify that the zabbix user can execute the Backward Compatibility script agent by typing the following command(s) into the terminal window:
+         NOTE: If this retruns any "permission denied" messages, execute the "Credentials File Permissions Validation" procedure and the "MIB File Validation" procedure
+
+            cd /home/zabbix/scripts
+            su -s /bin/bash -c '/home/zabbix/scripts/net-snmp_bc.bash -g .1.3.6.1.4.1.290.6.7.11.1.1.2.0' -g zabbix zabbix
+
+      3. Verify that the Backward Compatibility script agent is working by typing the following command(s) into the terminal window:
+
+            cd /home/zabbix/scripts
+            ./net-snmp_bc.bash -g .1.3.6.1.4.1.290.6.7.11.1.1.2.0
+            ./net-snmp_bc.bash -n .1.3.6.1.4.1.290.6.7.11.1.1
+
+
+   Conference Server GAATS SNMP Processing Script Validation
+   ═════════════════════════════════════════════════════════
+      1. Open a root user terminal window on a conference server
+      2. Verify that the zabbix user can execute the GAATS script agent by typing the following command(s) into the terminal window:
+         NOTE: If this retruns any "permission denied" messages, execute the "Credentials File Permissions Validation" procedure and the "MIB File Validation" procedure
+
+            cd /home/zabbix/scripts
+            su -s /bin/bash -c '/home/zabbix/scripts/net-snmp_gaats.bash -g .1.3.6.1.4.1.290.6.7.11.1.2.1.0' -g zabbix zabbix
+
+      3. Verify that the GAATS script agent GET REQUESTS are working by typing the following command(s) into the terminal window:
+
+            cd /home/zabbix/scripts
+            ./net-snmp_gaats.bash -g .1.3.6.1.4.1.290.6.7.11.1.2.1.0
+
+      4. Verify that the GAATS script agent TRAP generation is working by typing the following command(s) into the terminal window:
+
+            cd /home/zabbix/scripts
+            ./net-snmp_gaats.bash -t .1.3.6.1.4.1.290.6.7.11.3.1
+
+
+   Conference Server Common SNMP Tests
+   ═══════════════════════════════════
+      1. Open a root user terminal window on a conference server
+      2. Verify that the HARRIS/ION MIB structure is processing correctly by typing the following command(s) into the terminal window:
+
+            (generates oid): snmptranslate -m +HARRIS-MIB -On HARRIS-MIB::gcsd2
+            (generates oid): snmptranslate -m +HARRIS-MIB:ION-MIB -On ION-MIB::sipconf
+
+            (generates txt): snmptranslate -m +HARRIS-MIB .1.3.6.1.4.1.290.6
+            (generates txt): snmptranslate -m +HARRIS-MIB:ION-MIB .1.3.6.1.4.1.290.6.7.11
+
+      3. Determine the correct community string by typing the following command(s) into the terminal window:
+         NOTE: The string is listed in the "Access Control" section under the "community" column
+
+            less /etc/snmp/snmpd.conf
+
+      4. Verify that the SNMP agent is processing GET REQUESTS by typing the following command(s) into the terminal window:
+
+            snmpget -v 2c -c <community-string> <sip-conf-server-ip> SNMPv2-MIB::sysDescr.0
+            (ex: snmpget -v 2c -c testwrite localhost SNMPv2-MIB::sysDescr.0)
+
+      5. Verify that the SNMP agent is processing GET NEXT REQUESTS by typing the following command(s) into the terminal window:
+
+            snmpwalk -v 2c -c <community-string> <sip-conf-server-ip> .1
+            (ex: snmpwalk -v 2c -c testwrite localhost .1)
+
+
+   Conference Server BC SNMP Tests
+   ═══════════════════════════════
+      1. Open a root user terminal window on a conference server
+      2. Verify that the Backward Compatibility MIB structure is processing correctly by typing the following command(s) into the terminal window:
+
+            (generates oid): snmptranslate -m +HARRIS-MIB:ION-MIB:ION-SIPCONF -On ION-SIPCONF::backwardCompatibility
+            (generates txt): snmptranslate -m +HARRIS-MIB:ION-MIB:ION-SIPCONF .1.3.6.1.4.1.290.6.7.11.1.1
+
+      3. Verify that the Backward Compatibility script agent is processing GET REQUESTS by typing the following command(s) into the terminal window:
+         NOTE: If this retruns "No Such Instance currently exists at this OID", this indicates a permissions access error
+
+            snmpget -v 2c -c <community-string> <sip-conf-server-ip> ION-SIPCONF::previousReleaseVersion.0
+            (ex: snmpget -v 2c -c testwrite localhost ION-SIPCONF::previousReleaseVersion.0)
+
+      4. Verify that the Backward Compatibility script agent is processing GET NEXT REQUESTS by typing the following command(s) into the terminal window:
+         NOTE: If this retruns "No Such Instance currently exists at this OID", this indicates a permissions access error
+
+            snmpwalk -v 2c -c <community-string> <sip-conf-server-ip> ION-SIPCONF::backwardCompatibility
+            (ex: snmpwalk -v 2c -c testwrite localhost ION-SIPCONF::backwardCompatibility)
+
+
+   Conference Server GAATS SNMP Tests
+   ══════════════════════════════════
+      1. Open a root user terminal window on a conference server
+      2. Verify that the GAATS MIB structure is processing correctly by typing the following command(s) into the terminal window:
+
+            (generates oid): snmptranslate -m +HARRIS-MIB:ION-MIB:ION-SIPCONF -On ION-SIPCONF::gaats
+            (generates txt): snmptranslate -m +HARRIS-MIB:ION-MIB:ION-SIPCONF .1.3.6.1.4.1.290.6.7.11.1.2
+
+      3. Verify that the GAATS script agent is processing GET REQUESTS by typing the following command(s) into the terminal window:
+         NOTE: If this retruns "No Such Instance currently exists at this OID", this indicates a permissions access error
+
+            snmpget -v 2c -c <community-string> <sip-conf-server-ip> ION-SIPCONF::lastLookup.0
+            (ex: snmpget -v 2c -c testwrite localhost ION-SIPCONF::lastLookup.0)
+
+      4. Verify that the GAATS script agent is processing GET NEXT REQUESTS by typing the following command(s) into the terminal window:
+         NOTE: If this retruns "No Such Instance currently exists at this OID", this indicates a permissions access error
+
+            snmpwalk -v 2c -c <community-string> <sip-conf-server-ip> ION-SIPCONF::gaats
+            (ex: snmpwalk -v 2c -c testwrite localhost ION-SIPCONF::gaats)

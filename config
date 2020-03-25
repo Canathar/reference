@@ -20,6 +20,8 @@
 #                                 Added permission instructions                                                                   #
 #  1.03.14319.xx (23 May 19) - Maintenance Update {J. Laccone}                                                                    #
 #                                 Updated UKN AVN (PS Lab)                                                                        #
+#  1.04.20719.xx (26 Jul 19) - Maintenance Update {J. Laccone}                                                                    #
+#                                 Added reference data for SSH Tunnel                                                             #
 #                                                                                                                                 #
 ###################################################################################################################################
 #                                                            Reference                                                            #
@@ -36,6 +38,15 @@
 #   HSC System Info                                                                                                               #
 #   ---------------                                                                                                               #
 #      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/jlaccone/reference/HSC_System_Info.txt           #
+#                                                                                                                                 #
+#                                                                                                                                 #
+#   How To Install And Configure VNC Remote Access For The Gnome Desktop On CentOS 7 (Includes SSH Tunnel Command Line Example)   #
+#   ---------------------------------------------------------------------------------------------------------------------------   #
+#https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-vnc-remote-access-for-the-gnome-desktop-on-centos-7#
+#                                                                                                                                 #
+#   How To Set Up SSH Tunneling On A VPS                                                                                          #
+#   ------------------------------------                                                                                          #
+#      https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-tunneling-on-a-vps                                      #
 #                                                                                                                                 #
 ###################################################################################################################################
 #                                                              Notes                                                              #

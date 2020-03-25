@@ -276,7 +276,12 @@
 
                   $(VCAST_VCS21_SRC_BASE)/app/rmg/include/
 
-           10. Close the "Configuration" tab and left click the "Yes" button when prompted to save the changes.
+           10. Left click in the "C/C++ -> Preprocessor preinclude file" text box.
+           11. Add the following directory to the text box:
+
+                  $(VCAST_VCS21_SRC_BASE)/build/buildconfig/rmg/buildconfig_product.h
+
+           12. Close the "Configuration" tab and left click the "Yes" button when prompted to save the changes.
 
 
 
@@ -313,6 +318,17 @@
                   $(VCAST_VCS21_SRC_BASE)/build/buildconfig/rmg/buildconfig_product.h
 
            12. Close the "Configuration" tab and left click the "Yes" button when prompted to save the changes.
+
+
+
+
+
+
+
+
+
+
+
 
 
 

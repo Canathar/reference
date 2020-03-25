@@ -30,8 +30,12 @@
 ║                                 Modified instructions to correct for certificate issues                                                                                 ║
 ║  1.09.02319.xx (23 Jan 19) - Development Update {J. Laccone}                                                                                                            ║
 ║                                 Added DNS instructions to allow image/container operation on Ubuntu 16.04                                                               ║
-║  1.10.03819.xx (07 Jan 19) - Development Update {J. Laccone}                                                                                                            ║
+║  1.10.03819.xx (07 Feb 19) - Development Update {J. Laccone}                                                                                                            ║
 ║                                 Added sshd instructions to allow ssh/scp operation to containers                                                                        ║
+║  1.11.26619.xx (23 Sep 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added swarm/serevice/secret operations                                                                                                  ║
+║  1.12.26819.xx (25 Sep 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Finished adding swarm/serevice/secret operations                                                                                        ║
 ║                                                                                                                                                                         ║
 ╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                Reference                                                                                ║
@@ -385,7 +389,7 @@
 
 
 ╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                                                                                 Docker                                                                                  ║
+║                                                                             Docker Service                                                                              ║
 ╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
    Starting/Stopping/Monitoring Docker Service
@@ -405,6 +409,10 @@
             systemctl stop docker
 
 
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                              Docker Images                                                                              ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
    Work With Images
    ════════════════
@@ -448,6 +456,10 @@
             (ex: docker load -i /tmp/hats-platform_010170.00.tar)
 
 
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                            Docker Containers                                                                            ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
    Work With Containers
    ════════════════════
@@ -504,6 +516,49 @@
 
 
 
+   Displaying Container Logs
+   ═════════════════════════
+      NOTE: The below commands will operate as shown if the user is in the docker group
+
+      1. Open a terminal window
+      2. Display the logs for a container by typing the following command(s) into the terminal window:
+
+            docker logs <container-name>
+            (ex: docker logs mysql_instance)
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                              Docker Services                                                                            ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Work With Services
+   ══════════════════
+      NOTE: The below commands will operate as shown if the user is in the docker group
+
+      1. Open a terminal window
+      2. Display all the services instantiated (in any state) by typing the following command(s) into the terminal window:
+
+            docker ps -a
+
+      3. Display all the services currently running by typing the following command(s) into the terminal window:
+
+            docker service ls
+
+      4. Remove a service by typing the following command(s) into the terminal window:
+
+            docker service rm <service-id>
+
+      4. Remove all services by typing the following command(s) into the terminal window:
+
+            docker rm `docker ps --no-trunc -a -q`
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                             Docker Volumes                                                                              ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
    Work With Volumes
    ═════════════════
       NOTE: The below commands will operate as shown if the user is in the docker group
@@ -525,17 +580,9 @@
 
 
 
-   Displaying Container Logs
-   ═════════════════════════
-      NOTE: The below commands will operate as shown if the user is in the docker group
-
-      1. Open a terminal window
-      2. Display the logs for a container by typing the following command(s) into the terminal window:
-
-            docker logs <container-name>
-            (ex: docker logs mysql_instance)
-
-
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                            Docker Networks                                                                              ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
    User Defined Bridge Networks
    ════════════════════════════
@@ -554,7 +601,47 @@
 
 
 ╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                                                                             Docker Images                                                                               ║
+║                                                                              Docker Swarms                                                                              ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Initialize Docker Swarm
+   ═══════════════════════
+      NOTE: The below commands will operate as shown if the user is in the docker group
+
+      1. Open a terminal window
+      2. Initialize swarm by typing the following command(s) into the terminal window:
+
+            docker swarm init
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                             Docker Secrets                                                                              ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Work With Secrets
+   ═════════════════
+      NOTE: The below commands will operate as shown if the user is in the docker group
+
+      1. Open a terminal window
+      2. Display all the secrets that currently exist in the swarm by typing the following command(s) into the terminal window:
+
+            docker secret ls
+
+      3. Create a new secret by typing the following command(s) into the terminal window:
+
+            echo <password> | docker secret create <secret-name> -
+            (ex: echo newpassword | docker secret create my-secret -)
+
+      4. Remove a secret by typing the following command(s) into the terminal window:
+
+            docker secret rm <secret-name>
+            (ex: docker secret rm my-secret)
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                           Docker Procedures                                                                             ║
 ╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
    Building Images
@@ -578,14 +665,15 @@
 
 
 
-sudo apt install perf
-
-yum install perf
 
 
-perf top
+docker
 
 
 
+docker tag vcs21_build_embedded/vcast-platform 172.24.22.17/vcs21_build_embedded/vcast-platform
+docker push 172.24.22.17/vcs21_build_embedded/vcast-platform
 
+docker tag vcs21_build_embedded/apu 172.24.22.17/vcs21_build_embedded/apu
+docker push 172.24.22.17/vcs21_build_embedded/apu
 

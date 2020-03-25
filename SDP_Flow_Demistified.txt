@@ -24,6 +24,8 @@
 ║                                 Added code path for incoming call                                                                                                       ║
 ║  1.07.32518.xx (21 Nov 18) - Development Update {J. Laccone}                                                                                                            ║
 ║                                 Added code path for outgoing call                                                                                                       ║
+║  1.08.17519.xx (24 Jun 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added code path for BYE during re-invite                                                                                                ║
 ║                                                                                                                                                                         ║
 ╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                Reference                                                                                ║
@@ -215,7 +217,7 @@ When SDPHandler is constructed, the builder pointer is initialized to one of the
 ║   │      │                                               │      │                                                                                                       ║
 ║   │      │                                               │      │                                                                                                       ║
 ║   │      │                                               │      │                                                                                                       ║
-║   │      │  [CSeq 1]        ACK Request                  │      │                                                                                                       ║
+║   │      │  [CSeq 1]        ACK Request                  │      │                                               OutgoingCallState::EvSuccess                            ║
 ║   │   F4 ├──────────────────────────────────────────────>│ G4   │                                                                                                       ║
 ║   │      │                                               │      │                                                                                                       ║
 ║   │      │                                               │      │                                                                                                       ║
@@ -231,7 +233,42 @@ When SDPHandler is constructed, the builder pointer is initialized to one of the
 ║   │   R1 ├──────────────────────────────────────────────>│ S1   │                                                 SDPHandler::generateSDPOffer                          ║
 ║   │      │  voice media format(s): 0 8 15 18 (only one)  │      │                                                   SDPBuilder::generateSDPPacketFromNegotiation        ║
 ║   │      │                       ptime: xx               │      │                                                                                                       ║
-║   │      │                                               │      │   Responses to INVITE Request                 Function That Initiates Request / Handles Response      ║
+║   │      │                                               │      │                                                                                                       ║
+║   │      │   (Only One Path Is Taken, Either B1 or R2)   │      │                                                                                                       ║
+║   ╘══════╪═══════════════════════════════════════════════╪══════╛                                                                                                       ║
+║   ┌──────┼───────────────────────────────────────────────┼──────┐   UAS Ends the Call With a BYE Request        Function That Initiates Request / Handles Response      ║
+║   │      │                                               │      │   ────────────────────────────────────        ──────────────────────────────────────────────────      ║
+║   │      │  [CSeq 1]        BYE Request                  │      │                                                                                                       ║
+║   │   B1 │<──────────────────────────────────────────────┤ C1   │                                                                                                       ║
+║   │      │                                               │      │                                                                                                       ║
+║   │      │                                               │      │                                                                                                       ║
+║   │      │                                               │      │                                                                                                       ║
+║   │      │  [CSeq 1]       200 Response                  │      │                                                                                                       ║
+║   │   B2 ├──────────────────────────────────────────────>│ C2   │                                                                                                       ║
+║   │      │                                               │      │                                                                                                       ║
+║   │      │                                               │      │   UAC Ends the Call With a CANCEL Request     Function That Initiates Request / Handles Response      ║
+║   │      │                                               │      │   ───────────────────────────────────────     ──────────────────────────────────────────────────      ║
+║   │      │  [CSeq 1]      CANCEL Request                 │      │                                               OutgoingCallState::cancel                               ║
+║   │   B3 ├──────────────────────────────────────────────>│ C3   │                                                                                                       ║
+║   │      │                                               │      │                                                                                                       ║
+║   │      │                                               │      │                                                                                                       ║
+║   │      │                                               │      │                                                                                                       ║
+║   │      │  [CSeq 1]       200 Response                  │      │                                                                                                       ║
+║   │   B4 │<──────────────────────────────────────────────┤ C4   │                                                                                                       ║
+║   │      │                                               │      │                                                                                                       ║
+║   │      │                                               │      │                                                                                                       ║
+║   │      │                                               │      │                                                                                                       ║
+║   │      │  [CSeq 1]       487 Response                  │      │                                                                                                       ║
+║   │   B5 │<──────────────────────────────────────────────┤ C5   │                                                                                                       ║
+║   │      │                                               │      │                                                                                                       ║
+║   │      │                                               │      │                                                                                                       ║
+║   │      │                                               │      │                                                                                                       ║
+║   │      │  [CSeq 1]        ACK Request                  │      │                                                                                                       ║
+║   │   B6 ├──────────────────────────────────────────────>│ C6   │                                                                                                       ║
+║   │      │                                               │      │                                                                                                       ║
+║   │      │               (Call Ends Here)                │      │                                                                                                       ║
+║   ╘══════╪═══════════════════════════════════════════════╪══════╛                                                                                                       ║
+║   ┌──────┼───────────────────────────────────────────────┼──────┐   Responses to INVITE Request                 Function That Initiates Request / Handles Response      ║
 ║   │      │                                               │      │   ───────────────────────────                 ──────────────────────────────────────────────────      ║
 ║   │      │  [CSeq 1] 200 Response (w SDP Body)           │      │   200 - Response Message To Indicate                                                                  ║
 ║   │   R2 │<──────────────────────────────────────────────┤ S2   │         Request Was Successful (OK)*                                                                  ║

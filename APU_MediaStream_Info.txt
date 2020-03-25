@@ -1,0 +1,20 @@
+
+
+
+The in-memory object for ALL media service components is:
+   - Defined: mediaservice_priv.h ---> MS_Obj
+   - Initialized: mediaservice_ialg.c ---> MediaService_initObj
+   - It's internal resource list is contained in a struct that houses an array of streams (streams.pArray)
+   - All instances aka cells aka streams are initialized here and have their "inuse" flag set to "CELL_IDLE"
+   - An instance of the media service resource is a stream_t object
+   Stream_t: RtpStreamStruct
+      - Contains a reference to MS_Obj (Called pObj)
+      - Contains a bool NeedRxMuteDelay
+
+
+When a resource request message comes in:
+   - mediaservice_api.c ---> MediaService_Msg_Handler_Config
+   - The stream id (passed from CCU to APU) is validated to be in the range of instance values.
+     If the stream id is valid, a pointer to the stream instance is passed back for configuration from the streams.pArray (mediaservice_api.c ---> GetValidateStreamId)
+   - A stream_t is blanked/configured/
+

@@ -1,0 +1,850 @@
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ APU_Project_Info.txt                                                                                                                                                    ║
+║                                                                                                                                                                         ║
+║ Document Encoding           : UTF-8, UNIX Line Terminator                                                                                                               ║
+║ Document Best Viewed/Printed: Page{Ledger, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                                                         ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                            Revision History                                                                             ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                                                                     ║
+║                                                                                                                                                                         ║
+║  1.00.11319.xx (23 Apr 19) - Initial Creation {J. Laccone}                                                                                                              ║
+║                                 Added header, added reference data                                                                                                      ║
+║  1.01.11419.xx (24 Apr 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Continued documenting procedures                                                                                                        ║
+║  1.02.11519.xx (25 Apr 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Continued documenting procedures                                                                                                        ║
+║  1.03.19019.xx (10 Jul 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 General updates and incorporated modifications made by M. Russell                                                                       ║
+║  1.04.19219.xx (12 Jul 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added procedure to connect with DSP debug                                                                                               ║
+║  1.05.19619.xx (15 Jul 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Debug of procedure to connect with DSP debug                                                                                            ║
+║  1.06.19719.xx (16 Jul 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Further debug of procedure to connect with DSP debug                                                                                    ║
+║  1.07.19919.xx (18 Jul 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Re-organized procedures                                                                                                                 ║
+║  1.08.21019.xx (29 Jul 19) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added additional debug procedures                                                                                                       ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                Reference                                                                                ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║   C6000-CGT C6000 Code Generation Tools                                                                                                                                 ║
+║   -------------------------------------                                                                                                                                 ║
+║      http://www.ti.com/tool/c6000-cgt                                                                                                                                   ║
+║                                                                                                                                                                         ║
+║   TMS320C6000 Optimizing Compiler v 7.4 User's Guide                                                                                                                    ║
+║   --------------------------------------------------                                                                                                                    ║
+║      http://www.ti.com/lit/ug/spru187u/spru187u.pdf                                                                                                                     ║
+║                                                                                                                                                                         ║
+║                                                                                                                                                                         ║
+║   Processors Forum - Processors - TI E2E Community                                                                                                                      ║
+║   ------------------------------------------------                                                                                                                      ║
+║      http://e2e.ti.com/support/processors/f/791                                                                                                                         ║
+║                                                                                                                                                                         ║
+║                                                                                                                                                                         ║
+║   TMS320DM816x DaVinci Digital Media Processors                                                                                                                         ║
+║   ---------------------------------------------                                                                                                                         ║
+║      http://www.ti.com/product/TMS320DM8168                                                                                                                             ║
+║                                                                                                                                                                         ║
+║   TMS320DM816x DaVinci Digital Media Processors - Datasheet                                                                                                             ║
+║   ---------------------------------------------------------                                                                                                             ║
+║      http://www.ti.com/lit/ds/symlink/tms320dm8168.pdf                                                                                                                  ║
+║                                                                                                                                                                         ║
+║   TMS320DM816x DaVinci Digital Media Processors - User's Guide                                                                                                          ║
+║   ------------------------------------------------------------                                                                                                          ║
+║      http://www.ti.com/lit/ug/sprugx8c/sprugx8c.pdf                                                                                                                     ║
+║                                                                                                                                                                         ║
+║                                                                                                                                                                         ║
+║   TMS320C6678 8 Core Fixed And Floating Point Digital Signal Processor                                                                                                  ║
+║   --------------------------------------------------------------------                                                                                                  ║
+║      http://www.ti.com/product/TMS320C6678                                                                                                                              ║
+║                                                                                                                                                                         ║
+║   TMS320C6678 8 Core Fixed And Floating Point Digital Signal Processor - Datasheet                                                                                      ║
+║   --------------------------------------------------------------------------------                                                                                      ║
+║      http://www.ti.com/lit/ds/symlink/tms320c6678.pdf                                                                                                                   ║
+║                                                                                                                                                                         ║
+║                                                                                                                                                                         ║
+║   Eurocontrol: ATS R2 and ATS No 5 Signalling Protocol Specifications                                                                                                   ║
+║   -------------------------------------------------------------------                                                                                                   ║
+║      http://cir2cus.free.fr/documentation/ATS_R2_and_ATS_no.5_signalling_protocol_specifications.pdf                                                                    ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                Notes                                                                                    ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║   ION CCU-APU Interface Control Document                                                                                                                                ║
+║   --------------------------------------                                                                                                                                ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_docs/Data_Library/trunk/Design_Documents/ICDs/Software/Internal/SW_to_SW/ICD-013_ION-APU_CCU.docx                    ║
+║                                                                                                                                                                         ║
+║                                                                                                                                                                         ║
+║   Subversion 1.9.x VCS21 Source Repository                                                                                                                              ║
+║   ----------------------------------------                                                                                                                              ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/                                                                                                                 ║
+║                                                                                                                                                                         ║
+║   Subversion 1.9.x VCS21 APU Source Repository                                                                                                                          ║
+║   --------------------------------------------                                                                                                                          ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/apu/                                                                                   ║
+║                                                                                                                                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+╔═╦═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╦═╗
+╠═╬═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬═╣
+║ ║                                                                                                                                                                     ║ ║
+║ ║                                                                         Common Reference                                                                            ║ ║
+║ ║                                                                                                                                                                     ║ ║
+╠═╬═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬═╣
+╚═╩═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╩═╝
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                    Message Structure On APU (DSP)                                                                       ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Host To DSP Message Structure
+   ═════════════════════════════
+      - The TDM bus channel values are defined in /include/appdef.h
+
+      - The quantity of NUM_ALG_XXX instances are defined in /include/algcnt.h
+
+      - The Host to DSP messages (MT_H2D emum) and DSP to Host messages (MT_D2H) are enumerated in /common/include/magiccommmess.h
+
+      - The Entity Types DIAGS (ET_H2D_DIAGS & ET_D2H_DIAGS), GENERAL (ET_H2D_GENERAL & ET_D2H_GENERAL), and MEMORY ACCESS (ET_D2H_KIND_OF_MEMORY_ACCESS)
+        are enumerated in /common/include/magiccommmess.h
+
+      - A message object (From ICD) is defined by the following structure (/drivers/hostcomm/api/hostcomm.h):
+
+           typedef struct MSG_Obj                     //   Byte       Description
+           {                                          // --------  -------------------------------
+              SmUns msgLn;                            //  H0        - Message Count
+              SmUns msgTp;                            //  H1        - Message Type
+              SmUns entTp;                            //  H2        - Entity Type
+              SmUns padding;                          //  H3        - Reserved
+              MdUns entID;                            //  H4 H5     - Entity ID (MSB) Entity ID (LSB) [This is an instance of the algo, aka Cell]
+              SmUns subentTp;                         //  H6        - Sub Entity
+              SmUns subentID;                         //  H7        - Sub Entity ID
+              SmUns msgData[MESSAGEDATALENBYTE];      //  D0...Dx   - Data
+           } MSG_Obj;
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                     Message Processing On APU (DSP)                                                                     ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Host To DSP Message Processing Function
+   ═══════════════════════════════════════
+      - The main host communication message processing loop is defined in the function thrComm in /common/src/thrcomm.c
+
+      - A switch processes incoming messages by message type (H1)
+
+           MT_H2D_GENERAL
+           ──────────────
+              - A switch processes incoming GENERAL messages by entity type (H2)
+
+                   ET_H2D_GENERAL_VERSION_REQ
+                   --------------------------
+                      APU Load Version Request (ProcDspLoadReq)
+
+                   ET_H2D_GENERAL_RESET_COMMSTAT
+                   -----------------------------
+                      Clear APU Communication Statistics Request (HOSTCOMM_ResetStats)
+
+                   ET_H2D_GENERAL_CPULOAD_REQ
+                   --------------------------
+                      APU CPU Load Request (SendCPULoadToHost)
+
+                   ET_H2D_GENERAL_IPADDRESS
+                   ------------------------
+                      APU IP Address Request (SendIPAddrToHost)
+
+
+           MT_H2D_CONFIGURE
+           MT_H2D_RELEASE
+           MT_H2D_CONTROL
+           MT_H2D_IO
+           ────────────────
+              - If logic processes incoming CONFIGURE, RELEASE, CONTROL, and IO messages by entity type (H2),
+                then determines the correct algo to process the message.
+
+              - The inclusion/instance quantity (enabled-if-greater-than-zero/disabled-if-equal-to-zero) of all algos are managed by defines in /include/algcnt.c
+
+              - All algos are initialized (values-if-enabled/null-if-disabled) by the array initializer in /common/src/algdef.c (three values to an object)
+
+              - The generic algo object framework is defined in /common/include/algsfw.h
+
+              - An algo is defined by the following structure (/common/include/algsfw.h)
+
+                   typedef struct AlgDefinition_s
+                   {
+                      GenericAlgHandle    AlgHandle;
+                      GenericAlgFxns_t   *AlgFxns;
+                      IALG_Params        *pAlgCreateParams;
+                   } AlgDefinition_t;
+
+              - The message is passed to the function pointed to by the "Command" function pointer
+
+
+
+╔═╦═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╦═╗
+╠═╬═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬═╣
+║ ║                                                                                                                                                                     ║ ║
+║ ║                                                                           CWP Reference                                                                             ║ ║
+║ ║                                                                                                                                                                     ║ ║
+╠═╬═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬═╣
+╚═╩═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╩═╝
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                            CWP Algorythms                                                                               ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Algorythms Used For CWP Devices With Multiple APUs (mapu)
+   ═════════════════════════════════════════════════════════
+      - The following algorythms are implemented using the following GENERAL messages: CONFIGURE, RELEASE, CONTROL, and IO
+
+      - All of the available alogrythms are defined in the following enumeration (/common/include/algdef.h)
+        NOTE: The interger value of the algo is used as its id
+
+           // Define Algorithm Identifiers
+           enum {
+              ALG_PCM_TO_LINEAR = 0,                   - Disabled
+              ALG_LINEAR_TO_PCM,                       - Disabled
+              ALG_CHIME_GEN,                           - Chime Operations (algchime)
+              ALG_MODULATE_CHIME,                      - Modulator/Demodulator (algmodulator)
+              ALG_CONNECTION,                          - Connection Operations (algconnection)
+              ALG_DTMF_DETECTION,     //  5            - Dual Tone Multi Frequency Decoder Operations (algdtmfdecoder)
+              ALG_GAIN,                                - Audio Gain Operations (alggain)
+              ALG_MODEM,                               - Disabled
+              ALG_VOCODER,                             - Disabled
+              ALG_FILTER,                              - Audio Filter Operations (algfilter)
+              ALG_DELAY,              // 10            - Delay Operations (algdelay)
+              ALG_AGC,                                 - Automated Gain Control (algagc)
+              ALG_VOX,                                 - Voice Activated Transmit (algvox)
+              ALG_MEDIASERVICE,                        - Media (RTP) Encoder/Decoder Operations aka strand (algmediaservice)
+              ALG_TONE_DETECT,                         - Tone Detection (algtonedetect)
+              ALG_RCE,                // 15            - Disabled
+              ALG_LIMITER,                             - Audio Limiter (alglimiter)
+              ALG_ELIMINATOR,                          - Audio Tone Eliminator (alglimiter)
+              ALG_CLID,                                - Disabled
+              ALG_SF,                                  - Disabled
+              ALG_IREC,               // 20            - Instant Recorder (algirec)
+              ALG_ESNR,                                - Disabled
+              ALG_CPT_DECODER,                         - Disabled
+              ALG_ATSR2,                               - Disabled
+              ALG_TRAINING,                            - Training Tone Injection (algtraining)
+              ALG_ECHOCANCEL,         // 25            - Disabled
+              ALG_HDLC,                                - Disabled
+              ALG_ATSN5,                               - Disabled
+
+              NUM_ALGO                // 28
+           };
+
+
+
+╔═╦═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╦═╗
+╠═╬═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬═╣
+║ ║                                                                                                                                                                     ║ ║
+║ ║                                                                           XMG Reference                                                                             ║ ║
+║ ║                                                                                                                                                                     ║ ║
+╠═╬═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬═╣
+╚═╩═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╩═╝
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                            XMG Algorythms                                                                               ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Algorythms Used For XMG Devices With A Single APU (xsapu)
+   ═════════════════════════════════════════════════════════
+      - The following algorythms are implemented using the following GENERAL messages: CONFIGURE, RELEASE, CONTROL, and IO
+
+      - All of the available alogrythms are defined in the following enumeration (/common/include/algdef.h)
+        NOTE: The interger value of the algo is used as its id
+
+           // Define Algorithm Identifiers
+           enum {
+              ALG_PCM_TO_LINEAR = 0,                   - Pulse Code Modulation (algpcm)
+              ALG_LINEAR_TO_PCM,                       - Pulse Code Modulation (algpcm)
+              ALG_CHIME_GEN,                           - Chime Operations (algchime)
+              ALG_MODULATE_CHIME,                      - Modulator/Demodulator (algmodulator)
+              ALG_CONNECTION,                          - Connection Operations (algconnection)
+              ALG_DTMF_DETECTION,     //  5            - Dual Tone Multi Frequency Decoder Operations (algdtmfdecoder)
+              ALG_GAIN,                                - Audio Gain Operations (alggain)
+              ALG_MODEM,                               - Disabled
+              ALG_VOCODER,                             - Disabled
+              ALG_FILTER,                              - Audio Filter Operations (algfilter)
+              ALG_DELAY,              // 10            - Delay Operations (algdelay)
+              ALG_AGC,                                 - Automated Gain Control (algagc)
+              ALG_VOX,                                 - Voice Activated Transmit (algvox)
+              ALG_MEDIASERVICE,                        - Media (RTP) Encoder/Decoder Operations aka strand (algmediaservice)
+              ALG_TONE_DETECT,                         - Tone Detection (algtonedetect)
+              ALG_RCE,                // 15            - Radio Control Equipment (algrce)
+              ALG_LIMITER,                             - Disabled
+              ALG_ELIMINATOR,                          - Disabled
+              ALG_CLID,                                - Caller Id Operations (algclid)
+              ALG_SF,                                  - Single Frequency Generator/Decoder (algsf)
+              ALG_IREC,               // 20            - Disabled
+              ALG_ESNR,                                - Estimated Signal To Noise Ratio Operations (algesnr)
+              ALG_CPT_DECODER,                         - Call Progress Tone Decoder Operations (algcptdecoder)
+              ALG_ATSR2,                               - Air Traffic Services, Region 2 Protocol (Based on MFC-R2)** (algatsr2)
+              ALG_TRAINING,                            - Disabled
+              ALG_ECHOCANCEL,         // 25            - Echo Cancellation Operations (algechocancel)
+              ALG_HDLC,                                - High Level Data Link Control (alghdlc)
+              ALG_ATSN5,                               - Air Traffic Services, Signaling System No. 5* (algatsn5)
+
+              NUM_ALGO                // 28
+           };
+
+            * ATS-N5 is a variation of ITU-T signalling protocol Q.140, adapted for use in Air Traffic Control (ATC)
+           ** ATS-R2 is a variation of ITU-T signalling protocol Q.400 Multi Frequency Compelled (MFC-R2) signalling, adapted for use in Air Traffic Control (ATC)
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                XMG Message Processing On CCU (Host)                                                                     ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   The messages below are defined in the ION APU-CCU ICD. The message types as well as the algorythm types are programatically defined in the following file:
+
+      /ccu/base/service/common/api/sl_dsp_types.h
+
+
+   Sending Messages From CCU To APU (SL_DSP_TX_MsgTypeEnum)
+   ════════════════════════════════════════════════════════
+      - Each algorythm may use several different types of messages, depending on its needs. An algorythm may use one or more Config Messages, Release Messages,
+        Control Messages or I/O Messages.
+
+
+      0x02 - General Message (SL_DSP_TX_GENERAL) Subtypes (SL_DSP_TX_GenSubTypeEnum)
+      ──────────────────────────────────────────────────────────────────────────────
+
+         0x00 - APU Load Version Request                     (SLi_DSP_ReqSwVersion*)
+         0x03 - Clear APU Communication Statistics Request   (SL_RequestAPUCommStatReset')
+         0x04 - APU CPU Load Request                         (SL_RequestApuCpuLoad')
+         0x05 - <<< No Entry In ICD >>>                      (SLi_APU_SetMaintenanceBusyVal')
+         0x06 - <<< No Entry In ICD >>>                      (SLi_APU_SetRoleMaintainerVal')
+         0x07 - APU IP Address Request                       (SL_RequestApuIpAddr')
+         0x08 - APU Debug Console Command                    (ApuTelnetDebug^)
+         0x09 - Message LoopBack Request                     (SL_APU_RequestLoopback')
+         0x0A - IP Route Add/Remove Request                  (SLi_APU_RequestIPRoute')
+         0x0B - DHCP CLient Control                          (SLi_APU_ConfigureDHCP')
+         0x0C - Config Static IP                             (SLi_APU_ConfigStaticIP')
+         0x0E - APU CPU PRP Static Request                   (SL_RequestPrpStats')
+
+         * Defined in /ccu/base/service/common/src/sl_dsp.cpp
+         ' Defined in /ccu/base/service/common/src/sl_apu_mngr.cpp
+         ^ Defined in:
+              /ccu/base/service/ion/board_riu/src/sli_dsp_debug.cpp
+              /ccu/base/service/ion/cwp2/src/sli_dsp_debug.cpp
+              /ccu/base/service/ion/xmg2/src/sli_dsp_debug.cpp
+
+
+      0x03 - Config Message (SL_DSP_TX_CONFIGURE) Algos (SL_DSP_AlgoEnum)
+      ───────────────────────────────────────────────────────────────────
+
+         0x00 - PCM To Linear Resource Request               (SL_APU_Pcm2LinearCfg')
+         0x01 - Linear To PCM Resource Request               (SL_APU_Linear2PcmCfg')
+         0x02 - CHIME Generator Request                      (SL_APU_ChimeCfg')
+         0x03 - CHIME Modulator Request                      (SL_APU_ModulatorCfg')
+         0x05 - DTMF Decoder Request
+         0x06 - Gain (Line Level) Request
+         0x09 - Filter Resource Request
+         0x0A - Delay Request
+         0x0B - AGC Resource Request
+         0x0C - VAD (VOX Detection) Resource Request
+         0x0D - Stream Request
+         0x0E - Tone Detector Request
+         0x0F - RCE Emulation Request
+         0x10 - Audio Limiter Request
+         0x11 - Tone Eliminator Request
+         0x12 - Caller ID Request
+
+         0x13 - Single Frequency (SF)
+         ----------------------------
+            0x01 - Decoder Request
+            0x02 - Dialer Request
+
+         0x14 - Instant Recorder (IR) Request
+         0x15 - Estinated Signal To Noise Ratio (ESNR) Request
+
+         ' One definition in /ccu/base/service/common/src/sl_apu_mngr.cpp
+
+
+      0x04 - Release Messages (SL_DSP_TX_RELEASE) Algos (SL_DSP_AlgoEnum)
+      ───────────────────────────────────────────────────────────────────
+
+         0x00 - PCM To Linear Resource Release
+         0x01 - Linear To PCM Resource Release
+         0x02 - CHIME Generator Release
+         0x03 - CHIME Modulator Release
+         0x05 - DTMF Decoder Release
+         0x06 - Gain (Line Level) Release
+         0x09 - Filter Resource Release
+         0x0A - Delay Release
+         0x0B - AGC Resource Release
+         0x0C - VAD (VOX Detection) Resource Release
+         0x0D - Stream Release
+         0x0E - Tone Detector Release
+         0x0F - RCE Emulation Release
+         0x10 - Audio Limiter Release
+         0x11 - Tone Eliminator Release
+         0x12 - Caller ID Release
+         0x13 - Single Frequency (SF) Release
+         0x14 - Instant Recorder (IR) Release
+         0x15 - Estinated Signal To Noise Ratio (ESNR) Release
+
+
+      0x05 - Control Messages (SL_DSP_TX_CONTROL) Algos (SL_DSP_AlgoEnum)
+      ───────────────────────────────────────────────────────────────────
+
+         0x03 - Chime Modulator
+         ----------------------
+            0x00 - Digits Generator Data
+            0x01 - Modulate Chime
+            0x02 - Modify Tone Source Table
+
+         0x04 - Connection
+         -----------------
+            0x00 - Connect
+            0x01 - Disconnect
+            0x02 - Read TimeSlot
+            0x03 - Output 0dbm0 1kHz
+            0x05 - Output Test Pattern
+            0x06 - Connect (0.1db Granularity)
+            0x07 - Activate Volume Control
+
+         0x09 - Filter Modify Coefficients
+         0x0A - Set Delay
+
+         0x0D - Stream Control
+         ---------------------
+            0x00 - AddRtpStreamToKeyringGroup
+            0x01 - RemRtpStreamToKeyringGroup
+            0x02 - TxSelectRtpStream
+            0x03 - RxSelectRtpStream
+            0x06 - SetRtpHEInformation
+            0x07 - SendHE Extra Block
+            0x08 - Send Telephony Event
+            0x09 - Set Preempt Flag
+            0x0A - SetCrossCouplingFlag
+            0x0C - KeyFrequencyGroup
+            0x0D - SetBSSGroupParam
+            0x0E - AddStreamToBSSGroup
+            0x0E - RemStreamFromBSSGroup
+            0x10 - EnableBSSGroup
+            0x11 - Test Tone
+            0x12 - Config Marker Bit Logic Box
+
+         0x0E - Tone Detector
+         --------------------
+            0x00 - Activate Tone
+            0x02 - Request DB Read
+
+         0x0F - RCE Emulation
+         --------------------
+            0x00 - Radio MS Control
+            0x01 - Radio PTT Control
+            0x02 - RxMute Control
+            0x03 - Force Trunk
+            0x04 - M/S Confirm
+            0x05 - Squelch Break
+            0x06 - PTT Confirmed
+            0x07 - VOX Detected
+            0x08 - Technician PTT
+            0x09 - AGC Value
+            0x0A - Rx Mute Confirm
+            0x0B - Lockout
+            0x0C - Audio Loopback
+            0x0D - Test Tone
+            0x0E - WKS Msg
+            0x0F - Online Reconfig
+            0x10 - Request Modem Level
+            0x11 - ModeReconfig Control
+            0x12 - Tx Predefined Error Code
+
+         0x10 - Audio Limiter Bypass
+         0x11 - Tone Eliminator Bypass
+         0x12 - Caller ID Ring
+         0x13 - Single Frequency (SF) Dialer Command
+         0x14 - Instant Recorder (IR) Playback Command
+
+
+      0x07 0 I/O Messages (SL_DSP_TX_IO) Algos (SL_DSP_AlgoEnum)
+      ──────────────────────────────────────────────────────────
+
+         0x0F - RCE Emulation
+         --------------------
+            0x00 - Serial Data
+
+
+
+
+
+
+start_map.sh dbg
+SL NCP ASC menu
+I
+
+
+
+
+
+
+SLi_APU_MngtInitStruct in sl_apu_mngr.cpp
+
+
+Two dimensional array to represent all of the algo instance elements
+
+DspFeatureArr[AlgoId][EntityId]
+
+
+Contains the instance quantity of each algorithm
+DspFeatureArrSize[SL_DSP_ALGO_MAX]
+
+
+"Features" defined in SL_DSP_Param_t
+
+
+Contains the message
+SL_DspMsgBuffer_t in sl_dsp_types.h
+
+
+
+
+
+
+      /ccu/base/service/common/src/sl_apu_strand.cpp
+         SL_APU_StreamCfg
+          --- or ---
+         SL_APU_StrandCtrl_SendReInviteFlag
+          --- and many others ---
+
+      ──────────────────────────────────────────────────────────────────────────────────────────────────
+
+         /ccu/base/service/common/src/sl_dsp.cpp
+            SL_DSP_SendMsgToDsp
+
+            /ccu/base/service/ion/xmg2/src/sli_dsp_mgmt_thread.cpp
+               SLi_DSP_SendMsgToDsp
+
+               /ccu/base/service/ion/xmg2/src/sli_apu_comm.cpp
+                  SLi_APU_COMM_SendMsgTo
+
+                  For the XMG, we have a structure that holds function pointers to communicate with the DSP.
+                  The structure is called "comm_ops" and is defined/initialized in:
+                     /ccu/base/service/ion/xmg2/src/sli_apu_comm.cpp
+
+                     Most of the functions that are target of the structure above are defined in:
+                        /ccu/base/service/ion/xmg2/src/sli_sapu_comm.cpp
+
+                        All CCU to APU messages are added to the message queue inside the following function:
+                           SLi_SAPU_COMM_SendMsgTo
+
+
+   Receiving Messages From APU To CCU
+   ══════════════════════════════════
+
+      /ccu/base/service/common/src/sl_apu_mngr.cpp
+      CB_ProcDspMsgRcvedMsg
+
+
+
+╔═╦═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╦═╗
+╠═╬═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬═╣
+║ ║                                                                                                                                                                     ║ ║
+║ ║                                                                               Debug                                                                                 ║ ║
+║ ║                                                                                                                                                                     ║ ║
+╠═╬═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬═╣
+╚═╩═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╩═╝
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                             Common Debug                                                                                ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Start CCU Debug Session
+   ═══════════════════════
+      1. Open a terminal window
+      2. Using ssh, connect to a target device (cwp, xmg) by typing the following command(s) into the terminal window:
+
+            ssh root@<device-ip-address>
+            (ex: ssh root@192.168.158.45)
+
+      3. Verify that the required application is running (map, tmg, rmg) by typing the following command(s) into the target devices ssh terminal window:
+
+            ps -elf | grep <application-name>
+            (ex: ps -elf | grep map)
+
+      4. If the target device is a CWP, verify that it has at least one role selected by typing the following command(s) into the target devices ssh terminal window:
+
+            start_pui.sh dbg
+            On the "PUI Debug Menu", select the "Role Select Menu" option (currently 5)
+            On the "Role Select Menu", select the "Print the currently available roles that are configured for this device" option (currently c)
+            Verify that there is at least one value listed under "-- Loaded Roles Start --"
+            Exit the "PUI Debug Menu" by pressing "q"
+
+      4. Start an application debug session by typing the following command(s) into the target devices ssh terminal window:
+
+            start_<application-name>.sh dbg
+            (ex: start_map.sh dbg)
+
+
+   Start Local APU Console Session
+   ═══════════════════════════════
+      1. Verify the "Start CCU Debug Session" procedure has been completed
+      2. Move to the "APU Service" submenu of the debug "Main Menu" by typing the following command(s) into the target devices ssh terminal window:
+         NOTE: Menu option may differ between devices
+
+            (ex: 5)
+
+      3. Enable APU debug log on the CCU by typing the following command(s) on the "APU Service Menu" into the target devices ssh terminal window:
+         NOTE: Menu option may differ between devices
+
+            (ex: e)
+
+      4. Enter the local APU console by typing the following command(s) into the target devices ssh terminal window:
+         NOTE: Menu option may differ between devices
+
+            (ex: z)
+            Press ENTER a second time to complete the connection and bring up the APU console
+
+
+   Start Remote APU Console Session
+   ════════════════════════════════
+      1. Verify the "Start CCU Debug Session" procedure has been completed
+      2. Move to the "APU Service" submenu of the debug "Main Menu" by typing the following command(s) into the target devices ssh terminal window:
+         NOTE: Menu option may differ between devices
+
+            (ex: 5)
+
+      3. Enable APU debug log on the CCU by typing the following command(s) on the "APU Service Menu" into the target devices ssh terminal window:
+         NOTE: Menu option may differ between devices
+
+            (ex: e)
+
+      4. Grant APU telnet access for one session by typing the following command(s) into the target devices ssh terminal window:
+         NOTE: Menu option may differ between devices
+
+            (ex: x)
+
+      5. Open an additional terminal window
+      6. Using telnet, connect to a target device apu (cwp, xmg) by typing the following command(s) into the terminal window:
+
+            telnet <device-ip-address> + 1
+            (ex: telnet 192.168.158.46)
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                             Block Debug                                                                                 ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Displaying Block Configuration
+   ══════════════════════════════
+      1. Verify the "Start CCU Debug Session" procedure has been completed
+      2. Verify that either the "Start Local APU Console Session" or the "Start Remote APU Console Session" procedure has been completed
+      3. Display the overall block list by typing the following command(s) into the target devices APU console terminal window:
+
+            bk p
+
+      4. Display the algorithm type/id and instance id inside a particular block by typing the following command(s) into the target devices APU console terminal window:
+
+            bk p <block-id>
+            (ex: bk p 168)
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                             Message Debug                                                                               ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Debugging Message Flow From HOST to DSP
+   ═══════════════════════════════════════
+      1. Verify the "Start CCU Debug Session" procedure has been completed
+      2. Verify that either the "Start Local APU Console Session" or the "Start Remote APU Console Session" procedure has been completed
+      3. Enable debug message display on the CCU by typing the following command(s) on the debug "Main Menu" into the target devices ssh terminal window:
+         NOTE: Menu option may differ between devices
+
+            (ex: p)
+
+      4. Turn on logging on the APU by typing the following command(s) into the target devices APU console terminal window:
+
+            logmodule 1
+
+      5. Generate the desired message header on the CCU by typing the following command(s) on the "APU Service Menu" into the target devices ssh terminal window:
+         NOTE1: All header information can be found in the "ION CCU-APU Interface Control Document" listed above.
+         NOTE2: All numeric values MUST be decimal.
+
+            <fill-apu-msg-header> <msg-count> <msg-type> <entity-type> <entity-id> <sub-entity-type> <sub-entity-id>
+                     h                a           b             c             d           e                 f
+
+      6. Optionally, generate the desired message data on the CCU by typing the following command(s) on the "APU Service Menu" into the target devices ssh terminal window:
+         NOTE1: All data information can be found in the "ION CCU-APU Interface Control Document" listed above.
+         NOTE2: All numeric values MUST be decimal.
+         NOTE3: All payload messages MUST be entered in one line at a time
+
+            <fill-apu-msg-payload> <byte-number> <data>
+                     b                 0-121       x
+
+      7. Transmit the desired message from the CCU to the APU by typing the following command(s) on the "APU Service Menu" into the target devices ssh terminal window:
+
+            (ex: t)
+
+            Example Message Generation/Transmission/Response (h command, t command, debug message output)
+
+            Command Messages CCU to APU
+            ---------------------------
+            Header:     h 7 2 0 65535 255 255 (APU Load Version Request)
+            Payload:    none
+            Response:   (in ccu debug log) 2019/07/15 13:29:39.631 [ALWYS] sl_apu_mngr.cpp @ 2717   : APU software number D3211099-10 SR  1 (Build 014.003.00068)
+
+            Header:     h 7 2 3 65535 255 255 (Clear APU Communication Statistics Request)
+            Payload:
+            Response:   none in ccu debug log, but all values under the the "hostcommstat" submenu of the debug menu on the APU will be cleared
+
+            Header:     h 7 2 7 65535 255 255 (APU IP Address Request)
+            Payload:
+            Response:   (in ccu debug log) )2019/07/15 13:45:34.236 [ALWYS] sl_apu_mngr.cpp @ 2915   : ---> APU IP Address (network 0): subenttype:0 : 192.168.158.46
+
+
+            Control Messages CCU to APU
+            ---------------------------
+            Header:     h 17 5 3 1 0 255
+            Payload:    b 0 1, b 1 2, b 2 8
+
+b 0 1, b 1 1
+h 9 2 9 65535 255 255
+
+
+b 0 128, b 1 128
+h 9 5 19 65535 24 255
+
+
+
+ms p
+
+
+h 8 5 19 4 0 255
+
+
+
+╔═╦═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╦═╗
+╠═╬═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬═╣
+║ ║                                                                                                                                                                     ║ ║
+║ ║                                                                           Additional                                                                                ║ ║
+║ ║                                                                                                                                                                     ║ ║
+╠═╬═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╬═╣
+╚═╩═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╩═╝
+
+//Installing:
+Download from: (aka SNV pull)
+https://lnsvr0016.cs.myharris.net/vcs21/vcs21_tools/BuildEnvironment/Embedded/APU_Upgrade_Linux_Standalone/APU_Upgrade_Linux_v2.1.tar.gz
+untar the <newest> version tarball into the location you wantto install (I used /opt )... WHY do we still have the old one????
+**Do not use APU_Linux_Tools/APU_Linux_Tools_v<>.<>.tar.gz
+
+  //////Side note
+  //Not knowing what to do here.. I gave up and downloaded the 8.3 version form here:
+  http://processors.wiki.ti.com/index.php/Download_CCS
+  Seems with each new release (9 is new one) the previous release is Free :)
+
+  BLAH... the downlaod has failed 3 times... so back to the original setup --Grrr'
+  //////////
+
+Running the installer.. I get some dependency errors...
+missing: libusb-0.1.so.4
+  resolve:
+  yum install libusb
+
+Restarted installer.. becasue only option was "Continue"... CTRL-C and jsut start again.
+
+Now check the needed DSP selections...
+ DaVinci (DM) Video Processors
+ C6000 Poer-Optimized DSP
+ 66AK2x Multicore DSP + ARM processors & C66x KeyStone Mulicore DSP
+ C64x multicore DSP
+
+**got above from the install document...
+
+
+
+now reboot...
+
+
+Settings... had to add values into the .bashrc file
+**Note: No space in the = signs... C6400_TI_DSPLIB had a space when I C&P from document
+**also I took out the parens around the $TI_ROOT variable in the following exports in my .bashrc file
+
+  export PYTHON_LOC=/usr/bin/python
+  export TI_ROOT=/opt/ti/
+  export C6400_TI_DSPLIB=$(TI_ROOT)/C6400/dsplib
+  export C6678_PDK_INSTALL_PATH=$(TI_ROOT)/pdk_C6678_1_1_2_5
+  export SYSLINK_INSTALL_DIR=$(TI_ROOT)/syslink_2_10_03_20
+
+
+When selecting to IMPORT CCS Projects, you want ~/apu/base to get the additional:
+ “nimu_eth_cwp2c6678l”, ”pcieboot_cwp2c6678l”, ”platform_lib_cwp2c6678l""
+ Jsut ~/apu will only result in:“mapu0”, “mapu1”, “rsapu” and “xsapu”  and will result in a failed build.
+
+**Note: you have to build once then import NDK_2_xxx as an "General -> Existing Project into Workspace" after that initial build.
+then go back to ~/app/  and see the newly available NDK_2_xxx project is now available.
+
+**Note#2: If this project is cleaned it needs to be built first as other projects are dependent on the NDK
+
+PS... settings
+Window->Preferences
+General->Editors->Text Editors
+Displayed Tab Width: 3
+Check “Insert spaces for tabs”
+	C/C++ -> Code Style -> Formatter
+	Active Profile: BSD/Allman  (closest to Harris style guides)
+
+NOTE: the C/C++ will not show up unless you hit the "Advanced settings" at the bottom of the "TEXT Editors" page!!!
+
+
+mapu0 : build failed... but I had to build pcieboot_CWP2c6678l first....
+
+you can "make" by comand line option
+cd into ~/apu/base/
+type
+make help
+
+Note that make by itself will make everyting...
+
+
+[mrusse07@lnstd1447 base]$ make help
+********************************************************************************
+
+Build targets:
+
+help - help
+launch_eclipse_gui - launch ccstudio
+
+create-ws - create eclipse workspace
+delete-ws - delete eclipse workspace
+clean-ws  - clean all projects in workspace
+build-ws  - build all projects in workspace
+
+<target>-clean - clean <target> project
+<target>-build - build <target> project
+  where target is { mapu0 mapu1 rsapu xsapu
+                    platform_lib_cwp2c6678l pcieboot_cwp2c6678l nimu_eth_cwp2c6678l }
+
+clean-ndk - clean ndk build
+build-ndk - build ndk
+
+build-libs - limit builds to libs
+build-apps - limit builds to apps
+
+all - all
+clean - clean
+
+install - install the apu binaries in ION_BIN_PATH
+
+********************************************************************************
+
+
+
+
+
+
+
+

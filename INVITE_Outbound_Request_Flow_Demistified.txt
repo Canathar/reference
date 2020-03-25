@@ -1,0 +1,446 @@
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ INVITE_Outbound_Request_Flow_Demistified.txt                                                                                                                                                                                                            ║
+║                                                                                                                                                                                                                                                         ║
+║ Document Encoding           : UTF-8, UNIX Line Terminator                                                                                                                                                                                               ║
+║ Document Best Viewed/Printed: Page{ANSI C, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                                                                                                                                         ║
+║                                                                                                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                     Revision History                                                                                                                    ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                                                                                                                                                     ║
+║                                                                                                                                                                                                                                                         ║
+║  1.00.19019.xx (09 Jul 19) - Initial Creation {J. Laccone}                                                                                                                                                                                              ║
+║                                 Added header, added reference data                                                                                                                                                                                      ║
+║                                                                                                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                        Reference                                                                                                                        ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                                                                                                         ║
+║   VCS21 Repository                                                                                                                                                                                                                                      ║
+║   ----------------                                                                                                                                                                                                                                      ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/                                                                                                                                                                       ║
+║                                                                                                                                                                                                                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+                                              ┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+                                              │                                                                                                                                                             │
+                                              │    │  - Solid line in the code path description denotes that the entire code path has been documented for the item (method/function)                        │
+                                              │                                                                                                                                                             │
+                                              │    ╎  - Broken line in the code path description denotes that there may be additional undocumented paths for the item (method/function)                     │
+                                              │                                                                                                                                                             │
+                                              │   ' ' - Blank line in the code path description denotes that the item (method/function) may not call all of the following paths                             │
+                                              │                                                                                                                                                             │
+                                              └─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                                   Code Flow To Initiate A Call - UAC (Outbound Call)                                                                                                    ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+
+
+
+
+
+
+
+
+                          │
+ (App Layer)              │
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ (Service Layer)          │
+                          │
+                          └── ATCoIP_API::SL_ATCoIP_makeCall
+                              ──┬───────────────────────────
+                                │
+                                │
+                                └── CallManager::newOutgoingCall
+                                    ──┬─────────────────────────
+                                      │
+                                      │
+                                      └── coreMsgQueue->PostMessage <<< Virtual Function (IMessageService) >>>
+
+
+                                                                                 All processing for this message (InitiateCall) below the double line is on the SIP Service Thread.
+                        ==============================================================================================================================================================================================================
+
+                        m5t::CServicingThread::PostMessage <<<<< ONLY WAKES THE MESSAGE SERVICE FOR MESSAGE DEADLOCK MITIGATION. All Other Messages Posted Are Handled By Activate >>>>>
+                        m5t::CServicingThread::Activate <<<<< Main Message Processing Loop (Normal Message Processor) >>>>>
+                        ──┬────────────────────────────
+                          ╎
+                          ╎
+                          └── SMessage->m_pManager->EvMessageServiceMgrAwaken <<< Virtual Function (IMessageServiceMgr), Overridden By Each Message Type >>>
+                              ──┬────────────────────────────────────────────
+                                ╎
+                                ╎
+                                └── CallManager::initiateCallAsync <<< Called With Marshaled Object >>>
+                                    ──┬───────────────────────────
+                                      ╎
+                                      ╎
+                                      └── CallManager::initiateCallAsync <<< Called With Business Objects >>>
+                                          ──┬───────────────────────────
+                                            ╎
+                                            ╎
+                                            ├── CallHandler::Constructor <<< One Parameter Constructor >>>
+                                            ╎   ──┬─────────────────────
+                                            ╎     ╎
+                                            ╎     ╎
+                                            ╎     ├── CallHandler::setUpSipContext
+                                            ╎     ╎   ──┬─────────────────────────
+                                            ╎     ╎     ╎
+                                            ╎     ╎     ╎
+                                            ╎     ╎     └── SipUA::createSIPContext <<< Populates CallHandler Class Member Variable sipContext_ >>>
+                                            ╎     ╎
+                                            ╎     ╎
+                                            ╎     ├── SDPHandler::Constructor
+                                            ╎     ╎   ──┬────────────────────
+
+
+
+                                            ╎     ╎
+                                            ╎     ╎
+                                            ╎     └── OutgoingCallState::Constructor
+                                            ╎
+                                            ╎
+
+
+
+
+
+
+
+
+
+
+
+
+m5t::CServicingThread::PostMessage <<<<< ONLY WAKES THE MESSAGE SERVICE FOR MESSAGE DEADLOCK MITIGATION. All Other Messages Posted Are Handled By Activate >>>>>
+m5t::CServicingThread::Activate <<<<< Main Message Processing Loop (Normal Message Processor) >>>>>
+──┬────────────────────────────
+  │
+  │
+  └── SMessage->m_pManager->EvMessageServiceMgrAwaken <<< Virtual Function (IMessageServiceMgr), Overridden By Each Message Type >>>
+      ──┬────────────────────────────────────────────
+        │
+        │
+        └── m5t::CSipEntity::EvMessageServiceMgrAwaken
+            ──┬───────────────────────────────────────
+              │
+              │
+              └── m5t::CSipEntity::InternalEvPacketReceived
+                  ──┬──────────────────────────────────────
+                    │
+                    │
+                    └── ms_pCoreUser->EvOnPacketReceived <<< Virtual Function (ISipCoreUser), Overridden By SIP User Agent >>>
+                        ──┬─────────────────────────────
+ (m5t Library)            │
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ (Service Layer)          │
+                          └── SipUA::EvOnPacketReceived
+                              ──┬──────────────────────
+                                │
+                                │
+                                └── sipRequestHandler->onSipRequest <<< Virtual Function (SipRequestHandler), Overridden By Each Request Type >>>
+                                    ──┬────────────────────────────
+                                      │
+                                      │
+                                      │   ┌───────────────────────────────────────┐
+                                      │   │  When An MESSAGE Request Is Received  │
+                                      │   └───────────────────────────────────────┘
+                                      │
+                                      ├── MessageMethodManager::onSipRequest
+                                      │
+                                      │
+                                      │   ┌───────────────────────────────────────┐
+                                      │   │  When An OPTIONS Request Is Received  │
+                                      │   └───────────────────────────────────────┘
+                                      │
+                                      ├── OptionsMessageManager::onSipRequest
+                                      │
+                                      │
+                                      │   ┌────────────────────────────────────────┐
+                                      │   │  When A SUBSCRIBE Request Is Received  │
+                                      │   └────────────────────────────────────────┘
+                                      │
+                                      ├── SubscribeNotifyManager::onSipRequest
+                                      │
+                                      │
+                                      │   ┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+                                      │   │  When An INVITE Request Is Received, Execution Starts At The Top Of This Flow. Once The Dialog Is Established, Further SIP Messages Will Be Processed By Existing Objects Within This Flow  │
+                                      │   └─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+                                      │
+                                      └── CallManager::onSipRequest
+                                          ──┬──────────────────────
+                                            ╎
+                                            ╎
+                                            ├── CallHandler::Constructor <<< Four Parameter Constructor >>>
+                                            ╎   ──┬─────────────────────
+                                            ╎     ╎
+                                            ╎     ╎
+                                            ╎     ├── CallHandler::setUpSipContext
+                                            ╎     ╎   ──┬─────────────────────────
+                                            ╎     ╎     ╎
+                                            ╎     ╎     ╎
+                                            ╎     ╎     └── SipUA::createSIPContext <<< Populates CallHandler Class Member Variable sipContext_ >>>
+                                            ╎     ╎
+                                            ╎     ╎
+                                            ╎     └── IncomingCallState::Constructor
+                                            ╎
+                                            ╎
+                                            └── CallHandler::onInvitePacketReceived
+                                                ──┬────────────────────────────────
+                                                  ╎
+                                                  ╎
+                                                  └── sipContext->OnPacketReceived <<< Virtual Function (ISipContext), Overridden By Each Dialog >>>
+                                                      ──┬─────────────────────────
+                                                        ╎
+                                                        ╎
+                                                        └── m5t::CSipContext::OnPacketReceived
+                                                            ──┬───────────────────────────────
+                                                              ╎
+                                                              ╎
+                                                              └── m5t::CSipContext::HandlePacket
+                                                                  ──┬───────────────────────────
+                                                                    ╎
+                                                                    ╎
+                                                                    └── pSipReqCtxCoreSvc->HandlePacket <<< Virtual Function (ISipReqCtxCoreSvc) >>>
+                                                                        ──┬────────────────────────────
+                                                                          │
+                                                                          │
+                                                                          └── m5t::CSipSessionTransactionUasUnvite::HandlePacket
+                                                                              ──┬───────────────────────────────────────────────
+                                                                                │
+                                                                                │
+                                                                                └── m_pRequestContext->ProcessEvents <<< Virtual Function >>>
+                                                                                    ──┬─────────────────────────────
+                                                                                      │
+                                                                                      │
+                                                                                      └── m5t::CSipRequestContext::ProcessEvents
+                                                                                          ──┬───────────────────────────────────
+                                                                                            │
+                                                                                            │
+                                                                                            ├── m_pOwner->OnPacketReceived <<< Virtual Function (ISipReqCtxCoreSvc) >>>
+                                                                                            │   ──┬───────────────────────
+                                                                                            │     │
+                                                                                            │     │
+                                                                                            │     └── m5t::CSipSessionTransactionUasUnvite::OnPacketReceived
+                                                                                            │         ──┬───────────────────────────────────────────────────
+                                                                                            │           │
+                                                                                            │           │
+                                                                                            │           └── m5t::CSipCoreEventList::AddEvent
+                                                                                            │
+                                                                                            │
+                                                                                            └── m5t::CSipCoreEventList::CallNextEvent
+                                                                                                ──┬──────────────────────────────────
+                                                                                                  │
+                                                                                                  │
+                                                                                                  └── SSipCoreEvent->m_pSvc->CallEvent <<< Virtual Function (ISipReqCtxCoreSvc), Overridden By Each Transaction Type >>>
+                                                                                                      ──┬─────────────────────────────
+                                                                                                        │
+                                                                                                        │
+                                                                                                        └── m5t::CSipSessionTransactionUasUnvite::CallEvent
+                                                                                                            ──┬────────────────────────────────────────────
+                                                                                                              │
+                                                                                                              │
+                                                                                                              ├── pMgr->EvReInvited <<< Virtual Function (ISipSessionMgr), Overridden By Each Call Type >>>
+                                                                                                              │   ──┬────────────
+                                                                                                              │     │
+                                                                                                              │     │
+                                                                                                              │     └── CallHandler::EvReInvited
+                                                                                                              │         ──┬─────────────────────
+                                                                                                              │           │
+                                                                                                              │           │
+                                                                                                              │           └── callState->EvReInvited <<< Virtual Function (CallState), Overridden By Each Call State >>>
+                                                                                                              │
+                                                                                                              │
+                                                                                                              ├── pMgr->EvAcknowledged <<< Virtual Function (ISipSessionMgr), Overridden By Each Call Type >>>
+                                                                                                              │   ──┬─────────────────
+                                                                                                              │     │
+                                                                                                              │     │
+                                                                                                              │     └── CallHandler::EvAcknowledged
+                                                                                                              │         ──┬────────────────────────
+                                                                                                              │           │
+                                                                                                              │           │
+                                                                                                              │           └── callState->EvAcknowledged <<< Virtual Function (CallState), Overridden By Each Call State >>>
+                                                                                                              │               ──┬──────────────────────
+                                                                                                              │                 │
+                                                                                                              │                 │
+                                                                                                              │                 └── IncomingCallState->EvAcknowledged
+                                                                                                              │                     ──┬──────────────────────────────
+                                                                                                              │                       │
+                                                                                                              │                       │
+                                                                                                              │                       │   ┌────────────────┐
+                                                                                                              │                       │   │  ACK Received  │
+                                                                                                              │                       │   └────────────────┘
+                                                                                                              │                       │
+                                                                                                              │                       └── CallHandler::stateTransit <<< Established State, EvAcknowledged Ends Here >>>
+                                                                                                              │
+                                                                                                              │
+                                                                                                              └── pMgr->EvInvited <<< Virtual Function (ISipSessionMgr), Overridden By Each Call Type >>>
+                                                                                                                  ──┬────────────
+                                                                                                                    │
+                                                                                                                    │
+                                                                                                                    └── CallHandler::EvInvited
+                                                                                                                        ──┬───────────────────
+                                                                                                                          │
+                                                                                                                          │
+                                                                                                                          └── callState->EvInvited <<< Virtual Function (CallState), Overridden By Each Call State >>>
+                                                                                                                              ──┬─────────────────
+                                                                                                                                │
+                                                                                                                                │
+                                                                                                                                └── IncomingCallState::EvInvited
+                                                                                                                                    ──┬─────────────────────────
+                                                                                                                                      │
+                                                                                                                                      │
+                                                                                                                                      │   ┌───────────────────────────────────┐
+                                                                                                                                      │   │  Initial INVITE Request Received  │
+                                                                                                                                      │   └───────────────────────────────────┘
+                                                                                                                                      │
+                                                                                                                                      ├── SDPHandler::generateSDPAnswer
+                                                                                                                                      │
+                                                                                                                                      │
+                                                                                                                                      │   ┌──────────────────────────┐
+                                                                                                                                      │   │  A 486 Response Is Sent  │
+                                                                                                                                      │   └──────────────────────────┘
+                                                                                                                                      │
+                                                                                                                                      ├── pServerEventCtrl->SendResponse <<< Virtual Function (ISipServerEventControl) >>>
+                                                                                                                                      │
+                                                                                                                                      │
+                                                                                                                                      ├── CallHandler::stateTransit <<< Dead Call State, EvInvited Ends Here >>>
+                                                                                                                                      │
+                                                                                                                                    --------------------------------------------------------------------------------------------------------------------
+                                                                                                                                      │
+                                                                                                                                      │
+                                                                                                                                      │   ┌──────────────────────────┐
+                                                                                                                                      │   │  A 415 Response Is Sent  │
+                                                                                                                                      │   └──────────────────────────┘
+                                                                                                                                      │
+                                                                                                                                      ├── pServerEventCtrl->SendResponse <<< Virtual Function (ISipServerEventControl) >>>
+                                                                                                                                      │
+                                                                                                                                      │
+                                                                                                                                      ├── CallHandler::stateTransit <<< Dead Call State, EvInvited Ends Here >>>
+                                                                                                                                      │
+                                                                                                                                    --------------------------------------------------------------------------------------------------------------------
+                                                                                                                                      │
+                                                                                                                                      │
+                                                                                                                                      ├── CallHandler::setOutboundRoute
+                                                                                                                                      │
+                                                                                                                                      │
+                                                                                                                                      └── listener->onCallEvent <<< Virtual Function (CallEventListener) >>>
+                                                                                                                                          ──┬──────────────────
+                                                                                                                                            │
+                                                                                                                                            │
+                                                                                                                                            └── ATCoIP_API::onCallEvent
+                                                                                                                                                ──┬────────────────────
+                                                                                                                                                  │
+                                                                                                                                                  │
+                                                                                                                                                  │   ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+                                                                                                                                                  │   │                                                                                                │
+                                                                                                                                                  │   │  This function will dispatch the event based on the call type. The events are sent to the      │
+                                                                                                                                                  │   │  listener(s) using lists and function pointers. The lists allow for multiple listeners per     │
+                                                                                                                                                  │   │  call type.                                                                                    │
+                                                                                                                                                  │   │                                                                                                │
+                                                                                                                                                  │   │  Each list is defined as containing objects of type SL_ATCoIP_Call_Status_Event_CB_t. The      │
+                                                                                                                                                  │   │  object is a macro that defines a function pointer. The object and the lists are defined in    │
+                                                                                                                                                  │   │  ATCoIPAPI.h                                                                                   │
+                                                                                                                                                  │   │                                                                                                │
+                                                                                                                                                  │   │  The app layer listeners registers/deregisters for the call back events with the following:    │
+                                                                                                                                                  │   │                                                                                                │
+                                                                                                                                                  │   │     ATCoIP_API::SL_ATCoIP_CallStatus_Event_CB_Register                                         │
+                                                                                                                                                  │   │     ATCoIP_API::SL_ATCoIP_CallStatus_Event_CB_unRegister                                       │
+                                                                                                                                                  │   │                                                                                                │
+                                                                                                                                                  │   │  A/G call types are registered in appi_ag_thread.cpp with the following:                       │
+                                                                                                                                                  │   │                                                                                                │
+                                                                                                                                                  │   │     APPi_AG_Thread::connectComponents                                                          │
+                                                                                                                                                  │   │                                                                                                │
+                                                                                                                                                  │   │  G/G call types are registered in appi_ggproc_sessionstatushandler.cpp with the following:     │
+                                                                                                                                                  │   │                                                                                                │
+                                                                                                                                                  │   │     APPi_GGProc_SessionStatusHandler::registerCallbacks                                        │
+                                                                                                                                                  │   │                                                                                                │
+                                                                                                                                                  │   └────────────────────────────────────────────────────────────────────────────────────────────────┘
+                                                                                                                                                  │
+                                                                                                                                                  │
+                                                                                                                                                  ├── (**itr) <<< SL_ATCoIP_Call_Status_Event_CB_t Macro Containing Function Pointer For Listener >>>
+                                                                                                                                                  │
+ (Service Layer)                                                                                                                                  │
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ (App Layer)                                                                                                                                      │
+                                                                                                                                                  │
+                                                                                                                                                  └── callStatusCB <<< Common G/G Function To Accept Call Events >>>
+                                                                                                                                                      ──┬─────────
+                                                                                                                                                        │
+                                                                                                                                                        │
+                                                                                                                                                        └── [SessionBaseEvent]::generateEvent <<< Objects Derived From SessionBaseEvent >>>
+                                                                                                                                                            ──┬──────────────────────────────
+                                                                                                                                                              │
+                                                                                                                                                              │
+                                                                                                                                                              └── APPi_GGProc_Thread::postEvent
+
+
+                                          ==============================================================================================================================================================================================================
+                                                                                                   All processing for this request (INVITE) above the double line is on the SIP Service Thread.
+
+
+                                                                                     All processing for this request (INVITE) between these double lines is on the GG Thread (Most GG Thread Code Tree NOT Shown))
+
+                                            │
+ (App Layer)                                │
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ (Service Layer)                            │
+                                            │
+                                            └── ATCoIP_API::SL_ATCoIP_answerCall
+                                                ──┬─────────────────────────────
+                                                  │
+                                                  │
+                                                  └── CallManager::answerCall
+                                                      ──┬────────────────────
+                                                        │
+                                                        │
+                                                        └── coreMsgQueue->PostMessage <<< Virtual Function (IMessageService) >>>
+
+
+                                                                                                   All processing for this request (INVITE) below the double line is on the SIP Service Thread.
+                                          ==============================================================================================================================================================================================================
+
+                                          m5t::CServicingThread::PostMessage <<<<< ONLY WAKES THE MESSAGE SERVICE FOR MESSAGE DEADLOCK MITIGATION. All Other Messages Posted Are Handled By Activate >>>>>
+                                          m5t::CServicingThread::Activate <<<<< Main Message Processing Loop (Normal Message Processor) >>>>>
+                                          ──┬────────────────────────────
+                                            │
+                                            │
+                                            └── SMessage->m_pManager->EvMessageServiceMgrAwaken <<< Virtual Function (IMessageServiceMgr), Overridden By Each Message Type >>>
+                                                ──┬────────────────────────────────────────────
+                                                  │
+                                                  │
+                                                  └── CallManager::EvMessageServiceMgrAwaken
+                                                      ──┬───────────────────────────────────
+                                                        │
+                                                        │
+                                                        └── CallManager::answerCallAsync <<< Called With Marshaled Object >>>
+                                                            ──┬─────────────────────────
+                                                              │
+                                                              │
+                                                              └── CallManager::answerCallAsync <<< Called With Business Objects >>>
+                                                                  ──┬─────────────────────────
+                                                                    │
+                                                                    │
+                                                                    └── CallHandler::answer
+                                                                        ──┬────────────────
+                                                                          │
+                                                                          │
+                                                                          └── callState_->answer <<< Virtual Function (CallState), Overridden By Each Call State >>>
+                                                                              ──┬───────────────
+                                                                                │
+                                                                                │
+                                                                                └── IncomingCallState::answer
+                                                                                    ──┬──────────────────────
+                                                                                      │
+                                                                                      │                                 ???????????????????????????????????????????????????????
+                                                                                      ├── SDPHandler::generateSDPAnswer ??         NOTE: WHY ARE WE DOING THIS TWICE         ??
+                                                                                      │                                 ???????????????????????????????????????????????????????
+                                                                                      │
+                                                                                      │   ┌──────────────────────────┐
+                                                                                      │   │  A 200 Response Is Sent  │
+                                                                                      │   └──────────────────────────┘
+                                                                                      │
+                                                                                      └── serverControl->SendResponse <<< Virtual Function (ISipServerEventControl) >>>
+

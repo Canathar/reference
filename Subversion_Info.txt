@@ -1,7 +1,8 @@
 ﻿╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
 ║ Subversion_Info.txt                                                                                                                                                     ║
 ║                                                                                                                                                                         ║
-║ Document Best Viewed/Printed: Page{Ledger, Landscape, 0.25in Side Margins} Font{Monospace Font, Normal, 10pt}                                                           ║
+║ Document Encoding           : UTF-8, UNIX Line Terminator                                                                                                               ║
+║ Document Best Viewed/Printed: Page{Ledger, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                                                         ║
 ║                                                                                                                                                                         ║
 ╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                            Revision History                                                                             ║
@@ -83,6 +84,9 @@
             (ex: svn diff -r 232606:HEAD --summarize https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/jlaccone/DE19715A_trunk/Embedded)
             (ex: svn diff -r 245219:HEAD --summarize https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/jlaccone/DE19715C/Embedded)
 
+
+svn diff -r 269143:HEAD --summarize https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/feature_branches/shared/VCSSW-6267_BF4_Integration.1579099421.38
+svn diff -r 268849:HEAD --summarize https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/feature_branches/shared/VCSSW-6267_BF4_Integration.1574880217.14/
 
 
 

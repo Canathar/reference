@@ -1,0 +1,324 @@
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ BlackDuck_Info.txt                                                                                                                                                      ║
+║                                                                                                                                                                         ║
+║ Document Encoding           : UTF-8, UNIX Line Terminator                                                                                                               ║
+║ Document Best Viewed/Printed: Page{Ledger, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                                                         ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                            Revision History                                                                             ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                                                                     ║
+║                                                                                                                                                                         ║
+║  1.00.04120.xx (10 Feb 20) - Initial Creation {J. Laccone}                                                                                                              ║
+║                                 Added sections                                                                                                                          ║
+║  1.01.04220.xx (11 Feb 20) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added projects table                                                                                                                    ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                              Reference                                                                                  ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║   Synopsys Black Duck Training Videos                                                                                                                                   ║
+║   -----------------------------------                                                                                                                                   ║
+║      https://synopsys.skilljar.com/#language_english,solution_black-duck                                                                                                ║
+║                                                                                                                                                                         ║
+║   Melbourne L3Harris BlackDuck REST API Reference                                                                                                                       ║
+║   -----------------------------------------------                                                                                                                       ║
+║      https://172.24.22.18/api.html                                                                                                                                      ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                Notes                                                                                    ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║                                                                                                                                                                         ║
+║                                                                                                                                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+
+     ╒═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╕
+     │                                                                                                                                                               │
+     │                                                                            Projects                                                                           │
+     │                                                                                                                                                               │
+     ╞═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╡
+     │                                                                                                                                                               │
+     │                                                            URL For Project List REST GET Endpoint                                                             │
+     │                                                          https://172.24.22.18/api/projects?limit=100                                                          │
+     │                                                                                                                                                               │
+     ╞══════════════════════════════════════╤════════════════════════════════════════╤═══════════════════════════════════════════════════════════════════════════════╡
+     │                 name                 │                projectId               │                   URL For Project Details REST Get Endpoint                   │
+     ╞══════════════════════════════════════╪════════════════════════════════════════╪═══════════════════════════════════════════════════════════════════════════════╡
+     │  apu                                 │  0794b436-0a56-4b99-ab43-32d341fe7eab  │  https://172.24.22.18/api/projects?q=name:apu                                 │
+     ├──────────────────────────────────────┼────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────┤
+     │  ccu                                 │  db4bb5fa-14cd-4d93-a9b3-ebd4f9d848c9  │  https://172.24.22.18/api/projects?q=name:ccu                                 │
+     ├──────────────────────────────────────┼────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────┤
+     │  freeswitch-1.6.12                   │  17374e02-2119-463b-8169-4f0689cc1400  │  https://172.24.22.18/api/projects?q=name:freeswitch-1.6.12                   │
+     ├──────────────────────────────────────┼────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────┤
+     │  installation-files                  │  9136e017-8be1-4e6c-a779-6ec93df12a78  │  https://172.24.22.18/api/projects?q=name:installation-files                  │
+     ├──────────────────────────────────────┼────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────┤
+     │  management-app                      │  1b8235ac-e5cd-42dd-a0c6-c8bcdad17269  │  https://172.24.22.18/api/projects?q=name:management-app                      │
+     ├──────────────────────────────────────┼────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────┤
+     │  opensips-2.3                        │  076549b5-4537-4fc3-8f8b-cdbd3c056bc4  │  https://172.24.22.18/api/projects?q=name:opensips-2.3                        │
+     ├──────────────────────────────────────┼────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────┤
+     │  tlg                                 │  bb68b807-f546-44b0-9967-3d0f4743bc1c  │  https://172.24.22.18/api/projects?q=name:tlg                                 │
+     ├──────────────────────────────────────┼────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────┤
+     │  uboot_wholeimg                      │  d1f54687-685f-4c01-a838-e132835af84b  │  https://172.24.22.18/api/projects?q=name:uboot_wholeimg                      │
+     ├──────────────────────────────────────┼────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────┤
+     │  vcs21-baseline-management-scripts   │  6a48e898-9ac2-4873-8f24-f8e781503748  │  https://172.24.22.18/api/projects?q=name:vcs21-baseline-management-scripts   │
+     ├──────────────────────────────────────┼────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────┤
+     │  vcs21-database-maintenance-scripts  │  db2a65e3-53b9-4f3c-90e9-381d93b3687d  │  https://172.24.22.18/api/projects?q=name:vcs21-database-maintenance-scripts  │
+     ├──────────────────────────────────────┼────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────┤
+     │  vcs21-eventlistener                 │  822a8ba1-8d57-4261-a550-51f318670837  │  https://172.24.22.18/api/projects?q=name:vcs21-eventlistener                 │
+     ├──────────────────────────────────────┼────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────┤
+     │  vcs21-freeswitch-ha                 │  9d4427bc-7ecf-43d0-a2c0-870b713a5961  │  https://172.24.22.18/api/projects?q=name:vcs21-freeswitch-ha                 │
+     ├──────────────────────────────────────┼────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────┤
+     │  vcs21-splunk                        │  519e34d4-cc6e-41a7-bc3c-ac71d5e5c165  │  https://172.24.22.18/api/projects?q=name:vcs21-splunk                        │
+     ├──────────────────────────────────────┼────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────┤
+     │  vcs21-workstation-network-alert     │  2865424c-fa7c-4bf6-ab48-229647e5f66f  │  https://172.24.22.18/api/projects?q=name:vcs21-workstation-network-alert     │
+     ├──────────────────────────────────────┼────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────┤
+     │  vcs21-zabbix-scripts                │  e5bb5f64-6b69-4d8d-a0ff-fe5ec31d937d  │  https://172.24.22.18/api/projects?q=name:vcs21-zabbix-scripts                │
+     ├──────────────────────────────────────┼────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────┤
+     │  vcs21-zabbix-server-configuration   │  1f27f192-c81d-461b-bdc6-5fe91b8f5b96  │  https://172.24.22.18/api/projects?q=name:vcs21-zabbix-server-configuration   │
+     ├──────────────────────────────────────┼────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────┤
+     │  zabbix                              │  55737ce4-477d-4331-a39a-e952eb9639b4  │  https://172.24.22.18/api/projects?q=name:zabbix                              │
+     ╘══════════════════════════════════════╧════════════════════════════════════════╧═══════════════════════════════════════════════════════════════════════════════╛
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                                                                                                         ║
+║                                                                             ===  Curl ===                                                                               ║
+║                                                                                                                                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+
+
+
+
+
+
+
+
+
+      curl -v --insecure -X POST \
+         --header 'Authorization: token YmViYmYyZmQtMGNjYi00NDBjLTgwODYtNzMxM2NjNTI1MzNiOjZmNjM4MzM2LTNkNDktNDkxMy1iZTZkLWY5NmFkN2VkMDFjOQ==' \
+         --header 'Accept: application/vnd.blackducksoftware.user-4+json' \
+         'https://172.24.22.18/api/tokens/authenticate'
+
+User Access Token YmViYmYyZmQtMGNjYi00NDBjLTgwODYtNzMxM2NjNTI1MzNiOjZmNjM4MzM2LTNkNDktNDkxMy1iZTZkLWY5NmFkN2VkMDFjOQ==
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                 Projects                                                                                ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Query BlackDuck Hub For Project(s)
+   ══════════════════════════════════
+      1. Verify the "Generate A Bearer Token For REST Requests" procedure has been completed.
+      2. Verify that the authorization header and bearer token are stored in the following file:
+
+            automationBearerToken
+
+      3. Query the BlackDuck Hub with the following command:
+
+            curl --insecure -X GET \
+               --header "$(cat automationBearerToken)" \
+               'https://172.24.22.18/api/projects?limit=100' | json_pp > projects.json
+
+      4. OPTIONAL: To return a single project, query the BlackDuck Hub with the following command:
+
+            curl --insecure -X GET \
+               --header "$(cat automationBearerToken)" \
+               'https://172.24.22.18/api/projects?q=name:ccu' | json_pp > ccu_project.json
+
+
+
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                                                                                                         ║
+║                                                                            ===  Postman ===                                                                             ║
+║                                                                                                                                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                  Common                                                                                 ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Generate A BlackDuck Login Token For REST Requests
+   ══════════════════════════════════════════════════
+      1. Launch Postman application.
+      2. Click "New" button and select "Request" from drop-down menu.
+      3. In the "Untitled Request" section, select "POST" as the request type.
+      4. In the "Untitled Request" section, enter the following URL in the "Enter request URL" textbox:
+
+            https://<blackduck_hub_hostname>/j_spring_security_check
+            (ex: https://172.24.22.18/j_spring_security_check)
+
+      5. In the "Untitled Request" section, select the "Body" tab, select the "x-www-form-urlencoded" radio button,
+         then enter the following key/value data:
+
+            key: j_username   value: <blackduck_username>
+            key: j_password   value: <blackduck_password>
+
+      6. In the "Untitled Request" section, click "Send" button.
+      7. In the "Untitled Request" section, verify that the "Status" shows "204 No Content".
+      8. In the "Untitled Request" click the "Headers" tab, then copy the value of the "X-CSRF-TOKEN" key to a temporary file.
+         NOTE: The value of the token will be used for subsequent requests
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                 Projects                                                                                ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Query BlackDuck Hub For Project(s)
+   ══════════════════════════════════
+      1. Verify the "Generate A BlackDuck Login Token For REST Requests" procedure has been completed.
+      2. In the "Untitled Request" section, select "GET" as the request type.
+      3. In the "Untitled Request" section, enter the following URL in the "Enter request URL" textbox:
+
+            https://<blackduck_hub_hostname>/api/projects
+            (ex: https://172.24.22.18/api/projects)
+
+      4. OPTIONAL: To return a single project, in the "Untitled Request" section, select the "Params" tab,
+                   then enter the following key/value data:
+
+            key: q   value: <blackduck_project_name>
+            (ex: key: q   value: name:ccu)
+
+      5. In the "Untitled Request" section, select the "Headers" tab, then enter the following key/value data:
+
+            key: X-CSRF-TOKEN   value: <x_csrf_token_value>
+
+      6. In the "Untitled Request" section, click "Send" button.
+      7. In the "Untitled Request" section, verify that the "Status" shows "200 OK".
+      8. In the "Untitled Request" click the "Body" tab.
+         NOTE1: The value of the key "totalCount" denotes how many projects were returned.
+         NOTE2: The 'projectId' will be part of the URL in the value of the key "items[x]._meta.href".
+         NOTE3: URL links to additional details for each project will be listed in the "items[x]._meta.links" array.
+
+
+
+   Query BlackDuck Hub For Project Version(s)
+   ══════════════════════════════════════════
+      1. Verify the "Generate A BlackDuck Login Token For REST Requests" procedure has been completed.
+      2. In the "Untitled Request" section, select "GET" as the request type.
+      3. In the "Untitled Request" section, enter the following URL in the "Enter request URL" textbox:
+
+            https://<blackduck_hub_hostname>/api/projects/<projectId>/versions
+            (ex: https://172.24.22.18/api/projects/db4bb5fa-14cd-4d93-a9b3-ebd4f9d848c9/versions)
+
+      4. In the "Untitled Request" section, select the "Headers" tab, then enter the following key/value data:
+
+            key: X-CSRF-TOKEN   value: <x_csrf_token_value>
+
+      5. In the "Untitled Request" section, click "Send" button.
+      6. In the "Untitled Request" section, verify that the "Status" shows "200 OK".
+      7. In the "Untitled Request" click the "Body" tab.
+         NOTE1: The value of the key "totalCount" denotes how many versions were returned.
+         NOTE2: The 'projectVersionId' will be part of the URL in the value of the key "items[x]._meta.href".
+         NOTE3: URL links to additional details for each project version will be listed in the "items[x]._meta.links" array.
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                Components                                                                               ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Query BlackDuck Hub For Project Version Component(s)
+   ════════════════════════════════════════════════════
+      1. Verify the "Generate A BlackDuck Login Token For REST Requests" procedure has been completed.
+      2. In the "Untitled Request" section, select "GET" as the request type.
+      3. In the "Untitled Request" section, enter the following URL in the "Enter request URL" textbox:
+
+            https://<blackduck_hub_hostname>/api/projects/<projectId>/versions/<projectVersionId>/components
+            (ex: https://172.24.22.18/api/projects/db4bb5fa-14cd-4d93-a9b3-ebd4f9d848c9/versions/5571ee3f-0c64-46a7-9f53-3f0a84400da0/components)
+
+      4. In the "Untitled Request" section, select the "Headers" tab, then enter the following key/value data:
+
+            key: X-CSRF-TOKEN   value: <x_csrf_token_value>
+
+      5. In the "Untitled Request" section, click "Send" button.
+      6. In the "Untitled Request" section, verify that the "Status" shows "200 OK".
+      7. In the "Untitled Request" click the "Body" tab.
+         NOTE1: The value of the key "totalCount" denotes how many components were returned.
+         NOTE2: The 'componentId' will be part of the URL in the value of the key "items[x].component".
+         NOTE3: The 'componentVersionId' will be part of the URL in the value of the key "items[x].componentVersion".
+         NOTE4: URL links to additional details for each project component will be listed in the "items[x]._meta.links" array.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   Query BlackDuck Hub For Project Version Component Version(s)
+   ════════════════════════════════════════════════════════════
+      1. Verify the "Generate A BlackDuck Login Token For REST Requests" procedure has been completed.
+      2. In the "Untitled Request" section, select "GET" as the request type.
+      3. In the "Untitled Request" section, enter the following URL in the "Enter request URL" textbox:
+
+            https://<blackduck_hub_hostname>/api/projects/<projectId>/versions/<projectVersionId>/components/<componentId>/
+            (ex: https://172.24.22.18/api/projects/db4bb5fa-14cd-4d93-a9b3-ebd4f9d848c9/versions/5571ee3f-0c64-46a7-9f53-3f0a84400da0/components/54a7242b-892c-4d82-9fe6-91041bc3f13a)
+
+      4. In the "Untitled Request" section, select the "Headers" tab, then enter the following key/value data:
+
+            key: X-CSRF-TOKEN   value: <x_csrf_token_value>
+
+      5. In the "Untitled Request" section, click "Send" button.
+      6. In the "Untitled Request" section, verify that the "Status" shows "200 OK".
+      7. In the "Untitled Request" click the "Body" tab.
+         NOTE1: The value of the key "totalCount" denotes how many components were returned.
+         NOTE2: The 'componentId' will be part of the URL in the value of the key "items[x].component".
+         NOTE3: URL links to additional details for each project component will be listed in the "items[x]._meta.links" array.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   Query BlackDuck Hub For Project Vulnerability BOM By Components And Version
+   ═══════════════════════════════════════════════════════════════════════════
+      1. Verify the "Generate A BlackDuck Login Token For REST Requests" procedure has been completed.
+      2. In the "Untitled Request" section, select "GET" as the request type.
+      3. In the "Untitled Request" section, enter the following URL in the "Enter request URL" textbox:
+
+            https://<blackduck_hub_hostname>/api/projects/<projectId>/versions/<projectVersionId>/vulnerable-bom-components
+            (ex: https://172.24.22.18/api/projects/db4bb5fa-14cd-4d93-a9b3-ebd4f9d848c9/versions/5571ee3f-0c64-46a7-9f53-3f0a84400da0/vulnerable-bom-components)
+
+      4. In the "Untitled Request" section, select the "Headers" tab, then enter the following key/value data:
+
+            key: X-CSRF-TOKEN   value: <x_csrf_token_value>
+
+      5. In the "Untitled Request" section, click "Send" button.
+      6. In the "Untitled Request" section, verify that the "Status" shows "200 OK".
+      7. In the "Untitled Request" click the "Body" tab.
+         NOTE1: The value of the key "totalCount" denotes how many vulnerabilities were returned.
+         NOTE2: The 'componentId' will be part of the URL in the value of the key "items[x]._meta.href".
+         NOTE3: URL links to additional details for each vulnerability will be listed in the "items[x]._meta.links" array.
+
+
+
+
