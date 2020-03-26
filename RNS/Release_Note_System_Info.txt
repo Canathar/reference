@@ -1,0 +1,492 @@
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ Release_Note_System_Info.txt                                                                                                                                            ║
+║                                                                                                                                                                         ║
+║ Document Encoding           : UTF-8, UNIX Line Terminator                                                                                                               ║
+║ Document Best Viewed/Printed: Page{Ledger, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                                                         ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                            Revision History                                                                             ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                                                                     ║
+║                                                                                                                                                                         ║
+║  1.00.08520.xx (25 Mar 20) - Initial Creation {J. Laccone}                                                                                                              ║
+║                                 Added sections                                                                                                                          ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                              Reference                                                                                  ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║   Jenkins, Docker, Proxies, and Compose                                                                                                                                 ║
+║   -------------------------------------                                                                                                                                 ║
+║      https://engineering.riotgames.com/news/jenkins-docker-proxies-and-compose                                                                                          ║
+║                                                                                                                                                                         ║
+║   Jenkins Pipeline Syntax                                                                                                                                               ║
+║   -----------------------                                                                                                                                               ║
+║      https://jenkins.io/doc/book/pipeline/syntax/                                                                                                                       ║
+║      https://wilsonmar.github.io/jenkins2-pipeline/                                                                                                                     ║
+║                                                                                                                                                                         ║
+║   Docker Swarm Add Nodes                                                                                                                                                ║
+║   ----------------------                                                                                                                                                ║
+║      https://docs.docker.com/engine/swarm/swarm-tutorial/add-nodes/                                                                                                     ║
+║                                                                                                                                                                         ║
+║   Docker Swarm Communication Ports                                                                                                                                      ║
+║   --------------------------------                                                                                                                                      ║
+║      https://docs.docker.com/engine/swarm/swarm-tutorial/                                                                                                               ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                Notes                                                                                    ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║   Docker Information                                                                                                                                                    ║
+║   ------------------                                                                                                                                                    ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/jlaccone/reference/Docker_Info.txt                                                       ║
+║                                                                                                                                                                         ║
+║   Jenkins Information                                                                                                                                                   ║
+║   -------------------                                                                                                                                                   ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/jlaccone/reference/Jenkins_Info.txt                                                      ║
+║                                                                                                                                                                         ║
+║                                                                                                                                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                 Common                                                                                  ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Prerequisites
+   ═════════════
+      1. An account on the VCS21 configuration management repository
+      2. Docker Swarm initialized on a Linux node (Manager)
+
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                 Docker Swarm Manager Node Configuration                                                                 ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Open Swarm Communication Ports
+   ══════════════════════════════
+      NOTE: The below commands will operate as shown if the user is in the docker group
+
+      1. Open a terminal window on a Swarm Manager Node (Linux)
+      2. Login as the superuser (root on CentOS/RHEL, add sudo in front of commands on Ubuntu)
+      3. Verify that the swarm has been initialized by typing the following command(s) into the terminal window:
+
+            docker info -f '{{.Swarm.LocalNodeState}}'
+
+      4. Determine the current active firewall zones by typing the following command(s) into the terminal window:
+
+            firewall-cmd --get-active-zones
+
+      5. Add the requirted ports to the active firewall zone (public zone shown below) by typing the following command(s) into the terminal window:
+
+            firewall-cmd --zone=public --add-port=2377/tcp --permanent
+            firewall-cmd --zone=public --add-port=7946/tcp --add-port=7946/udp --permanent
+            firewall-cmd --zone=public --add-port=4789/udp --permanent
+            firewall-cmd --reload
+
+      6. Verify that the required ports were added to the active firewall zone (public zone shown below) by typing the following command(s) into the terminal window:
+
+            firewall-cmd --list-ports
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                              Docker Swarm Windows Agent Node Configuration                                                              ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Open Agent Communication Ports
+   ══════════════════════════════
+      NOTE: The below commands will operate as shown if the user is in the docker group
+
+      1. Open the Microsoft Management Console on the Windows agent (Win+R, mmc)
+      2. Left click the "File" menu and select the "Add/Remove Snap-in..." menu item
+      3. Select the "Windows Defender Firewall with Advanced Security" item in the "Available snap-ins:" list and left click the "Add >" button
+      4. Select the "Local computer (the computer this console is running on) radio button and left click the "Finish" button
+      5. Left click the "OK" button
+      6. Expand the "Windows Defender Firewall with Advanced Security" TreeView node
+      7. Left click the "Inbound Rules" TreeView node
+
+
+      Configure Docker Swarm Cluster Management Port (TCP)
+      ────────────────────────────────────────────────────
+         1. Left click the "New Rule..." under "Actions" on the right hand side of the dialog box
+         2. Select the "Port" radio button
+         3. Left click the "Next >" button
+         4. Left click the "TCP" radio button
+         5. Left click the "Specific local ports:" radio button and enter the following into the corresponding text box:
+
+               2377
+
+         6. Left click the "Next >" button
+         7. Left click the "Allow the connection" radio button
+         8. Left click the "Next >" button
+         9. Check the "Domain", "Private", and "Public" checkboxes
+        10. Left click the "Next >" button
+        11. Enter the following into the "Name" text box:
+
+               Docker Swarm Cluster Management Communications
+
+        12. Left click the "Finish" button
+
+
+      Configure Docker Swarm Node Communication Port (TCP)
+      ────────────────────────────────────────────────────
+         1. Left click the "New Rule..." under "Actions" on the right hand side of the dialog box
+         2. Select the "Port" radio button
+         3. Left click the "Next >" button
+         4. Left click the "TCP" radio button
+         5. Left click the "Specific local ports:" radio button and enter the following into the corresponding text box:
+
+               7946
+
+         6. Left click the "Next >" button
+         7. Left click the "Allow the connection" radio button
+         8. Left click the "Next >" button
+         9. Check the "Domain", "Private", and "Public" checkboxes
+        10. Left click the "Next >" button
+        11. Enter the following into the "Name" text box:
+
+               Docker Swarm TCP Node Communications
+
+        12. Left click the "Finish" button
+
+
+      Configure Docker Swarm Node Communication Port (UDP)
+      ────────────────────────────────────────────────────
+         1. Left click the "New Rule..." under "Actions" on the right hand side of the dialog box
+         2. Select the "Port" radio button
+         3. Left click the "Next >" button
+         4. Left click the "UDP" radio button
+         5. Left click the "Specific local ports:" radio button and enter the following into the corresponding text box:
+
+               7946
+
+         6. Left click the "Next >" button
+         7. Left click the "Allow the connection" radio button
+         8. Left click the "Next >" button
+         9. Check the "Domain", "Private", and "Public" checkboxes
+        10. Left click the "Next >" button
+        11. Enter the following into the "Name" text box:
+
+               Docker Swarm UDP Node Communications
+
+        12. Left click the "Finish" button
+
+
+      Configure Docker Swarm Overlay Network Communication Port (TCP)
+      ───────────────────────────────────────────────────────────────
+         1. Left click the "New Rule..." under "Actions" on the right hand side of the dialog box
+         2. Select the "Port" radio button
+         3. Left click the "Next >" button
+         4. Left click the "TCP" radio button
+         5. Left click the "Specific local ports:" radio button and enter the following into the corresponding text box:
+
+               4789
+
+         6. Left click the "Next >" button
+         7. Left click the "Allow the connection" radio button
+         8. Left click the "Next >" button
+         9. Check the "Domain", "Private", and "Public" checkboxes
+        10. Left click the "Next >" button
+        11. Enter the following into the "Name" text box:
+
+               Docker Swarm Overlay Network Communications
+
+        12. Left click the "Finish" button
+
+
+      Configure Jenkins Agent Communication Port (TCP)
+      ────────────────────────────────────────────────
+         1. Left click the "New Rule..." under "Actions" on the right hand side of the dialog box
+         2. Select the "Port" radio button
+         3. Left click the "Next >" button
+         4. Left click the "TCP" radio button
+         5. Left click the "Specific local ports:" radio button and enter the following into the corresponding text box:
+
+               50000
+
+         6. Left click the "Next >" button
+         7. Left click the "Allow the connection" radio button
+         8. Left click the "Next >" button
+         9. Check the "Domain", "Private", and "Public" checkboxes
+        10. Left click the "Next >" button
+        11. Enter the following into the "Name" text box:
+
+               Jenkins Agent Communications
+
+        12. Left click the "Finish" button
+
+
+
+
+
+
+
+
+
+   Join Docker Swarm As A Worker Node
+   ══════════════════════════════════
+      NOTE: The below commands will operate as shown if the user is in the docker group
+
+      1. Open a terminal window on a Swarm Manager Node (Linux)
+      2. Display the swarm worker join command by typing the following command(s) into the terminal window:
+
+            docker swarm join-token worker
+
+      3. Open a PowerShell window on the Windows agent (Win+R, PowerShell.exe)
+      4. Paste/execute the swarm worker join command into the PowerShell window
+      5. Verify that the swarm node has been initialized by typing the following command(s) into the PowerShell window:
+
+            docker info -f '{{.Swarm.LocalNodeState}}'
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                           RNS Docker Volumes                                                                            ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Jenkins Volume
+   ══════════════
+      NOTE: The below commands will operate as shown if the user is in the docker group
+
+      1. Open a terminal window on a Swarm Manager Node (Linux)
+      2. Create a new local volume by typing the following command(s) into the terminal window:
+
+            docker volume create rns-jenkins-home
+
+      3. Verify the volume was created by typing the following command(s) into the terminal window:
+
+            docker volume ls
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                           RNS Docker Network                                                                            ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Overlay Network Usable Between Containers/Services
+   ══════════════════════════════════════════════════
+      NOTE: The below commands will operate as shown if the user is in the docker group
+
+      1. Open a terminal window on a Swarm Manager Node (Linux)
+      2. Create a new Docker user defined overlay network by typing the following command(s) into the terminal window:
+
+            docker network create \
+                   --driver overlay \
+                   --attachable \
+                   rns-net
+
+      3. Verify that the Docker user defined overlay network was created by typing the following command(s) into the terminal window:
+
+            docker network ls
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                           RNS Docker Secrets                                                                            ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Jenkins Docker Secrets
+   ══════════════════════
+      NOTE: The below commands will operate as shown if the user is in the docker group
+
+      1. Open a terminal window on a Swarm Manager Node (Linux)
+      2. Create a new Jenkins User secret by typing the following command(s) into the terminal window:
+
+            ./jenkins_docker_utils.sh add-docker-secret-jenkins-user \
+                                      --docker-secret-jenkins-user <username>
+
+            (ex: ./jenkins_docker_utils.sh add-docker-secret-jenkins-user \
+                                           --docker-secret-jenkins-user admin)
+
+      3. Create a new Jenkins Password secret by typing the following command(s) into the terminal window:
+
+            ./jenkins_docker_utils.sh add-docker-secret-jenkins-pass \
+                                      --docker-secret-jenkins-pass <password>
+
+            (ex: ./jenkins_docker_utils.sh add-docker-secret-jenkins-pass \
+                                           --docker-secret-jenkins-pass admin)
+
+      4. Display all the secrets that currently exist in the swarm by typing the following command(s) into the terminal window:
+
+            docker secret ls
+
+
+
+
+
+
+
+
+
+
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                        Windows RNS Docker Image                                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Configure PowerShell To Allow Script Execution
+   ══════════════════════════════════════════════
+      1. Open an Administrator PowerShell window (Win+R, PowerShell.exe, see your system administrator for privilege elevation capability)
+      2. Modify PowerShell to allow script execution by typing the following command(s) into the PowerShell window:
+
+            Set-ExecutionPolicy Unrestricted
+
+      3. Verify the policy was changed by typing the following command(s) into the PowerShell window:
+
+            Get-ExecutionPolicy
+
+
+   Pull Base Windows Image
+   ═══════════════════════
+      1. Open a PowerShell window (Win+R, PowerShell.exe)
+      2. Verify that the Docker Engine is configured to use Windows Containers by typing the following command(s) into the PowerShell window:
+
+            docker info -f '{{.OSType}}'
+
+      3. Verify that your Windows version is at least 1909 (Win+R, winver)
+      4. Pull Windows Docker Image by typing the following command(s) into the PowerShell window:
+
+            docker pull mcr.microsoft.com/windows:<windows-version>
+            (ex: docker pull mcr.microsoft.com/windows:1909)
+
+
+   Building Windows RNS Docker Image
+   ═════════════════════════════════
+      1. Open a PowerShell window (Win+R, PowerShell.exe)
+      2. Make a directory for the Windows RNS Docker Image Source by typing the following command(s) into the PowerShell window:
+
+            mkdir <win-rns-docker-image-source-dir>
+            (ex: mkdir C:\Users\User\Data\win-rns-docker)
+
+      3. Using TortoiseSVN, checkout the Windows RNS Docker Image Source from source code management
+      4. Build the Windows RNS Docker Image by typing the following command(s) into the PowerShell window:
+
+            cd <win-rns-docker-image-source-dir>
+            (ex: cd C:\Users\User\Data\win-rns-docker)
+
+            .\build-win-rns-docker-image.ps1
+
+      5. Verify that the Windows RNS Docker Image built by typing the following command(s) into the PowerShell window and scanning the
+         resulting output for the image (the image name defaults to "win-rns-platform"):
+
+            docker images
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                         RNS Jenkins Docker Service                                                                      ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Create Jenkins Docker Service
+   ═════════════════════════════
+      NOTE: The below commands will operate as shown if the user is in the docker group
+
+      1. Open a terminal window on a Swarm Manager Node (Linux)
+      2. Create a new Jenkins Docker Service by typing the following command(s) into the terminal window:
+
+            ./jenkins_docker_utils.sh create-service \
+                                      --publish-client-app-host-port 8080 \
+                                      --publish-server-app-host-port 50000 \
+                                      --swarm-network rns-net
+
+      3. Verify that the Docker Service was created by typing the following command(s) into the terminal window:
+
+            docker service ls
+
+      4. Verify that an instance of the Docker Service was created by typing the following command(s) into the terminal window:
+
+            docker ps -a
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                        RNS Jenkins Configuration For Ephemeral Docker Containers                                                        ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Access RNS Jenkins Master
+   ═════════════════════════
+      1. Open a web browser on the machine with access to the Docker Swarm
+      2. Navigate to the Jenkins Master URL and login using the RNS Jenkins Docker Secrets
+
+            http://<jenkins-master-ip>:8080
+            (ex: http://192.168.1.10:8080)
+
+
+   Configure Cloud Provider
+   ════════════════════════
+      1. Verify that the "Access RNS Jenkins Master" procedure has been completed
+      2. On the main Jenkins page, left click the "Manage Jenkins" link on the left side
+      3. On the "Manage Jenkins" page, left click the "Manage Nodes and Clouds" link
+      4. On the "Manage Nodes and Clouds" page, left click the "Configure Clouds" link on the left side
+      5. Left click the "Add a new cloud" button, left click the "Docker Swarm" option
+      6. Add the following text to the "Docker Host URI" textbox:
+
+            http://<docker-swarm-api-address>:2376
+            (ex: http://192.168.1.10:2376)
+
+      7. Left click the "Test Connection" button, verify that "Connection Successful" is displayed on the page
+      8. Add the following text to the "Jenkins Url" textbox:
+
+            http://<swarm-instance-name-of-jenkins-service>:8080
+            (ex: http://jenkins_service:8080)
+
+      9. Add the following text to the "Swarm Network for agent" textbox:
+
+            rns-net
+
+     10. Left click the "Save" button at the bottom of the page
+
+
+   Configure Windows Docker Agent Template (Ephemeral Container)
+   ═════════════════════════════════════════════════════════════
+      1. Verify that the "Access RNS Jenkins Master" procedure has been completed
+      2. On the main Jenkins page, left click the "Manage Jenkins" link on the left side
+      3. On the "Manage Jenkins" page, left click the "Manage Nodes and Clouds" link
+      4. On the "Manage Nodes and Clouds" page, left click the "Configure Clouds" link on the left side
+      5. Left click the "Docker Agent templates..." button under the "Docker Swarm Cloud Configuration" cloud
+      6. Left click the "Add Docker Agent Template" button
+      7. Add the following text to the "Label" textbox:
+
+            docker-win-agent
+
+      8. Add the following text to the "Image" textbox:
+
+            win-rns-platform
+
+      9. Left click the "Placement..." button
+     10. Add the following text to the "Constraints" textbox:
+
+            node.hostname==Galatea
+
+     11. Check the "Windows Container" checkbox
+     12. Left click the "Save" button at the bottom of the page
+
+
+
+
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                      Jenkins RNS Job Configuration                                                                      ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Configure Release Note System Pipeline Job
+   ══════════════════════════════════════════
+      1. Verify that the "RNS Jenkins Master Configuration" steps have been completed
+      2. On the main Jenkins page, left click the "New Item" link on the left side
+      3. Add the following text to the "Enter an item name" textbox:
+
+            Release Notes Sustem Job
+
+      4. Left click on the "Pipeline" link
+      5. Left click the "OK" button at the bottom of the page
+      6. Scroll down to the "Pipeline" section
+      7. Populate the "Script" textbox with the contents of the source file (ref: "Embedded Agent Pipeline Job")
+      8. Left click the "Save" button at the bottom of the page
+
+

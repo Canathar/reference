@@ -599,6 +599,28 @@
             docker network ls
 
 
+   Overlay Network Usable Between Containers/Services
+   ══════════════════════════════════════════════════
+      NOTE: The below commands will operate as shown if the user is in the docker group
+
+      1. Open a terminal window
+      2. Create a new Docker user defined overlay network by typing the following command(s) into the terminal window:
+
+            docker network create \
+                   --driver overlay \
+                   --attachable \
+                   <network-name>
+
+            (ex: docker network create \
+                        --driver overlay \
+                        --attachable \
+                        cm-net)
+
+      3. Verify that the Docker user defined overlay network was created by typing the following command(s) into the terminal window:
+
+            docker network ls
+
+
 
 ╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
 ║                                                                              Docker Swarms                                                                              ║
