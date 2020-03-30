@@ -11,19 +11,12 @@
 ║                                                                                                                                                                         ║
 ║  1.00.08520.xx (25 Mar 20) - Initial Creation {J. Laccone}                                                                                                              ║
 ║                                 Added sections                                                                                                                          ║
+║  1.01.08620.xx (26 Mar 20) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added additional procedures                                                                                                             ║
 ║                                                                                                                                                                         ║
 ╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                              Reference                                                                                  ║
 ╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
-║                                                                                                                                                                         ║
-║   Jenkins, Docker, Proxies, and Compose                                                                                                                                 ║
-║   -------------------------------------                                                                                                                                 ║
-║      https://engineering.riotgames.com/news/jenkins-docker-proxies-and-compose                                                                                          ║
-║                                                                                                                                                                         ║
-║   Jenkins Pipeline Syntax                                                                                                                                               ║
-║   -----------------------                                                                                                                                               ║
-║      https://jenkins.io/doc/book/pipeline/syntax/                                                                                                                       ║
-║      https://wilsonmar.github.io/jenkins2-pipeline/                                                                                                                     ║
 ║                                                                                                                                                                         ║
 ║   Docker Swarm Add Nodes                                                                                                                                                ║
 ║   ----------------------                                                                                                                                                ║
@@ -61,10 +54,10 @@
 
 
 ╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                                                                 Docker Swarm Manager Node Configuration                                                                 ║
+║                                                     Docker Swarm Linux Manager Node (Jenkins Master) Configuration                                                      ║
 ╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
-   Open Swarm Communication Ports
+   Open Agent Communication Ports
    ══════════════════════════════
       NOTE: The below commands will operate as shown if the user is in the docker group
 
@@ -80,9 +73,21 @@
 
       5. Add the requirted ports to the active firewall zone (public zone shown below) by typing the following command(s) into the terminal window:
 
+            # Docker Swarm API Communications
+            firewall-cmd --zone=public --add-port=2376/tcp --permanent
+
+            # Docker Swarm Cluster Management Communications
             firewall-cmd --zone=public --add-port=2377/tcp --permanent
+
+            # Docker Swarm Node Communications
             firewall-cmd --zone=public --add-port=7946/tcp --add-port=7946/udp --permanent
+
+            # Docker Swarm Overlay Network Communications
             firewall-cmd --zone=public --add-port=4789/udp --permanent
+
+            # Jenkins Agent Communications
+            firewall-cmd --zone=public --add-port=50000/tcp --permanent
+
             firewall-cmd --reload
 
       6. Verify that the required ports were added to the active firewall zone (public zone shown below) by typing the following command(s) into the terminal window:
@@ -92,7 +97,7 @@
 
 
 ╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                                                              Docker Swarm Windows Agent Node Configuration                                                              ║
+║                                                      Docker Swarm Windows Agent Node (Jenkins Agent) Configuration                                                      ║
 ╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
    Open Agent Communication Ports
@@ -107,16 +112,15 @@
       6. Expand the "Windows Defender Firewall with Advanced Security" TreeView node
       7. Left click the "Inbound Rules" TreeView node
 
-
-      Configure Docker Swarm Cluster Management Port (TCP)
-      ────────────────────────────────────────────────────
+      Configure Inbound TCP Port
+      ──────────────────────────
          1. Left click the "New Rule..." under "Actions" on the right hand side of the dialog box
          2. Select the "Port" radio button
          3. Left click the "Next >" button
          4. Left click the "TCP" radio button
          5. Left click the "Specific local ports:" radio button and enter the following into the corresponding text box:
 
-               2377
+               <inbound-tcp-port>
 
          6. Left click the "Next >" button
          7. Left click the "Allow the connection" radio button
@@ -125,42 +129,20 @@
         10. Left click the "Next >" button
         11. Enter the following into the "Name" text box:
 
-               Docker Swarm Cluster Management Communications
+               <inbound-rule-name>
 
         12. Left click the "Finish" button
 
 
-      Configure Docker Swarm Node Communication Port (TCP)
-      ────────────────────────────────────────────────────
-         1. Left click the "New Rule..." under "Actions" on the right hand side of the dialog box
-         2. Select the "Port" radio button
-         3. Left click the "Next >" button
-         4. Left click the "TCP" radio button
-         5. Left click the "Specific local ports:" radio button and enter the following into the corresponding text box:
-
-               7946
-
-         6. Left click the "Next >" button
-         7. Left click the "Allow the connection" radio button
-         8. Left click the "Next >" button
-         9. Check the "Domain", "Private", and "Public" checkboxes
-        10. Left click the "Next >" button
-        11. Enter the following into the "Name" text box:
-
-               Docker Swarm TCP Node Communications
-
-        12. Left click the "Finish" button
-
-
-      Configure Docker Swarm Node Communication Port (UDP)
-      ────────────────────────────────────────────────────
+      Configure Inbound UDP Port
+      ──────────────────────────
          1. Left click the "New Rule..." under "Actions" on the right hand side of the dialog box
          2. Select the "Port" radio button
          3. Left click the "Next >" button
          4. Left click the "UDP" radio button
          5. Left click the "Specific local ports:" radio button and enter the following into the corresponding text box:
 
-               7946
+               <inbound-udp-port>
 
          6. Left click the "Next >" button
          7. Left click the "Allow the connection" radio button
@@ -169,20 +151,62 @@
         10. Left click the "Next >" button
         11. Enter the following into the "Name" text box:
 
-               Docker Swarm UDP Node Communications
+               <inbound-rule-name>
 
         12. Left click the "Finish" button
 
 
-      Configure Docker Swarm Overlay Network Communication Port (TCP)
-      ───────────────────────────────────────────────────────────────
+         Configure Inbound Docker Swarm Cluster Management Port (TCP)
+         ------------------------------------------------------------
+            1. Perform the "Configure Inbound TCP Port" procedure using the following values:
+
+                  Inbound TCP Port : 2377
+                  Inbound Rule Name: Docker Swarm Cluster Management Communications
+
+
+         Configure Inbound Docker Swarm Node Communication Port (TCP)
+         ------------------------------------------------------------
+            1. Perform the "Configure Inbound TCP Port" procedure using the following values:
+
+                  Inbound TCP Port : 7946
+                  Inbound Rule Name: Docker Swarm TCP Node Communications
+
+
+         Configure Inbound Docker Swarm Node Communication Port (UDP)
+         ------------------------------------------------------------
+            1. Perform the "Configure Inbound UDP Port" procedure using the following values:
+
+                  Inbound UDP Port : 7946
+                  Inbound Rule Name: Docker Swarm UDP Node Communications
+
+
+         Configure Inbound Docker Swarm Overlay Network Communication Port (TCP)
+         -----------------------------------------------------------------------
+            1. Perform the "Configure Inbound TCP Port" procedure using the following values:
+
+                  Inbound TCP Port : 4789
+                  Inbound Rule Name: Docker Swarm Overlay Network Communications
+
+
+         Configure Inbound Jenkins Agent Communication Port (TCP)
+         --------------------------------------------------------
+            1. Perform the "Configure Inbound TCP Port" procedure using the following values:
+
+                  Inbound TCP Port : 50000
+                  Inbound Rule Name: Jenkins Agent Communications
+
+
+      8. Left click the "Outbound Rules" TreeView node
+
+      Configure Outbound TCP Port
+      ───────────────────────────
          1. Left click the "New Rule..." under "Actions" on the right hand side of the dialog box
          2. Select the "Port" radio button
          3. Left click the "Next >" button
          4. Left click the "TCP" radio button
          5. Left click the "Specific local ports:" radio button and enter the following into the corresponding text box:
 
-               4789
+               <inbound-tcp-port>
 
          6. Left click the "Next >" button
          7. Left click the "Allow the connection" radio button
@@ -191,20 +215,20 @@
         10. Left click the "Next >" button
         11. Enter the following into the "Name" text box:
 
-               Docker Swarm Overlay Network Communications
+               <inbound-rule-name>
 
         12. Left click the "Finish" button
 
 
-      Configure Jenkins Agent Communication Port (TCP)
-      ────────────────────────────────────────────────
+      Configure Outbound UDP Port
+      ───────────────────────────
          1. Left click the "New Rule..." under "Actions" on the right hand side of the dialog box
          2. Select the "Port" radio button
          3. Left click the "Next >" button
-         4. Left click the "TCP" radio button
+         4. Left click the "UDP" radio button
          5. Left click the "Specific local ports:" radio button and enter the following into the corresponding text box:
 
-               50000
+               <inbound-udp-port>
 
          6. Left click the "Next >" button
          7. Left click the "Allow the connection" radio button
@@ -213,16 +237,49 @@
         10. Left click the "Next >" button
         11. Enter the following into the "Name" text box:
 
-               Jenkins Agent Communications
+               <inbound-rule-name>
 
         12. Left click the "Finish" button
 
 
+         Configure Outbound Docker Swarm Cluster Management Port (TCP)
+         -------------------------------------------------------------
+            1. Perform the "Configure Outbound TCP Port" procedure using the following values:
+
+                  Inbound TCP Port : 2377
+                  Inbound Rule Name: Docker Swarm Cluster Management Communications
 
 
+         Configure Outbound Docker Swarm Node Communication Port (TCP)
+         -------------------------------------------------------------
+            1. Perform the "Configure Outbound TCP Port" procedure using the following values:
+
+                  Inbound TCP Port : 7946
+                  Inbound Rule Name: Docker Swarm TCP Node Communications
 
 
+         Configure Outbound Docker Swarm Node Communication Port (UDP)
+         -------------------------------------------------------------
+            1. Perform the "Configure Outbound UDP Port" procedure using the following values:
 
+                  Inbound UDP Port : 7946
+                  Inbound Rule Name: Docker Swarm UDP Node Communications
+
+
+         Configure Outbound Docker Swarm Overlay Network Communication Port (TCP)
+         ------------------------------------------------------------------------
+            1. Perform the "Configure Outbound TCP Port" procedure using the following values:
+
+                  Inbound TCP Port : 4789
+                  Inbound Rule Name: Docker Swarm Overlay Network Communications
+
+
+         Configure Outbound Jenkins Agent Communication Port (TCP)
+         ---------------------------------------------------------
+            1. Perform the "Configure Outbound TCP Port" procedure using the following values:
+
+                  Inbound TCP Port : 50000
+                  Inbound Rule Name: Jenkins Agent Communications
 
 
    Join Docker Swarm As A Worker Node
