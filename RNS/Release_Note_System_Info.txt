@@ -486,7 +486,8 @@
             ./jenkins_docker_utils.sh create-service \
                                       --publish-client-app-host-port 8080 \
                                       --publish-server-app-host-port 50000 \
-                                      --swarm-network rns-net
+                                      --swarm-network rns-net \
+                                      --service-constraints "node.hostname==triton"
 
       3. Verify that the Docker Service was created by typing the following command(s) into the terminal window:
 
