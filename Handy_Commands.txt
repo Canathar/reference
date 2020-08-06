@@ -1,4 +1,4 @@
-﻿╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
 ║ Handy_Commands.txt                                                                                                                                                      ║
 ║                                                                                                                                                                         ║
 ║ Document Encoding           : UTF-8, UNIX Line Terminator                                                                                                               ║
@@ -274,9 +274,22 @@ proc                                        /proc                   proc    defa
 
    Mount new location once fstab is modified
    ─────────────────────────────────────────
-      mount -t cifs -o user=jlaccone,domain=HARRIS //pbympsvm01/wsv144/jlaccone /mnt/jlaccone
+      sudo apt-get install cifs-utils
+      sudo mount -t cifs -o user=jlaccone,domain=HARRIS //pbympsvm01/wsv144/jlaccone /mnt/jlaccone
+
+List all mount points
+sudo mount
+
+sudo mount -t ext4
+sudo mount -t autofs
+
+df -a
+
+sudo systemctl status autofs
 
 
+
+lnvle4117.gs.myharris.net
 
 
 ╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗

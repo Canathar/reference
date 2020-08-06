@@ -56,7 +56,11 @@
 
    results of environment creation are stored in CMakeCache.txt
 
+cd /data/dataworkspace/bld-gewn
+grep . -rnw -e 'CXX_DEFINES ='
+grep . -rnw -e 'CXX_INCLUDES ='
+grep . -rnw -e 'CXX_FLAGS ='
 
-
+all in flags.make files
 
 

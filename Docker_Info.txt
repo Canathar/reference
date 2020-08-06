@@ -36,6 +36,8 @@
 ║                                 Added swarm/serevice/secret operations                                                                                                  ║
 ║  1.12.26819.xx (25 Sep 19) - Development Update {J. Laccone}                                                                                                            ║
 ║                                 Finished adding swarm/serevice/secret operations                                                                                        ║
+║  1.13.14120.xx (20 May 20) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Conversion from program repo to gcsd repo                                                                                               ║
 ║                                                                                                                                                                         ║
 ╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                Reference                                                                                ║
@@ -89,15 +91,15 @@
 ║                                                                                                                                                                         ║
 ║   Hats Docker Image Source                                                                                                                                              ║
 ║   ------------------------                                                                                                                                              ║
-║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/ccu/base/tools/emb/hats-docker-image/                                                  ║
+║      tbd                                                                                                                                                                ║
 ║                                                                                                                                                                         ║
 ║   VectorCAST Docker Image Source                                                                                                                                        ║
 ║   ------------------------------                                                                                                                                        ║
-║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/jlaccone/vcast-docker/                                                                   ║
+║      tbd                                                                                                                                                                ║
 ║                                                                                                                                                                         ║
 ║   Certificates And Tools                                                                                                                                                ║
 ║   ----------------------                                                                                                                                                ║
-║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/branches/dev/jlaccone/security/Certificate-and-tools.tar.gz                                           ║
+║      tbd                                                                                                                                                                ║
 ║                                                                                                                                                                         ║
 ╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
@@ -599,28 +601,6 @@
             docker network ls
 
 
-   Overlay Network Usable Between Containers/Services
-   ══════════════════════════════════════════════════
-      NOTE: The below commands will operate as shown if the user is in the docker group
-
-      1. Open a terminal window
-      2. Create a new Docker user defined overlay network by typing the following command(s) into the terminal window:
-
-            docker network create \
-                   --driver overlay \
-                   --attachable \
-                   <network-name>
-
-            (ex: docker network create \
-                        --driver overlay \
-                        --attachable \
-                        cm-net)
-
-      3. Verify that the Docker user defined overlay network was created by typing the following command(s) into the terminal window:
-
-            docker network ls
-
-
 
 ╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
 ║                                                                              Docker Swarms                                                                              ║
@@ -679,23 +659,3 @@
    Attaching To A Running Container
    ════════════════════════════════
       See the "Attaching To A Running Image (Creating A New Terminal)" section of the Notes header in the Dockerfile that ships with the Docker Image
-
-
-
-
-
-
-
-
-
-
-docker
-
-
-
-docker tag vcs21_build_embedded/vcast-platform 172.24.22.17/vcs21_build_embedded/vcast-platform
-docker push 172.24.22.17/vcs21_build_embedded/vcast-platform
-
-docker tag vcs21_build_embedded/apu 172.24.22.17/vcs21_build_embedded/apu
-docker push 172.24.22.17/vcs21_build_embedded/apu
-

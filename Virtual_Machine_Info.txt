@@ -85,8 +85,84 @@
 
 
 
+
+
+
 ╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                                                                       VirtualBox Virtual Machine Common                                                                 ║
+║                                                                       Virtual Machine: Windows 10                                                                       ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Building VirtualBox Virtual Machine
+   ═══════════════════════════════════
+      1. Open VirtualBox application
+      2. Create a new VM
+
+
+      Create Virtual Machine
+      ──────────────────────
+         1. On the main VirtualBox page, left click the "Machine" menu
+         2. On the "Machine" menu, left click the "New..." menu item
+         3. Add a name for this VM the to the "Name" textbox
+         4. Change (if desired) the location for the VM files by left clicking the "Machine Folder" combo box and selecting the desired location
+         5. Modify the "Type" dropdown combo box to have the following value:
+
+               Windows
+
+
+
+
+
+      Configure Virtual Machine - General Options
+      ───────────────────────────────────────────
+         1. On the main VirtualBox page, left click on a VM
+         2. On the main VirtualBox page, with the desired VM selected, left click the "Machine" menu
+         3. On the "Machine" menu, left click the "Settings..." menu item
+         4. On the "Settings" page, left click the "General" TreeView item
+         5. On the "General" page, left click the "Advanced" tab
+         6. Modify the "Shared Clipboard" dropdown combo box to have the following value:
+
+               "Bidirectional"
+
+         7. Modify the "Drag'n'Drop" dropdown combo box to have the following value:
+
+               "Bidirectional"
+
+         8. Left click the "OK" button of the "Settings" page
+
+
+      Configure Virtual Machine - System Options
+      ──────────────────────────────────────────
+         1. On the main VirtualBox page, left click on a VM
+         2. On the main VirtualBox page, with the desired VM selected, left click the "Machine" menu
+         3. On the "Machine" menu, left click the "Settings..." menu item
+         4. On the "Settings" page, left click the "System" TreeView item
+         5. On the "System" page, left click the "Processor" tab
+         6. Modify the "Processor(s)" slider to have AT LEAST the following value:
+
+               4
+
+         7. Left click the "OK" button of the "Settings" page
+
+
+
+install guest additions
+
+
+certificates
+ Win+R
+   mmc.exe
+   Add/Remove snap-ins -> Certificstes
+   computer account
+
+docker desktop
+
+
+
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                      Virtual Machine: Linux Common                                                                      ║
 ╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
    Building VirtualBox Virtual Machine

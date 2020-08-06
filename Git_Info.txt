@@ -1,0 +1,310 @@
+﻿╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ Git_Info.txt                                                                                                                                                            ║
+║                                                                                                                                                                         ║
+║ Document Encoding           : UTF-8, UNIX Line Terminator                                                                                                               ║
+║ Document Best Viewed/Printed: Page{Ledger, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                                                         ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                            Revision History                                                                             ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                                                                     ║
+║                                                                                                                                                                         ║
+║  1.00.25419.xx (11 Sep 19) - Initial Creation {J. Laccone}                                                                                                              ║
+║                                 Added header, added reference data                                                                                                      ║
+║  1.01.15020.xx (29 May 20) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added submodule data                                                                                                                    ║
+║  1.02.15620.xx (04 Jun 20) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added branch data                                                                                                                       ║
+║  1.03.16220.xx (10 Jun 20) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added additional procedure data                                                                                                         ║
+║  1.04.16820.xx (16 Jun 20) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added comparison procedures                                                                                                             ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                Reference                                                                                ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║  Git Home Page                                                                                                                                                          ║
+║  -------------                                                                                                                                                          ║
+║     https://git-scm.com/                                                                                                                                                ║
+║                                                                                                                                                                         ║
+║  Git Branch A Repository                                                                                                                                                ║
+║  -----------------------                                                                                                                                                ║
+║     https://confluence.atlassian.com/bitbucket/branching-a-repository-223217999.html                                                                                    ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                  Notes                                                                                  ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║  Git Configure Log To Display Formatted Options As A Visual Branch Topology                                                                                             ║
+║  --------------------------------------------------------------------------                                                                                             ║
+║     https://stackoverflow.com/questions/1838873/visualizing-branch-topology-in-git/34467298#34467298                                                                    ║
+║                                                                                                                                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                              Configuration                                                                              ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Display Global User Git Configuration
+   ═════════════════════════════════════
+      1. Open a terminal window
+      2. Verify that git command line tool is installed by typing the following command(s) into the terminal window:
+
+            git --version
+
+      3. Display the global user git configuration by typing the following command(s) into the terminal window:
+
+            git config --global --list
+
+
+   Add Aliases To Configure Log For Multiple Visual Branch Levels
+   ══════════════════════════════════════════════════════════════
+      1. Open a terminal window
+      2. Open for editing the following git configuration file:
+
+            ${HOME}/.gitconfig
+            (ex: /home/jlaccone/.gitconfig)
+
+      3. Add the following data to the git configuration file:
+
+            [alias]
+               # Checkout Aliases
+               dev = checkout development
+               fea93 = checkout feature/GEWEWNET-93-update-gui-to-ingest-geolocation-estimates
+
+               # Logging Aliases
+               lg = log --all --decorate --oneline --graph
+               lg1 = !"git lg1-specific --all"
+               lg2 = !"git lg2-specific --all"
+               lg3 = !"git lg3-specific --all"
+
+               lg1-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)'
+               lg2-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'
+               lg3-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset) %C(bold cyan)(committed: %cD)%C(reset) %C(auto)%d%C(reset)%n''          %C(white)%s%C(reset)%n''          %C(dim white)- %an <%ae> %C(reset) %C(dim white)(committer: %cn <%ce>)%C(reset)'
+
+      4. Save the file and verify the aliases by typing the following command(s) into the terminal window:
+
+             git lg
+             git lg1
+             git lg2
+             git lg3
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                               Maintenance                                                                               ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Analysis Of Repository
+   ══════════════════════
+      1. Open a terminal window
+      2. Change to the root folder of the git repo
+      3. Analyze the repository and display the results by typing the following command(s) into the terminal window:
+
+            git fsck --full --name-objects
+
+
+   Detailed Analysis Of Repository
+   ═══════════════════════════════
+      1. Open a terminal window
+      2. Change to the root folder of the git repo
+      3. Analyze the repository and display the detailed results by typing the following command(s) into the terminal window:
+
+            git fsck --full --name-objects --verbose
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                  Query                                                                                  ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Show All Commits In Repository
+   ══════════════════════════════
+      1. Open a terminal window
+      2. Change to the root folder of the git repo
+      3. Display all commits to the repository by typing the following command(s) into the terminal window:
+
+            Single Line
+            ───────────
+               git rev-list --all
+
+            Multiple Line (Descriptions)
+            ────────────────────────────
+               git rev-list --all --pretty
+
+
+   Show All Objects In A Commit
+   ════════════════════════════
+      1. Open a terminal window
+      2. Change to the root folder of the git repo
+      3. Display all objects in a commit by typing the following command(s) into the terminal window:
+
+            git ls-tree --full-tree <commit-sha-1>
+            (ex: git ls-tree --full-tree 5a25c05aa29bce98f7370f3408298c062ead0805)
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                 Branch                                                                                  ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Display Local Branches
+   ══════════════════════
+      1. Open a terminal window
+      2. Change to the a folder of the git repo
+      3. Display the local branches by typing the following command(s) into the terminal window:
+
+            git branch
+
+
+   Create A New Local Feature Branch (Feature Doesn't Exist On Remote)
+   ═══════════════════════════════════════════════════════════════════
+      1. Open a terminal window
+      2. Change to the root folder of the git repo
+      3. Create a new local feature branch by typing the following command(s) into the terminal window:
+
+            git branch feature/GEWEWNET-<jira-ticket-number>-<jira-ticket-title>
+            (ex: git branch feature/GEWEWNET-93-update-gui-to-ingest-geolocation-estimates)
+
+
+   Create A New Local Feature Branch (Feature Does Exist On Remote)
+   ════════════════════════════════════════════════════════════════
+      1. Open a terminal window
+      2. Change to the root folder of the git repo
+      3. Create a new local feature branch from remote branch by typing the following command(s) into the terminal window:
+
+            git checkout --track origin/feature/GEWEWNET-<jira-ticket-number>-<jira-ticket-title>
+            (ex: git checkout --track origin/feature/GEWEWNET-93-update-gui-to-ingest-geolocation-estimates)
+
+
+   Switch To A Local Feature Branch
+   ════════════════════════════════
+      1. Open a terminal window
+      2. Change to the root folder of the git repo
+      3. Switch to a local feature branch by typing the following command(s) into the terminal window:
+
+            git checkout feature/GEWEWNET-<jira-ticket-number>-<jira-ticket-title>
+            (ex: git checkout feature/GEWEWNET-93-update-gui-to-ingest-geolocation-estimates)
+
+
+   Push Local Feature Branch Changes To A Remote Repository
+   ════════════════════════════════════════════════════════
+      1. Open a terminal window
+      2. Change to the root folder of the git repo
+      3. Push local feature branch changes to a remote by typing the following command(s) into the terminal window:
+
+            git checkout development
+
+            git push origin feature/GEWEWNET-<jira-ticket-number>-<jira-ticket-title>
+            (ex: git push origin feature/GEWEWNET-93-update-gui-to-ingest-geolocation-estimates)
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                               Comparison                                                                                ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Display The File Changes Between development And A Local Feature Branch
+   ═══════════════════════════════════════════════════════════════════════
+      1. Open a terminal window
+      2. Change to the root folder of the git repo
+      3. Display changed files by typing the following command(s) into the terminal window:
+
+            git diff --name-only development...feature/GEWEWNET-<jira-ticket-number>-<jira-ticket-title>
+            (ex: git diff --name-only development...feature/GEWEWNET-93-update-gui-to-ingest-geolocation-estimates)
+
+
+   Display The File Changes Between development And A Local File
+   ═════════════════════════════════════════════════════════════
+      1. Open a terminal window
+      2. Change to the root folder of the git repo
+      3. Display file changes by typing the following command(s) into the terminal window:
+
+            git diff development <local-file>
+            (ex: git diff development GEWNCommonMessages.xml)
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                              Modification                                                                               ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Revert A Local File To Repository Version (Current Branch)
+   ══════════════════════════════════════════════════════════
+      1. Open a terminal window
+      2. Change to the root folder of the git repo
+      3. Revert a local file to last repository version of the current branch by typing the following command(s) into the terminal window:
+
+            git checkout -- <path-to-revert>
+            (ex: git checkout -- common/include/Tracker.h)
+
+
+   Revert A Local File To Repository Version (Different Branch)
+   ════════════════════════════════════════════════════════════
+      1. Open a terminal window
+      2. Change to the root folder of the git repo
+      3. Revert a local file to last repository version of a different branch by typing the following command(s) into the terminal window:
+
+            git checkout <branch> -- <path-to-revert>
+            (ex: git checkout development -- common/include/Tracker.h)
+
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                Merge                                                                                    ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Merge The Master Branch Into A Local Feature Branch
+   ═══════════════════════════════════════════════════
+      1. Open a terminal window
+      2. Change to the root folder of the git repo
+      3. Checkout the feature branch and merge the master branch into it by typing the following command(s) into the terminal window:
+
+            git checkout <feature-branch>
+            git merge <master-branch>
+            (one line version: git merge <feature-branch> <master-branch>)
+
+
+
+
+
+
+
+Misc Notes Waiting To Be Sorted Out...
+
+
+git add
+git commit
+
+
+
+git submodule add <url> <path>
+
+# occasionally update the submodule to a new version:
+git -C <path> checkout <new version>
+git add <path>
+git commit -m "update submodule to new version"
+
+
+# See the list of submodules in a superproject
+git submodule status
+
+git count-objects -v
+
+git submodule update --init --recursive
+
+# WOOOO
+git submodule foreach git pull
+
+
+git ls-tree -r --full-tree <tree-sha-1>
+
+git reflog expire --expire=now --all
+git gc
+
+git reset --hard
+
+git reflog --all
+
