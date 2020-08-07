@@ -123,6 +123,40 @@
                                                  --store-encrypted-passwords)
 
 
+
+
+
+./build-python-project.sh --project-name hats --project-base-dir /data/dataworkspace/hats/hats-dev  -0
+
+./build-python-project.sh build --project-name hats --project-base-dir /data/dataworkspace/hats/hats-dev --python-cmd python2.7 -1
+
+
+
+
+
+
+
+./build-python-project.sh build -1 \
+   --project-name hats \
+   --project-base-dir /data/dataworkspace/hats/hats-dev \
+   --python-cmd python2.7 \
+   -M -m -u -d -p -P
+
+./build-python-project.sh build -1 \
+   --project-name hats \
+   --project-base-dir /data/dataworkspace/hats/hats-dev \
+   --python-cmd python2.7 \
+   --inc-major --inc-minor --inc-micro --inc-dev --inc-pre
+
+
+
+./build-python-project.sh build -1 \
+   --project-name hats \
+   --project-base-dir /data/dataworkspace/hats/hats-dev \
+   --python-cmd python2.7 \
+   --major 9 --minor 8 --micro 7 --dev 6 --pre-type b --pre 5 --post 4
+
+
 ╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
 ║                                                                 Building/Installing hats Wheel (for Python 2.x )                                                        ║
 ╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝

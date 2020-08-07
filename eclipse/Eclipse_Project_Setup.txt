@@ -1,4 +1,4 @@
-╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+﻿╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
 ║ Eclipse_Project_Setup.txt                                                                                                                                               ║
 ║                                                                                                                                                                         ║
 ║ Document Encoding           : UTF-8, UNIX Line Terminator                                                                                                               ║
@@ -132,12 +132,12 @@
             cd <src-repo-base-directory>
             (ex: cd /data/dataworkspace)
 
-      4. Obtain the repository workspace installation script by typing the following command(s) into the terminal window:
+​	    4. Obtain the repository workspace installation script by typing the following command(s) into the terminal window:
 
            svn export <repo-url/script-name> <script-name>
            (ex: svn export https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/svn_mkbranch svn_mkbranch)
 
-      5. Obtain the local workspace installation script by typing the following command(s) into the terminal window:
+​	    5. Obtain the local workspace installation script by typing the following command(s) into the terminal window:
 
            svn export <repo-url/script-name> <script-name>
            (ex: svn export https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/svn_make_vcs21_workspace svn_make_vcs21_workspace)
@@ -321,27 +321,6 @@
          3. Uncheck the "Use default build command" checkbox
          4. Enter the following into the "Build command" textbox
 
-cmake -G "Eclipse CDT4 - Unix Makefiles" /data/dataworkspace/bulwark
-
-mkdir /data/dataworkspace/eclipse-gewn
-cd /data/dataworkspace/eclipse-gewn
-cmake -G "Eclipse CDT4 - Unix Makefiles" /data/dataworkspace/gewn
-
-   gewn
-GNU C++ -> Includes
-/data/dataworkspace/bld-gewn/msg
-
-/data/dataworkspace/bulwark/common/include
-/data/dataworkspace/bulwark/common/logging/basicLogger/include
-/data/dataworkspace/bulwark/common/xmlParser/tinyxml2/include
-/data/dataworkspace/bulwark/system/linux/include
-
-
-
-
-
-
-
                XBuild Projects
                ---------------
 
@@ -505,4 +484,34 @@ GNU C++ -> Includes
             Right click on <PROJECT_NAME>, select the "Build Project" menu item
 
       3. Verify that all components show a "PASS" status
+
+
+
+Create An Eclipse Desktop Application Shortcut:
+
+​	a. Create/edit a new desktop file by typing the following command(s) into a terminal window as the root user:
+
+    cd /usr/share/applications
+    touch ccstudio.desktop
+    gedit ccstudio.desktop &
+
+​	b. Add the following lines to the ccstudio.desktop file (Example shown for Eclipse Oxygen):
+
+    [Desktop Entry]
+    Name=Code Composer Studio
+    GenericName=DSP IDE
+    Comment=Integrated Development Environment
+    Exec=/opt/ti/ccsv8/eclipse/ccstudio
+    Icon=/opt/ti/ccsv8/eclipse/icon.xpm
+    MimeType=application/x-designer;
+    Terminal=false
+    Type=Application
+    Categories=Development;
+    X-Desktop-File-Install-Version=0.22
+
+​	c. Save the file and exit gedit
+
+
+
+
 

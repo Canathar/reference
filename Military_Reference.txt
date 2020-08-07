@@ -1,0 +1,241 @@
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ Military_Reference.txt                                                                                                                                                  ║
+║                                                                                                                                                                         ║
+║ Document Encoding           : UTF-8, UNIX Line Terminator                                                                                                               ║
+║ Document Best Viewed/Printed: Page{Ledger, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                                                         ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                            Revision History                                                                             ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                                                                     ║
+║                                                                                                                                                                         ║
+║  1.00.20420.xx (22 Jul 20) - Initial Creation {J. Laccone}                                                                                                              ║
+║                                 Added header, added reference data                                                                                                      ║
+║  1.01.20520.xx (23 Jul 20) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added additional sections                                                                                                               ║
+║  1.02.20620.xx (24 Jul 20) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added additional acronyms                                                                                                               ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                Reference                                                                                ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║   Joint Electronics Type Designation System                                                                                                                             ║
+║   -----------------------------------------                                                                                                                             ║
+║      https://en.wikipedia.org/wiki/Joint_Electronics_Type_Designation_System                                                                                            ║
+║                                                                                                                                                                         ║
+║   Military Acronyms And Definitions                                                                                                                                     ║
+║   ---------------------------------                                                                                                                                     ║
+║      https://www.militarydictionary.org/                                                                                                                                ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                  Notes                                                                                  ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║                                                                                                                                                                         ║
+║                                                                                                                                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                Glossary                                                                                 ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   A Entries
+   ═════════
+      AESA - Active Electronically Scanned Array
+              ref: https://en.wikipedia.org/wiki/Active_electronically_scanned_array
+
+      AOA - Angle Of Arrival
+            ref: https://en.wikipedia.org/wiki/Angle_of_arrival
+
+
+   C Entries
+   ═════════
+      C2 - Command & Control
+           ref: https://en.wikipedia.org/wiki/Command_and_control
+
+      C4ISR - Command, Control, Communications, Computers, Intelligence, Surveillance & Reconnaissance
+              ref: https://en.wikipedia.org/wiki/Command_and_control#Derivative_terms
+
+      CMOSS - C4ISR/EW Modular Open Suite of Standards
+
+      COMINT - Communications Intelligence
+               ref: https://en.wikipedia.org/wiki/Signals_intelligence
+
+
+   D Entries
+   ═════════
+      DF - Direction Finding
+
+
+   E Entries
+   ═════════
+      EA - Electronic Attack
+           ref: https://en.wikipedia.org/wiki/Electronic_warfare
+
+      ECC - Expeditionary Cyber Chassis
+
+      ECCM - Electronic Counter Counter Measure
+            ref: https://en.wikipedia.org/wiki/Electronic_counter-countermeasure
+
+      ECM - Electronic Counter Measure
+            ref: https://en.wikipedia.org/wiki/Electronic_warfare
+
+      ELINT - Electronic Intelligence
+              ref: https://en.wikipedia.org/wiki/Signals_intelligence
+
+      EP - Electronic Protection (see ECCM)
+
+      ES - Electronic Support (aka Electronic warfare Support)
+           ref: https://en.wikipedia.org/wiki/Electronic_warfare_support_measures
+
+      EW - Electronic Warfare
+           ref: https://en.wikipedia.org/wiki/Electronic_warfare
+
+
+   F Entries
+   ═════════
+      FACE - Future Airborne Capability Environment
+
+      FDOA - Frequency Difference Of Arrival
+             ref: https://en.wikipedia.org/wiki/FDOA
+
+
+      FISINT - Foreign Instrumentation Signals Intelligence
+               ref: https://en.wikipedia.org/wiki/Signals_intelligence
+
+
+   I Entries
+   ═════════
+      IFF - Intentification Friend or Foe
+
+
+   J Entries
+   ═════════
+      JETDS - Joint Electronics Type Designation System
+              ref: https://en.wikipedia.org/wiki/Joint_Electronics_Type_Designation_System
+
+      JTRS - Joint Tactical Radio System
+             ref: https://en.wikipedia.org/wiki/Joint_Tactical_Radio_System
+
+
+   L Entries
+   ═════════
+      LPD - Low Probability of Detection
+
+      LPI - Low Probability of Intercept
+            ref: https://en.wikipedia.org/wiki/Low-probability-of-intercept_radar
+
+
+   M Entries
+   ═════════
+      MANET - Mobile ad hoc Network
+              ref: https://en.wikipedia.org/wiki/Wireless_ad_hoc_network
+
+      MFEW - Multi-Function Electronic Warfare
+
+      MIDS - Multifunctional Information Distribution System
+             ref: https://en.wikipedia.org/wiki/Joint_Tactical_Radio_System
+
+      MORA - Modular Open RF Architecture
+
+
+   P Entries
+   ═════════
+      PPLI - Participant Precise Location & Identification
+
+
+   R Entries
+   ═════════
+      RTEA - Real Time Electronic Attack
+
+
+   S Entries
+   ═════════
+      SA - Situational Awareness
+
+      SCA - Software Communications Architecture
+            ref: https://en.wikipedia.org/wiki/Software_Communications_Architecture
+
+      SDR - Software Defined Radio
+
+      SIGINT - Signals Intelligence
+               ref: https://en.wikipedia.org/wiki/Signals_intelligence
+
+      SOSA - Sensor Open System Architecture
+
+
+   T Entries
+   ═════════
+      TDOA - Time Difference Of Arrival
+             ref: https://en.wikipedia.org/wiki/Multilateration
+
+      TIM - Technical Interchange Meeting
+
+      TOA - Time Of Arrival
+            ref: https://en.wikipedia.org/wiki/Time_of_arrival
+
+
+   V Entries
+   ═════════
+      VICTORY - Vehicular Integration for C4ISR/EW Interoperability
+                ref: https://www.victory-standards.org/index.php
+
+
+   W Entries
+   ═════════
+      WSN - Wireless Sensor Network
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                 Sensors                                                                                 ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+Types of sensors
+active sensors
+smart sensors
+intelligent sensors
+camera sensors
+IR sensors
+micro-electro-mechanical systems (MEMS)
+nano sensors
+wearable sensors
+
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                          Example JETDS Devices                                                                          ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   AN/APG: Army Navy - Piloted Aircraft, Radar, Fire Control
+   ═════════════════════════════════════════════════════════
+      AN/APG-77: F-22 AESA Radar System
+                 ref: https://en.wikipedia.org/wiki/AN/APG-77
+
+      AN/APG-81: F-35 AESA Radar System
+                 ref: https://en.wikipedia.org/wiki/AN/APG-81
+
+
+
+   AN/PRC: Army Navy - Portable, Radio, Communications (TX/TX Two-way)
+   ═══════════════════════════════════════════════════════════════════
+      AN/PRC-163: Multi-channel Handheld Radio
+                  ref: https://www.harris.com/solution/harris-an-prc-163-multi-channel-handheld-radio
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                        Example Hardware/Software                                                                        ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Egon hardware
+      ref: https://www.harris.com/solution/egon-active-reactive-counter-ied-system
+
+   Sceptre software
+      ref: http://www.3db-labs.com/software-development
+
+   Herrick Technology Labs (HTL) HTLv-1 hardware: 3U VPX 4-channel software defined radio
+      ref: https://www.herricktechlabs.com/
+

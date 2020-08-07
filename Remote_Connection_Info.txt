@@ -1,0 +1,233 @@
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ Remote_Connection_Info.txt                                                                                                                                              ║
+║                                                                                                                                                                         ║
+║ Document Encoding           : UTF-8, UNIX Line Terminator                                                                                                               ║
+║ Document Best Viewed/Printed: Page{Ledger, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                                                         ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                            Revision History                                                                             ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                                                                     ║
+║                                                                                                                                                                         ║
+║  1.00.16020.xx (08 Jun 20) - Initial Creation {J. Laccone}                                                                                                              ║
+║                                 Added sections                                                                                                                          ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                Reference                                                                                ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║   Centos 7 Remote Access                                                                                                                                                ║
+║   ----------------------                                                                                                                                                ║
+║      https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-vnc-remote-access-for-the-gnome-desktop-on-centos-7                                  ║
+║                                                                                                                                                                         ║
+║   Install VNC Server On Ubuntu                                                                                                                                          ║
+║   ----------------------------                                                                                                                                          ║
+║      https://www.tecmint.com/install-and-configure-vnc-server-on-ubuntu/                                                                                                ║
+║                                                                                                                                                                         ║
+║   RealVNC Viewer                                                                                                                                                        ║
+║   --------------                                                                                                                                                        ║
+║      https://www.realvnc.com/en/connect/download/viewer/                                                                                                                ║
+║                                                                                                                                                                         ║
+║                                                                                                                                                                         ║
+║   How To Check Firewall Status In Ubuntu                                                                                                                                ║
+║   --------------------------------------                                                                                                                                ║
+║      https://www.configserverfirewall.com/ufw-ubuntu-firewall/ubuntu-check-firewall-status-ufw/                                                                         ║
+║                                                                                                                                                                         ║
+║   How To Enable And Disable Firewall In Ubuntu                                                                                                                          ║
+║   --------------------------------------------                                                                                                                          ║
+║      https://www.configserverfirewall.com/ufw-ubuntu-firewall/enable-disable-ufw-ubuntu-firewall/                                                                       ║
+║                                                                                                                                                                         ║
+║                                                                                                                                                                         ║
+║   How To Set Up SSH Tunneling On A VPS                                                                                                                                  ║
+║   ------------------------------------                                                                                                                                  ║
+║      https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-tunneling-on-a-vps                                                                              ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                  Notes                                                                                  ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║                                                                                                                                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                           Server Installation                                                                           ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Installing VNC Server
+   ═════════════════════
+      1. Open a terminal window
+      2. Login as a non-superuser
+      3. Install tiger-vnc by typing the following command(s) into the terminal window:
+
+         CentOS
+         ──────
+            sudo yum install -y tigervnc-server
+
+         Ubuntu
+         ──────
+            sudo apt install tigervnc-standalone-server tigervnc-common tigervnc-xorg-extension tigervnc-viewer
+
+
+
+   Configure Firewall
+   ══════════════════
+      1. Open a terminal window
+      2. Login as a non-superuser
+      3. Display the current state of the firewall by typing the following command(s) into the terminal window:
+
+         CentOS
+         ──────
+            sudo firewall-cmd --state
+
+         Ubuntu
+         ──────
+            sudo ufw status
+
+      4. If the firewall is NOT running, start the firewall by typing the following command(s) into the terminal window:
+
+         CentOS
+         ──────
+            sudo systemctl start firewalld
+
+         Ubuntu
+         ──────
+            sudo ufw enable
+
+
+
+
+
+
+   Creating Initial VNC Configuration
+   ══════════════════════════════════
+      1. Open a terminal window
+      2. Login as a non-superuser
+      3. Create a VNC access password for the current user by typing the following command(s) into the terminal window:
+
+            vncserver
+
+      4. Stop the server to continue configuration by typing the following command(s) into the terminal window:
+
+            vncserver -kill :<vnc-connection-number>
+            (ex: vncserver -kill :1)
+
+      5. Configure the parameters to pass to the vncserver by editing the ~/.vnc/config file:
+
+            ## Supported server options to pass to vncserver upon invocation can be listed
+            ## in this file. See the following manpages for more: vncserver(1) Xvnc(1).
+            ## Several common ones are shown below. Uncomment and modify to your liking.
+            ##
+            # securitytypes=vncauth,tlsvnc
+            # desktop=sandbox
+            geometry=1680x1050
+            # localhost
+            # alwaysshared
+
+      6. Configure the display manager to use with vncserver by editing the ~/.vnc/xstartup file:
+
+            #!/bin/sh
+
+            unset SESSION_MANAGER
+            unset DBUS_SESSION_BUS_ADDRESS
+            #exec /etc/X11/xinit/xinitrc
+
+            mate-session &
+
+
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                           Client Installation                                                                           ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Generate SSH Tunnel To Remote Server (Windows)
+   ══════════════════════════════════════════════
+      1. Verify mRemoteNG is installed
+      2. Open mRemoteNG
+
+         Create Custom PuTTY Session
+         ───────────────────────────
+            1. Bring up the "mRemoteNG Options" Window by selecting the "Tools->Options" Menuitem
+            2. In the "mRemoteNG Options" Window, select the "Advanced" TreeView node
+            3. Bring up the "PuttyNG Config" Window, by pressing the "Launch PuTTY" button
+
+               Configure SSH Options
+               ---------------------
+                  1. In the "Category" TreeView, select the "SSH" TreeView node
+                  2. In the "Protocol options" Groupbox, check the "Enable compression" Checkbox
+                  3. In the "Category" TreeView, expand the "SSH" TreeView node
+                  4. In the "Category" TreeView, select the "SSH->Tunnels" TreeView node
+                  5. In the "Port forwarding" Groupbox, "Source port" TextBox, add the following:
+
+                        <local-vnc-port-number>
+                        (ex: 5907)
+
+                  6. In the "Port forwarding" Groupbox, "Destination" TextBox, add the following:
+
+                        <remote-server-name or remote-server-ip-address>:<remote-server-vnc-port-number>
+                        (ex: lnstd1241:5907)
+
+                  7. In the "Port forwarding" Groupbox, press the "Add" Button
+
+               Configure Session Options
+               -------------------------
+                  1. In the "Category" TreeView, select the "Session" TreeView node
+                  2. In the "Specify the destination you want to connect to" Groupbox, "Host Name (or IP address)" Textbox, add the following:
+
+                        <remote-server-name or remote-server-ip-address>
+                        (ex: lnstd1241)
+
+                  3. In the "Specify the destination you want to connect to" Groupbox, verify that the "Connection type" RadioButton is set to "SSH"
+                  4. In the "Load, save or delete a stored session" Groupbox, "Saved Sessions" Textbox, add the following:
+
+                        <human-friendly-name-for-custom-putty-session>
+                        (ex: Tunnel Configuration For lnstd1241)
+
+                  4. In the "Load, save or delete a stored session" Groupbox, click the "Save" Button
+
+         Create Connection
+         ─────────────────
+            1. In the "Connections" Panel, select the "Connections" TreeView node, then press the "New Connection" button
+            2. In the "Connections" Panel, select the "New Connection" TreeView node that was just created
+            3. In the "Config" Panel, "Display->Name" property, add the following
+
+                  <human-friendly-name-for-connection>
+                  (ex: lnstd1241 Development)
+
+            4. In the "Config" Panel, "Connection->Hostname/IP" property, add the following:
+
+                  <remote-server-name or remote-server-ip-address>
+                  (ex: lnstd1241)
+
+            5. OPTIONAL: In the "Config" Panel, "Connection->Username" property, add the following:
+
+                  <user-account-on-remote-server>
+                  (ex: myaccount)
+
+            6. OPTIONAL: In the "Config" Panel, "Connection->Password" property, add the following
+
+                  <password-for-user-account-on-remote-server>
+                  (ex: mypassword)
+
+            7. In the "Config" Panel, modify the "Protocol->Protocol" property to "SSH version 2"
+            8. In the "Config" Panel, modify the "Protocol->PuTTY Session" ComboBox to the custom session created above
+
+
+   Generate VNC Saved Connection To Remote Server (Windows)
+   ════════════════════════════════════════════════════════
+      1. Verify RealVNC Viewer is installed
+      2. Open RealVNC Viewer
+      3. Bring up the "Properties" Window for a new connection, by selecting the "File->New Connection..." Menuitem
+      4. In the "VNC Server" Textbox, add the following:
+
+            localhost:<local-vnc-port-number>
+            (ex: localhost:5907)
+
+      5. In the "Name" TextBox, add the following
+
+            <human-friendly-name-for-connection>
+            (ex: lnstd1241 Development)
+
+      6. Press the "OK" Button
+

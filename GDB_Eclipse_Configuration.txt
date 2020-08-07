@@ -1,32 +1,54 @@
-╔════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║ GDB_Eclipse_Configuration.txt                                                                                                  ║
-║                                                                                                                                ║
-║ Document Best Viewed/Printed: Page{Letter, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                ║
-║                                                                                                                                ║
-╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
-║                                                         Revision History                                                       ║
-╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
-║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                            ║
-║                                                                                                                                ║
-║  1.00.32117.xx (17 Nov 17) - Initial Creation {J. Laccone}                                                                     ║
-║                                 Added header, added reference data                                                             ║
-║  1.01.32417.xx (20 Nov 17) - DevelopmentUpdate {J. Laccone}                                                                    ║
-║                                 Debug of procedure                                                                             ║
-║                                                                                                                                ║
-╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
-║                                                            Reference                                                           ║
-╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
-║                                                                                                                                ║
-║   ION Repository                                                                                                               ║
-║   ──────────────                                                                                                               ║
-║      https://lnsvr0011/repositories/ion/                                                                                       ║
-║                                                                                                                                ║
-╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ GDB_Eclipse_Configuration.txt                                                                                                   ║
+║                                                                                                                                 ║
+║ Document Best Viewed/Printed: Page{Letter, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                 ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                         Revision History                                                        ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                             ║
+║                                                                                                                                 ║
+║  1.00.32117.xx (17 Nov 17) - Initial Creation {J. Laccone}                                                                      ║
+║                                 Added header, added reference data                                                              ║
+║  1.01.32417.xx (20 Nov 17) - Development Update {J. Laccone}                                                                    ║
+║                                 Debug of procedure                                                                              ║
+║  1.02.06418.xx (05 Mar 18) - Development Update {J. Laccone}                                                                    ║
+║                                 Debug of procedure                                                                              ║
+║  1.03.15118.xx (31 May 18) - Development Update {J. Laccone}                                                                    ║
+║                                 Update of configuration                                                                         ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                            Reference                                                            ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                 ║
+║   VCS21 Embedded Tools Source Code Repository                                                                                   ║
+║   -------------------------------------------                                                                                   ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/ccu/base/tools/emb/                            ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                              Notes                                                              ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                 ║
+║   GDB Command Line Common Commands                                                                                              ║
+║   --------------------------------                                                                                              ║
+║      http://visualgdb.com/gdbreference/commands                                                                                 ║
+║                                                                                                                                 ║
+║      target remote <ip-address>:<port>                                                                                          ║
+║         https://sourceware.org/gdb/onlinedocs/gdb/Connecting.html#Connecting                                                    ║
+║                                                                                                                                 ║
+║      show sysroot                                                                                                               ║
+║         http://visualgdb.com/gdbreference/commands/set_sysroot                                                                  ║
+║                                                                                                                                 ║
+║      show solib-search-path                                                                                                     ║
+║         http://visualgdb.com/gdbreference/commands/set_solib-search-path                                                        ║
+║                                                                                                                                 ║
+║                                                                                                                                 ║
+║                                                                                                                                 ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
-
-╔════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                                                         Before You Begin                                                       ║
-╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                         Before You Begin                                                        ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
     The following libraries should be installed on the target machine before the proceeding steps.
     Execute as root.
@@ -51,9 +73,9 @@
                debuginfo-install glibc python
 
 
-╔════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                                         Compiling GDB For ARM Targets On An x86_64 Host                                        ║
-╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                         Compiling GDB For ARM Targets On An x86_64 Host                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
     The following steps will install the utility. Execute as root.
 
@@ -93,8 +115,8 @@
                ./configure --target=arm-none-linux-gnueabi --with-expat=/usr/local/lib --with-gdb-datadir=/usr/local/share/gdb
 
 
-               With python debugging capability NOTE: hats development framework MUST be installed first
-               -----------------------------------------------------------------------------------------
+               With python debugging capability
+               --------------------------------
                ./configure --target=arm-none-linux-gnueabi --with-expat=/usr/local/lib --with-gdb-datadir=/usr/local/share/gdb \
                            --with-python=/usr/local/bin/python2.7 LDFLAGS="-Wl,-rpath /usr/local/lib -L/usr/local/lib"
 
@@ -107,9 +129,9 @@
                make install
 
 
-╔════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                                                  Adding Target Libraries To GDB                                                ║
-╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                  Adding Target Libraries To GDB                                                 ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
 
     Bash Commands - Execute The Following In A Terminal Window
@@ -144,7 +166,7 @@ REV=190738
 # NOTE: Change the URL to match the source location for your target core files.
 #       i.e. If you are debugging a B13 core file, point to B13,
 #            If you are debugging a trunk core file, point to trunk (trunk URL shown)
-URL="https://lnsvr0011.cs.myharris.net/repositories/ion/vcs21/irad/trunk/Embedded/ccu/DM8168/cwp2"
+URL="https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Embedded/ccu/DM8168/cwp2"
 
 rm -rf home
 rm -rf lib
@@ -204,14 +226,14 @@ ln -s libsnmp++.so.2.0.0 home/lib/libsnmp++.so.2
                                                                        -- or --
                                                           <b13-prj-src-files-emb-root-dir>
 
-# --------------------------------------------------------------------------------------------------------------------------------
-# --                                                  Shared Library Commands                                                   --
-# --------------------------------------------------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------------------------------------------------
+# --                                                  Shared Library Commands                                                    --
+# ---------------------------------------------------------------------------------------------------------------------------------
 # sharedlibrary      - Forces GDB to load symbols for the specified shared libraries or all loaded shared libraries.
 # info sharedlibrary - Shows information about the loaded libraries, their addresses and state of the debugging symbols.
 
 
-# --------------------------------------------------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------------------------------------------------
 #
 # Specifies the local directory that contains copies of target libraries in the corresponding subdirectories
 #
@@ -221,11 +243,11 @@ ln -s libsnmp++.so.2.0.0 home/lib/libsnmp++.so.2
 #
 # Reference: http://visualgdb.com/gdbreference/commands/set_sysroot
 #
-# --------------------------------------------------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------------------------------------------------
 #set sysroot <current-coredump-analysis-libraries>
 
 
-# --------------------------------------------------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------------------------------------------------
 #
 # Specifies directories where GDB will search for shared libraries with symbols
 #
@@ -235,15 +257,15 @@ ln -s libsnmp++.so.2.0.0 home/lib/libsnmp++.so.2
 #
 # Reference: http://visualgdb.com/gdbreference/commands/set_solib-search-path
 #
-# --------------------------------------------------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------------------------------------------------
 #set solib-search-path <current-coredump-analysis-libraries>
 
 
-# --------------------------------------------------------------------------------------------------------------------------------
-# --                                                     Directory Commands                                                     --
-# --------------------------------------------------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------------------------------------------------
+# --                                                     Directory Commands                                                      --
+# ---------------------------------------------------------------------------------------------------------------------------------
 
-# --------------------------------------------------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------------------------------------------------
 #
 # Define a source path substitution rule, and add it at the end of the current list of existing substitution rules. If a rule
 # with the same from was already defined, then the old rule is also deleted.
@@ -256,7 +278,7 @@ ln -s libsnmp++.so.2.0.0 home/lib/libsnmp++.so.2
 #
 # NOTE: Paths are obtained from the Jenkins Build Server
 #
-# --------------------------------------------------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------------------------------------------------
 #set substitute-path /home/jenkins/jenkins_slave/workspace/trunk__EmbeddedCcu <trunk-prj-src-files-emb-root-dir>
 #set substitute-path /home/jenkins/jenkins_slave/workspace/b13.00_integration__EmbeddedCcu <b13-prj-src-files-emb-root-dir>
 #set substitute-path /home/jenkins/jenkins_slave/workspace/b13.00.1201_integration__EmbeddedCcu <b13-proj-src-files-emb-root-dir>
@@ -270,9 +292,9 @@ set output-radix 16
      16. Save the file and exit gedit
 
 
-╔════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                                     Configure A Post Mortem Debug Configuration In Eclipse                                     ║
-╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                     Configure A Post Mortem Debug Configuration In Eclipse                                      ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
    Ensure that you have a project containing the source code corresponding to the binary that generated the core file loaded
    into Eclipse before you start the steps below.
@@ -296,19 +318,19 @@ set output-radix 16
             a. Enter the following data into the "Project" textbox (via manual entry or "Browse..." button):
 
                   <project-name-of-corresponding-binary-that-created-core>
-                  i.e. trunk
+                  (ex: trunk)
 
             b. Enter the following data into the "C/C++ Application" textbox (via manual entry or "Browse..." button):
 
                   <path-to-binary-with-symbols-corresponding-to-binary-that-created-core>/<binary-with-symbols>
-                  i.e. /<path>/ccu/base/build/core/out/map.gdb.bin
+                  (ex: /data/dataworkspace/trunk/ccu/base/build/core/out/map.gdb.bin)
 
             c. Click the "Disable auto build" radio button
 
             d. Enter the following data into the "Core file <additional-text>" textbox (via manual entry or "Browse..." button):
 
                   <path-to-binary-core-file>/<binary-core-file>
-                  i.e. /<path>/core.harris-cwp2.map.496
+                  (ex: /data/dataworkspace/corefiles/core.harris-cwp2.map.496)
 
       9. Click the "Apply" button
      10. Configure the entries on the "Debugger" tab
@@ -316,12 +338,12 @@ set output-radix 16
             a. Enter the following data into the "GDB Debugger" textbox (via manual entry or "Browse..." button):
 
                   <path-to-cross-compiled-debugger>/<cross-compiled-debugger-binary>
-                  i.e. /usr/src/gdb-7.12.1/gdb/gdb
+                  (ex: /usr/src/gdb-7.12.1/gdb/gdb)
 
             b. Enter the following data into the "GDB Command File" textbox (via manual entry or "Browse..." button):
 
                   <path-to-core-file-specific-debugger-initialization-file>/<core-file-specific-debugger-initialization-file>
-                  i.e. /home/jlaccone/workspace/coredump_targetfs/trunk_core_research_DE12345/.gdbinit
+                  (ex: /data/dataworkspace/coredump_targetfs/trunk_core_research_DE12345/.gdbinit)
 
      11. Click the "Apply" button
      12. Click the "Debug" button

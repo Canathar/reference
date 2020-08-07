@@ -1,4 +1,4 @@
-﻿
+
 
 
      TRC      Project     Activity     Work Code           Description
@@ -81,3 +81,14 @@ Reminder ****  Please make sure your timecard for this week has the new Work Cod
 	SW I&T	SW integration support and debug
 	SW Lead	SM, SW Lead, when performing these types of duties
 	SW SDA	SW SDA review
+
+      6 min  -->  .1 hr
+     12 min  -->  .2 hr
+     18 min  -->  .3 hr
+     24 min  -->  .4 hr
+     30 min  -->  .5 hr
+     36 min  -->  .6 hr
+     42 min  -->  .7 hr
+     48 min  -->  .8 hr
+     54 min  -->  .9 hr
+     60 min  -->   1 hr

@@ -1,0 +1,159 @@
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ VectorCAST_Jenkins_Setup.txt                                                                                                                                            ║
+║                                                                                                                                                                         ║
+║ Document Encoding           : UTF-8, UNIX Line Terminator                                                                                                               ║
+║ Document Best Viewed/Printed: Page{Ledger, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                                                         ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                            Revision History                                                                             ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development/Update/Maintenance Update                                                                                     ║
+║                                                                                                                                                                         ║
+║  1.00.20420.xx (22 Jul 20) - Initial Creation {J. Laccone}                                                                                                              ║
+║                                 Added header, added reference data                                                                                                      ║
+║  1.00.20520.xx (23 Jul 20) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added additional procedures                                                                                                             ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                Reference                                                                                ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║   VCS21 Embedded VectorCAST Docker Registry                                                                                                                             ║
+║   -----------------------------------------                                                                                                                             ║
+║      https://192.168.191.101/v2/vcs21_build_embedded/vcast/tags/list                                                                                                    ║
+║                                                                                                                                                                         ║
+║   VectorCAST Target Agent Job                                                                                                                                           ║
+║   ---------------------------                                                                                                                                           ║
+║      http://192.168.191.100/jenkins/view/Maintenance/job/VectorCAST_Target_Agent/                                                                                       ║
+║                                                                                                                                                                         ║
+║   VectorCAST Target Master Job                                                                                                                                          ║
+║   ----------------------------                                                                                                                                          ║
+║      http://192.168.191.100/jenkins/view/Maintenance/job/VectorCAST_Target_Master/                                                                                      ║
+║                                                                                                                                                                         ║
+║                                                                                                                                                                         ║
+║   VCSW21 Embedded VectorCAST Docker Image Source                                                                                                                        ║
+║   ----------------------------------------------                                                                                                                        ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Common/jenkins/docker/vcs21_build_embedded/vcast/                                               ║
+║                                                                                                                                                                         ║
+║   VectorCAST Target Agent Job Source                                                                                                                                    ║
+║   ----------------------------------                                                                                                                                    ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Common/jenkins/pipelines/VectorCASTTargetAgent.pipeline                                         ║
+║                                                                                                                                                                         ║
+║   VectorCAST Target Master Job Source                                                                                                                                   ║
+║   -----------------------------------                                                                                                                                   ║
+║      https://lnsvr0016.cs.myharris.net/vcs21/vcs21_src/vcs21/irad/trunk/Common/jenkins/pipelines/VectorCASTTargetMaster.pipeline                                        ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                   Notes                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║                                                                                                                                                                         ║
+║                                                                                                                                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                 Docker VectorCAST Jenkins Installation                                                                  ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Account Prerequisites
+   ═════════════════════
+      1. An account on the VCS21 configuration management repository
+      2. An account on the Jenkins server
+      3. OPTIONAL: An account on a Nexus artifact management repository
+
+
+   Repository/Registry Prerequisites
+   ═════════════════════════════════
+      1. A Docker Registry with the desired VCS21 Embedded VectorCAST image
+      2. OPTIONAL: A Nexus repository to store the test results
+
+
+   Server Prerequisites
+   ════════════════════
+      1. Docker configured on the Jenkins Master server
+      2. Docker installed/configured on the Jenkins Agent server (generates ephemeral Docker containers that will be used as Jenkins Agents)
+      3. An NFS share volume mounted on the Jenkins Agent server for VectorCAST Master and VectorCAST Agent jobs to save data
+      4. A VectorCAST license server with available VectorCAST licenses (ask management if unsure)
+
+
+   Hardware Prerequisites
+   ══════════════════════
+      1. A CWP device that can be remotely logged into via ssh from the Jenkins Agent server
+      2. An RMG device that can be remotely logged into via ssh from the Jenkins Agent server
+
+
+   Jenkins Agent NFS Share
+   ═══════════════════════
+      1. Open a terminal window
+      2. Using SSH, connect to the Jenkins Agent server
+      3. Verify that the following mount point is available by typing the following command(s) into the terminal window:
+         NOTE: For proper operation, this mount point should be in the /etc/fstab file
+
+            Mount Point: /mnt/vcs21_emb_unittest_working
+
+            Verifiation Commands
+            ────────────────────
+               Verify the mount-point is configured at boot  : cat /etc/fstab
+
+               Verify the mount-point is currently mounted   : df -h
+
+               Verify the mount-point is currently accessible: cd /mnt/vcs21_emb_unittest_working
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                       Jenkins VCS21 Embedded VectorCAST Master Job Configuration                                                        ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Pipeline Job Static Configuration
+   ═════════════════════════════════
+      1. Pull the "VectorCAST Target Master Job Source" pipeline file from the Subversion repository listed above
+      2. In the "Script Level Variables" section of the file, verify the following:
+
+            The "shareVol" value matches the mount point in the "Jenkins Agent NFS Share" procedure above
+            The "nexusBaseUrl" value matches the desired Nexus repository
+
+      3. In the "docker {}" pipeline section of the file, verify the following:
+
+            The IP address of the "image" command matches the desired Docker Registry
+            The tag (:xx.xx.xx) of the "image" command matches the desired VCS21 Embedded VectorCAST Docker image on the Docker Registry
+
+      4. If artifact upload to a Nexus repository is NOT desired, modify the "post { always{} }" section of the file as follows:
+
+            Comment out (or remove) the "withCredentials {}" block under the "archiveArtifacts" command
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                        Jenkins VCS21 Embedded VectorCAST Agent Job Configuration                                                        ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Pipeline Job Static Configuration
+   ═════════════════════════════════
+      1. Pull the "VectorCAST Target Agent Job Source" pipeline file from the Subversion repository listed above
+      2. In the "Script Level Variables" section of the file, verify the following:
+
+            The "shareVol" value matches the mount point in the "Jenkins Agent NFS Share" procedure above
+
+      3. In the "docker {}" pipeline section of the file, verify the following:
+
+            The IP address of the "image" command matches the desired Docker Registry
+            The tag (:xx.xx.xx) of the "image" command matches the desired VCS21 Embedded VectorCAST Docker image on the Docker Registry
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                         Jenkins VCS21 Embedded VectorCAST Master Job Execution                                                          ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Pipeline Job Parameter Configuration
+   ════════════════════════════════════
+      1. When running the pipeline job, the following parameters can be configured to modify test execution:
+
+            clearVolume: Check this parameter to delete ALL data from the NFS share volume, copy new source files to NFS share volume and
+                         re-run the embedded environment setup. This is used to allow for job executions to be executed on existing data vs new data.
+                         This parameter should be checked (true) for an initial run
+
+            archiveFileBase: The base file name for the resulting job artifacts
+
+            cwpIP: The IPv4 address of the target CWP device
+
+            rmgIP: The IPv4 address of the target RMG device
