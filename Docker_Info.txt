@@ -229,7 +229,7 @@
       9. To customize the docker configuration file, open the config file by typing the following command(s) into the terminal window:
          NOTE: The file daemon.json and/or the directory /etc/docker may not exist. Create either/both as necessary
 
-            gedit /etc/docker/daemon.json &
+            sudo gedit /etc/docker/daemon.json &
 
      10. To enable experimental functions in docker, add the following lines to the daemon.json file
 
@@ -268,15 +268,15 @@
      11. Save the file and exit gedit
      12. Add the docker group (may already be added during installation) by typing the following command(s) into the terminal window:
 
-            groupadd docker
+            sudo groupadd docker
 
      13. Add your username to the docker group by typing the following command(s) into the terminal window:
 
-            usermod -aG docker $USER
+            sudo usermod -aG docker $USER
 
      14. Enable the docker service to run at startup by typing the following command(s) into the terminal window:
 
-            systemctl enable docker
+            sudo systemctl enable docker
 
      15. Install the necessary docker certificates by typing the following command(s) into the terminal window:
 
@@ -290,7 +290,7 @@
 
      16. Start the docker service by typing the following command(s) into the terminal window:
 
-            systemctl start docker
+            sudo systemctl start docker
 
      17. Verify the docker service is configured correctly by typing the following command(s) into the terminal window:
 
