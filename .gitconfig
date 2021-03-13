@@ -1,0 +1,35 @@
+[alias]
+   # Checkout Aliases
+   devel = checkout development
+
+
+   # Command Aliases
+   st = !"git status"
+
+
+   # Logging Aliases
+   lg = log --oneline --graph --decorate --all
+   lg1 = !"git lg1-fmt --graph --abbrev-commit --decorate --all"
+
+
+   # ===== Logging Format Strings =====
+   # See: man git log (search for format:<string>
+
+   # L1 FMT (Single Line Short)
+   lg1-fmt = log --format=format:'%C(bold blue)%h%Creset - %C(bold cyan)(auth: %C(bold green)%ar%C(bold cyan))%Creset %C(white)%s%Creset%C(dim white) - %an%Creset%C(auto)%d%Creset'
+
+
+[merge]
+   tool = vimdiff
+
+
+[user]
+   name = Laccone, Joseph
+   email = canathar@gmail.com
+
+
+[color]
+   interactive = true
+   srtatus = true
+   ui = true
+
