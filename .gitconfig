@@ -1,22 +1,48 @@
 [alias]
-   # Checkout Aliases
+   # Development Checkout Aliases
    devel = checkout development
+
+
+   # Release Checkout Aliases
+
+
+   # Bugfix Checkout Aliases
+
+
+   # Feature Checkout Aliases
 
 
    # Command Aliases
    st = !"git status"
 
 
+   # Diff Aliases
+   dbdev =  !"git diff --name-only developemnt..."
+   dbmast = !"git diff --name-only master..."
+
+
    # Logging Aliases
-   lg = log --oneline --graph --decorate --all
-   lg1 = !"git lg1-fmt --graph --abbrev-commit --decorate --all"
+   lg   = log --oneline --graph --decorate --all
+   lg1  = !"git lg1-fmt --graph --abbrev-commit --decorate --all"
+   lg2  = !"git lg2-fmt --graph --abbrev-commit --decorate --all"
+   lg1l = !"git lg1l-fmt --graph --abbrev-commit --decorate --all"
+   lg2l = !"git lg2l-fmt --graph --abbrev-commit --decorate --all"
 
 
    # ===== Logging Format Strings =====
    # See: man git log (search for format:<string>
 
-   # L1 FMT (Single Line Short)
-   lg1-fmt = log --format=format:'%C(bold blue)%h%Creset - %C(bold cyan)(auth: %C(bold green)%ar%C(bold cyan))%Creset %C(white)%s%Creset%C(dim white) - %an%Creset%C(auto)%d%Creset'
+   # L1 Fmt (Single Line Short)    -- abv commit hash --    ------------------ relative auth date ------------------   ---- subject ----  ----- author name -----   -- ref names --
+   lg1-fmt = log --format=format:'%C(bold blue)%h%Creset - %C(bold cyan)(auth: %C(bold green)%ar%C(bold cyan))%Creset %C(white)%s%Creset %C(dim white) - %an%Creset%C(auto)%d%Creset'
+
+   # L1l Fmt (Single Line Long)     -- abv commit hash --    --------------- RFC2822 auth date / relative auth date ---------------   ---- subject ----  ----- author name -----   -- ref names --
+   lg1l-fmt = log --format=format:'%C(bold blue)%h%Creset - %C(bold cyan)(auth: %aD%Creset -  %C(bold green)%ar%C(bold cyan))%Creset %C(white)%s%Creset %C(dim white) - %an%Creset%C(auto)%d%Creset'
+
+   # L2 Fmt (Multi-Line Short)     -- abv commit hash --    ------------------ relative auth date ------------------  -- ref names -- -nl-    ---- subject ----  ----- author name -----  -nl-
+   lg2-fmt = log --format=format:'%C(bold blue)%h%Creset - %C(bold cyan)(auth: %C(bold green)%ar%C(bold cyan))%Creset%C(auto)%d%Creset%n     %C(white)%s%Creset %C(dim white) - %an%Creset%n'
+
+   # L2l Fmt (Multi-Line Long)      -- abv commit hash --    --------------- RFC2822 auth date / relative auth date ---------------  -- ref names -- -nl-    ---- subject ----  ----- author name -----  -nl-
+   lg2l-fmt = log --format=format:'%C(bold blue)%h%Creset - %C(bold cyan)(auth: %aD%Creset -  %C(bold green)%ar%C(bold cyan))%Creset%C(auto)%d%Creset%n     %C(white)%s%Creset %C(dim white) - %an%Creset%n'
 
 
 [merge]
