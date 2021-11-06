@@ -6,6 +6,7 @@ This repository contains all of the tidbits of knowledge collected over the year
 
 ## File List
 | File Name | Description |
+| --------- | ----------- |
 | .gitconfig | Configuration file for git |
 | tcpdump.txt | List of commands to use with commnd line tcpdump |
 <br><br><br>
