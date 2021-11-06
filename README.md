@@ -14,7 +14,7 @@ This repository contains all of the tidbits of knowledge collected over the year
 
 ## Reference
 
-*Git Home Page*
+**Git Home Page**<br>
 https://git-scm.com/
 <br><br><br>
 
