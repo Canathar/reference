@@ -1,7 +1,7 @@
 ﻿╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
 ║ Packet_Capture.txt                                                                                                              ║
 ║                                                                                                                                 ║
-║ Document Best Viewed/Printed: Page{Letter, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                 ║
+║ Document Best Viewed/Printed: Page{Letter, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt} {{{             ║
 ║                                                                                                                                 ║
 ╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                        Revision History                                                         ║
@@ -44,13 +44,13 @@
 ║   PCAP-FILTER Info                                                                                                              ║
 ║   ----------------                                                                                                              ║
 ║      http://www.tcpdump.org/manpages/pcap-filter.7.html                                                                         ║
-║                                                                                                                                 ║
+║ }}}                                                                                                                             ║
 ╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
 ╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
 ║                                                         Installing Wireshark                                                    ║
 ╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
-
+{{{
    Repository Configuration
    ════════════════════════
       1. Open a terminal window as a root user
@@ -109,14 +109,14 @@
             ./configure
             make -j <number-of-processors>
             make install -j <number-of-processors>
-
+}}}
 
 
 
 ╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
 ║                                                            Packet Capture                                                       ║
 ╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
-
+{{{
    Harris Devices (cwp, rmg) Use The Following
    ═══════════════════════════════════════════
       tcpdump Version 4.1.1
@@ -178,4 +178,4 @@
             ssh <user>@<ip-address> "tcpdump <options> -w -" | wireshark <options> -i -
             (ex: ssh root@192.168.1.1 "tcpdump -Uvv -s 0 -A -i eth0 not port 22 -w -" | wireshark -k -s 262144 -i -)
             (ex: ssh root@10.9.40.27 "tcpdump -Uvv -s 0 -A -i prp0 not port 22 and src host 10.9.40.164 -w -" | wireshark -k -s 262144 -i -)
-
+}}}
