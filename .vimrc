@@ -6,6 +6,17 @@
 
 let mapleader = " "
 
+" ========================================================
+" ---------- Initialize Plugin Manager: Plugged ----------
+" ========================================================
+call plug#begin('~/.vim/plugged')
+
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+call plug#end()
+
+
 " =================================
 " ---------- Basic Stuff ----------
 " =================================
@@ -20,6 +31,8 @@ let mapleader = " "
 
    set nowrap
    set smartcase
+
+   set incsearch
 
 
 " ===========================================
