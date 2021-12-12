@@ -56,8 +56,10 @@ let mapleader = " "
    nnoremap <silent> <leader>l :wincmd l<CR>
 
    " Shortcutting window resizing
-   nnoremap <silent> <leader>+ :resize +5<CR>
-   nnoremap <silent> <leader>- :resize -5<CR>
+   nnoremap <silent> <leader>h+ :resize +5<CR>
+   nnoremap <silent> <leader>h- :resize -5<CR>
+   nnoremap <silent> <leader>v+ :vertical :resize +5<CR>
+   nnoremap <silent> <leader>v- :vertical :resize -5<CR>
 
 
 " =================================
