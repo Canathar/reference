@@ -1,6 +1,14 @@
+"        _
+" __   _(_)_ __ ___  _ __ ___
+" \ \ / / | '_ ` _ \| '__/ __|
+"  \ V /| | | | | | | | | (__
+"   \_/ |_|_| |_| |_|_|  \___|
+
 let mapleader = " "
 
-" Basic Stuff
+" =================================
+" ---------- Basic Stuff ----------
+" =================================
    syntax on
 
    set encoding=utf-8
@@ -14,39 +22,60 @@ let mapleader = " "
    set smartcase
 
 
-" Display configuration
+" ===========================================
+" ---------- Display Configuration ----------
+" ===========================================
    colorscheme desert
    "colorscheme elflord
    set colorcolumn=132
    highlight ColorColumn ctermbg=lightgrey guibg=lightgrey
 
 
-" Automatically delete all trailing space on save
+" ===================================
+" ---------- File Handling ----------
+" ===================================
+
+   " Automatically delete all trailing space on save
    autocmd BufWritePre * %s/\s\+$//e
 
-
-" Enable Autocompletion
+   " Enable Autocompletion
    set wildmode=longest,list,full
 
 
-" Split functionality
+" ================================================
+" ---------- Split/Window Functionality ----------
+" ================================================
+
+   " Splits open at the bottom and right
    set splitbelow splitright
-   nnoremap <C-H> <C-W><C-H>
-   nnoremap <C-J> <C-W><C-J>
-   nnoremap <C-K> <C-W><C-K>
-   nnoremap <C-L> <C-W><C-L>
+
+   " Shortcutting window navigation
+   nnoremap <silent> <leader>h :wincmd h<CR>
+   nnoremap <silent> <leader>j :wincmd j<CR>
+   nnoremap <silent> <leader>k :wincmd k<CR>
+   nnoremap <silent> <leader>l :wincmd l<CR>
+
+   " Shortcutting window resizing
+   nnoremap <silent> <leader>+ :resize +5<CR>
+   nnoremap <silent> <leader>- :resize -5<CR>
 
 
-" Git Merge - file search maps
-   map lo : /<<<<<<< HEAD<ENTER>
-   map br : /=======<ENTER>
-   map re : />>>>>>> <ENTER>
-   map LO : ?<<<<<<< HEAD<ENTER>
-   map BR : ?=======<ENTER>
-   map RE : ?>>>>>>> <ENTER>
+" =================================
+" ---------- Search Maps ----------
+" =================================
+
+   " Git Merge - file search maps
+   map <silent> <leader>lo : /<<<<<<< HEAD<ENTER>
+   map <silent> <leader>br : /=======<ENTER>
+   map <silent> <leader>re : />>>>>>> <ENTER>
+   map <silent> <leader>LO : ?<<<<<<< HEAD<ENTER>
+   map <silent> <leader>BR : ?=======<ENTER>
+   map <silent> <leader>RE : ?>>>>>>> <ENTER>
 
 
-" Difference configuration
+" ==============================================
+" ---------- Difference Configuration ----------
+" ==============================================
 if &diff
 
    " Location Marker
@@ -57,7 +86,6 @@ if &diff
 
    " Next Difference (backward)
    map [ [c
-
 
 endif
 
