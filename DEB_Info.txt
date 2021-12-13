@@ -46,96 +46,53 @@
 ╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
 ╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                                                           Common Query                                                          ║
+║                                                    Stand Alone Package Query                                                    ║
 ╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
-   Determine What Query Tags rpm Supports
-   ══════════════════════════════════════
-      1. Open a terminal window
-      2. Login as the superuser (root on CentOS/RHEL)
-      3. Display the query tags rpm supports by typing the following command(s) into the terminal window:
-
-            rpm --querytags
-
-
-   Determine What Query Tags repoquery Supports
-   ════════════════════════════════════════════
-      1. Open a terminal window
-      2. Login as the superuser (root on CentOS/RHEL)
-      3. Display the query tags repoquery supports by typing the following command(s) into the terminal window:
-
-            repoquery --querytags
-
-
-
-╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                                                                        Stand Alone Package Query                                                                        ║
-╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
-
-   Display The Detailed Information For A Stand Alone RPM Package File
+   Display The Detailed Information For A Stand Alone DEB Package File
    ═══════════════════════════════════════════════════════════════════
       1. Open a terminal window
-      2. Login as the superuser (root on CentOS/RHEL)
-      3. Display the detailed info for an rpm package by typing the following command(s) into the terminal window:
+      2. Display the detailed info for a deb package by typing the following command(s) into the terminal window:
 
-            rpm -qip <file-name>
-            (ex: rpm -qip net-snmp-gui-5.7.2-33.el7_5.2.x86_64.rpm)
+            sudo dpkg -I <file-name>
+            (ex: sudo dpkg -I uex_20.00.0.34_amd64.deb)
 
 
-   Display The Detailed File Layout For A Stand Alone RPM Package
+   Display The Detailed File Layout For A Stand Alone DEB Package
    ══════════════════════════════════════════════════════════════
       1. Open a terminal window
-      2. Login as the superuser (root on CentOS/RHEL)
-      3. Display the detailed file layout for an rpm package by typing the following command(s) into the terminal window:
+      2. Display the detailed file layout for a deb package by typing the following command(s) into the terminal window:
 
-            rpm -qvlp <file-name>
-            (ex: rpm -qvlp net-snmp-gui-5.7.2-33.el7_5.2.x86_64.rpm)
-
+            sudo dpkg -c <file-name>
+            (ex: sudo dpkg -c uex_20.00.0.34_amd64.deb)
 
 
-╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                                                                         Installed Package Query                                                                         ║
-╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
-   Display All The Installed RPM Packages
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                     Installed Package Query                                                     ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Display All The Installed DEB Packages
    ══════════════════════════════════════
       1. Open a terminal window
-      2. Login as the superuser (root on CentOS/RHEL)
-      3. Display the installed rpm packages by typing the following command(s) into the terminal window:
-         Note: The list will have three columns showing: source repo, installed package, name
+      2. Display the installed deb packages by typing the following command(s) into the terminal window:
 
-            repoquery -a --installed --qf "%-30{ui_from_repo} %-105{nevra} %{name}"
-
-      4. Display the rpm packages installed outside of yum by typing the following command(s) into the terminal window:
-
-            repoquery -a --installed --qf "%-30{ui_from_repo} %-105{nevra} %{name}" | grep installed
+            sudo dpkg -l
 
 
-   Determine What Package A File Is Part Of
-   ════════════════════════════════════════
-      1. Open a terminal window
-      2. Login as the superuser (root on CentOS/RHEL)
-      3. Display the package containing a specified file by typing the following command(s) into the terminal window:
-
-            rpm -q --whatprovides <file-name>
-            (ex: rpm -q --whatprovides /usr/bin/netstat)
-
-
-   Display The Detailed Information For An Installed RPM Package
+   Display The Detailed Information For An Installed DEB Package
    ═════════════════════════════════════════════════════════════
       1. Open a terminal window
-      2. Login as the superuser (root on CentOS/RHEL)
-      3. Display the detailed info for an rpm package by typing the following command(s) into the terminal window:
+      2. Display the detailed info for a deb package by typing the following command(s) into the terminal window:
 
-            rpm -qi <package> or <name>
-            (ex: rpm -qi net-snmp)
+            sudo dpkg -p <package> or <name>
+            (ex: sudo dpkg -p xxd)
 
 
-   Display The Detailed File Layout For An Installed RPM Package
+   Display The Detailed File Layout For An Installed DEB Package
    ═════════════════════════════════════════════════════════════
       1. Open a terminal window
-      2. Login as the superuser (root on CentOS/RHEL)
-      3. Display the detailed file layout for an rpm package by typing the following command(s) into the terminal window:
+      2. Display the detailed file layout for a deb package by typing the following command(s) into the terminal window:
 
-            rpm -qvl <package> or <name>
-            (ex: rpm -qvl net-snmp)
+            sudo dpkg -L <package> or <name>
+            (ex: sudo dpkg -L xxd)
