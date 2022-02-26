@@ -8,6 +8,7 @@
 [alias]
 
    # Master Checkout Aliases
+   main = checkout main
    master = checkout master
 
    # Development Checkout Aliases
@@ -21,6 +22,7 @@
 
 
    # Feature Checkout Aliases
+   feahw2 = checkout feature/HW0002-Add-usage-command-line-argument-option-processing-main
 
 
    # Command Aliases
