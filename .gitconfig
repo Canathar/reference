@@ -30,9 +30,13 @@
    st = !"git status"
 
 
-   # Diff Aliases
-   dbdev =  !"git diff --name-only developemnt..."
-   dbmast = !"git diff --name-only master..."
+  # Diff Between Detail (Diff Aliases)
+   dbddev  = !"git diff devel..."
+
+
+   # Diff Between (Diff Aliases)
+   dbdev   = !"git diff --name-only development..."
+   dbmast  = !"git diff --name-only master..."
 
 
    # Logging Aliases
@@ -57,9 +61,20 @@
 
    # L2l Fmt (Multi-Line Long)      -- abv commit hash --    --------------- RFC2822 auth date / relative auth date ---------------  -- ref names -- -nl-    ---- subject ----  ----- author name -----  -nl-
    lg2l-fmt = log --format=format:'%C(bold blue)%h%Creset - %C(bold cyan)(auth: %aD%Creset -  %C(bold green)%ar%C(bold cyan))%Creset%C(auto)%d%Creset%n     %C(white)%s%Creset %C(dim white) - %an%Creset%n'
+   
+   
+   # ===== File Tracking Aliases =====
+
+   # Command To Show What Files Are In The Index, But Updates Are Not Tracked
+   trk-ls = !"git ls-files -v . | grep ^S"
+
+
+[difftool]
+   prompt = false
 
 
 [merge]
+   #tool = bc3
    tool = vimdiff
 
 
