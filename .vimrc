@@ -45,6 +45,9 @@ call plug#end()
    "colorscheme elflord
    set colorcolumn=132
    highlight ColorColumn ctermbg=lightgrey guibg=lightgrey
+   
+   " Non-Printable characters (tab: dig >>, trail: dig .M)
+   set lcs=tab:»_,trail:·
 
 
 " ===================================
