@@ -3,6 +3,13 @@ if [ -e /etc/bashrc ] ; then
    source /etc/bashrc
 fi
 
+
+# Add the alias configurations
+if [ -f ~/.bash_aliases ] ; then
+   source ~/.bash_aliases
+fi
+
+
 # ECMA-48 Set Graphics Rendition (SGR) Sequences
 # See: man console_codes for further reference
 # Define the ANSI graphics colors to use with the console
@@ -64,8 +71,3 @@ export LESS_TERMCAP_us=$'\E[04;38;5;146m'
 # ====================================================
 # ---------- END: Less Colors For Man Pages ----------
 # ====================================================
-
-alias cn='cd /data/code-notes'
-alias data='cd /data'
-alias scripts='cd /data/scripts'
-
