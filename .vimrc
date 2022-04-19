@@ -9,8 +9,10 @@ let mapleader = " "
 " ========================================================
 " ---------- Initialize Plugin Manager: Plugged ----------
 " ========================================================
+" see: https://github.com/junegunn/vim-plug
 call plug#begin('~/.vim/plugged')
 
+" https://github.com/vim-airline/vim-airline
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
@@ -23,6 +25,7 @@ call plug#end()
    syntax on
 
    set encoding=utf-8
+   set textwidth=132
    set tabstop=3 softtabstop=3
    set shiftwidth=3
    set expandtab
@@ -96,11 +99,19 @@ if &diff
    " Location Marker
    set cursorline
 
+
    " Next Difference (forward)
    map ] ]c
 
    " Next Difference (backward)
    map [ [c
 
-endif
 
+   " Colors
+   "    Display all the current colors using :hi or a specific group with :hi <group>
+   hi DiffAdd    ctermfg=233 ctermbg=LightGreen guifg=#003300 guibg=#DDFFDD gui=none cterm=none
+   hi DiffChange ctermbg=LightGray guibg=#ECECEC gui=none cterm=none
+   hi DiffDelete ctermfg=233 ctermbg=Red gui=none cterm=none
+   hi DiffText   ctermfg=233 ctermbg=yellow guifg=#000033 guibg=#DDDDFF gui=none cterm=none
+
+endif
