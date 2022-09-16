@@ -6,8 +6,19 @@
 
 let mapleader = " "
 
+" For script creation reference, see the Vimscript Cheatsheet
+" https://github.com/johngrib/vimscript-cheatsheet
+
 " ========================================================
 " ---------- Initialize Plugin Manager: Plugged ----------
+" ========================================================
+" -- Quick Reference                                    --
+" -- ---------------                                    --
+" --    :PlugInstall - Install plugins                  --
+" --    :PlugUpdate  - Install or update pluigns        --
+" --    :PlugStatus  - Check the status of plugins      --
+" --    :PlugUpdate  - Install or update pluigns        --
+" --    :PlugDiff    - Changes since last update        --
 " ========================================================
 " see: https://github.com/junegunn/vim-plug
 call plug#begin('~/.vim/plugged')
@@ -15,6 +26,9 @@ call plug#begin('~/.vim/plugged')
 " https://github.com/vim-airline/vim-airline
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+
+" https://github.com/vim-scripts/CharTab
+Plug 'vim-scripts/CharTab'
 
 call plug#end()
 
