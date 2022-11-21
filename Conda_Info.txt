@@ -1,0 +1,124 @@
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗ 
+║ Conda_Info.txt                                                                                                                  ║ 
+║                                                                                                                                 ║ 
+║ Document Best Viewed/Printed: Page{Letter, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                 ║ 
+║                                                                                                                                 ║ 
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣ 
+║                                                         Revision History                                                        ║ 
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣ 
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                             ║ 
+║                                                                                                                                 ║ 
+║  1.00.30422.xx (31 Oct 22) - Initial Creation {J. Laccone}                                                                      ║ 
+║                                 Added header, added reference data                                                              ║ 
+║                                                                                                                                 ║ 
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣ 
+║                                                            Reference                                                            ║ 
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣ 
+║                                                                                                                                 ║ 
+║   Anaconda/Miniconda                                                                                                            ║ 
+║   ------------------                                                                                                            ║ 
+║      https://en.wikipedia.org/wiki/Anaconda_(Python_distribution)                                                               ║ 
+║      https://repo.anaconda.com/                                                                                                 ║ 
+║      https://repo.anaconda.com/archive/                                                                                         ║ 
+║      https://repo.anaconda.com/miniconda/                                                                                       ║ 
+║                                                                                                                                 ║ 
+║   Conda                                                                                                                         ║ 
+║   -----                                                                                                                         ║ 
+║      https://en.wikipedia.org/wiki/Conda_(package_manager)                                                                      ║ 
+║      https://conda.io/projects/conda/en/latest/user-guide/cheatsheet.html                                                       ║ 
+║      https://docs.conda.io/en/latest/                                                                                           ║ 
+║      https://github.com/conda/conda                                                                                             ║ 
+║                                                                                                                                 ║ 
+║   How To Install Anaconda On AlmaLinux 8                                                                                        ║ 
+║   --------------------------------------                                                                                        ║ 
+║      https://idroot.us/install-anaconda-almalinux-8/                                                                            ║ 
+║                                                                                                                                 ║ 
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝ 
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗ 
+║                                                         Environments                                                            ║ 
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝ 
+                                                                                                                                    
+   Display Conda Environments                                                                                                       
+   ══════════════════════════                                                                                                       
+      1. Open a terminal window                                                                                                     
+      2. Display all conda environments by typing the following command(s) into the terminal window:                                
+                                                                                                                                    
+            conda env list                                                                                                          
+                                                                                                                                    
+                                                                                                                                    
+   Change To A Conda Environment                                                                                                    
+   ═════════════════════════════                                                                                                    
+      1. Open a terminal window                                                                                                     
+      2. Change to a conda environment by typing the following command(s) into the terminal window:                                 
+                                                                                                                                    
+            conda activate <environment-name>                                                                                       
+                                                                                                                                    
+                                                                                                                                    
+   Exit A Conda Environment                                                                                                         
+   ════════════════════════                                                                                                         
+      1. Open a terminal window                                                                                                     
+      2. Exit a conda environment by typing the following command(s) into the terminal window:                                      
+                                                                                                                                    
+            conda deactivate                                                                                                        
+                                                                                                                                    
+                                                                                                                                    
+   Display Revisions Of A Conda Environment                                                                                         
+   ════════════════════════════════════════                                                                                         
+      1. Open a terminal window                                                                                                     
+      2. Display all revisions of a conda environment by typing the following command(s) into the terminal window:                  
+                                                                                                                                    
+            conda list -n <environment-name> --revisions                                                                            
+                                                                                                                                    
+                                                                                                                                    
+   Install Package(s) Into A Conda Environment                                                                                      
+   ═══════════════════════════════════════════                                                                                      
+      1. Open a terminal window                                                                                                     
+      2. Install packages into a conda environment by typing the following command(s) into the terminal window:                     
+                                                                                                                                    
+            conda install -n <environment-name> <pkg1> [<pkg2> ... <pkgN>]                                                          
+
+
+   Display Packages In A Conda Environment                                                                                         
+   ═══════════════════════════════════════                                                                                         
+      1. Open a terminal window                                                                                                    
+      2. Display all packages in a conda environment by typing the following command(s) into the terminal window:                  
+                                                                                                                                   
+            conda list -n <environment-name> --show-channel-url                                                                    
+                                                                                                                                   
+                                                                                                                                   
+   Update All Packages In A Conda Environment                                                                                      
+   ══════════════════════════════════════════                                                                                      
+      1. Open a terminal window                                                                                                    
+      2. Update all packages in a conda environment by typing the following command(s) into the terminal window:                   
+                                                                                                                                   
+            conda update --all -n <environment-name>                                                                               
+                                                                                                                                   
+                                                                                                                                   
+   Clone An Existing Conda Environment Into A New Conda Environment                                                                
+   ════════════════════════════════════════════════════════════════                                                                
+      1. Open a terminal window                                                                                                    
+      2. Clone an existing conda environment into a new conda environment by typing                                                
+         the following command(s) into the terminal window:                                                                        
+                                                                                                                                   
+            conda create --clone <existing-environment-name> -n <new-environment-name>                                             
+                                                                                                                                   
+                                                                                                                                   
+   Python Package Configuration Within A Conda Environment For Bare Minimum Development                                            
+   ════════════════════════════════════════════════════════════════════════════════════                                            
+      1. Open a terminal window                                                                                                    
+      2. Activate a conda environment                                                                                              
+      3. Configure the python packages necessary for bare minimum development by typing the                                        
+         following command(s) into the terminal window:                                                                            
+                                                                                                                                   
+         Display The Package Manager Configuration                                                                                 
+         -----------------------------------------                                                                                 
+            pip show pip                                                                                                           
+                                                                                                                                   
+         Display The Installed Packages                                                                                            
+         ------------------------------                                                                                            
+            pip list                                                                                                               
+                                                                                                                                   
+         Install The Following Packages (If Not In The List Above)                                                                 
+         ---------------------------------------------------------                                                                 
+            pip install pylint pycodestyle pydocstyle                                                                              
