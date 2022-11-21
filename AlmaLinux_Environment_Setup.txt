@@ -1,0 +1,99 @@
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ AlmaLinux_Environment_Setup.txt                                                                                                 ║
+║                                                                                                                                 ║
+║ Document Best Viewed/Printed: Page{Letter, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                 ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                         Revision History                                                        ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                             ║
+║                                                                                                                                 ║
+║  1.00.24222.xx (30 Aug 22) - Initial Creation {J. Laccone}                                                                      ║
+║                                 Added header, added reference data                                                              ║
+║  1.01.30422.xx (31 Oct 22) - Development Update {J. Laccone}                                                                    ║
+║                                 Added Anaconda installation/configuration data                                                  ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                            Reference                                                            ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                 ║
+║   AlamaLinux                                                                                                                    ║
+║   ----------                                                                                                                    ║
+║      https://almalinux.org                                                                                                      ║
+║      https://github.com/AlmaLinux                                                                                               ║
+║      https://en.wikipedia.org/wiki/AlmaLinux                                                                                    ║
+║                                                                                                                                 ║
+║   How To Enable PowerTools Repository On AlmaLinux 8                                                                            ║
+║   --------------------------------------------------                                                                            ║
+║      https://idroot.us/enable-powertools-repository-almalinux-8                                                                 ║
+║                                                                                                                                 ║
+║   How To Install Python On AlmaLinux 8                                                                                          ║
+║   ------------------------------------                                                                                          ║
+║      https://osnote.com/how-to-install-python-on-almalinux-8/                                                                   ║
+║                                                                                                                                 ║
+║   How To Install MATE Desktop On AlmaLinux 8                                                                                    ║
+║   ------------------------------------------                                                                                    ║
+║      https://copr.fedorainfracloud.org/coprs/stenstorp/MATE                                                                     ║
+║      https://access.redhat.com/discussions/5358191                                                                              ║
+║                                                                                                                                 ║
+║   How To Install Cinnamon Desktop On AlmaLinux 8                                                                                ║
+║   ----------------------------------------------                                                                                ║
+║      https://idroot.us/install-cinnamon-desktop-almalinux-8                                                                     ║
+║                                                                                                                                 ║
+║   How To Install Docker On AlmaLinux 8                                                                                          ║
+║   ------------------------------------                                                                                          ║
+║      https://idroot.us/install-docker-almalinux-8                                                                               ║
+║                                                                                                                                 ║
+║   How To Install Anaconda On AlmaLinux 8                                                                                        ║
+║   --------------------------------------                                                                                        ║
+║      https://idroot.us/install-anaconda-almalinux-8/                                                                            ║
+║                                                                                                                                 ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                        Repositories                                                             ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+                                                                                                                                   
+   Install Extra Repositories (epel, powertools)                                                                                   
+   ═════════════════════════════════════════════                                                                                   
+      1. Open a terminal window                                                                                                    
+      2. Install the epel and powertools repositories typing the following command(s) into the terminal window:                    
+                                                                                                                                   
+            sudo dnf update -y                                                                                                     
+            sudo dnf install dnf-plugins-core -y                                                                                   
+            sudo dnf install epel-release -y                                                                                       
+            sudo dnf config-manager --set-enabled powertools                                                                       
+            sudo dnf repolist                                                                                                      
+            sudo dnf repo-pkgs powertools list                                                                                     
+                                                                                                                                   
+                                                                                                                                   
+                                                                                                                                   
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                            Python                                                               ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+                                                                                                                                   
+   Install Logical Volume Manager (lvm2)                                                                                           
+   ═════════════════════════════════════                                                                                           
+      1. Open a terminal window                                                                                                    
+      2. Update the repo by typing the following command(s) into the terminal window:                                              
+                                                                                                                                   
+            sudo dnf update -y                                                                                                     
+                                                                                                                                   
+   sudo alternatives --display python                                                                                              
+                                                                                                                                   
+                                                                                                                                   
+sudo dnf install epel-release                                                                                                      
+                                                                                                                                   
+sudo dnf grouplist                                                                                                                 
+sudo dnf grouplist hidden                                                                                                          
+                                                                                                                                   
+                                                                                                                                   
+                                                                                                                                   
+COPR - Cool Other Packages Repo                                                                                                    
+                                                                                                                                   
+sudo dnf copr enable stenstorp/MATE                                                                                                
+                                                                                                                                   
+sudo systemctl disable gdm                                                                                                         
+sudo systemctl enable lightdm                                                                                                      
+                                                                                                                                   
+
