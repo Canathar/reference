@@ -53,47 +53,47 @@
 ╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
 ║                                                        Repositories                                                             ║
 ╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
-                                                                                                                                   
-   Install Extra Repositories (epel, powertools)                                                                                   
-   ═════════════════════════════════════════════                                                                                   
-      1. Open a terminal window                                                                                                    
-      2. Install the epel and powertools repositories typing the following command(s) into the terminal window:                    
-                                                                                                                                   
-            sudo dnf update -y                                                                                                     
-            sudo dnf install dnf-plugins-core -y                                                                                   
-            sudo dnf install epel-release -y                                                                                       
-            sudo dnf config-manager --set-enabled powertools                                                                       
-            sudo dnf repolist                                                                                                      
-            sudo dnf repo-pkgs powertools list                                                                                     
-                                                                                                                                   
-                                                                                                                                   
-                                                                                                                                   
+
+   Install Extra Repositories (epel, powertools)
+   ═════════════════════════════════════════════
+      1. Open a terminal window
+      2. Install the epel and powertools repositories typing the following command(s) into the terminal window:
+
+            sudo dnf update -y
+            sudo dnf install dnf-plugins-core -y
+            sudo dnf install epel-release -y
+            sudo dnf config-manager --set-enabled powertools
+            sudo dnf repolist
+            sudo dnf repo-pkgs powertools list
+
+
+
 ╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
 ║                                                            Python                                                               ║
 ╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
-                                                                                                                                   
-   Install Logical Volume Manager (lvm2)                                                                                           
-   ═════════════════════════════════════                                                                                           
-      1. Open a terminal window                                                                                                    
-      2. Update the repo by typing the following command(s) into the terminal window:                                              
-                                                                                                                                   
-            sudo dnf update -y                                                                                                     
-                                                                                                                                   
-   sudo alternatives --display python                                                                                              
-                                                                                                                                   
-                                                                                                                                   
-sudo dnf install epel-release                                                                                                      
-                                                                                                                                   
-sudo dnf grouplist                                                                                                                 
-sudo dnf grouplist hidden                                                                                                          
-                                                                                                                                   
-                                                                                                                                   
-                                                                                                                                   
-COPR - Cool Other Packages Repo                                                                                                    
-                                                                                                                                   
-sudo dnf copr enable stenstorp/MATE                                                                                                
-                                                                                                                                   
-sudo systemctl disable gdm                                                                                                         
-sudo systemctl enable lightdm                                                                                                      
-                                                                                                                                   
+
+   Install Logical Volume Manager (lvm2)
+   ═════════════════════════════════════
+      1. Open a terminal window
+      2. Update the repo by typing the following command(s) into the terminal window:
+
+            sudo dnf update -y
+
+   sudo alternatives --display python
+
+
+sudo dnf install epel-release
+
+sudo dnf grouplist
+sudo dnf grouplist hidden
+
+
+
+COPR - Cool Other Packages Repo
+
+sudo dnf copr enable stenstorp/MATE
+
+sudo systemctl disable gdm
+sudo systemctl enable lightdm
+
 
