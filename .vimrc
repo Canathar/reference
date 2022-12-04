@@ -21,6 +21,20 @@ let mapleader = " "
 " --    :PlugDiff    - Changes since last update        --
 " ========================================================
 " see: https://github.com/junegunn/vim-plug
+
+" Check to see if Plugged is downloaded
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+
+   " Download Plugged
+   silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+
+   " Install Plugged and all plugins
+   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+
+endif
+
+" Activate Plugged
 call plug#begin('~/.vim/plugged')
 
 " https://github.com/vim-airline/vim-airline
@@ -59,7 +73,7 @@ call plug#end()
    "colorscheme elflord
    set colorcolumn=132
    highlight ColorColumn ctermbg=lightgrey guibg=lightgrey
-   
+
    " Non-Printable characters (tab: dig >>, trail: dig .M)
    set lcs=tab:»_,trail:·
 
