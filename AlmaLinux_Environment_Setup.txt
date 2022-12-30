@@ -86,7 +86,7 @@ sudo dnf install epel-release
 
 sudo dnf grouplist
 sudo dnf grouplist hidden
-
+sudo dnf groupinstall <group-name>
 
 
 COPR - Cool Other Packages Repo
