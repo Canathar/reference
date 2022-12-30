@@ -36,6 +36,30 @@
 ╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
 ╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                         Installation                                                            ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Install Miniconda
+   ═════════════════
+      1. Open a terminal window
+      2. Download the desired miniconda package manager installer by typing the following command(s) into the terminal window:
+
+            wget https://repo.anaconda.com/miniconda/<miniconda-package-installer>
+            (ex: wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh)
+
+      3. Verify the sha256 sum of the download file against a known value by typing the following
+         command(s) into the terminal window:
+
+            sha256sum <miniconda-package-installer>
+            (ex: sha256sum Miniconda3-latest-Linux-x86_64.sh)
+
+      4. Execute the package manager installer by typing the following command(s) into the terminal window:
+
+            bash <miniconda-package-installer>
+            (ex: bash Miniconda3-latest-Linux-x86_64.sh)
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
 ║                                                         Environments                                                            ║
 ╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
