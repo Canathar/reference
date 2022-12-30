@@ -6,6 +6,9 @@
 
 let mapleader = " "
 
+" For common reference, see the Vim/Vimdiff Cheatsheet
+" https://gist.github.com/azadkuh/5d223d46a8c269dadfe4
+
 " For script creation reference, see the Vimscript Cheatsheet
 " https://github.com/johngrib/vimscript-cheatsheet
 
@@ -122,19 +125,35 @@ call plug#end()
    map <silent> <leader>RE : ?>>>>>>> <ENTER>
 
 
-" ==============================================
-" ---------- Difference Configuration ----------
-" ==============================================
+" ========================================================
+" --------------- Difference Configuration ---------------
+" ========================================================
+" -- Quick Reference                                    --
+" -- ---------------                                    --
+" --    do           - get change from other to current --
+" --    dp           - put change from current to other --
+" --    ]c           - jump to the next change          --
+" --    [c           - jump to the previous change      --
+" --    zo           - open fold                        --
+" --    zc           - close fold                       --
+" --    zr           - reduce folding level             --
+" --    zm           - one more folding level           --
+" --    :diffupdate  - recalculate the diff             --
+" --    :diffu                                          --
+" --    :diffg RE    - get from REMOTE                  --
+" --    :diffg BA    - get from BASE                    --
+" --    :diffg LO    - get from LOCAL                   --
+" ========================================================
 if &diff
 
    " Location Marker
    set cursorline
 
 
-   " Next Difference (forward)
+   " Jump to the next change (forward)
    map ] ]c
 
-   " Next Difference (backward)
+   " Jump to the previous change (backward)
    map [ [c
 
 
@@ -146,3 +165,4 @@ if &diff
    hi DiffText   ctermfg=233 ctermbg=yellow guifg=#000033 guibg=#DDDDFF gui=none cterm=none
 
 endif
+
