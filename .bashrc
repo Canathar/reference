@@ -1,4 +1,4 @@
-# Add the global configuratiuons
+# Add the global configurations
 if [ -e /etc/bashrc ] ; then
    source /etc/bashrc
 fi
