@@ -15,6 +15,10 @@
 ║                                 Added additional sections                                                                                                               ║
 ║  1.02.20620.xx (24 Jul 20) - Development Update {J. Laccone}                                                                                                            ║
 ║                                 Added additional acronyms                                                                                                               ║
+║  1.03.22420.xx (11 Aug 20) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added additional crypto acronyms                                                                                                        ║
+║  1.04.33421.xx (30 Nov 21) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added additional security concepts                                                                                                      ║
 ║                                                                                                                                                                         ║
 ╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                Reference                                                                                ║
@@ -32,7 +36,13 @@
 ║                                                                                  Notes                                                                                  ║
 ╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                                                                                                         ║
-║                                                                                                                                                                         ║
+║   Red-Black Architecture                                                                                                                                                ║
+║   ----------------------                                                                                                                                                ║
+║      The red/black concept, sometimes called the red–black architecture or red/black engineering, refers to the careful segregation in cryptographic systems of         ║
+║      signals that contain sensitive or classified plaintext information (red signals) from those that carry encrypted information, or ciphertext (black signals).       ║
+║      Therefore, the red side is usually considered the internal side, and the black side the more public side, with often some sort of guard, firewall or               ║
+║      data-diode between the two.                                                                                                                                        ║
+║         ref: https://en.wikipedia.org/wiki/Red/black_concept                                                                                                            ║
 ║                                                                                                                                                                         ║
 ╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
@@ -43,7 +53,7 @@
    A Entries
    ═════════
       AESA - Active Electronically Scanned Array
-              ref: https://en.wikipedia.org/wiki/Active_electronically_scanned_array
+             ref: https://en.wikipedia.org/wiki/Active_electronically_scanned_array
 
       AOA - Angle Of Arrival
             ref: https://en.wikipedia.org/wiki/Angle_of_arrival
@@ -57,15 +67,23 @@
       C4ISR - Command, Control, Communications, Computers, Intelligence, Surveillance & Reconnaissance
               ref: https://en.wikipedia.org/wiki/Command_and_control#Derivative_terms
 
+      CCI - Controlled Cryptographic Items
+
       CMOSS - C4ISR/EW Modular Open Suite of Standards
 
       COMINT - Communications Intelligence
                ref: https://en.wikipedia.org/wiki/Signals_intelligence
 
+      COMSEC - Communications Security
+               ref: https://en.wikipedia.org/wiki/Communications_security
+
 
    D Entries
    ═════════
       DF - Direction Finding
+
+      DTD - Data Transfer Device (or Data Transport Device)
+            ref: https://en.wikipedia.org/wiki/Electronic_Key_Management_System
 
 
    E Entries
@@ -80,6 +98,9 @@
 
       ECM - Electronic Counter Measure
             ref: https://en.wikipedia.org/wiki/Electronic_warfare
+
+      EKMS - Electronic Key Management System
+             ref: https://en.wikipedia.org/wiki/Electronic_Key_Management_System
 
       ELINT - Electronic Intelligence
               ref: https://en.wikipedia.org/wiki/Signals_intelligence
@@ -192,16 +213,16 @@
 ║                                                                                 Sensors                                                                                 ║
 ╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
-Types of sensors
-active sensors
-smart sensors
-intelligent sensors
-camera sensors
-IR sensors
-micro-electro-mechanical systems (MEMS)
-nano sensors
-wearable sensors
-
+   Some Types of Sensors
+   ═════════════════════
+      active sensors
+      smart sensors
+      intelligent sensors
+      camera sensors
+      IR sensors
+      micro-electro-mechanical systems (MEMS)
+      nano sensors
+      wearable sensors
 
 
 
