@@ -25,3 +25,4 @@ alias data='cd ${DATA_ROOT}'
 alias reference='cd ${DATA_ROOT}/reference'
 alias scripts='cd ${DATA_ROOT}/scripts'
 alias wks='cd ${WORKSPACE_ROOT}'
+

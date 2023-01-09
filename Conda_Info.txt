@@ -10,6 +10,8 @@
 ║                                                                                                                                 ║
 ║  1.00.30422.xx (31 Oct 22) - Initial Creation {J. Laccone}                                                                      ║
 ║                                 Added header, added reference data                                                              ║
+║  1.01.00623.xx (06 Jan 22) - Development Update {J. Laccone}                                                                    ║
+║                                 Added procedure to remove environment                                                           ║
 ║                                                                                                                                 ║
 ╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                            Reference                                                            ║
@@ -126,6 +128,16 @@
          the following command(s) into the terminal window:
 
             conda create --clone <existing-environment-name> -n <new-environment-name>
+
+
+   Remove An Existing Conda Environment
+   ════════════════════════════════════
+      1. Open a terminal window
+      2. Remove an existing conda environment by typing the following command(s) into the terminal window:
+
+            conda deactivate -n <existing-environment-name>
+            conda env remove -n <existing-environment-name>
+
 
 
    Python Package Configuration Within A Conda Environment For Bare Minimum Development

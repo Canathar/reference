@@ -1,4 +1,4 @@
-﻿╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
 ║ Git_Info.txt                                                                                                                                                            ║
 ║                                                                                                                                                                         ║
 ║ Document Encoding           : UTF-8, UNIX Line Terminator                                                                                                               ║
@@ -19,6 +19,8 @@
 ║                                 Added additional procedure data                                                                                                         ║
 ║  1.04.16820.xx (16 Jun 20) - Development Update {J. Laccone}                                                                                                            ║
 ║                                 Added comparison procedures                                                                                                             ║
+║  1.05.07021.xx (11 Mar 21) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added remote update procedure                                                                                                           ║
 ║                                                                                                                                                                         ║
 ╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                Reference                                                                                ║
@@ -199,6 +201,14 @@
             git push origin feature/GEWEWNET-<jira-ticket-number>-<jira-ticket-title>
             (ex: git push origin feature/GEWEWNET-93-update-gui-to-ingest-geolocation-estimates)
 
+
+   Change Git Remote
+   ═════════════════
+      1. Open a terminal window
+      2. Change to the root folder of the git repo
+      3. Change the git remote by typing the following command(s) into the terminal window:
+
+            git remote set-url origin <url>
 
 
 ╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗

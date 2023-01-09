@@ -1,0 +1,103 @@
+﻿╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ YUM_Info.txt                                                                                                                                                            ║
+║                                                                                                                                                                         ║
+║ Document Encoding           : UTF-8, UNIX Line Terminator                                                                                                               ║
+║ Document Best Viewed/Printed: Page{Ledger, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                                                         ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                            Revision History                                                                             ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                                                                     ║
+║                                                                                                                                                                         ║
+║  1.00.00923.xx (09 Jan 23) - Initial Creation {J. Laccone}                                                                                                              ║
+║                                 Added header, added reference data                                                                                                      ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                Reference                                                                                ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║   YUM Command Cheat Sheet                                                                                                                                               ║
+║   -----------------------                                                                                                                                               ║
+║      https://access.redhat.com/sites/default/files/attachments/rh_yum_cheatsheet_1214_jcs_print-1.pdf                                                                   ║
+║                                                                                                                                                                         ║
+║   yum (software)                                                                                                                                                        ║
+║   --------------                                                                                                                                                        ║
+║      https://en.wikipedia.org/wiki/Yum_(software)                                                                                                                       ║
+║                                                                                                                                                                         ║
+║   DNF (software)                                                                                                                                                        ║
+║   --------------                                                                                                                                                        ║
+║      https://en.wikipedia.org/wiki/DNF_(software)                                                                                                                       ║
+║                                                                                                                                                                         ║
+║                                                                                                                                                                         ║
+║   Meaning Of The Colors When Using "List Available Packages"                                                                                                            ║
+║   ----------------------------------------------------------                                                                                                            ║
+║      https://unix.stackexchange.com/questions/79208/when-using-yum-list-available-why-are-some-entries-in-blue                                                          ║
+║                                                                                                                                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                Notes                                                                                    ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                                                         ║
+║                                                                                                                                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                             Repositories                                                                                ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Operate On A Specific Repository
+   ════════════════════════════════
+      1. Open a terminal window
+      2. Operate on a specific repository by typing the following command(s) into the terminal window:
+
+            sudo yum --disablerepo "*" --enablerepo "<repo-name>" command
+            (ex: yum --disablerepo "*" --enablerepo "epel" list available)
+
+
+      Common Repositories
+      ───────────────────
+
+         CentOS Base {defined in: /etc/yum.repos.d/CentOS-Base.repo}
+         -----------------------------------------------------------
+            base
+            centosplus
+            contrib
+            extras
+            updates
+
+         Extra Packages for Enterprise Linux (epel) {defined in: /etc/yum.repos.d/epel.repo}
+         -----------------------------------------------------------------------------------
+            epel
+            epel-debuginfo
+            epel-source
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                  Queries                                                                                ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Display The Currently Configured Repositories
+   ═════════════════════════════════════════════
+      1. Open a terminal window
+      2. Display the currently configured repositories by typing the following command(s) into the terminal window:
+
+            sudo yum repolist
+
+
+   Display The Package Groups
+   ══════════════════════════
+      1. Open a terminal window
+      2. Display the package groups by typing the following command(s) into the terminal window:
+
+            sudo yum grouplist
+
+
+   Display The Currently Installed Packages
+   ════════════════════════════════════════
+      1. Open a terminal window
+      2. Display the currently installed packages by typing the following command(s) into the terminal window:
+         (Reference: man yum.conf, search for "color")
+
+            sudo yum list installed
+
+
