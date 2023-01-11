@@ -1,4 +1,4 @@
-﻿╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
 ║ Crypto_Info.txt                                                                                                                                                         ║
 ║                                                                                                                                                                         ║
 ║ Document Encoding           : UTF-8, UNIX Line Terminator                                                                                                               ║
@@ -11,6 +11,8 @@
 ║                                                                                                                                                                         ║
 ║  1.00.02321.xx (23 Jan 21) - Initial Creation {J. Laccone}                                                                                                              ║
 ║                                 Added header, added reference data                                                                                                      ║
+║  1.00.01023.xx (10 Jan 23) - Initial Creation {J. Laccone}                                                                                                              ║
+║                                 Added certificate reference data                                                                                                        ║
 ║                                                                                                                                                                         ║
 ╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                Reference                                                                                ║
@@ -58,6 +60,11 @@
 ║  -----------------------                                                                                                                                                ║
 ║     https://en.wikipedia.org/wiki/Symmetric-key_algorithm                                                                                                               ║
 ║                                                                                                                                                                         ║
+║                                                                                                                                                                         ║
+║  PEM, DER, CRT, And CER:X.509 Encodings And Conversions                                                                                                                 ║
+║  ------------------------------------------------------                                                                                                                 ║
+║     https://www.ssl.com/guide/pem-der-crt-and-cer-x-509-encodings-and-conversions                                                                                       ║
+║                                                                                                                                                                         ║
 ╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                  Notes                                                                                  ║
 ╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
@@ -72,17 +79,33 @@
 ║                                                                                                                                                                         ║
 ╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
-
-
-
-
-
-
 ╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                                                                              Configuration                                                                              ║
+║                                                                               Certificates                                                                              ║
 ╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
-╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                                                                               Maintenance                                                                               ║
-╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+   View The Contents Of A Certificate
+   ══════════════════════════════════
+      1. Open a terminal window
+      2. Display the contents of the certificate by typing the following command(s) into the terminal window:
+
+            openssl x509 -in <certificate-file-name>.pem -text -noout
+            (ex: openssl x509 -in docker.pem -text -noout)
+
+
+   Display The Certificate Chain Between The Local Machine And A Destination URL
+   ═════════════════════════════════════════════════════════════════════════════
+      1. Open a terminal window
+      2. Display the certificate chain by typing the following command(s) into the terminal window:
+
+            openssl s_client -connect <url-of-destination>:443 -showcerts </dev/null
+            (ex: openssl s_client -connect index.docker.io:443 -showcerts </dev/null)
+
+
+   Save A Destination URL's Certificate
+   ════════════════════════════════════
+      1. Open a terminal window
+      2. Save the destination URL certificate by typing the following command(s) into the terminal window:
+
+            openssl s_client -connect <url-of-destination>:443 -showcerts </dev/null 2>/dev/null | openssl x509 -outform PEM > /tmp/<certificate-file>.pem
+            (ex: openssl s_client -connect index.docker.io:443 -showcerts </dev/null 2>/dev/null | openssl x509 -outform PEM > /tmp/docker.pem)
 
