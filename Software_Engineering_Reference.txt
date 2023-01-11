@@ -1,0 +1,120 @@
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ Software_Engineering_Reference.txt                                                                                              ║
+║                                                                                                                                 ║
+║ Document Best Viewed/Printed: Page{Letter, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                 ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                         Revision History                                                        ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                             ║
+║                                                                                                                                 ║
+║  1.00.01123.xx (23 Jan 23) - Initial Creation {J. Laccone}                                                                      ║
+║                                 Added header, added reference data                                                              ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                            Reference                                                            ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                 ║
+║   V-Model                                                                                                                       ║
+║   -------                                                                                                                       ║
+║      https://en.wikipedia.org/wiki/V-Model                                                                                      ║
+║                                                                                                                                 ║
+║   Software Development                                                                                                          ║
+║   ---------------------                                                                                                         ║
+║      https://en.wikipedia.org/wiki/Software_development                                                                         ║
+║                                                                                                                                 ║
+║   Software Engineering                                                                                                          ║
+║   --------------------                                                                                                          ║
+║      https://en.wikipedia.org/wiki/Software_engineering                                                                         ║
+║                                                                                                                                 ║
+║      Software Requirements                                                                                                      ║
+║      ---------------------                                                                                                      ║
+║         https://en.wikipedia.org/wiki/Software_requirements                                                                     ║
+║                                                                                                                                 ║
+║      Software Design                                                                                                            ║
+║      ---------------                                                                                                            ║
+║         https://en.wikipedia.org/wiki/Software_design                                                                           ║
+║                                                                                                                                 ║
+║      Software Construction                                                                                                      ║
+║      ---------------------                                                                                                      ║
+║         https://en.wikipedia.org/wiki/Software_construction                                                                     ║
+║                                                                                                                                 ║
+║                                                                                                                                 ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                             V-Model                                                             ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+
+           System Level     ─────────────────────            ─────────────────────     System Level
+       Design Requirements  ╲   SFR              ╲          ╱              SVR   ╱
+                             ╲            Design  ╲        ╱  Ʌ                 ╱
+                              ╲              │     ╲      ╱   │                ╱       Subsystems
+                               ╲             │      ╲    ╱    │               ╱
+                                ╲            │       ╲  ╱     │              ╱
+                                 ╲           │        ╲╱      │             ╱          Configuration Items
+                 Item Level       ╲   PDR    │                │      TRR   ╱
+             Design Requirements   ╲         │            Fabricate,      ╱
+                                    ╲        │            Integrate,     ╱             Assemblies
+                                     ╲       V             and Test     ╱
+                                      ╲                                ╱
+                                       ╲              CDR             ╱                Components
+                                        ──────────────────────────────
+                                       All Design Requirements Complete
+
+                                                 Time ───────>
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                            Glossary                                                             ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   C Entries
+   ═════════
+      CDR - Critical Design Review
+            ref: https://en.wikipedia.org/wiki/V-Model
+                 https://acronym24.com/cdr-meaning-in-computing
+
+      CUT - Coding and Unit Testing
+            ref: https://acronym24.com/cut-meaning-in-software
+
+
+   P Entries
+   ═════════
+      PDR - Preliminary Design Review
+            ref: https://en.wikipedia.org/wiki/V-Model
+                 https://acronym24.com/pdr-meaning-in-computing
+
+      PSR - Pre-Ship Review
+            ref: https://acronym24.com/psr-meaning-in-nasa
+
+      PRR - Production Readiness Review
+            ref: https://acronym24.com/prr-meaning-in-logistics
+
+
+   S Entries
+   ═════════
+      SDR - Software Design Review
+            ref: https://acronym24.com/sdr-meaning-in-computing
+
+      SFR - System Functional Review
+            ref: https://en.wikipedia.org/wiki/V-Model
+                 https://acronym24.com/sfr-meaning-in-design
+
+      SRR - Software Requirements Review
+            ref: https://acronym24.com/srr-meaning-in-computing
+
+      SVR - System Verification Review
+            ref: https://en.wikipedia.org/wiki/V-Model
+                 https://acronym24.com/svr-meaning-in-design
+
+
+   T Entries
+   ═════════
+      TRR - Test Readiness Review
+            ref: https://en.wikipedia.org/wiki/V-Model
+                 https://acronym24.com/trr-meaning-in-governmental-military
+
+
+
+
