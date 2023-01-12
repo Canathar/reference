@@ -1,0 +1,148 @@
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ Trusted_Computing_Reference.txt                                                                                                 ║
+║                                                                                                                                 ║
+║ Document Best Viewed/Printed: Page{Letter, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                 ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                         Revision History                                                        ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                             ║
+║                                                                                                                                 ║
+║  1.00.01123.xx (11 Jan 23) - Initial Creation {J. Laccone}                                                                      ║
+║                                 Added header, added reference data                                                              ║
+║  1.00.01223.xx (12 Jan 23) - Development Update {J. Laccone}                                                                    ║
+║                                 Changed filename                                                                                ║
+║                                 Added glossary                                                                                  ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                            Reference                                                            ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                 ║
+║   Trusted Computing Group (TCG)                                                                                                 ║
+║   -----------------------------                                                                                                 ║
+║      https://trustedcomputinggroup.org/                                                                                         ║
+║                                                                                                                                 ║
+║                                                                                                                                 ║
+║   ISO/IEC 11889-1:2015 Information Technology - Trusted Platform Module Library - Part 1: Architecture                          ║
+║   ----------------------------------------------------------------------------------------------------                          ║
+║      https://www.iso.org/standard/66510.html                                                                                    ║
+║                                                                                                                                 ║
+║   ISO/IEC 11889-2:2015 Information Technology - Trusted Platform Module Library - Part 2: Structures                            ║
+║   --------------------------------------------------------------------------------------------------                            ║
+║      https://www.iso.org/standard/66511.html                                                                                    ║
+║                                                                                                                                 ║
+║   ISO/IEC 11889-3:2015 Information Technology - Trusted Platform Module Library - Part 3: Commands                              ║
+║   ------------------------------------------------------------------------------------------------                              ║
+║      https://www.iso.org/standard/66512.html                                                                                    ║
+║                                                                                                                                 ║
+║   ISO/IEC 11889-4:2015 Information Technology - Trusted Platform Module Library - Part 4: Supporting Routines                   ║
+║   -----------------------------------------------------------------------------------------------------------                   ║
+║      https://www.iso.org/standard/66513.html                                                                                    ║
+║                                                                                                                                 ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                            Solutions                                                            ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   COTS Solutions
+   ══════════════
+
+      ARM TrustZone
+      ─────────────
+         TrustZone technology within Cortex-A based application processors is commonly used to run trusted boot and trusted OS to
+         create a Trusted Execution Environment (TEE). Typical use cases include the protection of authentication mechanisms,
+         cryptography, mobile device management, payment, key material, and digital rights management (DRM).
+         ref: https://www.arm.com/technologies/trustzone-for-cortex-a
+              https://developer.arm.com/Processors/TrustZone%20for%20Cortex-A
+
+
+   Open Source Solutions
+   ═════════════════════
+
+      TrouSerS
+      ────────
+         A TCG compilant software stack for Linux
+         ref: https://trousers.sourceforge.net/
+              https://sourceforge.net/projects/trousers/
+
+      Trusted Boot
+      ────────────
+         Trusted Boot (tboot) is a an open source, pre-kernel/VMM module that uses Intel(R) Trusted Execution Technology
+         (Intel(R) TXT) to perform a measured and verified launch of an OS kernel/VMM.
+         ref: https://sourceforge.net/projects/tboot
+              https://www.kernel.org/doc/Documentation/intel_txt.txt
+              https://trustedcomputinggroup.org/resource/trusted-boot
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                             Glossary                                                            ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   A Entries
+   ═════════
+      ACM   - Authenticated Code Module
+              ref: https://en.wikipedia.org/wiki/Trusted_Execution_Technology
+
+      ARM TrustZone
+         ref: https://en.wikipedia.org/wiki/ARM_TrustZone
+
+
+   C Entries
+   ═════════
+      Chain of trust
+         ref: https://en.wikipedia.org/wiki/Chain_of_trust
+
+      CRTM  - Core Root of Trust Measurement
+              ref: https://en.wikipedia.org/wiki/Trusted_Execution_Technology
+
+
+   D Entries
+   ═════════
+      DRTM  - Dynamic Root of Trust Measurement
+              ref: https://en.wikipedia.org/wiki/Trusted_Execution_Technology
+
+
+   H Entries
+   ═════════
+      HSM   - Hardware Security Module
+              ref: https://en.wikipedia.org/wiki/Hardware_security_module
+
+
+   P Entries
+   ═════════
+      PCR   - Platform Configuration Registers
+              ref: https://en.wikipedia.org/wiki/Trusted_Execution_Technology
+
+
+   S Entries
+   ═════════
+      Secure cyrptoprocessor
+         ref: https://en.wikipedia.org/wiki/Secure_cryptoprocessor
+
+
+   T Entries
+   ═════════
+      TC    - Trusted Computing
+              ref: https://en.wikipedia.org/wiki/Trusted_Computing
+                   https://trustedcomputinggroup.org/trusted-computing/
+
+      TCB   - Trusted Computing Base
+              ref: https://en.wikipedia.org/wiki/Trusted_Computing_Base
+
+      TCSEC - Trusted Computer System Evaluation Criteria (aka "The Orange Book")
+              ref: https://en.wikipedia.org/wiki/Trusted_Computer_Evaluation_Criteria
+
+      TCG   - Trusted Computing Group
+              ref: https://en.wikipedia.org/wiki/Trusted_Computing_Group
+                   https://trustedcomputinggroup.org/
+
+      TPM   - Trusted Platform Module
+              ref: https://en.wikipedia.org/wiki/Trusted_Platform_Module
+                   https://trustedcomputinggroup.org/tpm-2-0-library-specification-approved-isoiec-international-standard/
+
+      TXT   - Trusted Execution Technology (Built on top of Intel hardware)
+              ref: https://en.wikipedia.org/wiki/Trusted_Execution_Technology
+
+
