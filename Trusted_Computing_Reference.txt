@@ -13,6 +13,10 @@
 ║  1.00.01223.xx (12 Jan 23) - Development Update {J. Laccone}                                                                    ║
 ║                                 Changed filename                                                                                ║
 ║                                 Added glossary                                                                                  ║
+║  1.00.01823.xx (18 Jan 23) - Development Update {J. Laccone}                                                                    ║
+║                                 Added reference data for Trusted Execution Environment (TEE)                                    ║
+║  1.00.01923.xx (19 Jan 23) - Development Update {J. Laccone}                                                                    ║
+║                                 Added reference data for Intrustion Detection System (IDS)                                      ║
 ║                                                                                                                                 ║
 ╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                            Reference                                                            ║
@@ -106,8 +110,25 @@
 
    H Entries
    ═════════
+      HIDS  - Host-based Intrusion Detection System
+              ref: https://en.wikipedia.org/wiki/intrusion_detection_system
+
       HSM   - Hardware Security Module
               ref: https://en.wikipedia.org/wiki/Hardware_security_module
+
+   I Entries
+   ═════════
+      IDS   - Intrusion Detection System
+              ref: https://en.wikipedia.org/wiki/intrusion_detection_system
+
+      IPS   - Intrusion Prevention System
+              ref: https://en.wikipedia.org/wiki/intrusion_detection_system
+
+
+   N Entries
+   ═════════
+      NIDS  - Network-based Intrusion Detection System
+              ref: https://en.wikipedia.org/wiki/intrusion_detection_system
 
 
    P Entries
@@ -137,6 +158,9 @@
       TCG   - Trusted Computing Group
               ref: https://en.wikipedia.org/wiki/Trusted_Computing_Group
                    https://trustedcomputinggroup.org/
+
+      TEE   - Trusted Execution Environment
+              ref: https://en.wikipedia.org/wiki/Trusted_execution_environment
 
       TPM   - Trusted Platform Module
               ref: https://en.wikipedia.org/wiki/Trusted_Platform_Module
