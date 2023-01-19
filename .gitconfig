@@ -31,7 +31,7 @@
    st = !"git status"
 
 
-  # Diff Between Detail (Diff Aliases)
+   # Diff Between Detail (Diff Aliases)
    dbddev  = !"git diff devel..."
 
 
@@ -86,6 +86,6 @@
 
 [color]
    interactive = true
-   srtatus = true
+   status = true
    ui = true
 
