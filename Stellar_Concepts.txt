@@ -8,8 +8,10 @@
 ╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
 ║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                             ║
 ║                                                                                                                                 ║
-║  1.00.02223.xx (23 Jan 23) - Initial Creation {J. Laccone}                                                                      ║
+║  1.00.02223.xx (22 Jan 23) - Initial Creation {J. Laccone}                                                                      ║
 ║                                 Added header, added reference data                                                              ║
+║  1.00.02323.xx (23 Jan 23) - Development Update {J. Laccone}                                                                    ║
+║                                 Added additional distance reference                                                             ║
 ║                                                                                                                                 ║
 ╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                            Reference                                                            ║
@@ -27,6 +29,7 @@
 ║   Distances In Space                                                                                                            ║
 ║   ------------------                                                                                                            ║
 ║      https://www.spacecentre.nz/resources/learn/universe/distances.html                                                         ║
+║      https://image.gsfc.nasa.gov/poetry/venus/q89.html                                                                          ║
 ║                                                                                                                                 ║
 ╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
