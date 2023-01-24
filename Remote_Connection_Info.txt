@@ -13,6 +13,8 @@
 ║                                 Added sections                                                                                                                          ║
 ║  1.00.01023.xx (10 Jan 23) - Development Update {J. Laccone}                                                                                                            ║
 ║                                 Added AlmaLinux 8 procedures                                                                                                            ║
+║  1.00.02423.xx (24 Jan 23) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Added additional firewall procedures                                                                                                    ║
 ║                                                                                                                                                                         ║
 ╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                Reference                                                                                ║
@@ -107,8 +109,8 @@
       2. Login as a non-superuser
       3. Display the current state of the firewall by typing the following command(s) into the terminal window:
 
-         CentOS
-         ──────
+         CentOS/AlmaLinux
+         ────────────────
             sudo firewall-cmd --state
 
          Ubuntu
@@ -117,8 +119,8 @@
 
       4. If the firewall is NOT running, start the firewall by typing the following command(s) into the terminal window:
 
-         CentOS
-         ──────
+         CentOS/AlmaLinux
+         ────────────────
             sudo systemctl start firewalld
 
          Ubuntu
@@ -127,13 +129,23 @@
 
       5. Add a rule for the connection port(s) to the firewall by typing the following command(s) into the terminal window:
 
+         CentOS/AlmaLinux
+         ────────────────
             sudo firewall-cmd --permanent --zone=public --add-port=<server-connection-port>/tcp
             (ex: sudo firewall-cmd --permanent --zone=public --add-port=5902/tcp)
             (Multi-port ex: sudo firewall-cmd --permanent --zone=public --add-port=5902-5909/tcp)
 
       6. Reload the firewall by typing the following command(s) into the terminal window:
 
+         CentOS/AlmaLinux
+         ────────────────
             sudo firewall-cmd --reload
+
+      7. Verify that the connection port(s) were added by typing the following command(s) into the terminal window:
+
+         CentOS/AlmaLinux
+         ────────────────
+            sudo firewall-cmd --zone=public --list-ports
 
 
    Creating Initial VNC Configuration
