@@ -1,108 +1,112 @@
-╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║ Docker_Info.txt                                                                                                                                                         ║
-║                                                                                                                                                                         ║
-║ Document Encoding           : UTF-8, UNIX Line Terminator                                                                                                               ║
-║ Document Best Viewed/Printed: Page{Ledger, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                                                         ║
-║                                                                                                                                                                         ║
-╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
-║                                                                            Revision History                                                                             ║
-╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
-║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                                                                     ║
-║                                                                                                                                                                         ║
-║  1.00.26918.xx (26 Sep 18) - Initial Creation {J. Laccone}                                                                                                              ║
-║                                 Added sections                                                                                                                          ║
-║  1.01.27618.xx (03 Oct 18) - Development Update {J. Laccone}                                                                                                            ║
-║                                 Updated document instructions from feedback                                                                                             ║
-║  1.02.28218.xx (09 Oct 18) - Maintenance Update {J. Laccone}                                                                                                            ║
-║                                 Updated document instructions from feedback                                                                                             ║
-║  1.03.28818.xx (15 Oct 18) - Development Update {J. Laccone}                                                                                                            ║
-║                                 Added instructions to change storage location                                                                                           ║
-║  1.04.29718.xx (24 Oct 18) - Development Update {J. Laccone}                                                                                                            ║
-║                                 Added instructions to open API socket                                                                                                   ║
-║  1.05.34718.xx (13 Dec 18) - Development Update {J. Laccone}                                                                                                            ║
-║                                 Debug on API socket connections                                                                                                         ║
-║  1.06.00719.xx (07 Jan 19) - Development Update {J. Laccone}                                                                                                            ║
-║                                 Added logging information                                                                                                               ║
-║  1.07.00919.xx (09 Jan 19) - Development Update {J. Laccone}                                                                                                            ║
-║                                 Added additional reference information                                                                                                  ║
-║  1.08.02119.xx (21 Jan 19) - Development Update {J. Laccone}                                                                                                            ║
-║                                 Added additional reference information for Ubuntu                                                                                       ║
-║                                 Modified instructions to correct for certificate issues                                                                                 ║
-║  1.09.02319.xx (23 Jan 19) - Development Update {J. Laccone}                                                                                                            ║
-║                                 Added DNS instructions to allow image/container operation on Ubuntu 16.04                                                               ║
-║  1.10.03819.xx (07 Feb 19) - Development Update {J. Laccone}                                                                                                            ║
-║                                 Added sshd instructions to allow ssh/scp operation to containers                                                                        ║
-║  1.11.26619.xx (23 Sep 19) - Development Update {J. Laccone}                                                                                                            ║
-║                                 Added swarm/serevice/secret operations                                                                                                  ║
-║  1.12.26819.xx (25 Sep 19) - Development Update {J. Laccone}                                                                                                            ║
-║                                 Finished adding swarm/serevice/secret operations                                                                                        ║
-║  1.13.14120.xx (20 May 20) - Development Update {J. Laccone}                                                                                                            ║
-║                                 Conversion from program repo to gcsd repo                                                                                               ║
-║  1.14.33521.xx (01 Dec 21) - Development Update {J. Laccone}                                                                                                            ║
-║                                 Review of the CentOS installation procedures                                                                                            ║
-║  1.15.30422.xx (31 Oct 22) - Development Update {J. Laccone}                                                                                                            ║
-║                                 Added container stop command reference                                                                                                  ║
-║                                                                                                                                                                         ║
-╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
-║                                                                                Reference                                                                                ║
-╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
-║                                                                                                                                                                         ║
-║   Docker Installation                                                                                                                                                   ║
-║   -------------------                                                                                                                                                   ║
-║      https://docs.docker.com/install/linux/docker-ce/centos/                                                                                                            ║
-║      https://docs.docker.com/install/linux/docker-ce/ubuntu/                                                                                                            ║
-║      https://docs.docker.com/install/linux/linux-postinstall/                                                                                                           ║
-║                                                                                                                                                                         ║
-║   Docker Networking                                                                                                                                                     ║
-║   -----------------                                                                                                                                                     ║
-║      http://www.elastic.co/blog/docker-networking                                                                                                                       ║
-║      https://docs.docker.com/engine/userguide/networking/                                                                                                               ║
-║                                                                                                                                                                         ║
-║   Docker Add Host Flag                                                                                                                                                  ║
-║   --------------------                                                                                                                                                  ║
-║      https://blog.codeship.com/using-the-add-host-flag-for-dns-mapping-within-docker-containers/                                                                        ║
-║      https://stackoverflow.com/questions/34620695/docker-what-is-the-equivalent-of-the-legacy-link-parameter                                                            ║
-║                                                                                                                                                                         ║
-║   Docker Deprecated Engine Features                                                                                                                                     ║
-║   ---------------------------------                                                                                                                                     ║
-║      https://docs.docker.com/v17.09/engine/deprecated/                                                                                                                  ║
-║                                                                                                                                                                         ║
-║   Docker Daemon Configuration                                                                                                                                           ║
-║   ---------------------------                                                                                                                                           ║
-║      https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-configuration-file                                                                            ║
-║                                                                                                                                                                         ║
-║   Docker X11                                                                                                                                                            ║
-║   ----------                                                                                                                                                            ║
-║      https://blog.yadutaf.fr/2017/09/10/running-a-graphical-app-in-a-docker-container-on-a-remote-server/                                                               ║
-║                                                                                                                                                                         ║
-║   How To Change Docker Container And Image Default Storage Location                                                                                                     ║
-║   -----------------------------------------------------------------                                                                                                     ║
-║      https://sanenthusiast.com/change-default-image-container-location-docker/                                                                                          ║
-║                                                                                                                                                                         ║
-║   How To Enable The Remote API For dockerd                                                                                                                              ║
-║   ----------------------------------------                                                                                                                              ║
-║      https://success.docker.com/article/how-do-i-enable-the-remote-api-for-dockerd                                                                                      ║
-║      https://success.docker.com/article/using-systemd-to-control-the-docker-daemon                                                                                      ║
-║                                                                                                                                                                         ║
-║   How To Enable SSH Capability In Containers                                                                                                                            ║
-║   ------------------------------------------                                                                                                                            ║
-║      https://stackoverflow.com/questions/30172605/how-do-i-get-into-a-docker-containers-shell                                                                           ║
-║      https://dzone.com/articles/docker-how-to-ssh-to-a-running-container                                                                                                ║
-║                                                                                                                                                                         ║
-╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
-║                                                                                Notes                                                                                    ║
-╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
-║                                                                                                                                                                         ║
-║                                                                                                                                                                         ║
-╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ Docker_Info.txt                                                                                                                 ║
+║                                                                                                                                 ║
+║ Document Encoding           : UTF-8, UNIX Line Terminator                                                                       ║
+║ Document Best Viewed/Printed: Page{Ledger, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                 ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                         Revision History                                                        ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                             ║
+║                                                                                                                                 ║
+║  1.00.26918.xx (26 Sep 18) - Initial Creation {J. Laccone}                                                                      ║
+║                                 Added sections                                                                                  ║
+║  1.01.27618.xx (03 Oct 18) - Development Update {J. Laccone}                                                                    ║
+║                                 Updated document instructions from feedback                                                     ║
+║  1.02.28218.xx (09 Oct 18) - Maintenance Update {J. Laccone}                                                                    ║
+║                                 Updated document instructions from feedback                                                     ║
+║  1.03.28818.xx (15 Oct 18) - Development Update {J. Laccone}                                                                    ║
+║                                 Added instructions to change storage location                                                   ║
+║  1.04.29718.xx (24 Oct 18) - Development Update {J. Laccone}                                                                    ║
+║                                 Added instructions to open API socket                                                           ║
+║  1.05.34718.xx (13 Dec 18) - Development Update {J. Laccone}                                                                    ║
+║                                 Debug on API socket connections                                                                 ║
+║  1.06.00719.xx (07 Jan 19) - Development Update {J. Laccone}                                                                    ║
+║                                 Added logging information                                                                       ║
+║  1.07.00919.xx (09 Jan 19) - Development Update {J. Laccone}                                                                    ║
+║                                 Added additional reference information                                                          ║
+║  1.08.02119.xx (21 Jan 19) - Development Update {J. Laccone}                                                                    ║
+║                                 Added additional reference information for Ubuntu                                               ║
+║                                 Modified instructions to correct for certificate issues                                         ║
+║  1.09.02319.xx (23 Jan 19) - Development Update {J. Laccone}                                                                    ║
+║                                 Added DNS instructions to allow image/container operation on Ubuntu 16.04                       ║
+║  1.10.03819.xx (07 Feb 19) - Development Update {J. Laccone}                                                                    ║
+║                                 Added sshd instructions to allow ssh/scp operation to containers                                ║
+║  1.11.26619.xx (23 Sep 19) - Development Update {J. Laccone}                                                                    ║
+║                                 Added swarm/serevice/secret operations                                                          ║
+║  1.12.26819.xx (25 Sep 19) - Development Update {J. Laccone}                                                                    ║
+║                                 Finished adding swarm/serevice/secret operations                                                ║
+║  1.13.14120.xx (20 May 20) - Development Update {J. Laccone}                                                                    ║
+║                                 Conversion from program repo to gcsd repo                                                       ║
+║  1.14.33521.xx (01 Dec 21) - Development Update {J. Laccone}                                                                    ║
+║                                 Review of the CentOS installation procedures                                                    ║
+║  1.15.30422.xx (31 Oct 22) - Development Update {J. Laccone}                                                                    ║
+║                                 Added container stop command reference                                                          ║
+║                                                                                                                                 ║
+║  2.00.04023.xx (09 Feb 23) - Development Update {J. Laccone}                                                                    ║
+║                                 Reformatted to 132 columns                                                                      ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                            Reference                                                            ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                 ║
+║   Docker Installation                                                                                                           ║
+║   -------------------                                                                                                           ║
+║      https://docs.docker.com/install/linux/docker-ce/centos/                                                                    ║
+║      https://docs.docker.com/install/linux/docker-ce/ubuntu/                                                                    ║
+║      https://docs.docker.com/install/linux/linux-postinstall/                                                                   ║
+║                                                                                                                                 ║
+║   Docker Networking                                                                                                             ║
+║   -----------------                                                                                                             ║
+║      http://www.elastic.co/blog/docker-networking                                                                               ║
+║      https://docs.docker.com/engine/userguide/networking/                                                                       ║
+║                                                                                                                                 ║
+║   Docker Add Host Flag                                                                                                          ║
+║   --------------------                                                                                                          ║
+║      https://blog.codeship.com/using-the-add-host-flag-for-dns-mapping-within-docker-containers/                                ║
+║      https://stackoverflow.com/questions/34620695/docker-what-is-the-equivalent-of-the-legacy-link-parameter                    ║
+║                                                                                                                                 ║
+║   Docker Deprecated Engine Features                                                                                             ║
+║   ---------------------------------                                                                                             ║
+║      https://docs.docker.com/v17.09/engine/deprecated/                                                                          ║
+║                                                                                                                                 ║
+║   Docker Daemon Configuration                                                                                                   ║
+║   ---------------------------                                                                                                   ║
+║      https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-configuration-file                                    ║
+║                                                                                                                                 ║
+║   Docker X11                                                                                                                    ║
+║   ----------                                                                                                                    ║
+║      https://blog.yadutaf.fr/2017/09/10/running-a-graphical-app-in-a-docker-container-on-a-remote-server/                       ║
+║                                                                                                                                 ║
+║   How To Change Docker Container And Image Default Storage Location                                                             ║
+║   -----------------------------------------------------------------                                                             ║
+║      https://sanenthusiast.com/change-default-image-container-location-docker/                                                  ║
+║                                                                                                                                 ║
+║   How To Enable The Remote API For dockerd                                                                                      ║
+║   ----------------------------------------                                                                                      ║
+║      https://success.docker.com/article/how-do-i-enable-the-remote-api-for-dockerd                                              ║
+║      https://success.docker.com/article/using-systemd-to-control-the-docker-daemon                                              ║
+║                                                                                                                                 ║
+║   How To Enable SSH Capability In Containers                                                                                    ║
+║   ------------------------------------------                                                                                    ║
+║      https://stackoverflow.com/questions/30172605/how-do-i-get-into-a-docker-containers-shell                                   ║
+║      https://dzone.com/articles/docker-how-to-ssh-to-a-running-container                                                        ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                              Notes                                                              ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                 ║
+║                                                                                                                                 ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
-╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                                                                                 Common                                                                                  ║
-╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                              Common                                                             ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
    Prerequisites For All Installations
    ═══════════════════════════════════
-      1. Downloaded tools and certificates to allow virtual machines to reach external locations (ref: "Certificates And Tools" above)
+      1. Downloaded tools and certificates to allow virtual machines to reach external locations
+         (ref: "Certificates And Tools" above)
 
 
    Prerequisites For Installations From A Remote Windows Machine
@@ -112,7 +116,8 @@
 
       Install Corporate Certificates
       ──────────────────────────────
-         1. Open a terminal window to the workstation (using either terminal when using local Linux PC, or remote terminal application when using local Windows PC)
+         1. Open a terminal window to the workstation (using either terminal when using local Linux PC, or remote terminal
+            application when using local Windows PC)
          2. Login as the superuser (root on CentOS/RHEL, add sudo in front of commands on Ubuntu)
          3. Create a directory to hold the certificates and tools by typing the following command(s) into the terminal window:
 
@@ -152,13 +157,14 @@
 
 
 
-╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                                                                      CentOS Updates/Configuration                                                                       ║
-╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                   CentOS Updates/Configuration                                                  ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
    Updating CentOS
    ═══════════════
-      1. Open a terminal window to the workstation (using either terminal when using local Linux PC, or remote terminal application when using local Windows PC)
+      1. Open a terminal window to the workstation (using either terminal when using local Linux PC, or remote terminal
+         application when using local Windows PC)
       2. Login as the root user
       3. Verify that there are necessary updates by typing the following command(s) into the terminal window:
 
@@ -175,9 +181,9 @@
 
 
 
-╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                                                                           Docker Installation                                                                           ║
-╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                       Docker Installation                                                       ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
    Installing Docker
    ═════════════════
@@ -214,7 +220,8 @@
 
          CentOS
          ──────
-            Modify the yum configuration file, /etc/yum.conf, to suppress the checking of SSL certificates by adding the following line:
+            Modify the yum configuration file, /etc/yum.conf, to suppress the checking of SSL certificates
+            by adding the following line:
 
                sslverify=False
 
@@ -247,7 +254,8 @@
             sudo apt-get update
             sudo apt-get install docker-ce
 
-      9. To customize the docker configuration file, open the config file by typing the following command(s) into the terminal window:
+      9. To customize the docker configuration file, open the config file by typing the following command(s)
+         into the terminal window:
          NOTE: The file daemon.json and/or the directory /etc/docker may not exist. Create either/both as necessary
 
             sudo gedit /etc/docker/daemon.json &
@@ -287,7 +295,8 @@
                   }
 
      11. Save the file and exit gedit
-     12. Add the docker group (may already be added during installation) by typing the following command(s) into the terminal window:
+     12. Add the docker group (may already be added during installation) by typing the following command(s)
+         into the terminal window:
 
             sudo groupadd docker
 
@@ -322,8 +331,10 @@
 
       OPTIONAL: Modifying Docker Storage Location
       ───────────────────────────────────────────
-         If there is not enough space on the partition Docker was installed into, follow the procedure below to move the installation to a different location.
-         (Please refer to the web link "How To Change Docker Container And Image Default Storage Location" in the reference section of this document)
+         If there is not enough space on the partition Docker was installed into, follow the procedure below to move the
+         installation to a different location.
+         (Please refer to the web link "How To Change Docker Container And Image Default Storage Location"
+          in the reference section of this document)
 
          1. Open a terminal window
          2. Login as the superuser (root on CentOS/RHEL, add sudo in front of commands on Ubuntu)
@@ -332,7 +343,8 @@
                systemctl stop docker
 
          4. To customize the docker service, create a drop-in file by typing the following command(s) into the terminal window:
-            NOTE: The file docker.conf and/or the directory /etc/systemd/system/docker.service.d may not exist. Create either/both as necessary
+            NOTE: The file docker.conf and/or the directory /etc/systemd/system/docker.service.d may not exist.
+                  Create either/both as necessary
 
                gedit /etc/systemd/system/docker.service.d/docker.conf &
 
@@ -360,7 +372,8 @@
 
       OPTIONAL: Modifying Docker API Socket
       ─────────────────────────────────────
-         If connectivity is required between docker containers (as is the case with Jenkins and Dynamic Jenkins Agents), follow the procedure below to open the socket.
+         If connectivity is required between docker containers (as is the case with Jenkins and Dynamic Jenkins Agents),
+         follow the procedure below to open the socket.
          (Please refer to the web link "How To Enable The Remote API For dockerd" in the reference section of this document)
 
          1. Open a terminal window
@@ -370,7 +383,8 @@
                systemctl stop docker
 
          4. To customize the docker service, create a drop-in file by typing the following command(s) into the terminal window:
-            NOTE: The file docker.conf and/or the directory /etc/systemd/system/docker.service.d may not exist. Create either/both as necessary
+            NOTE: The file docker.conf and/or the directory /etc/systemd/system/docker.service.d may not exist.
+                  Create either/both as necessary
 
                gedit /etc/systemd/system/docker.service.d/docker.conf &
 
@@ -380,8 +394,9 @@
                [Service]
                ExecStart=
                ExecStart=/usr/bin/dockerd -H unix:// -H tcp://0.0.0.0:2376
-               NOTE: The -H flag binds dockerd to a listening socket, either a Unix socket or a TCP port. You can specify multiple -H flags to bind to
-                     multiple sockets/ports. The default -H fd:// uses systemd's socket activation feature to refer to /lib/systemd/system/docker.socket.
+               NOTE: The -H flag binds dockerd to a listening socket, either a Unix socket or a TCP port.
+                     You can specify multiple -H flags to bind to multiple sockets/ports.
+                     The default -H fd:// uses systemd's socket activation feature to refer to /lib/systemd/system/docker.socket.
 
          6. Save the file and exit gedit
          7. Reload the configuration for the system daemons by typing the following command(s) into the terminal window:
@@ -400,20 +415,22 @@
 
                firewall-cmd --get-active-zones
 
-        11. Add the Docker port to the active firewall zone (public zone shown below) by typing the following command(s) into the terminal window:
+        11. Add the Docker port to the active firewall zone (public zone shown below) by typing the following command(s)
+            into the terminal window:
 
                firewall-cmd --zone=public --add-port=2376/tcp --permanent
                firewall-cmd --reload
 
-        12. Verify that the Docker port was added to the active firewall zone (public zone shown below) by typing the following command(s) into the terminal window:
+        12. Verify that the Docker port was added to the active firewall zone (public zone shown below) by typing the
+            following command(s) into the terminal window:
 
                firewall-cmd --list-ports
 
 
 
-╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                                                                             Docker Service                                                                              ║
-╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                          Docker Service                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
    Starting/Stopping/Monitoring Docker Service
    ═══════════════════════════════════════════
@@ -433,9 +450,9 @@
 
 
 
-╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                                                                              Docker Images                                                                              ║
-╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                          Docker Images                                                          ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
    Work With Images
    ════════════════
@@ -480,9 +497,9 @@
 
 
 
-╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                                                                            Docker Containers                                                                            ║
-╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                        Docker Containers                                                        ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
    Work With Containers
    ════════════════════
@@ -513,11 +530,13 @@
 
    Adding SSH Capability To Containers
    ═══════════════════════════════════
-      NOTE1: The commands shown below are for an existing container. Several of the steps can be added to a Dockerfile to allow for continuous SSH access
+      NOTE1: The commands shown below are for an existing container. Several of the steps can be added to a Dockerfile
+             to allow for continuous SSH access
       NOTE2: The below commands will operate as shown if the user is in the docker group
 
       1. Open a terminal window
-      2. Create a new container based on your perferred Docker Image with the SSH port open by adding the following command to your docker run command:
+      2. Create a new container based on your perferred Docker Image with the SSH port open by adding the following
+         command to your docker run command:
 
             -p 2222:22
 
@@ -555,9 +574,9 @@
 
 
 
-╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                                                                              Docker Services                                                                            ║
-╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                         Docker Services                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
    Work With Services
    ══════════════════
@@ -582,9 +601,9 @@
 
 
 
-╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                                                                             Docker Volumes                                                                              ║
-╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                          Docker Volumes                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
    Work With Volumes
    ═════════════════
@@ -607,9 +626,9 @@
 
 
 
-╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                                                                            Docker Networks                                                                              ║
-╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                         Docker Networks                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
    User Defined Bridge Networks
    ════════════════════════════
@@ -627,9 +646,9 @@
 
 
 
-╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                                                                              Docker Swarms                                                                              ║
-╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                          Docker Swarms                                                          ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
    Initialize Docker Swarm
    ═══════════════════════
@@ -642,9 +661,9 @@
 
 
 
-╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                                                                             Docker Secrets                                                                              ║
-╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                          Docker Secrets                                                         ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
    Work With Secrets
    ═════════════════
@@ -667,20 +686,21 @@
 
 
 
-╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                                                                           Docker Procedures                                                                             ║
-╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                        Docker Procedures                                                        ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
    Building Images
    ═══════════════
-      See the "Building Image" section of the Notes header in the Dockerfile that ships with the Docker Image
+      See "Building Image" section Notes header in the Dockerfile for the Docker Image
 
 
    Building Containers
    ═══════════════════
-      See the "Running An Image On Host (Creating A Container)" section of the Notes header in the Dockerfile that ships with the Docker Image
+      See "Running An Image On Host (Creating A Container)" section Notes header in the Dockerfile for the Docker Image
 
 
    Attaching To A Running Container
    ════════════════════════════════
-      See the "Attaching To A Running Image (Creating A New Terminal)" section of the Notes header in the Dockerfile that ships with the Docker Image
+      See "Attaching To A Running Image (Creating A New Terminal)" section Notes header in the Dockerfile for the Docker Image
+
