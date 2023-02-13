@@ -1,0 +1,147 @@
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ Containers_Info.txt                                                                                                             ║
+║                                                                                                                                 ║
+║ Document Best Viewed/Printed: Page{Letter, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                 ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                         Revision History                                                        ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                             ║
+║                                                                                                                                 ║
+║  1.00.04023.xx (09 Feb 23) - Initial Creation {J. Laccone}                                                                      ║
+║                                 Added header, added reference data                                                              ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                            Reference                                                            ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                 ║
+║   OS-Level Virtualization                                                                                                       ║
+║   -----------------------                                                                                                       ║
+║      https://en.wikipedia.org/wiki/OS-level_virtualization                                                                      ║
+║                                                                                                                                 ║
+║   Containerization                                                                                                              ║
+║   ----------------                                                                                                              ║
+║      https://en.wikipedia.org/wiki/Containerization_(computing)                                                                 ║
+║                                                                                                                                 ║
+║   Containers                                                                                                                    ║
+║   ----------                                                                                                                    ║
+║      https://github.com/containers                                                                                              ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                              Notes                                                              ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                 ║
+║   The Rise And Fall Of Docker                                                                                                   ║
+║      ref: https://inf.news/en/news/43492556ca6ace71072baa726bb21a06.htm                                                         ║
+║                                                                                                                                 ║
+║   Docker Is Dead, Podman An Alternative Tool                                                                                    ║
+║      ref: https://content.fme.de/en/blog/docker-is-dead-podman-an-alternative-tool                                              ║
+║                                                                                                                                 ║
+║                                                                                                                                 ║
+║   A Comparison Of Current Kubernetes Distributions                                                                              ║
+║      ref: https://dzone.com/articles/a-comparison-of-current-kubernetes-distributions                                           ║
+║                                                                                                                                 ║
+║   The 7 Most Popular Kubernetes Distributions                                                                                   ║
+║      ref: https://www.containiq.com/post/popular-kubernetes-distributions                                                       ║
+║                                                                                                                                 ║
+║   Rancher Blog - When To Use K3s And RKE2                                                                                       ║
+║      ref: https://www.suse.com/c/rancher_blog/when-to-use-k3s-and-rke2/                                                         ║
+║                                                                                                                                 ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                             Glossary                                                            ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   A Entries
+   ═════════
+      AKS   - Azure Kubernetes Service
+              ref: https://azure.microsoft.com/en-us/products/kubernetes-service
+
+      AWS   - Amazon Web Services
+              ref: https://en.wikipedia.org/wiki/Amazon_Web_Services
+
+
+   B Entries
+   ═════════
+      Buildah - A tool that facilitates building OCI container images
+                ref: https://buildah.io/
+                     https://github.com/containers/buildah
+
+
+   C Entries
+   ═════════
+      CNCF  - Cloud Native Computing Foundation
+              ref: https://en.wikipedia.org/wiki/Cloud_Native_Computing_Foundation
+                   https://www.cncf.io
+
+      CRI   - Container Runtime Interface
+              ref: https://kubernetes.io/docs/concepts/architecture/cri/
+
+      CRI-O - Container Runtime Interface for OCI
+              ref: https://cri-o.io
+
+
+   D Entries
+   ═════════
+      Docker - Container Creation/Execution Software
+               ref: https://en.wikipedia.org/wiki/Docker_(software)
+                    https://www.docker.com/
+                    https://hub.docker.com/
+
+      DKS   - Docker Kubernetes Service
+              ref: https://www.docker.com/blog/introducing-docker-kubernetes-service/
+
+
+   E Entries
+   ═════════
+      EKS   - AWS Elastic Kubernetes Services
+              ref: https://aws.amazon.com/eks/
+
+
+   G Entries
+   ═════════
+      GKE   - Google Kubernetes Engine
+               ref: https://cloud.google.com/kubernetes-engine
+
+
+   K Entries
+   ═════════
+      K3s   - Lightweight Kubernetes
+              ref: https://k3s.io/
+                   https://docs.k3s.io/
+                   https://github.com/k3s-io/k3s
+
+
+      K8s   - Kubernetes
+              ref: https://en.wikipedia.org/wiki/Kubernetes
+                   https://kubernetes.io/
+
+
+   O Entries
+   ═════════
+      OCI   - Open Container Initiative
+              ref: https://en.wikipedia.org/wiki/Open_Container_Initiative
+                   https://opencontainers.org/
+                   https://github.com/opencontainers
+
+      OpenShift - Family of containerization software products developed by Red Hat
+                  ref: https://en.wikipedia.org/wiki/OpenShift
+                       https://www.redhat.com/en/technologies/cloud-computing/openshift
+
+
+   P Entries
+   ═════════
+      Podman - A tool for managing OCI containers and pods
+               ref: https://podman.io/
+                    https://github.com/containers/podman
+
+
+   R Entries
+   ═════════
+      RKE   - Rancher Kubernetes Engine (aka RKE1)
+
+      RKE2  - Rancher Kubernetes Engine 2
+              ref: https://docs.rke2.io/
+                   https://github.com/rancher/rke2
+
