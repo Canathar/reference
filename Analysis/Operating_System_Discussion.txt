@@ -1,0 +1,120 @@
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ Operating_System_Discussion.txt                                                                                                 ║
+║                                                                                                                                 ║
+║ Document Best Viewed/Printed: Page{Letter, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                 ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                         Revision History                                                        ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                             ║
+║                                                                                                                                 ║
+║  1.00.19218.xx (11 Jul 18) - Initial Creation {J. Laccone}                                                                      ║
+║                                 Added header, added reference data                                                              ║
+║  1.01.18318.xx (12 Jul 18) - Development Update {J. Laccone}                                                                    ║
+║                                 Added additional data                                                                           ║
+║                                                                                                                                 ║
+║  2.00.04623.xx (15 Feb 23) - Development Update {J. Laccone}                                                                    ║
+║                                 Added multiple other OS products                                                                ║
+║  2.01.04823.xx (17 Feb 23) - Development Update {J. Laccone}                                                                    ║
+║                                 Added additional reference                                                                      ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                            Reference                                                            ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                 ║
+║   Linux Distribution                                                                                                            ║
+║   ------------------                                                                                                            ║
+║      https://en.wikipedia.org/wiki/Linux_distribution                                                                           ║
+║                                                                                                                                 ║
+║   Comparison Of Linux Distributions                                                                                             ║
+║   ---------------------------------                                                                                             ║
+║      https://en.wikipedia.org/wiki/Comparison_of_Linux_distributions                                                            ║
+║                                                                                                                                 ║
+║                                                                                                                                 ║
+║   RPM Package Manager                                                                                                           ║
+║   -------------------                                                                                                           ║
+║      https://en.wikipedia.org/wiki/Rpm_(software)                                                                               ║
+║                                                                                                                                 ║
+║   Debian Package Manager                                                                                                        ║
+║   ----------------------                                                                                                        ║
+║      https://en.wikipedia.org/wiki/Deb_(file_format)                                                                            ║
+║                                                                                                                                 ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   AlamaLinux
+   ----------
+      ref: https://almalinux.org
+           https://github.com/AlmaLinux
+           https://en.wikipedia.org/wiki/AlmaLinux
+           =======================================
+           - Upstream Source is Red Hat Fedora Linux
+           - Binary compatible to Red Hat Enterprise Linux (RHEL)
+           - Based on RPM Package Manager (Curated Packages by Red Hat)
+           - One of the replacement distros created when the CentOS distro was coverted to CentOS stream
+
+
+   CentOS
+   ------
+      ref: https://www.centos.org/
+           https://en.wikipedia.org/wiki/CentOS
+           ====================================
+           - Upstream Source is Red Hat Fedora Linux
+           - Binary compatible to Red Hat Enterprise Linux (RHEL)
+           - Based on RPM Package Manager (Curated Packages by Red Hat)
+           - All new distro development halted. Existing distro releases EOL in 2024
+
+
+   RockyLinux
+   ----------
+      ref: https://rockylinux.org
+           https://git.rockylinux.org
+           https://en.wikipedia.org/wiki/Rocky_Linux
+           =========================================
+           - Upstream Source is Red Hat Fedora Linux
+           - Binary compatible to Red Hat Enterprise Linux (RHEL)
+           - Based on RPM Package Manager (Curated Packages by Red Hat)
+           - One of the replacement distros created when the CentOS distro was coverted to CentOS stream
+
+
+   Ubuntu
+   ------
+      ref: https://ubuntu.com/
+           https://en.wikipedia.org/wiki/Ubuntu
+           ====================================
+           - Upstream Source Debian Linux
+           - Based on Debian Package Manager (Curated Packages by Canonical)
+
+
+   Common
+   ------
+      - 64-bit OS running on either x86_64 or ARM architecture
+      - Eclipse Integrated Development Environment for C++ development
+      - Community support for device driver updates (not CentOS)
+      - Community support for new device drivers (not CentOS)
+
+
+   Concerns
+   --------
+      - What OS mixuture is being planned for deployment on the target? It would be advantageous for developers to be gaining
+        experience on both target and development environemnts at the same time as opposed to learning multiple environments.
+
+
+   Comparisons
+   -----------
+      ref: https://dekisoft.com/almalinux-vs-ubuntu-comparison/
+           https://www.linuxcloudvps.com/blog/why-almalinux-is-a-good-choice-as-a-web-server-os/
+           https://www.ionos.com/digitalguide/server/configuration/linux-server-distributions/
+
+
+   Summary
+   -------
+      - The choice comes down to the package manager. For ease of development/deployment, developers should not have to master
+        two different package managers. The package manager is responsible for every software component, device driver, kernel
+        component and supporting file installed on a system (etiher target or development workstation).
+
+         - If Ubuntu is target OS possibility, then it should be used as the development OS as it is the most supported
+           distro in the Linux community.
+
+         - If Ubuntu is NOT a target OS possibility, then AlmaLinux should be useds at the development OS. AlmaLinux is
+           free to use (forever) and is 1:1 binary compatible with both RHEL and CentOS.
+

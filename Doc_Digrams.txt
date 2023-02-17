@@ -1,0 +1,58 @@
+
+Definition Of Digraphs In Unicode
+---------------------------------
+   ref: https://en.wikipedia.org/wiki/Digraph_(orthography)#In_Unicode
+        https://en.wikipedia.org/wiki/Digraphs_and_trigraphs
+
+
+Chart Detailing a Subset Of The The 2-Character Mnemonics For Box Drawing Characters Defined in RFC1345
+-------------------------------------------------------------------------------------------------------
+   ref: https://www.rfc-editor.org/rfc/rfc1345.html
+
+   ┌────────────────────┬────────────────────┬────────────────────┬────────────────────┬────────────────────┬────────────────────┐
+   │                    │                    │                    │                    │                    │                    │
+   │        hh ─        │        HH ━        │        vv │        │        VV ┃        │        dr ┌        │        DR ┏        │
+   │                    │                    │                    │                    │                    │                    │
+   │  Light Horizontal  │  Heavy Horizontal  │   Light Vertical   │   Heavy Veritcal   │  Light Down Right  │  Heavy Down Right  │
+   │      U + 2500      │      U + 2501      │      U + 2502      │      U + 2503      │      U + 250C      │      U + 250F      │
+   │                    │                    │                    │                    │                    │                    │
+   ├────────────────────╆━━━━━━━━━━━━━━━━━━━━╅────────────────────┼────────────────────┼────────────────────┼────────────────────┤
+   │                    ┃                    ┃                    │                    │                    │                    │
+   │        dl ┐        ┃        na ┓        ┃        ur └        │        UR ┗        │        ul ┘        │        UL ┛        │
+   │                    ┃                    ┃                    │                    │                    │                    │
+   │   Light Down Left  ┃   Heavy Down Left  ┃   Light Up Right   │   Heavy Up Right   │    Light Up Left   │    Heavy Up Left   │
+   │      U + 2510      ┃      U + 2513      ┃      U + 2514      │      U + 2517      │      U + 2518      │      U + 251B      │
+   │                    ┃                    ┃                    │                    │                    │                    │
+   ├────────────────────╄━━━━━━━━━━━━━━━━━━━━╃────────────────────┼────────────────────┼────────────────────┼────────────────────┤
+   │                    │                    │                    │                    │                    │                    │
+   │        vr ├        │        VR  ┣       │        vl  ┤       │        VL ┫        │        dh ┬        │        DH ┳        │
+   │                    │                    │                    │                    │                    │                    │
+   │  Light Vert. Right │  Heavy Vert. Right │  Light Vert. Left  │  Heavy Vert. Left  │  Light Down Horiz. │  Heavy Down Horiz. │
+   │      U + 251C      │      U + 2523      │      U + 2524      │      U + 252B      │      U + 252C      │      U + 2533      │
+   │                    │                    │                    │                    │                    │                    │
+   ├────────────────────┼────────────────────┼────────────────────┼────────────────────╆━━━━━━━━━━━━━━━━━━━━╈━━━━━━━━━━━━━━━━━━━━┪
+   │                    │                    │                    │                    ┃                    ┃                    ┃
+   │        uh ┴        │        UH ┻        │        vh  ┼       │        VH ╋        ┃        na ═        ┃        na ║        ┃
+   │                    │                    │                    │                    ┃                    ┃                    ┃
+   │   Light Up Horiz.  │   Heavy Up Horiz.  │ Light Vert. Horiz. │ Heavy Vert. Horiz. ┃  Double Horizontal ┃   Double Vertical  ┃
+   │      U + 2534      │      U + 253B      │      U + 253C      │      U + 254B      ┃      U + 2550      ┃      U + 2551      ┃
+   │                    │                    │                    │                    ┃                    ┃                    ┃
+   ┢━━━━━━━━━━━━━━━━━━━━╈━━━━━━━━━━━━━━━━━━━━╈━━━━━━━━━━━━━━━━━━━━╈━━━━━━━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━━━┫
+   ┃                    ┃                    ┃                    ┃                    ┃                    ┃                    ┃
+   ┃        na ╔        ┃        na ╗        ┃        na  ╚       ┃        na ╝        ┃        na ╠        ┃        na ╣        ┃
+   ┃                    ┃                    ┃                    ┃                    ┃                    ┃                    ┃
+   ┃  Double Down Right ┃  Double Down Left  ┃   Double Up Right  ┃   Double Up Left   ┃ Double Vert. Right ┃  Double Vert. Left ┃
+   ┃      U + 2554      ┃      U + 2557      ┃      U + 255A      ┃      U + 255D      ┃      U + 2560      ┃      U + 2563      ┃
+   ┃                    ┃                    ┃                    ┃                    ┃                    ┃                    ┃
+   ┣━━━━━━━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━━━┫
+   ┃                    ┃                    ┃                    ┃                    ┃                    ┃                    ┃
+   ┃        na ╦        ┃        na ╩        ┃        na  ╬       ┃                    ┃                    ┃                    ┃
+   ┃                    ┃                    ┃                    ┃                    ┃                    ┃                    ┃
+   ┃ Double Down Horiz. ┃  Double Up Horiz.  ┃ Double Vert. Horiz.┃                    ┃                    ┃                    ┃
+   ┃      U + 2566      ┃      U + 2569      ┃      U + 256C      ┃                    ┃                    ┃                    ┃
+   ┃                    ┃                    ┃                    ┃                    ┃                    ┃                    ┃
+   ┗━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━┛
+
+
+
+
