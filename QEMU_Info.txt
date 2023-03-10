@@ -1,0 +1,143 @@
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ QEMU_Info.txt                                                                                                                   ║
+║                                                                                                                                 ║
+║ Document Best Viewed/Printed: Page{Letter, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                 ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                         Revision History                                                        ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                             ║
+║                                                                                                                                 ║
+║  1.00.06523.xx (06 Mar 23) - Initial Creation {J. Laccone}                                                                      ║
+║                                 Added header, added reference data                                                              ║
+║  1.01.06723.xx (08 Mar 23) - Development Update {J. Laccone}                                                                    ║
+║                                 Added additional reference data                                                                 ║
+║  1.02.06823.xx (09 Mar 23) - Development Update {J. Laccone}                                                                    ║
+║                                 Added additional reference data                                                                 ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                            Reference                                                            ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                 ║
+║   QEMU                                                                                                                          ║
+║   ----                                                                                                                          ║
+║      https://www.qemu.org/                                                                                                      ║
+║      https://gitlab.com/qemu-project/qemu/-/tree/master/docs                                                                    ║
+║                                                                                                                                 ║
+║   Alpine Linux                                                                                                                  ║
+║   ------------                                                                                                                  ║
+║      https://alpinelinux.org/                                                                                                   ║
+║      https://dl-cdn.alpinelinux.org/alpine/                                                                                     ║
+║      https://wiki.alpinelinux.org/wiki/Requirements                                                                             ║
+║      https://wiki.alpinelinux.org/wiki/Installation                                                                             ║
+║                                                                                                                                 ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                              Notes                                                              ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Exiting Running Emulator
+   ------------------------
+      ref: https://serverfault.com/questions/730355/qemu-running-in-ssh-how-to-exit
+
+   Running With Debug
+   ------------------
+      ref: https://nickdesaulniers.github.io/blog/2018/10/24/booting-a-custom-linux-kernel-in-qemu-and-debugging-it-with-gdb/
+
+   Installing QEMU With Tools
+   --------------------------
+      ref: https://linuxhint.com/qemu-tutorial/
+
+   Getting Started
+   ---------------
+      ref: https://drewdevault.com/2018/09/10/Getting-started-with-qemu.html
+
+
+CTRL + a, c for console access
+
+ c | cont - continue
+ s | stop - stop the emulator
+ q | quit - exit the emulator
+
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                            Procedures                                                           ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Download An Operating System ISO Image
+   ══════════════════════════════════════
+      1. Open a terminal window
+      2. Download an operation system ISO image by typing the following command(s) into the terminal window:
+
+            Alpine
+            ------
+            curl -O https://dl-cdn.alpinelinux.org/alpine/<version>/releases/<arch>/<iso-file-name>
+            (ex: curl -O https://dl-cdn.alpinelinux.org/alpine/v3.15/releases/x86_64/alpine-standard-3.15.0-x86_64.iso)
+
+
+   Create An HDD File For A Virtual Machine
+   ════════════════════════════════════════
+      1. Open a terminal window
+      2. Change to the project directory by typing the following command(s) into the terminal window:
+
+            cd <directory-with-disk-image-file>
+            (ex: cd /data/virtual-machines/basic-alpine)
+
+      3. Create the HDD file by typing the following command(s) into the terminal window:
+
+            qemu-img create -f <type> <name> <size>
+            (ex: qemu-img create -f qcow2 alpine.qcow2 16G)
+
+
+   Create A Basic Virtual Machine
+   ══════════════════════════════
+      1. Open a terminal window
+      2. Change to the project directory by typing the following command(s) into the terminal window:
+
+            cd <directory-with-disk-image-file>
+            (ex: cd /data/virtual-machines/basic-alpine)
+
+      3. Start the virtual machine by typing the following command(s) into the terminal window:
+
+            Alpine Linux v3.15, 2 Core CPU, 768M RAM, 16G HDD
+            -------------------------------------------------
+            qemu-system-x86_64                                \
+            -name basic_alpine_test                           \
+            -cpu kvm64                                        \
+            -smp cores=2                                      \
+            -m 768M                                           \
+            -nic user,model=virtio                            \
+            -drive file=alpine.qcow2,media=disk,if=virtio     \
+            -cdrom /data/iso/alpine-standard-3.15.0-x86_64.iso
+
+      4. Login to the new virtual machine by typing the following command(s) into the virtual machine terminal window:
+
+            root
+
+      5. Setup the new virtual machine by typing the following command(s) into the virtual machine terminal window:
+
+            setup-alpine
+
+
+
+
+
+
+
+qemu-system-aarch64 \
+-M arm-generic-fdt \
+-nographic \
+-dtb pre-built/linux/images/zynqmp-qemu-multiarch-arm.dtb \
+-deviceloader,file=zynqmp_fsbl.elf,cpi-num=0 \
+-global xlnx,zynqmp-boot.cpu-num=0 \
+-global xlnx,zynqmp-boot.use-pmufw=true \
+-machine-path /tmp/tmp.0qaU8lmSoN/ \
+-gdb tcp::9001 \
+-drivefile=qemu_sd,img,if=sd,format=raw,index=1 \
+-boot mode=5 \
+-m 4G
+
+
