@@ -1,54 +1,59 @@
-╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║ Military_Reference.txt                                                                                                                                                  ║
-║                                                                                                                                                                         ║
-║ Document Encoding           : UTF-8, UNIX Line Terminator                                                                                                               ║
-║ Document Best Viewed/Printed: Page{Ledger, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                                                         ║
-║                                                                                                                                                                         ║
-╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
-║                                                                            Revision History                                                                             ║
-╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
-║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                                                                     ║
-║                                                                                                                                                                         ║
-║  1.00.20420.xx (22 Jul 20) - Initial Creation {J. Laccone}                                                                                                              ║
-║                                 Added header, added reference data                                                                                                      ║
-║  1.01.20520.xx (23 Jul 20) - Development Update {J. Laccone}                                                                                                            ║
-║                                 Added additional sections                                                                                                               ║
-║  1.02.20620.xx (24 Jul 20) - Development Update {J. Laccone}                                                                                                            ║
-║                                 Added additional acronyms                                                                                                               ║
-║  1.03.22420.xx (11 Aug 20) - Development Update {J. Laccone}                                                                                                            ║
-║                                 Added additional crypto acronyms                                                                                                        ║
-║  1.04.33421.xx (30 Nov 21) - Development Update {J. Laccone}                                                                                                            ║
-║                                 Added additional security concepts                                                                                                      ║
-║                                                                                                                                                                         ║
-╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
-║                                                                                Reference                                                                                ║
-╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
-║                                                                                                                                                                         ║
-║   Joint Electronics Type Designation System                                                                                                                             ║
-║   -----------------------------------------                                                                                                                             ║
-║      https://en.wikipedia.org/wiki/Joint_Electronics_Type_Designation_System                                                                                            ║
-║                                                                                                                                                                         ║
-║   Military Acronyms And Definitions                                                                                                                                     ║
-║   ---------------------------------                                                                                                                                     ║
-║      https://www.militarydictionary.org/                                                                                                                                ║
-║                                                                                                                                                                         ║
-╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
-║                                                                                  Notes                                                                                  ║
-╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
-║                                                                                                                                                                         ║
-║   Red-Black Architecture                                                                                                                                                ║
-║   ----------------------                                                                                                                                                ║
-║      The red/black concept, sometimes called the red–black architecture or red/black engineering, refers to the careful segregation in cryptographic systems of         ║
-║      signals that contain sensitive or classified plaintext information (red signals) from those that carry encrypted information, or ciphertext (black signals).       ║
-║      Therefore, the red side is usually considered the internal side, and the black side the more public side, with often some sort of guard, firewall or               ║
-║      data-diode between the two.                                                                                                                                        ║
-║         ref: https://en.wikipedia.org/wiki/Red/black_concept                                                                                                            ║
-║                                                                                                                                                                         ║
-╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ Military_Reference.txt                                                                                                          ║
+║                                                                                                                                 ║
+║ Document Encoding           : UTF-8, UNIX Line Terminator                                                                       ║
+║ Document Best Viewed/Printed: Page{Ledger, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                 ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                         Revision History                                                        ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                             ║
+║                                                                                                                                 ║
+║  1.00.20420.xx (22 Jul 20) - Initial Creation {J. Laccone}                                                                      ║
+║                                 Added header, added reference data                                                              ║
+║  1.01.20520.xx (23 Jul 20) - Development Update {J. Laccone}                                                                    ║
+║                                 Added additional sections                                                                       ║
+║  1.02.20620.xx (24 Jul 20) - Development Update {J. Laccone}                                                                    ║
+║                                 Added additional acronyms                                                                       ║
+║  1.03.22420.xx (11 Aug 20) - Development Update {J. Laccone}                                                                    ║
+║                                 Added additional crypto acronyms                                                                ║
+║  1.04.33421.xx (30 Nov 21) - Development Update {J. Laccone}                                                                    ║
+║                                 Added additional security concepts                                                              ║
+║  1.05.03723.xx (06 Feb 23) - Development Update {J. Laccone}                                                                    ║
+║                                 Adjusted width to 132 columns                                                                   ║
+║  1.06.03823.xx (07 Feb 23) - Development Update {J. Laccone}                                                                    ║
+║                                 Added reference links to FACE                                                                   ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                            Reference                                                            ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                 ║
+║   Joint Electronics Type Designation System                                                                                     ║
+║   -----------------------------------------                                                                                     ║
+║      https://en.wikipedia.org/wiki/Joint_Electronics_Type_Designation_System                                                    ║
+║                                                                                                                                 ║
+║   Military Acronyms And Definitions                                                                                             ║
+║   ---------------------------------                                                                                             ║
+║      https://www.militarydictionary.org/                                                                                        ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                              Notes                                                              ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                 ║
+║   Red-Black Architecture                                                                                                        ║
+║   ----------------------                                                                                                        ║
+║      The red/black concept, sometimes called the red–black architecture or red/black engineering, refers to the careful         ║
+║      segregation in cryptographic systems of signals that contain sensitive or classified plaintext information (red signals)   ║
+║      from those that carry encrypted information, or ciphertext (black signals).                                                ║
+║      Therefore, the red side is usually considered the internal side, and the black side the more public side, with often       ║
+║      some sort of guard, firewall or data-diode between the two.                                                                ║
+║         ref: https://en.wikipedia.org/wiki/Red/black_concept                                                                    ║
+║                                                                                                                                 ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
-╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                                                                                Glossary                                                                                 ║
-╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                             Glossary                                                            ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
    A Entries
    ═════════
@@ -117,6 +122,8 @@
    F Entries
    ═════════
       FACE - Future Airborne Capability Environment
+             ref: https://en.wikipedia.org/wiki/Future_Airbourne_Capability_Environment
+                  https://www.opengroup.org/face
 
       FDOA - Frequency Difference Of Arrival
              ref: https://en.wikipedia.org/wiki/FDOA
@@ -129,6 +136,9 @@
    I Entries
    ═════════
       IFF - Intentification Friend or Foe
+
+      ISR - Intelligence, Surveillance & Reconnaissance
+            ref: https://en.wikipedia.org/wiki/intelligence_surveillance_target_acquisition_and_reconnaissance
 
 
    J Entries
@@ -193,6 +203,8 @@
 
       TIM - Technical Interchange Meeting
 
+      TISR - Tactical Intelligence, Surveillance & Reconnaissance
+
       TOA - Time Of Arrival
             ref: https://en.wikipedia.org/wiki/Time_of_arrival
 
@@ -209,9 +221,9 @@
 
 
 
-╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                                                                                 Sensors                                                                                 ║
-╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                             Sensors                                                             ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
    Some Types of Sensors
    ═════════════════════
@@ -226,9 +238,9 @@
 
 
 
-╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                                                                          Example JETDS Devices                                                                          ║
-╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                      Example JETDS Devices                                                      ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
    AN/APG: Army Navy - Piloted Aircraft, Radar, Fire Control
    ═════════════════════════════════════════════════════════
@@ -247,9 +259,9 @@
 
 
 
-╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                                                                        Example Hardware/Software                                                                        ║
-╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                    Example Hardware/Software                                                    ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
    Egon hardware
       ref: https://www.harris.com/solution/egon-active-reactive-counter-ied-system

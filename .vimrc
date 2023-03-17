@@ -74,7 +74,7 @@ call plug#end()
 " ===========================================
    colorscheme desert
    "colorscheme elflord
-   set colorcolumn=132
+   set colorcolumn=132,172
    highlight ColorColumn ctermbg=lightgrey guibg=lightgrey
 
    " Non-Printable characters (tab: dig >>, trail: dig .M)

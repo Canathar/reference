@@ -14,6 +14,12 @@
 ║                                 Added additional reference data                                                                 ║
 ║  1.02.06823.xx (09 Mar 23) - Development Update {J. Laccone}                                                                    ║
 ║                                 Added additional reference data                                                                 ║
+║  1.03.07223.xx (13 Mar 23) - Development Update {J. Laccone}                                                                    ║
+║                                 Added additional reference data                                                                 ║
+║  1.04.07523.xx (16 Mar 23) - Development Update {J. Laccone}                                                                    ║
+║                                 Added virtual network procedures                                                                ║
+║  1.05.07623.xx (17 Mar 23) - Development Update {J. Laccone}                                                                    ║
+║                                 Modified parameters to support different platforms                                              ║
 ║                                                                                                                                 ║
 ╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                            Reference                                                            ║
@@ -23,6 +29,7 @@
 ║   ----                                                                                                                          ║
 ║      https://www.qemu.org/                                                                                                      ║
 ║      https://gitlab.com/qemu-project/qemu/-/tree/master/docs                                                                    ║
+║      https://en.wikipedia.org/wiki/QEMU                                                                                         ║
 ║                                                                                                                                 ║
 ║   Alpine Linux                                                                                                                  ║
 ║   ------------                                                                                                                  ║
@@ -53,6 +60,20 @@
    ---------------
       ref: https://drewdevault.com/2018/09/10/Getting-started-with-qemu.html
 
+   Installing KVM (QEMU) On CentOS 7 / RHEL 7
+   ------------------------------------------
+      ref: https://www.itzgeek.com/how-tos/linux/centos-how-tos/install-kvm-qemu-on-centos-7-rhel-7.html
+
+   KVM libvirt Addresses Using DHCP
+   --------------------------------
+      ref: https://www.cyberciti.biz/faq/linux-kvm-libvirt-dnsmasq-dhcp-static-ip-address-configuration-for-guest-os
+
+   How To Emulate Block Devices With QEMU
+   --------------------------------------
+      ref: https://blogs.oracle.com/linux/post/how-to-emulate-block-devices-with-qemu
+
+
+
 
 CTRL + a, c for console access
 
@@ -61,10 +82,8 @@ CTRL + a, c for console access
  q | quit - exit the emulator
 
 
-
-
 ╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                                                            Procedures                                                           ║
+║                                                          Prerequisites                                                          ║
 ╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
    Download An Operating System ISO Image
@@ -78,8 +97,42 @@ CTRL + a, c for console access
             (ex: curl -O https://dl-cdn.alpinelinux.org/alpine/v3.15/releases/x86_64/alpine-standard-3.15.0-x86_64.iso)
 
 
+   Verify QEMU Version
+   ═══════════════════
+      1. Open a terminal window
+      2. Verify that the QEMU version is 6.2 or greater by typing the following command(s) into the terminal window:
+
+            qemu-system-<arch> --version
+            (ex: qemu-system-x86_64 --version)
+
+
+   Display Available CPU Emulation Options
+   ═══════════════════════════════════════
+      1. Open a terminal window
+      2. Display the available CPU options by typing the following command(s) into the terminal window:
+
+            qemu-system-<arch> -cpu help
+            (ex: qemu-system-x86_64 -cpu help)
+
+
+   Display Available Overall Device Options
+   ════════════════════════════════════════
+      1. Open a terminal window
+      2. Display the available overall device options by typing the following command(s) into the terminal window:
+
+            qemu-system-<arch> -device help
+            (ex: qemu-system-x86_64 -device help)
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                            Procedures                                                           ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
    Create An HDD File For A Virtual Machine
    ════════════════════════════════════════
+      ref: https://qemu-project.gitlab.io/qemu/system/images.html
+
       1. Open a terminal window
       2. Change to the project directory by typing the following command(s) into the terminal window:
 
@@ -90,6 +143,7 @@ CTRL + a, c for console access
 
             qemu-img create -f <type> <name> <size>
             (ex: qemu-img create -f qcow2 alpine.qcow2 16G)
+            (ex: qemu-img create -f raw alpine.raw 16G)
 
 
    Create A Basic Virtual Machine
@@ -98,20 +152,31 @@ CTRL + a, c for console access
       2. Change to the project directory by typing the following command(s) into the terminal window:
 
             cd <directory-with-disk-image-file>
-            (ex: cd /data/virtual-machines/basic-alpine)
+            (ex: cd /data/virtual-machines/alpine-test-1)
 
       3. Start the virtual machine by typing the following command(s) into the terminal window:
 
-            Alpine Linux v3.15, 2 Core CPU, 768M RAM, 16G HDD
-            -------------------------------------------------
-            qemu-system-x86_64                                \
-            -name basic_alpine_test                           \
-            -cpu kvm64                                        \
-            -smp cores=2                                      \
-            -m 768M                                           \
-            -nic user,model=virtio                            \
-            -drive file=alpine.qcow2,media=disk,if=virtio     \
+            Alpine Linux v3.15, 2 Core CPU, 4G RAM, 16G HDD
+            -----------------------------------------------
+            qemu-system-x86_64                                                                \
+            -name alpine-test-1                                                               \
+            -cpu kvm64-v1                                                                     \
+            -smp sockets=1,cores=2,threads=2                                                  \
+            -m 4G                                                                             \
+            -nic user,model=virtio                                                            \
+            -device megasas,id=scsi0                                                          \
+            -device scsi-hd,drive=drive0,bus=scsi0.0,channel=0,scsi-id=0,lun=0                \
+            -drive file=alpine.qcow2,if=none,id=drive0                                        \
             -cdrom /data/iso/alpine-standard-3.15.0-x86_64.iso
+
+
+
+
+
+            NOTE: Add the following if being run on bare metal
+            -enable-kvm                                        \
+            -drive file=alpine.qcow2,format=qcow2,media=disk,if=virtio,cache=none,aio=threads \
+            -object iothread,id=1                                                             \
 
       4. Login to the new virtual machine by typing the following command(s) into the virtual machine terminal window:
 
@@ -122,6 +187,15 @@ CTRL + a, c for console access
             setup-alpine
 
 
+
+sudo systemctl status libvirtd
+
+https://www.cyberciti.biz/faq/how-to-install-kvm-on-centos-7-rhel-7-headless-server/
+https://www.itzgeek.com/how-tos/mini-howtos/create-a-network-bridge-on-centos-7-rhel-7.html
+
+
+sudo virsh net-list
+sudo virsh net-dumpxml default
 
 
 

@@ -93,6 +93,26 @@
                - Make the modifications to the file shown in the instructions inside the file under the "Quick HowTo" section
                - Save the file and exit vim
 
+[Unit]
+Description=Remote desktop service (VNC)
+After=syslog.target network.target
+
+[Service]
+Type=forking
+
+ExecStartPre=+/usr/libexec/vncsession-restore %i
+ExecStart=/usr/libexec/vncsession-start %i
+#PIDFile=/run/vncsession-%i.pid
+SELinuxContext=system_u:system_r:vnc_session_t:s0
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+
+
+
       5. Reload the systemd daemon by typing the following command(s) into the terminal window:
 
             sudo systemctl daemon-reload
@@ -135,6 +155,10 @@
             (ex: sudo firewall-cmd --permanent --zone=public --add-port=5902/tcp)
             (Multi-port ex: sudo firewall-cmd --permanent --zone=public --add-port=5902-5909/tcp)
 
+https://www.cyberciti.biz/faq/ubuntu-22-04-lts-set-up-ufw-firewall-in-5-minutes/
+sudo ufw allow 5901/tcp
+
+
       6. Reload the firewall by typing the following command(s) into the terminal window:
 
          CentOS/AlmaLinux
@@ -161,7 +185,7 @@
             vncserver -kill :<vnc-connection-number>
             (ex: vncserver -kill :1)
 
-      5. Configure the parameters to pass to the vncserver by editing the ~/.vnc/config file:
+      5. Configure the parameters to pass to the vncserver by editing the ~/.vnc/config file (644):
 
             ## Supported server options to pass to vncserver upon invocation can be listed
             ## in this file. See the following manpages for more: vncserver(1) Xvnc(1).
@@ -169,11 +193,15 @@
             ##
             # securitytypes=vncauth,tlsvnc
             # desktop=sandbox
+            # ============================================================
+            # == Available Sessions Are Fouund In: /usr/share/xsessions ==
+            # ============================================================
+            session=mate
             geometry=1680x1050
             # localhost
             # alwaysshared
 
-      6. Configure the display manager to use with vncserver by editing the ~/.vnc/xstartup file:
+      6. Configure the display manager to use with vncserver by editing the ~/.vnc/xstartup file (755):
 
             #!/bin/sh
 
@@ -181,7 +209,7 @@
             unset DBUS_SESSION_BUS_ADDRESS
             #exec /etc/X11/xinit/xinitrc
 
-            mate-session &
+            #mate-session &
 
 
    Start The Service Unit Instance
@@ -199,7 +227,7 @@
             sudo systemctl status vncserver@:<connection-port>.service
             (ex: sudo systemctl status vncserver@:2.service)
 
-
+comment out the session=gnome from /etc/tigervnc/vncserver-config-defaults
 
 ╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
 ║                                                                           Client Installation                                                                           ║
