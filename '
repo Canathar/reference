@@ -144,9 +144,9 @@ call plug#end()
    nnoremap <silent> <leader>tn :tabnext<CR>
 
 
-" =============================================
-" ---------- Source Code Search Maps ----------
-" =============================================
+" =================================
+" ---------- Search Maps ----------
+" =================================
 
    " Git Merge - file search maps
    " (For Normal Mode)
@@ -177,7 +177,6 @@ call plug#end()
 " --    :diffg BA    - get from BASE                    --
 " --    :diffg LO    - get from LOCAL                   --
 " ========================================================
-" :help diff
 if &diff
 
    " Location Marker
@@ -190,6 +189,7 @@ if &diff
    " Jump to the previous change (backward)
    " (For Normal Mode)
    nnoremap [ [c
+
 
    " Colors
    "    Display all the current colors using :hi or a specific group with :hi <group>
