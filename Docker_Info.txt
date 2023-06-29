@@ -103,59 +103,6 @@
 ║                                                              Common                                                             ║
 ╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
-   Prerequisites For All Installations
-   ═══════════════════════════════════
-      1. Downloaded tools and certificates to allow virtual machines to reach external locations
-         (ref: "Certificates And Tools" above)
-
-
-   Prerequisites For Installations From A Remote Windows Machine
-   ═════════════════════════════════════════════════════════════
-      1. A remote terminal application (mRemoteNG, Xterm) on your local PC or laptop
-
-
-      Install Corporate Certificates
-      ──────────────────────────────
-         1. Open a terminal window to the workstation (using either terminal when using local Linux PC, or remote terminal
-            application when using local Windows PC)
-         2. Login as the superuser (root on CentOS/RHEL, add sudo in front of commands on Ubuntu)
-         3. Create a directory to hold the certificates and tools by typing the following command(s) into the terminal window:
-
-               mkdir ~/security
-
-         4. Change to the directory the tools and certificates were downloaded into
-         5. Expand the archive by typing the following command(s) into the terminal window:
-
-               tar --no-same-owner -xzvf Certificate-and-tools.tar.gz --directory ~/security
-
-         6. Install the necessary corporate certificates by typing the following command(s) into the terminal window:
-
-            CentOS
-            ──────
-               ~/security/AddCertsToAnchor.sh -c ~/security/certs --centos -a
-
-            Ubuntu
-            ──────
-               sudo ~/security/AddCertsToAnchor.sh -c ~/security/certs --ubuntu -a
-
-         7. Verify that the certificates are installed by typing the following command(s) into the terminal window:
-            (NOTE: As of this writing, there are 9 certificates)
-
-            CentOS
-            ──────
-               awk -v cmd='openssl x509 -noout -subject' '
-                          /BEGIN/{close(cmd)};{print | cmd}' < /etc/ssl/certs/ca-bundle.trust.crt | grep Harris
-
-            Ubuntu
-            ──────
-               awk -v cmd='openssl x509 -noout -subject' '
-                          /BEGIN/{close(cmd)};{print | cmd}' < /etc/ssl/certs/ca-certificates.crt | grep Harris
-
-         8. Verify that the machine can reach the docker server by typing the following command(s) into the terminal window:
-
-               openssl s_client -connect download.docker.com:443
-
-
 
 ╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
 ║                                                   CentOS Updates/Configuration                                                  ║

@@ -258,7 +258,7 @@ comment out the session=gnome from /etc/tigervnc/vncserver-config-defaults
                   6. In the "Port forwarding" Groupbox, "Destination" TextBox, add the following:
 
                         <remote-server-name or remote-server-ip-address>:<remote-server-vnc-port-number>
-                        (ex: lnstd1241:5907)
+                        (ex: testpc:5907)
 
                   7. In the "Port forwarding" Groupbox, press the "Add" Button
 
@@ -268,13 +268,13 @@ comment out the session=gnome from /etc/tigervnc/vncserver-config-defaults
                   2. In the "Specify the destination you want to connect to" Groupbox, "Host Name (or IP address)" Textbox, add the following:
 
                         <remote-server-name or remote-server-ip-address>
-                        (ex: lnstd1241)
+                        (ex: testpc)
 
                   3. In the "Specify the destination you want to connect to" Groupbox, verify that the "Connection type" RadioButton is set to "SSH"
                   4. In the "Load, save or delete a stored session" Groupbox, "Saved Sessions" Textbox, add the following:
 
                         <human-friendly-name-for-custom-putty-session>
-                        (ex: Tunnel Configuration For lnstd1241)
+                        (ex: Tunnel Configuration For testpc)
 
                   4. In the "Load, save or delete a stored session" Groupbox, click the "Save" Button
 
@@ -285,12 +285,12 @@ comment out the session=gnome from /etc/tigervnc/vncserver-config-defaults
             3. In the "Config" Panel, "Display->Name" property, add the following
 
                   <human-friendly-name-for-connection>
-                  (ex: lnstd1241 Development)
+                  (ex: testpc Development)
 
             4. In the "Config" Panel, "Connection->Hostname/IP" property, add the following:
 
                   <remote-server-name or remote-server-ip-address>
-                  (ex: lnstd1241)
+                  (ex: testpc)
 
             5. OPTIONAL: In the "Config" Panel, "Connection->Username" property, add the following:
 
@@ -319,7 +319,7 @@ comment out the session=gnome from /etc/tigervnc/vncserver-config-defaults
       5. In the "Name" TextBox, add the following
 
             <human-friendly-name-for-connection>
-            (ex: lnstd1241 Development)
+            (ex: testpc Development)
 
       6. Press the "OK" Button
 

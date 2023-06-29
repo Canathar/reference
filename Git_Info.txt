@@ -73,7 +73,6 @@
             [alias]
                # Checkout Aliases
                dev = checkout development
-               fea93 = checkout feature/GEWEWNET-93-update-gui-to-ingest-geolocation-estimates
 
                # Logging Aliases
                lg = log --all --decorate --oneline --graph
@@ -143,7 +142,7 @@
       3. Display all objects in a commit by typing the following command(s) into the terminal window:
 
             git ls-tree --full-tree <commit-sha-1>
-            (ex: git ls-tree --full-tree 5a25c05aa29bce98f7370f3408298c062ead0805)
+            (ex: git ls-tree --full-tree 3b25c05aa29bce98f7370f3408298c062ead0805)
 
 
 
@@ -166,8 +165,8 @@
       2. Change to the root folder of the git repo
       3. Create a new local feature branch by typing the following command(s) into the terminal window:
 
-            git branch feature/GEWEWNET-<jira-ticket-number>-<jira-ticket-title>
-            (ex: git branch feature/GEWEWNET-93-update-gui-to-ingest-geolocation-estimates)
+            git branch feature/<project>-<jira-ticket-number>-<jira-ticket-title>
+            (ex: git branch feature/MYPROJ-001-the-title-of-my-ticket)
 
 
    Create A New Local Feature Branch (Feature Does Exist On Remote)
@@ -176,8 +175,8 @@
       2. Change to the root folder of the git repo
       3. Create a new local feature branch from remote branch by typing the following command(s) into the terminal window:
 
-            git checkout --track origin/feature/GEWEWNET-<jira-ticket-number>-<jira-ticket-title>
-            (ex: git checkout --track origin/feature/GEWEWNET-93-update-gui-to-ingest-geolocation-estimates)
+            git checkout --track origin/feature/<project>-<jira-ticket-number>-<jira-ticket-title>
+            (ex: git checkout --track origin/feature/MYPORJ-004-the-additional-work-to-be-done)
 
 
    Switch To A Local Feature Branch
@@ -186,8 +185,8 @@
       2. Change to the root folder of the git repo
       3. Switch to a local feature branch by typing the following command(s) into the terminal window:
 
-            git checkout feature/GEWEWNET-<jira-ticket-number>-<jira-ticket-title>
-            (ex: git checkout feature/GEWEWNET-93-update-gui-to-ingest-geolocation-estimates)
+            git checkout feature/<project>-<jira-ticket-number>-<jira-ticket-title>
+            (ex: git checkout feature/MYPORJ-004-the-additional-work-to-be-done)
 
 
    Push Local Feature Branch Changes To A Remote Repository
@@ -198,8 +197,8 @@
 
             git checkout development
 
-            git push origin feature/GEWEWNET-<jira-ticket-number>-<jira-ticket-title>
-            (ex: git push origin feature/GEWEWNET-93-update-gui-to-ingest-geolocation-estimates)
+            git push origin feature/<project>-<jira-ticket-number>-<jira-ticket-title>
+            (ex: git push origin feature/MYPORJ-004-the-additional-work-to-be-done)
 
 
    Change Git Remote
@@ -221,8 +220,8 @@
       2. Change to the root folder of the git repo
       3. Display changed files by typing the following command(s) into the terminal window:
 
-            git diff --name-only development...feature/GEWEWNET-<jira-ticket-number>-<jira-ticket-title>
-            (ex: git diff --name-only development...feature/GEWEWNET-93-update-gui-to-ingest-geolocation-estimates)
+            git diff --name-only development...feature/<project>-<jira-ticket-number>-<jira-ticket-title>
+            (ex: git diff --name-only development...feature/MYPORJ-004-the-additional-work-to-be-done)
 
 
    Display The File Changes Between development And A Local File
@@ -232,7 +231,7 @@
       3. Display file changes by typing the following command(s) into the terminal window:
 
             git diff development <local-file>
-            (ex: git diff development GEWNCommonMessages.xml)
+            (ex: git diff development myfile.xml)
 
 
 
@@ -247,7 +246,7 @@
       3. Revert a local file to last repository version of the current branch by typing the following command(s) into the terminal window:
 
             git checkout -- <path-to-revert>
-            (ex: git checkout -- common/include/Tracker.h)
+            (ex: git checkout -- common/include/utility.h)
 
 
    Revert A Local File To Repository Version (Different Branch)
@@ -257,7 +256,7 @@
       3. Revert a local file to last repository version of a different branch by typing the following command(s) into the terminal window:
 
             git checkout <branch> -- <path-to-revert>
-            (ex: git checkout development -- common/include/Tracker.h)
+            (ex: git checkout development -- common/include/utility.h)
 
 
 

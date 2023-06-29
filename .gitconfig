@@ -22,8 +22,6 @@
 
 
    # Feature Checkout Aliases
-   feahw2 = checkout feature/HW0002-Add-usage-command-line-argument-option-processing-main
-   feahw6 = checkout feature/HW0006-Add-information-scripts
 
 
    # Command Aliases
@@ -80,8 +78,8 @@
 
 
 [user]
-   name = Laccone, Joseph
-   email = canathar@gmail.com
+   name = <your-name-here>
+   email = <your-email-here>
 
 
 [color]
