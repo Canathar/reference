@@ -117,13 +117,6 @@
 ║                                                            Packet Capture                                                       ║
 ╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
-   Harris Devices (cwp, rmg) Use The Following
-   ═══════════════════════════════════════════
-      tcpdump Version 4.1.1
-      libpcap Version 1.1.1
-
-
-
    Basic Use (tcpdump)
    ═══════════════════
       -v   : slightly more verbose output
@@ -177,5 +170,5 @@
 
             ssh <user>@<ip-address> "tcpdump <options> -w -" | wireshark <options> -i -
             (ex: ssh root@192.168.1.1 "tcpdump -Uvv -s 0 -A -i eth0 not port 22 -w -" | wireshark -k -s 262144 -i -)
-            (ex: ssh root@10.9.40.27 "tcpdump -Uvv -s 0 -A -i prp0 not port 22 and src host 10.9.40.164 -w -" | wireshark -k -s 262144 -i -)
+            (ex: ssh root@192.168.1.2 "tcpdump -Uvv -s 0 -A -i prp0 not port 22 and src host 192.168.1.3 -w -" | wireshark -k -s 262144 -i -)
 
