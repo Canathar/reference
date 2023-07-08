@@ -1,0 +1,81 @@
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ Raspberry_Pi_Info.txt                                                                                                           ║
+║                                                                                                                                 ║
+║ Document Best Viewed/Printed: Page{Letter, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                 ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                         Revision History                                                        ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                             ║
+║                                                                                                                                 ║
+║  1.00.18923.xx (08 Jul 23) - Initial Creation {J. Laccone}                                                                      ║
+║                                 Added header, added reference data                                                              ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                            Reference                                                            ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                 ║
+║   Raspberry Pi                                                                                                                  ║
+║   ------------                                                                                                                  ║
+║      https://www.raspberrypi.org                                                                                                ║
+║      https://www.raspberrypi.com/products                                                                                       ║
+║      https://www.raspberrypi.com/software                                                                                       ║
+║      https://www.raspberrypi.com/documentation                                                                                  ║
+║                                                                                                                                 ║
+║   Advanced IP Scanner                                                                                                           ║
+║   -------------------                                                                                                           ║
+║      https://www.advanced-ip-scanner.com                                                                                        ║
+║                                                                                                                                 ║
+║   MobaXterm                                                                                                                     ║
+║   ---------                                                                                                                     ║
+║      https://mobaxterm.mobatek.net                                                                                              ║
+║                                                                                                                                 ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                        Installation                                                             ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Format microSD Card
+   ═══════════════════
+      1. Open Raspberry Pi Imager tool on the workstation PC
+      2. Within the Raspberry Pi Imager application, choose the desired operating system
+      3. Insert the microSD card into the workstation PC
+      4. Within the Raspberry Pi Imager application, choose the desired storage location matching the microSD card
+      5. Within the Raspberry Pi Imager applicaiton, click the gear icon to configure the following options:
+
+            For this session only
+            ─────────────────────
+            set hostname
+            enable SSH, use passwork authentication
+            set username and password
+            set locale settings
+
+
+   Configuration
+   ═════════════
+      1. Verify that the "FOrmat microSD Card" procedure has been completed
+      2. Insert the formatted microSD card into the desired Raspberry Pi
+      3. Power on the desired Raspberry Pi
+      4. Use an IP scanning tool to determine the IP address for the Raspberry Pi
+      5. Use a terminal program to open a terminal window to the Raspberry Pi via SSH
+      6. Configure the Raspberry Pi by typing the following command(s) into the terminal window:
+
+            sudo raspi-config
+
+            Configuration Options
+            ─────────────────────
+            Display Options   -> VNC Resolution
+            Interface Options -> VNC Server Enabled
+            Update
+
+            Select <Finish> to complete configuration
+
+      7. Reboot the Raspberry Pi by typing the following command(s) into the terminal window:
+
+            sudo reboot
+
+      8. Update the Raspberry Pi by typing the following command(s) into the terminal window:
+
+            sudo apt update
+

@@ -30,6 +30,7 @@ This repository contains all of the tidbits of knowledge collected over the year
 | Numbers.txt | Mapping of programming number concepts  |
 | Packet_Capture.txt | WireShark/tcpdump Reference |
 | QEMU_Info.txt | Quick Emulator Information Guide |
+| Raspberry_Pi_info.txt | Raspberry Pi Embedded Computer Information Guide |
 | README.md | This file |
 | RPM_Info.txt | Fedora/RHEL/CentOS Distros Low Level Package Manager Information Guide |
 | Remote_Connection_Info.txt | Linux Distro Remote Connectivity Information Guide |
