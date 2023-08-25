@@ -88,7 +88,9 @@ call plug#end()
    highlight ColorColumn ctermbg=lightgrey guibg=lightgrey
 
    " Non-Printable characters (tab: dig >>, trail: dig .M)
-   set lcs=tab:»_,trail:·
+   " Show these characters with :set list
+   " Hide these characters with :set nolist
+   set lcs=tab:»_,trail:·,eol:$
 
 
 " ===================================
