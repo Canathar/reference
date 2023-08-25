@@ -73,11 +73,16 @@
 
 
 [merge]
+
+   # ===== Beyond Compare =====
    #tool = bc3
+
+   # ===== vim in diff mode =====
    tool = vimdiff
 
 
 [user]
+   # ===== Example Shown Below. Please Change For Your Name/Email =====
    name = <your-name-here>
    email = <your-email-here>
 
