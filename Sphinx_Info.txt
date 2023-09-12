@@ -1,0 +1,102 @@
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ Sphinx_Info.txt                                                                                                                 ║
+║                                                                                                                                 ║
+║ Document Best Viewed/Printed: Page{Letter, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                 ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                         Revision History                                                        ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                             ║
+║                                                                                                                                 ║
+║  1.00.25423.xx (11 Sep 23) - Initial Creation {J. Laccone}                                                                      ║
+║                                 Added header, added reference data                                                              ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                            Reference                                                            ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                 ║
+║   reStructuredText                                                                                                              ║
+║   ----------------                                                                                                              ║
+║      https://docutils.sourceforge.io/rst.html                                                                                   ║
+║      https://en.wikipedia.org/wiki/ReStructuredText                                                                             ║
+║                                                                                                                                 ║
+║                                                                                                                                 ║
+║   Sphinx                                                                                                                        ║
+║   ------                                                                                                                        ║
+║      https://www.sphinx-doc.org                                                                                                 ║
+║      https://github.com/sphinx-doc/sphinx                                                                                       ║
+║      https://en.wikipedia.org/wiki/Sphinx_(documentation_generator)                                                             ║
+║                                                                                                                                 ║
+║   Configuration - Sphinx Documentation                                                                                          ║
+║   ------------------------------------                                                                                          ║
+║      https://www.sphinx-doc.org/en/master/usage/configuration.html                                                              ║
+║                                                                                                                                 ║
+║   Extensions - Sphinx Documentation                                                                                             ║
+║   ---------------------------------                                                                                             ║
+║      https://www.sphinx-doc.org/en/master/usage/extensions/index.html                                                           ║
+║                                                                                                                                 ║
+║   HTML Theming - Sphinx Documentation                                                                                           ║
+║   -----------------------------------                                                                                           ║
+║      https://www.sphinx-doc.org/en/master/usage/theming.html                                                                    ║
+║                                                                                                                                 ║
+║                                                                                                                                 ║
+║   Using Sphinx For Python Documentation                                                                                         ║
+║   -------------------------------------                                                                                         ║
+║      https://www.formosa1544.com/2019/09/19/use-sphinx-for-python-documentation/                                                ║
+║                                                                                                                                 ║
+║   Documenting Python Code With Sphinx                                                                                           ║
+║   -----------------------------------                                                                                           ║
+║      https://towardsdatascience.com/documenting-python-code-with-sphinx-554e1d6c4f6d                                            ║
+║                                                                                                                                 ║
+║   Show Example Code - Sphinx                                                                                                    ║
+║   --------------------------                                                                                                    ║
+║      https://sublime-and-sphinx-guide.readthedocs.io/en/latest/code_blocks.html                                                 ║
+║                                                                                                                                 ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                         Installation                                                            ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Install Sphinx
+   ══════════════
+      1. Open a terminal window
+      2. Verify that the current python environment is the desired one
+      3. Install Sphinx into the current python environment by typing the following command(s) into the terminal window:
+
+            pip install --upgrade sphinx
+
+      4. Create the documentation directories by typing the following command(s) into the terminal window:
+
+            cd <top-level-project-dir>
+            mkdir docs
+            cd docs
+            sphinx-quickstart
+
+      5. Make the following changes to the <top-level-project-dir>/docs/source/conf.py file:
+
+            Add to Extensions   : "sphinx.ext.autodoc", "sphinx.ext.autosummary", "sphinx.ext.viewcode"
+            Change the following: html_theme to 'bizstyle'
+            Add the following   : html_theme_options = { "sidebarwidth": "30%" }
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                          Generation                                                             ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Generate Documentation
+   ══════════════════════
+      1. Open a terminal window
+      2. Generate documentation for the current project by typing the following command(s) into the terminal window:
+
+            cd <top-level-project-dir>/docs
+            sphinx-apidoc -f -o source ../src/<package-name>
+
+      3. Make the following changes to the <top-level-project-dir>/docs/source/index.rst file:
+
+            Add the following just before index: modules
+
+      4. Create the documentation by typing the following command(s) into the terminal window:
+
+            make html
+
