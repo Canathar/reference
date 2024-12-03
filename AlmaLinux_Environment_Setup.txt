@@ -12,6 +12,8 @@
 ║                                 Added header, added reference data                                                              ║
 ║  1.01.30422.xx (31 Oct 22) - Development Update {J. Laccone}                                                                    ║
 ║                                 Added Anaconda installation/configuration data                                                  ║
+║  2.00.33724.xx (02 Dec 24) - Development Update {J. Laccone}                                                                    ║
+║                                 Added AlmaLinux 9 reference data                                                                ║
 ║                                                                                                                                 ║
 ╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                            Reference                                                            ║
@@ -22,6 +24,12 @@
 ║      https://almalinux.org                                                                                                      ║
 ║      https://github.com/AlmaLinux                                                                                               ║
 ║      https://en.wikipedia.org/wiki/AlmaLinux                                                                                    ║
+║      https://wiki.almalinux.org/repos/AlmaLinux.html                                                                            ║
+║                                                                                                                                 ║
+║   idroot                                                                                                                        ║
+║   ------                                                                                                                        ║
+║      https://idroot.us/linux/rhel-based/almalinux/                                                                              ║
+║                                                                                                                                 ║
 ║                                                                                                                                 ║
 ║   How To Enable PowerTools Repository On AlmaLinux 8                                                                            ║
 ║   --------------------------------------------------                                                                            ║
@@ -62,27 +70,68 @@
             sudo dnf update -y
             sudo dnf install dnf-plugins-core -y
             sudo dnf install epel-release -y
-            sudo dnf config-manager --set-enabled powertools
-            sudo dnf repolist
-            sudo dnf repo-pkgs powertools list
 
+            AlmaLinux 8
+            ───────────
+               sudo dnf config-manager --set-enabled powertools
+               sudo dnf repolist
+               sudo dnf repo-pkgs powertools list
+
+            AlmaLinux 9
+            ───────────
+               sudo dnf config-manager --set-enabled crb
+               sudo dnf repolist
+               sudo dnf repo-pkgs crb list
 
 
 ╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
 ║                                                            Python                                                               ║
 ╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
-   Install Logical Volume Manager (lvm2)
-   ═════════════════════════════════════
+   Install Python (Version 3.11 Shown)
+   ═══════════════════════════════════
       1. Open a terminal window
-      2. Update the repo by typing the following command(s) into the terminal window:
+      2. Install python3.11 by typing the following command(s) into the terminal window:
 
             sudo dnf update -y
+            sudo dnf install python3.11
 
-   sudo alternatives --display python
+   Update Python Alternatives
+   ══════════════════════════
+      1. Open a terminal window
+      2. Update the python alternatives by typing the following command(s) into the terminal window:
+         NOTE: /usr/local/bin MUST be in your path BEFORE /usr/bin
+
+            sudo update-alternatives --install /usr/local/bin/python python /usr/bin/python3.11 1
+            sudo update-alternatives --install /usr/local/bin/python python /usr/bin/python3.9 2
+            sudo alternatives --config python
+            <Close current terminal window and open a new terminal window>
+            sudo alternatives --display python
 
 
-sudo dnf install epel-release
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                            Remote                                                               ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Install Remote Desktop
+   ══════════════════════
+      1. Open a terminal window
+      2. Install remote desktop by typing the following command(s) into the terminal window:
+
+            sudo dnf install xrdp
+            sudo systemctl enable xrdp --now
+            sudo vim /etc/xrdp/xrdp.ini <modify port number>
+            sudo systemctl restart xrdp
+            sudo dnf install mate*
+
+
+sudo dnf groupinstall "Server with GUI"
+sudo systemctl set-default graphical.target
+
+
+
+
 
 sudo dnf grouplist
 sudo dnf grouplist hidden
