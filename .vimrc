@@ -53,6 +53,22 @@ Plug 'vim-airline/vim-airline-themes'
 " https://github.com/vim-scripts/CharTab
 Plug 'vim-scripts/CharTab'
 
+" https://github.com/morhetz/gruvbox
+"Plug 'morhetz/gruvbox'
+
+" https://github.com/vim/scripts/c.vim
+"Plug 'vim-scripts/c.vim'
+
+" https://github.com/frazrepo/vim-rainbow
+"Plug 'frazrepo/vim-rainbow'
+
+" https://github.com/vimwiki/vimwiki
+Plug 'vimwiki/vimwiki'
+
+" https://github.com/ryanoasis/vim-devicons
+" NOTE: Always load this plug-in last
+"Plug 'ryanoasis/vim-devicons'
+
 call plug#end()
 
 
@@ -61,6 +77,7 @@ call plug#end()
 " =================================
    syntax on
 
+   set nocompatible
    set encoding=utf-8
    set textwidth=132
    set tabstop=3 softtabstop=3
@@ -78,14 +95,82 @@ call plug#end()
    " (For Normal/Visual/Select/Operator-pending Modes)
    noremap <leader>x y:tabnew<CR>:r! <C-R>"<CR>
 
+   " Highlight from th cursor to the end of the line, yank the text and paste into terminal
+   " (Start in Normal Mode, Enter Visual Mode)
+   " NOTE: This macro ONLY works with VIM8
+   noremap <leader>v <C-V>$y<C-W><C-W><C-W>""
+
+   filetype plugin on
+
 
 " ===========================================
-" ---------- Display Configuration ----------
+" ---------- Vimwiki Configuration ----------
 " ===========================================
+
+   " General Use Wiki -- Change the default wiki language from vimwiki to markdown
+   " Vimwiki Wiki     -- Configure location
+   let g:vimwiki_list = [
+         \ {
+            \ 'name': 'General Use Wiki',
+            \ 'syntax': 'markdown',
+            \ 'ext': 'md'
+         \ },
+         \ {
+            \ 'name': 'Vimwiki Wiki',
+            \ 'syntax': 'default',
+            \ 'ext': 'wiki',
+            \ 'path': '~/vimwikiwiki/wiki',
+            \ 'path_html': '~/vimwikiwiki/docs',
+            \ 'auto_toc': 1
+         \ }
+      \ ]
+
+   " Restrict vimwiki to only process the wiki files in the specified path(s)
+   let g:vimwiki_global_ext=0
+
+
+" =========================================
+" ---------- Theme Configuration ----------
+" =========================================
+
+   " Configure the display for 256 colors
+   set t_Co=256
+
+   " Airline/Powerline Plug-in Configuration
+   let g:airline_theme="molokai"
+   let g:airline_powerline_fonts=1
+
+   " Rainbow Plug-in Configuration
+   "let g:rainbow_active=1
+
+   " Overall Theme
+   " NOTE: Common themes -- desert, elflord
+   set background=dark
    colorscheme desert
-   "colorscheme elflord
+
+
+" ===============================================================================
+" ---------------------------- Display Configuration ----------------------------
+" ===============================================================================
+" -- NOTE1: Test the colors by executing the following command                 --
+" --           :runtime syntax/colortest.vim                                   --
+" -- NOTE2: Set the highlight colors AFTER the colorscheme                     --
+" --                                                                           --
+" -- Quick Reference                                                           --
+" -- ---------------                                                           --
+" --    :cterm-colors - Display color names (16 colors)                        --
+" --    :hi[ghlight]  - Display attributes for all current highlight groups    --
+" ===============================================================================
+
+   " Configure the foreground of comments
+   highlight Comment ctermfg=lightblue guifg=lightblue
+
+   " Configure the location and color of the column lines
    set colorcolumn=132,172
    highlight ColorColumn ctermbg=lightgrey guibg=lightgrey
+
+   " Configure the background to be transparent
+   highlight Normal ctermbg=NONE guibg=NONE
 
    " Non-Printable characters (tab: dig >>, trail: dig .M)
    " Show these characters with :set list
@@ -102,6 +187,12 @@ call plug#end()
 
    " Enable Autocompletion
    set wildmode=longest,list,full
+
+   " Hex file read
+   nnoremap <silent> <leader>hr :set binary<CR> :%!xxd<CR> :set filetype=xxd<CR>
+
+   " Hex file write
+   nnoremap <silent> <leader>hw :set binary<CR> :%!xxd -r<CR> :set filetype=<CR> :noautocmd w<CR>
 
 
 " ================================================
