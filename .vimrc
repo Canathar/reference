@@ -54,20 +54,21 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/CharTab'
 
 " https://github.com/morhetz/gruvbox
-"Plug 'morhetz/gruvbox'
+Plug 'morhetz/gruvbox'
 
-" https://github.com/vim/scripts/c.vim
+" https://github.com/vim-scripts/c.vim
 "Plug 'vim-scripts/c.vim'
 
 " https://github.com/frazrepo/vim-rainbow
-"Plug 'frazrepo/vim-rainbow'
+Plug 'frazrepo/vim-rainbow'
 
 " https://github.com/vimwiki/vimwiki
 Plug 'vimwiki/vimwiki'
 
 " https://github.com/ryanoasis/vim-devicons
-" NOTE: Always load this plug-in last
-"Plug 'ryanoasis/vim-devicons'
+" NOTE1: Always load this plug-in last
+" NOTE2: Requires AT LEAST ONE nerd-font from -- https://github.com/ryanoasis/nerd-fonts to be installed
+Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
 
@@ -100,8 +101,6 @@ call plug#end()
    " NOTE: This macro ONLY works with VIM8
    noremap <leader>v <C-V>$y<C-W><C-W><C-W>""
 
-   filetype plugin on
-
 
 " ===========================================
 " ---------- Vimwiki Configuration ----------
@@ -109,6 +108,9 @@ call plug#end()
 
    " General Use Wiki -- Change the default wiki language from vimwiki to markdown
    " Vimwiki Wiki     -- Configure location
+   "                     NOTE: Perform the following before use
+   "                              cd ~
+   "                              git clone https://github.com/vimwiki/vimwikiwiki.git
    let g:vimwiki_list = [
          \ {
             \ 'name': 'General Use Wiki',
@@ -136,17 +138,20 @@ call plug#end()
    " Configure the display for 256 colors
    set t_Co=256
 
-   " Airline/Powerline Plug-in Configuration
+   " Airline/Powerline/Devicon Plug-in Configuration
+   " NOTE: Make sure a nerd-font is installed
    let g:airline_theme="molokai"
    let g:airline_powerline_fonts=1
 
    " Rainbow Plug-in Configuration
-   "let g:rainbow_active=1
+   let g:rainbow_active=1
 
-   " Overall Theme
+   " Overall Theme / Gruvbox Plug-in Configuration
    " NOTE: Common themes -- desert, elflord
    set background=dark
-   colorscheme desert
+   let g:gruvbox_italic=1
+   let g:gruvbox_transparent_bg=1
+   colorscheme gruvbox
 
 
 " ===============================================================================
@@ -187,6 +192,11 @@ call plug#end()
 
    " Enable Autocompletion
    set wildmode=longest,list,full
+
+   " Enables both filetype detection and filetype plugins which are vimscript files that contain filetype specific commands
+   " NOTE: Filetype vimscripts are located in $VIMRUNTIME/ftplugin
+   "          (ex: $VIMRUNTIME/ftplugin/xhtml.vim)
+   filetype plugin on
 
    " Hex file read
    nnoremap <silent> <leader>hr :set binary<CR> :%!xxd<CR> :set filetype=xxd<CR>
