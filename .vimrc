@@ -96,7 +96,7 @@ call plug#end()
    " (For Normal/Visual/Select/Operator-pending Modes)
    noremap <leader>x y:tabnew<CR>:r! <C-R>"<CR>
 
-   " Highlight from th cursor to the end of the line, yank the text and paste into terminal
+   " Highlight from the cursor to the end of the line, yank the text and paste into terminal
    " (Start in Normal Mode, Enter Visual Mode)
    " NOTE: This macro ONLY works with VIM8
    noremap <leader>v <C-V>$y<C-W><C-W><C-W>""
