@@ -163,8 +163,8 @@ call plug#end()
 " --                                                                           --
 " -- Quick Reference                                                           --
 " -- ---------------                                                           --
-" --    :cterm-colors - Display color names (16 colors)                        --
-" --    :hi[ghlight]  - Display attributes for all current highlight groups    --
+" --    :h cterm-colors - Display color names (16 colors)                      --
+" --    :hi[ghlight]    - Display attributes for all current highlight groups  --
 " ===============================================================================
 
    " Configure the foreground of comments
@@ -178,8 +178,9 @@ call plug#end()
    highlight Normal ctermbg=NONE guibg=NONE
 
    " Non-Printable characters (tab: dig >>, trail: dig .M)
-   " Show these characters with :set list
-   " Hide these characters with :set nolist
+   " NOTE1: Modify using CTRL+V <char1><char2>
+   " NOTE2: Show these characters with :set list
+   " NOTE3: Hide these characters with :set nolist
    set lcs=tab:»_,trail:·,eol:$
 
 
