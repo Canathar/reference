@@ -2,34 +2,46 @@
 " __   _(_)_ __ ___  _ __ ___
 " \ \ / / | '_ ` _ \| '__/ __|
 "  \ V /| | | | | | | | | (__
-"   \_/ |_|_| |_| |_|_|  \___|
-
+" (_)_/ |_|_| |_| |_|_|  \___|
+"
 let mapleader = " "
 
-" For common reference, see the Vim/Vimdiff Cheatsheet
-" https://gist.github.com/azadkuh/5d223d46a8c269dadfe4
 
-" For filter reference, see Vim Filters, External Commands, and the Shell
-" https://vimways.org/2019/vim-and-the-shell/
+" =================================================================================================================================
+" --                                                         Reference                                                           --
+" =================================================================================================================================
+" --                                                                                                                             --
+" --   For common reference, see the Vim/Vimdiff Cheatsheet                                                                      --
+" --      https://gist.github.com/azadkuh/5d223d46a8c269dadfe4                                                                   --
+" --                                                                                                                             --
+" --   For filter reference, see Vim Filters, External Commands, and the Shell                                                   --
+" --      https://vimways.org/2019/vim-and-the-shell/                                                                            --
+" --                                                                                                                             --
+" --   For tab reference, see Beginners Guide to Tabs in Vim                                                                     --
+" --      https://webdevetc.com/blog/tabs-in-vim/                                                                                --
+" --                                                                                                                             --
+" --   For script creation reference, see the Vimscript Cheatsheet                                                               --
+" --      https://github.com/johngrib/vimscript-cheatsheet                                                                       --
+" --                                                                                                                             --
+" =================================================================================================================================
 
-" For tab reference, see Beginners Guide to Tabs in Vim
-" https://webdevetc.com/blog/tabs-in-vim/
 
-" For script creation reference, see the Vimscript Cheatsheet
-" https://github.com/johngrib/vimscript-cheatsheet
 
-" ========================================================
-" ---------- Initialize Plugin Manager: Plugged ----------
-" ========================================================
-" -- Quick Reference                                    --
-" -- ---------------                                    --
-" --    :PlugInstall - Install plugins                  --
-" --    :PlugUpdate  - Install or update pluigns        --
-" --    :PlugStatus  - Check the status of plugins      --
-" --    :PlugUpdate  - Install or update pluigns        --
-" --    :PlugDiff    - Changes since last update        --
-" ========================================================
-" see: https://github.com/junegunn/vim-plug
+" =================================================================================================================================
+" --                                             Initialize Plugin Manager: Plugged                                              --
+" =================================================================================================================================
+" --                                                                                                                             --
+" --   Quick Reference                                                                                                           --
+" --   ---------------                                                                                                           --
+" --      :PlugInstall - Install plugins                                                                                         --
+" --      :PlugUpdate  - Install or update plugins                                                                               --
+" --      :PlugStatus  - Check the status of plugins                                                                             --
+" --      :PlugUpdate  - Install or update plugins                                                                               --
+" --      :PlugDiff    - Changes since last update                                                                               --
+" --                                                                                                                             --
+" --   see: https://github.com/junegunn/vim-plug                                                                                 --
+" --                                                                                                                             --
+" =================================================================================================================================
 
 " Check to see if Plugged is downloaded
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
@@ -57,7 +69,7 @@ Plug 'vim-scripts/CharTab'
 Plug 'morhetz/gruvbox'
 
 " https://github.com/vim-scripts/c.vim
-"Plug 'vim-scripts/c.vim'
+Plug 'vim-scripts/c.vim'
 
 " https://github.com/frazrepo/vim-rainbow
 Plug 'frazrepo/vim-rainbow'
@@ -73,38 +85,45 @@ Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
 
-" =================================
-" ---------- Basic Stuff ----------
-" =================================
-   syntax on
 
-   set nocompatible
-   set encoding=utf-8
-   set textwidth=132
-   set tabstop=3 softtabstop=3
+" =================================================================================================================================
+" --                                                        Basic Stuff                                                          --
+" =================================================================================================================================
+
+   set encoding=utf-8                  " Use unicode instead of latin-1
+   set expandtab                       " Use spaces instead of tabs
+   set nocompatible                    " Use vim defaults instead of vi defaults
+   set nowrap                          " Do not wrap lines
+   set number relativenumber           " Show line numbers and show line numbers relative to current line number
    set shiftwidth=3
-   set expandtab
-   set smartindent
-   set number relativenumber
-
-   set nowrap
-   set smartcase
-
-   set incsearch
-
-   " Execute the text in the yank buffer, display the output in a new tab
-   " (For Normal/Visual/Select/Operator-pending Modes)
-   noremap <leader>x y:tabnew<CR>:r! <C-R>"<CR>
-
-   " Highlight from the cursor to the end of the line, yank the text and paste into terminal
-   " (Start in Normal Mode, Enter Visual Mode)
-   " NOTE: This macro ONLY works with VIM8
-   noremap <leader>v <C-V>$y<C-W><C-W><C-W>""
+   set smartindent                     " Do smart indenting when creating a new line
+   set spell spelllang=en_us           " Enable the spell checker and set the language/location to English/US
+   set textwidth=172                   " Set the maximum column width
+   set tabstop=3 softtabstop=3         " Set the number of spaces for a <TAB>
 
 
-" ===========================================
-" ---------- Vimwiki Configuration ----------
-" ===========================================
+
+" =================================================================================================================================
+" --                                                    Search & Navigation                                                      --
+" =================================================================================================================================
+
+   set incsearch                       " Show matches as you type (incrementally)
+   set smartcase                       " Override ignorecase if search contains uppercase
+
+
+
+" =================================================================================================================================
+" --                                                        Appearance                                                           --
+" =================================================================================================================================
+
+   syntax on                           " Enable syntax highlighting
+   set cursorline                      " Highlight the current line
+
+
+
+" =================================================================================================================================
+" --                                                   Vimwiki Configuration                                                     --
+" =================================================================================================================================
 
    " General Use Wiki -- Change the default wiki language from vimwiki to markdown
    " Vimwiki Wiki     -- Configure location
@@ -131,9 +150,10 @@ call plug#end()
    let g:vimwiki_global_ext=0
 
 
-" =========================================
-" ---------- Theme Configuration ----------
-" =========================================
+
+" =================================================================================================================================
+" --                                                     Theme Configuration                                                     --
+" =================================================================================================================================
 
    " Configure the display for 256 colors
    set t_Co=256
@@ -144,7 +164,8 @@ call plug#end()
    let g:airline_powerline_fonts=1
 
    " Rainbow Plug-in Configuration
-   let g:rainbow_active=1
+   " NOTE: This plugin is currently interfering with spell checking in text files
+   let g:rainbow_active=0
 
    " Overall Theme / Gruvbox Plug-in Configuration
    " NOTE: Common themes -- desert, elflord
@@ -154,39 +175,52 @@ call plug#end()
    colorscheme gruvbox
 
 
-" ===============================================================================
-" ---------------------------- Display Configuration ----------------------------
-" ===============================================================================
-" -- NOTE1: Test the colors by executing the following command                 --
-" --           :runtime syntax/colortest.vim                                   --
-" -- NOTE2: Set the highlight colors AFTER the colorscheme                     --
-" --                                                                           --
-" -- Quick Reference                                                           --
-" -- ---------------                                                           --
-" --    :h cterm-colors - Display color names (16 colors)                      --
-" --    :hi[ghlight]    - Display attributes for all current highlight groups  --
-" ===============================================================================
+
+" =================================================================================================================================
+" --                                                  Display Configuration                                                      --
+" =================================================================================================================================
+" --                                                                                                                             --
+" --   NOTE1: Test the colors by executing the following command                                                                 --
+" --             :runtime syntax/colortest.vim                                                                                   --
+" --   NOTE2: Set the highlight colors AFTER the colorscheme                                                                     --
+" --                                                                                                                             --
+" --   Quick Reference                                                                                                           --
+" --   ---------------                                                                                                           --
+" --      :h cterm-colors - Display color names (16 colors)                                                                      --
+" --      :hi[ghlight]    - Display attributes for all current highlight groups                                                  --
+" --                                                                                                                             --
+" =================================================================================================================================
 
    " Configure the foreground of comments
    highlight Comment ctermfg=lightblue guifg=lightblue
 
    " Configure the location and color of the column lines
-   set colorcolumn=132,172
-   highlight ColorColumn ctermbg=lightgrey guibg=lightgrey
+   set colorcolumn=79,132,172
+   highlight ColorColumn ctermbg=brown guibg=brown
+
+   " Configure the background of the current line
+   highlight clear CursorLine
+   highlight CursorLine ctermbg=darkmagenta
+
+   " Configure the display of the spell checker
+   highlight clear SpellBad
+   highlight SpellBad cterm=underline ctermul=red
 
    " Configure the background to be transparent
    highlight Normal ctermbg=NONE guibg=NONE
 
    " Non-Printable characters (tab: dig >>, trail: dig .M)
-   " NOTE1: Modify using CTRL+V <char1><char2>
+   " NOTE1: Enter the characters in insert mode using CTRL+K <char1><char2>
    " NOTE2: Show these characters with :set list
    " NOTE3: Hide these characters with :set nolist
+   " see: :help listchars
    set lcs=tab:»_,trail:·,eol:$
 
 
-" ===================================
-" ---------- File Handling ----------
-" ===================================
+
+" =================================================================================================================================
+" --                                                    File/Buffer Handling                                                     --
+" =================================================================================================================================
 
    " Automatically delete all trailing space on save
    autocmd BufWritePre * %s/\s\+$//e
@@ -205,11 +239,24 @@ call plug#end()
    " Hex file write
    nnoremap <silent> <leader>hw :set binary<CR> :%!xxd -r<CR> :set filetype=<CR> :noautocmd w<CR>
 
+   " Execute the text in the yank buffer, display the output in a new tab
+   " (For Normal/Visual/Select/Operator-pending Modes)
+   noremap <leader>x y:tabnew<CR>:r! <C-R>"<CR>
 
-" ================================================
-" ---------- Split/Window Functionality ----------
-" ================================================
-" :help window-move-cursor
+   " Highlight from the cursor to the end of the line, yank the text and paste into terminal
+   " (Start in Normal Mode, Enter Visual Mode)
+   " NOTE: This macro ONLY works with VIM8
+   noremap <leader>v <C-V>$y<C-W><C-W><C-W>""
+
+
+
+" =================================================================================================================================
+" --                                                 Split/Window Functionality                                                  --
+" =================================================================================================================================
+" --                                                                                                                             --
+" --   see:  :help window-move-cursor                                                                                            --
+" --                                                                                                                             --
+" =================================================================================================================================
 
    " Splits open at the bottom and right
    set splitbelow splitright
@@ -229,10 +276,14 @@ call plug#end()
    nnoremap <silent> <leader>v- :vertical :resize -5<CR>
 
 
-" =======================================
-" ---------- Tab Functionality ----------
-" =======================================
-" :help tab-page-commands
+
+" =================================================================================================================================
+" --                                                     Tab Functionality                                                       --
+" =================================================================================================================================
+" --                                                                                                                             --
+" --   see: :help tab-page-commands                                                                                              --
+" --                                                                                                                             --
+" =================================================================================================================================
 
    " Shortcutting tab creation/destruction
    " (For Normal Mode)
@@ -248,9 +299,10 @@ call plug#end()
    nnoremap <silent> <leader>tn :tabnext<CR>
 
 
-" =============================================
-" ---------- Source Code Search Maps ----------
-" =============================================
+
+" =================================================================================================================================
+" --                                                  Source Code Search Maps                                                    --
+" =================================================================================================================================
 
    " Git Merge - file search maps
    " (For Normal Mode)
@@ -262,30 +314,31 @@ call plug#end()
    nnoremap <silent> <leader>RE : ?>>>>>>> <ENTER>
 
 
-" ========================================================
-" --------------- Difference Configuration ---------------
-" ========================================================
-" -- Quick Reference                                    --
-" -- ---------------                                    --
-" --    do           - get change from other to current --
-" --    dp           - put change from current to other --
-" --    ]c           - jump to the next change          --
-" --    [c           - jump to the previous change      --
-" --    zo           - open fold                        --
-" --    zc           - close fold                       --
-" --    zr           - reduce folding level             --
-" --    zm           - one more folding level           --
-" --    :diffupdate  - recalculate the diff             --
-" --    :diffu                                          --
-" --    :diffg RE    - get from REMOTE                  --
-" --    :diffg BA    - get from BASE                    --
-" --    :diffg LO    - get from LOCAL                   --
-" ========================================================
-" :help diff
-if &diff
 
-   " Location Marker
-   set cursorline
+" =================================================================================================================================
+" --                                                 Difference Configuration                                                    --
+" =================================================================================================================================
+" --                                                                                                                             --
+" --   Quick Reference                                                                                                           --
+" --   ---------------                                                                                                           --
+" --      do           - get change from other to current                                                                        --
+" --      dp           - put change from current to other                                                                        --
+" --      ]c           - jump to the next change                                                                                 --
+" --      [c           - jump to the previous change                                                                             --
+" --      zo           - open fold                                                                                               --
+" --      zc           - close fold                                                                                              --
+" --      zr           - reduce folding level                                                                                    --
+" --      zm           - one more folding level                                                                                  --
+" --      :diffupdate  - recalculate the diff                                                                                    --
+" --      :diffu                                                                                                                 --
+" --      :diffg RE    - get from REMOTE                                                                                         --
+" --      :diffg BA    - get from BASE                                                                                           --
+" --      :diffg LO    - get from LOCAL                                                                                          --
+" --                                                                                                                             --
+" --   see: :help diff                                                                                                           --
+" --                                                                                                                             --
+" =================================================================================================================================
+if &diff
 
    " Jump to the next change (forward)
    " (For Normal Mode)
