@@ -1,58 +1,125 @@
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║ Doc_Digrams.txt                                                                                                                 ║
+║                                                                                                                                 ║
+║ Document Best Viewed/Printed: Page{Letter, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                 ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                         Revision History                                                        ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                             ║
+║                                                                                                                                 ║
+║  1.00.17925.xx (28 Jun 25) - Initial Creation {J. Laccone}                                                                      ║
+║                                 Added header, added reference data                                                              ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                            Reference                                                            ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                 ║
+║   Unicode Block -  Box Drawing Chart                                                                                            ║
+║   ----------------------------------                                                                                            ║
+║      https://en.wikipedia.org/wiki/Unicode_block                                                                                ║
+║      https://en.wikipedia.org/wiki/Box_Drawing                                                                                  ║
+║      https://www.unicode.org/charts/PDF/U2500.pdf                                                                               ║
+║                                                                                                                                 ║
+║                                                                                                                                 ║
+║   Unicode Character Reference (Range 0x2000 to 0x2FFF)                                                                          ║
+║   ----------------------------------------------------                                                                          ║
+║      https://en.wikibooks.org/wiki/Unicode/Character_reference/2000-2FFF                                                        ║
+║                                                                                                                                 ║
+║                                                                                                                                 ║
+║   Definitions Of Digraphs In Unicode                                                                                            ║
+║   ----------------------------------                                                                                            ║
+║      https://en.wikipedia.org/wiki/Digraph_(orthography)#In_Unicode                                                             ║
+║      https://en.wikipedia.org/wiki/Digraphs_and_trigraphs_(programming)                                                         ║
+║                                                                                                                                 ║
+║                                                                                                                                 ║
+║   Character Mnemonics & Character Sets                                                                                          ║
+║   ------------------------------------                                                                                          ║
+║      https://www.rfc-editor.org/rfc/rfc1345.html                                                                                ║
+║                                                                                                                                 ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
-Definition Of Digraphs In Unicode
----------------------------------
-   ref: https://en.wikipedia.org/wiki/Digraph_(orthography)#In_Unicode
-        https://en.wikipedia.org/wiki/Digraphs_and_trigraphs
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                            Overview                                                             ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
+   In order to more easily generate Unicode characters, mnemonics were created to represent many of the glyphs. These mnemonics
+   were standardized in RFC-1345. Two character mnemonics are referred to as digraphs.
 
-Chart Detailing a Subset Of The The 2-Character Mnemonics For Box Drawing Characters Defined in RFC1345
--------------------------------------------------------------------------------------------------------
-   ref: https://www.rfc-editor.org/rfc/rfc1345.html
-
-   ┌────────────────────┬────────────────────┬────────────────────┬────────────────────┬────────────────────┬────────────────────┐
-   │                    │                    │                    │                    │                    │                    │
-   │        hh ─        │        HH ━        │        vv │        │        VV ┃        │        dr ┌        │        DR ┏        │
-   │                    │                    │                    │                    │                    │                    │
-   │  Light Horizontal  │  Heavy Horizontal  │   Light Vertical   │   Heavy Veritcal   │  Light Down Right  │  Heavy Down Right  │
-   │      U + 2500      │      U + 2501      │      U + 2502      │      U + 2503      │      U + 250C      │      U + 250F      │
-   │                    │                    │                    │                    │                    │                    │
-   ├────────────────────╆━━━━━━━━━━━━━━━━━━━━╅────────────────────┼────────────────────┼────────────────────┼────────────────────┤
-   │                    ┃                    ┃                    │                    │                    │                    │
-   │        dl ┐        ┃        na ┓        ┃        ur └        │        UR ┗        │        ul ┘        │        UL ┛        │
-   │                    ┃                    ┃                    │                    │                    │                    │
-   │   Light Down Left  ┃   Heavy Down Left  ┃   Light Up Right   │   Heavy Up Right   │    Light Up Left   │    Heavy Up Left   │
-   │      U + 2510      ┃      U + 2513      ┃      U + 2514      │      U + 2517      │      U + 2518      │      U + 251B      │
-   │                    ┃                    ┃                    │                    │                    │                    │
-   ├────────────────────╄━━━━━━━━━━━━━━━━━━━━╃────────────────────┼────────────────────┼────────────────────┼────────────────────┤
-   │                    │                    │                    │                    │                    │                    │
-   │        vr ├        │        VR  ┣       │        vl  ┤       │        VL ┫        │        dh ┬        │        DH ┳        │
-   │                    │                    │                    │                    │                    │                    │
-   │  Light Vert. Right │  Heavy Vert. Right │  Light Vert. Left  │  Heavy Vert. Left  │  Light Down Horiz. │  Heavy Down Horiz. │
-   │      U + 251C      │      U + 2523      │      U + 2524      │      U + 252B      │      U + 252C      │      U + 2533      │
-   │                    │                    │                    │                    │                    │                    │
-   ├────────────────────┼────────────────────┼────────────────────┼────────────────────╆━━━━━━━━━━━━━━━━━━━━╈━━━━━━━━━━━━━━━━━━━━┪
-   │                    │                    │                    │                    ┃                    ┃                    ┃
-   │        uh ┴        │        UH ┻        │        vh  ┼       │        VH ╋        ┃        na ═        ┃        na ║        ┃
-   │                    │                    │                    │                    ┃                    ┃                    ┃
-   │   Light Up Horiz.  │   Heavy Up Horiz.  │ Light Vert. Horiz. │ Heavy Vert. Horiz. ┃  Double Horizontal ┃   Double Vertical  ┃
-   │      U + 2534      │      U + 253B      │      U + 253C      │      U + 254B      ┃      U + 2550      ┃      U + 2551      ┃
-   │                    │                    │                    │                    ┃                    ┃                    ┃
-   ┢━━━━━━━━━━━━━━━━━━━━╈━━━━━━━━━━━━━━━━━━━━╈━━━━━━━━━━━━━━━━━━━━╈━━━━━━━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━━━┫
-   ┃                    ┃                    ┃                    ┃                    ┃                    ┃                    ┃
-   ┃        na ╔        ┃        na ╗        ┃        na  ╚       ┃        na ╝        ┃        na ╠        ┃        na ╣        ┃
-   ┃                    ┃                    ┃                    ┃                    ┃                    ┃                    ┃
-   ┃  Double Down Right ┃  Double Down Left  ┃   Double Up Right  ┃   Double Up Left   ┃ Double Vert. Right ┃  Double Vert. Left ┃
-   ┃      U + 2554      ┃      U + 2557      ┃      U + 255A      ┃      U + 255D      ┃      U + 2560      ┃      U + 2563      ┃
-   ┃                    ┃                    ┃                    ┃                    ┃                    ┃                    ┃
-   ┣━━━━━━━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━━━┫
-   ┃                    ┃                    ┃                    ┃                    ┃                    ┃                    ┃
-   ┃        na ╦        ┃        na ╩        ┃        na  ╬       ┃                    ┃                    ┃                    ┃
-   ┃                    ┃                    ┃                    ┃                    ┃                    ┃                    ┃
-   ┃ Double Down Horiz. ┃  Double Up Horiz.  ┃ Double Vert. Horiz.┃                    ┃                    ┃                    ┃
-   ┃      U + 2566      ┃      U + 2569      ┃      U + 256C      ┃                    ┃                    ┃                    ┃
-   ┃                    ┃                    ┃                    ┃                    ┃                    ┃                    ┃
-   ┗━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━┛
+   NOTE: Without the use of mnemonics, the entire Unicode character set is available in both Windows and Linux using the
+         "Character Map" application
 
 
 
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                     Box Drawing Characters                                                      ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Unicode Box Drawing Block
+   ═════════════════════════
+      The Unicode standard defines blocks (338 in v.16.0) that hold characters (glyphs) that have similar use.
+      The block of 128 glyphs from 0x2500-0x257F is know as the "Box Drawing" block.
+
+      Many of the characters in the "Box Drawing" block have digraphs associated with them.
+      For a comprehensive list, refer to RFC-1345.
+
+
+   Adding Characters That Have A Digraph (vim)
+   ═══════════════════════════════════════════
+      In insert mode, type CTRL+K <char1><char2> to add the desired character via its associated digraph
+
+
+   Adding Characters That Don't Have A Digraph (vim)
+   ═════════════════════════════════════════════════
+      In insert mode, type CTRL+V u+<unicode-hex-value> to add the desired character via its hexadecimal value
+
+
+   Common Reference Chart
+   ══════════════════════
+      The following chart shows 33 of the most frequently used "Box Drawing" characters. Not all of the characters shown have an
+      associated digraph (if a character does not have a associated digraph, it is denoted by 'na' and has a heavy border)
+
+  ┌────────────────────┬────────────────────┬────────────────────┬────────────────────┬────────────────────┬────────────────────┐
+  │                    │                    │                    │                    │                    │                    │
+  │        hh ─        │        HH ━        │        vv │        │        VV ┃        │        dr ┌        │        DR ┏        │
+  │                    │                    │                    │                    │                    │                    │
+  │  Light Horizontal  │  Heavy Horizontal  │   Light Vertical   │   Heavy Vertical   │  Light Down Right  │  Heavy Down Right  │
+  │      U + 2500      │      U + 2501      │      U + 2502      │      U + 2503      │      U + 250C      │      U + 250F      │
+  │                    │                    │                    │                    │                    │                    │
+  ├────────────────────╆━━━━━━━━━━━━━━━━━━━━╅────────────────────┼────────────────────┼────────────────────┼────────────────────┤
+  │                    ┃                    ┃                    │                    │                    │                    │
+  │        dl ┐        ┃        na ┓        ┃        ur └        │        UR ┗        │        ul ┘        │        UL ┛        │
+  │                    ┃                    ┃                    │                    │                    │                    │
+  │   Light Down Left  ┃   Heavy Down Left  ┃   Light Up Right   │   Heavy Up Right   │    Light Up Left   │    Heavy Up Left   │
+  │      U + 2510      ┃      U + 2513      ┃      U + 2514      │      U + 2517      │      U + 2518      │      U + 251B      │
+  │                    ┃                    ┃                    │                    │                    │                    │
+  ├────────────────────╄━━━━━━━━━━━━━━━━━━━━╃────────────────────┼────────────────────┼────────────────────┼────────────────────┤
+  │                    │                    │                    │                    │                    │                    │
+  │        vr ├        │        VR ┣        │        vl ┤        │        VL ┫        │        dh ┬        │        DH ┳        │
+  │                    │                    │                    │                    │                    │                    │
+  │  Light Vert. Right │  Heavy Vert. Right │  Light Vert. Left  │  Heavy Vert. Left  │  Light Down Horiz. │  Heavy Down Horiz. │
+  │      U + 251C      │      U + 2523      │      U + 2524      │      U + 252B      │      U + 252C      │      U + 2533      │
+  │                    │                    │                    │                    │                    │                    │
+  ├────────────────────┼────────────────────┼────────────────────┼────────────────────╆━━━━━━━━━━━━━━━━━━━━╈━━━━━━━━━━━━━━━━━━━━┪
+  │                    │                    │                    │                    ┃                    ┃                    ┃
+  │        uh ┴        │        UH ┻        │        vh ┼        │        VH ╋        ┃        na ═        ┃        na ║        ┃
+  │                    │                    │                    │                    ┃                    ┃                    ┃
+  │   Light Up Horiz.  │   Heavy Up Horiz.  │ Light Vert. Horiz. │ Heavy Vert. Horiz. ┃    Double Horiz.   ┃    Double Vert.    ┃
+  │      U + 2534      │      U + 253B      │      U + 253C      │      U + 254B      ┃      U + 2550      ┃      U + 2551      ┃
+  │                    │                    │                    │                    ┃                    ┃                    ┃
+  ┢━━━━━━━━━━━━━━━━━━━━╈━━━━━━━━━━━━━━━━━━━━╈━━━━━━━━━━━━━━━━━━━━╈━━━━━━━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━━━┫
+  ┃                    ┃                    ┃                    ┃                    ┃                    ┃                    ┃
+  ┃        na ╔        ┃        na ╗        ┃        na ╚        ┃        na ╝        ┃        na ╠        ┃        na ╣        ┃
+  ┃                    ┃                    ┃                    ┃                    ┃                    ┃                    ┃
+  ┃  Double Down Right ┃  Double Down Left  ┃   Double Up Right  ┃   Double Up Left   ┃ Double Vert. Right ┃  Double Vert. Left ┃
+  ┃      U + 2554      ┃      U + 2557      ┃      U + 255A      ┃      U + 255D      ┃      U + 2560      ┃      U + 2563      ┃
+  ┃                    ┃                    ┃                    ┃                    ┃                    ┃                    ┃
+  ┣━━━━━━━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━━━┫
+  ┃                    ┃                    ┃                    ┃                    ┃                    ┃                    ┃
+  ┃        na ╦        ┃        na ╩        ┃        na ╬        ┃                    ┃                    ┃                    ┃
+  ┃                    ┃                    ┃                    ┃                    ┃                    ┃                    ┃
+  ┃ Double Down Horiz. ┃  Double Up Horiz.  ┃ Double Vert. Horiz.┃                    ┃                    ┃                    ┃
+  ┃      U + 2566      ┃      U + 2569      ┃      U + 256C      ┃                    ┃                    ┃                    ┃
+  ┃                    ┃                    ┃                    ┃                    ┃                    ┃                    ┃
+  ┗━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━┛
 
