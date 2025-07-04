@@ -1,0 +1,88 @@
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║  ____        _   _                     ___        __       _        _                                                           ║
+║ |  _ \ _   _| |_| |__   ___  _ __     |_ _|_ __  / _| ___ | |___  _| |_                                                         ║
+║ | |_) | | | | __| '_ \ / _ \| '_ \     | || '_ \| |_ / _ \| __\ \/ / __|                                                        ║
+║ |  __/| |_| | |_| | | | (_) | | | |    | || | | |  _| (_) | |_ >  <| |_                                                         ║
+║ |_|    \__, |\__|_| |_|\___/|_| |_|___|___|_| |_|_|  \___(_)__/_/\_\\__|                                                        ║
+║        |___/                     |_____|                                                                                        ║
+║                                                                                                                                 ║
+║ Document Best Viewed/Printed: Page{Letter, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                 ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                         Revision History                                                        ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                             ║
+║                                                                                                                                 ║
+║  1.00.18525.xx (04 Jul 25) - Initial Creation {J. Laccone}                                                                      ║
+║                                 Added header, added reference data                                                              ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                            Reference                                                            ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                 ║
+║   Python                                                                                                                        ║
+║   ------                                                                                                                        ║
+║      https://www.python.org/                                                                                                    ║
+║                                                                                                                                 ║
+║                                                                                                                                 ║
+║   Python Virtual Environments                                                                                                   ║
+║   ---------------------------                                                                                                   ║
+║      https://docs.python.org/3.13/library/venv.html                                                                             ║
+║                                                                                                                                 ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                      Virtual Environments                                                       ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Prerequisites
+   ═════════════
+      1. The following procedures require that python 3.11 (or later) is installed
+      2. The command to activate a python virtual environment is aliased in your bash shell as follows:
+
+            alias pvea='v(){ source ${HOME}/python-envs/$1/bin/activate; unset -f v; }; v'
+
+
+   Create A Python Virtual Environment
+   ═══════════════════════════════════
+      1. Complete the "Prerequisites" procedure
+      2. Open a bash terminal window
+      3. Verify that the installed python version is 3.11 (or later) by typing the following command(s) into the terminal window:
+
+            python -V (or python3.11 -V)
+
+      4. Create/change to a directory to hold the virtual python environments by typing the following command(s)
+         into the terminal window:
+
+            mkdir -p ${HOME}/python-envs
+            cd ${HOME}/python-envs
+
+      5. Create the desired python virtual environment by typing the following command(s) into the terminal window:
+
+            python -m venv <name-of-desired-python-virtual-env>
+            ex: python -m venv hello-world
+
+
+   Configure A Python Virtual Environment
+   ══════════════════════════════════════
+      1. Complete the "Create A Python Virtual Environment" procedure
+      2. Open a bash terminal window
+      3. Activate the python virtual environment by typing the following command(s) into the terminal window:
+
+            pvea <python-virtual-env-name>
+            ex: pvea hello-world
+
+      4. Update the python package manager by typing the following command(s) into the terminal window:
+
+            pip install --upgrade pip
+
+      5. Install/verify desired packages (and their dependencies) by typing the following command(s) into the terminal window:
+         NOTE: Typical build/development packages shown
+
+            pip install --upgrade wheel build setuptools pycodestyle pydocstyle pylint
+            pip list
+
+      6. Deactivate the python virtual environment by typing the following command(s) into the terminal window:
+
+            deactivate
+
