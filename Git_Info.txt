@@ -1,52 +1,99 @@
-╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║ Git_Info.txt                                                                                                                                                            ║
-║                                                                                                                                                                         ║
-║ Document Encoding           : UTF-8, UNIX Line Terminator                                                                                                               ║
-║ Document Best Viewed/Printed: Page{Ledger, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                                                         ║
-║                                                                                                                                                                         ║
-╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
-║                                                                            Revision History                                                                             ║
-╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
-║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                                                                     ║
-║                                                                                                                                                                         ║
-║  1.00.25419.xx (11 Sep 19) - Initial Creation {J. Laccone}                                                                                                              ║
-║                                 Added header, added reference data                                                                                                      ║
-║  1.01.15020.xx (29 May 20) - Development Update {J. Laccone}                                                                                                            ║
-║                                 Added submodule data                                                                                                                    ║
-║  1.02.15620.xx (04 Jun 20) - Development Update {J. Laccone}                                                                                                            ║
-║                                 Added branch data                                                                                                                       ║
-║  1.03.16220.xx (10 Jun 20) - Development Update {J. Laccone}                                                                                                            ║
-║                                 Added additional procedure data                                                                                                         ║
-║  1.04.16820.xx (16 Jun 20) - Development Update {J. Laccone}                                                                                                            ║
-║                                 Added comparison procedures                                                                                                             ║
-║  1.05.07021.xx (11 Mar 21) - Development Update {J. Laccone}                                                                                                            ║
-║                                 Added remote update procedure                                                                                                           ║
-║                                                                                                                                                                         ║
-╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
-║                                                                                Reference                                                                                ║
-╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
-║                                                                                                                                                                         ║
-║  Git Home Page                                                                                                                                                          ║
-║  -------------                                                                                                                                                          ║
-║     https://git-scm.com/                                                                                                                                                ║
-║                                                                                                                                                                         ║
-║  Git Branch A Repository                                                                                                                                                ║
-║  -----------------------                                                                                                                                                ║
-║     https://confluence.atlassian.com/bitbucket/branching-a-repository-223217999.html                                                                                    ║
-║                                                                                                                                                                         ║
-╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
-║                                                                                  Notes                                                                                  ║
-╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
-║                                                                                                                                                                         ║
-║  Git Configure Log To Display Formatted Options As A Visual Branch Topology                                                                                             ║
-║  --------------------------------------------------------------------------                                                                                             ║
-║     https://stackoverflow.com/questions/1838873/visualizing-branch-topology-in-git/34467298#34467298                                                                    ║
-║                                                                                                                                                                         ║
-╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║   ____ _ _       ___        __       _        _                                                                                 ║
+║  / ___(_) |_    |_ _|_ __  / _| ___ | |___  _| |_                                                                               ║
+║ | |  _| | __|    | || '_ \| |_ / _ \| __\ \/ / __|                                                                              ║
+║ | |_| | | |_     | || | | |  _| (_) | |_ >  <| |_                                                                               ║
+║  \____|_|\__|___|___|_| |_|_|  \___(_)__/_/\_\\__|                                                                              ║
+║            |_____|                                                                                                              ║
+║                                                                                                                                 ║
+║ Document Encoding           : UTF-8, UNIX Line Terminator                                                                       ║
+║ Document Best Viewed/Printed: Page{Letter, Landscape, Margins(0.25in Top/Bottom, 0.25in Side)}   Font{Monospace, 10pt}          ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                         Revision History                                                        ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                             ║
+║                                                                                                                                 ║
+║  1.00.25419.xx (11 Sep 19) - Initial Creation {J. Laccone}                                                                      ║
+║                                 Added header, added reference data                                                              ║
+║  1.01.15020.xx (29 May 20) - Development Update {J. Laccone}                                                                    ║
+║                                 Added submodule data                                                                            ║
+║  1.02.15620.xx (04 Jun 20) - Development Update {J. Laccone}                                                                    ║
+║                                 Added branch data                                                                               ║
+║  1.03.16220.xx (10 Jun 20) - Development Update {J. Laccone}                                                                    ║
+║                                 Added additional procedure data                                                                 ║
+║  1.04.16820.xx (16 Jun 20) - Development Update {J. Laccone}                                                                    ║
+║                                 Added comparison procedures                                                                     ║
+║  1.05.07021.xx (11 Mar 21) - Development Update {J. Laccone}                                                                    ║
+║                                 Added remote update procedure                                                                   ║
+║  1.06.18725.xx (06 Jul 25) - Development Update {J. Laccone}                                                                    ║
+║                                 Changed width to 132 columns                                                                    ║
+║                                 Updated submodule procedures                                                                    ║
+║                                 Updated branching procedures                                                                    ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                            Reference                                                            ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                 ║
+║  Git Home Page                                                                                                                  ║
+║  -------------                                                                                                                  ║
+║     https://git-scm.com/                                                                                                        ║
+║                                                                                                                                 ║
+║  Git Branching                                                                                                                  ║
+║  -------------                                                                                                                  ║
+║     https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell                                                         ║
+║     https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging                                                    ║
+║     https://git-scm.com/book/en/v2/Git-Branching-Remote-Branches                                                                ║
+║     https://git-scm.com/book/en/v2/Git-Branching-Rebasing                                                                       ║
+║                                                                                                                                 ║
+║  Git Submodules                                                                                                                 ║
+║  --------------                                                                                                                 ║
+║     https://git-scm.com/book/en/v2/Git-Tools-Submodules                                                                         ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                              Notes                                                              ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                 ║
+║  Git Configure Log To Display Formatted Options As A Visual Branch Topology                                                     ║
+║  --------------------------------------------------------------------------                                                     ║
+║     https://stackoverflow.com/questions/1838873/visualizing-branch-topology-in-git/34467298#34467298                            ║
+║                                                                                                                                 ║
+║                                                                                                                                 ║
+║  Git Branch A Repository (BitBucket)                                                                                            ║
+║  -----------------------------------                                                                                            ║
+║     https://confluence.atlassian.com/bitbucket/branching-a-repository-223217999.html                                            ║
+║                                                                                                                                 ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
-╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                                                                              Configuration                                                                              ║
-╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                          Configuration                                                          ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Retrieve The Git Configuration Template
+   ═══════════════════════════════════════
+      1. Open a terminal window
+      2. Clone the environment repository to retrieve the git configuration template by typing the following command(s) into the
+         terminal window:
+
+            cd <base-directory-for-repo>
+            e.g.: cd ${HOME}/data
+
+            git clone https://github.com/Canathar/environment.git
+
+      3. Copy/edit the git configuration file by typing the following command(s) into the terminal window:
+
+            # Copy the template to your home directory
+            cp <base-directory-for-repo>/environment/.gitconfig ~
+            e.g.: cp ${HOME}/data/environment/.gitconfig ~
+
+            # Open an editor for the configuration file
+            <editor-of-choice> ${HOME}/.gitconfig
+            e.g.: vim ${HOME}/.gitconfig
+
+            # Modify values of 'name' and 'email' to reflect the desired values
+
+      4. Save/close the git configuration file
+
 
    Display Global User Git Configuration
    ═════════════════════════════════════
@@ -57,45 +104,14 @@
 
       3. Display the global user git configuration by typing the following command(s) into the terminal window:
 
+            # Verify that the user name and email reflect the changes from above
             git config --global --list
 
 
-   Add Aliases To Configure Log For Multiple Visual Branch Levels
-   ══════════════════════════════════════════════════════════════
-      1. Open a terminal window
-      2. Open for editing the following git configuration file:
 
-            ${HOME}/.gitconfig
-            (ex: /home/jlaccone/.gitconfig)
-
-      3. Add the following data to the git configuration file:
-
-            [alias]
-               # Checkout Aliases
-               dev = checkout development
-
-               # Logging Aliases
-               lg = log --all --decorate --oneline --graph
-               lg1 = !"git lg1-specific --all"
-               lg2 = !"git lg2-specific --all"
-               lg3 = !"git lg3-specific --all"
-
-               lg1-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)'
-               lg2-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'
-               lg3-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset) %C(bold cyan)(committed: %cD)%C(reset) %C(auto)%d%C(reset)%n''          %C(white)%s%C(reset)%n''          %C(dim white)- %an <%ae> %C(reset) %C(dim white)(committer: %cn <%ce>)%C(reset)'
-
-      4. Save the file and verify the aliases by typing the following command(s) into the terminal window:
-
-             git lg
-             git lg1
-             git lg2
-             git lg3
-
-
-
-╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                                                                               Maintenance                                                                               ║
-╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                           Maintenance                                                           ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
    Analysis Of Repository
    ══════════════════════
@@ -116,9 +132,9 @@
 
 
 
-╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                                                                                  Query                                                                                  ║
-╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                              Query                                                              ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
    Show All Commits In Repository
    ══════════════════════════════
@@ -142,18 +158,18 @@
       3. Display all objects in a commit by typing the following command(s) into the terminal window:
 
             git ls-tree --full-tree <commit-sha-1>
-            (ex: git ls-tree --full-tree 3b25c05aa29bce98f7370f3408298c062ead0805)
+            e.g.: git ls-tree --full-tree 3b25c05aa29bce98f7370f3408298c062ead0805
 
 
 
-╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                                                                                 Branch                                                                                  ║
-╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                              Branch                                                             ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
    Display Local Branches
    ══════════════════════
       1. Open a terminal window
-      2. Change to the a folder of the git repo
+      2. Change to the root folder of the git repo
       3. Display the local branches by typing the following command(s) into the terminal window:
 
             git branch
@@ -166,7 +182,7 @@
       3. Create a new local feature branch by typing the following command(s) into the terminal window:
 
             git branch feature/<project>-<jira-ticket-number>-<jira-ticket-title>
-            (ex: git branch feature/MYPROJ-001-the-title-of-my-ticket)
+            e.g.: git branch feature/MYPROJ-001-the-title-of-my-ticket
 
 
    Create A New Local Feature Branch (Feature Does Exist On Remote)
@@ -176,7 +192,7 @@
       3. Create a new local feature branch from remote branch by typing the following command(s) into the terminal window:
 
             git checkout --track origin/feature/<project>-<jira-ticket-number>-<jira-ticket-title>
-            (ex: git checkout --track origin/feature/MYPORJ-004-the-additional-work-to-be-done)
+            e.g.: git checkout --track origin/feature/MYPORJ-004-the-additional-work-to-be-done
 
 
    Switch To A Local Feature Branch
@@ -186,7 +202,7 @@
       3. Switch to a local feature branch by typing the following command(s) into the terminal window:
 
             git checkout feature/<project>-<jira-ticket-number>-<jira-ticket-title>
-            (ex: git checkout feature/MYPORJ-004-the-additional-work-to-be-done)
+            e.g.: git checkout feature/MYPROJ-004-the-additional-work-to-be-done
 
 
    Push Local Feature Branch Changes To A Remote Repository
@@ -198,7 +214,7 @@
             git checkout development
 
             git push origin feature/<project>-<jira-ticket-number>-<jira-ticket-title>
-            (ex: git push origin feature/MYPORJ-004-the-additional-work-to-be-done)
+            e.g.: git push origin feature/MYPORJ-004-the-additional-work-to-be-done
 
 
    Change Git Remote
@@ -208,11 +224,13 @@
       3. Change the git remote by typing the following command(s) into the terminal window:
 
             git remote set-url origin <url>
+            e.g.: git set remote origin https://github.com/vim-airline/vim-airline.git
 
 
-╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                                                                               Comparison                                                                                ║
-╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                            Comparison                                                           ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
    Display The File Changes Between development And A Local Feature Branch
    ═══════════════════════════════════════════════════════════════════════
@@ -221,7 +239,7 @@
       3. Display changed files by typing the following command(s) into the terminal window:
 
             git diff --name-only development...feature/<project>-<jira-ticket-number>-<jira-ticket-title>
-            (ex: git diff --name-only development...feature/MYPORJ-004-the-additional-work-to-be-done)
+            e.g.: git diff --name-only development...feature/MYPORJ-004-the-additional-work-to-be-done
 
 
    Display The File Changes Between development And A Local File
@@ -231,45 +249,47 @@
       3. Display file changes by typing the following command(s) into the terminal window:
 
             git diff development <local-file>
-            (ex: git diff development myfile.xml)
+            e.g.: git diff development myfile.xml
 
 
 
-╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                                                                              Modification                                                                               ║
-╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                           Modification                                                          ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
    Revert A Local File To Repository Version (Current Branch)
    ══════════════════════════════════════════════════════════
       1. Open a terminal window
       2. Change to the root folder of the git repo
-      3. Revert a local file to last repository version of the current branch by typing the following command(s) into the terminal window:
+      3. Revert a local file to last repository version of the current branch by typing the following command(s)
+         into the terminal window:
 
             git checkout -- <path-to-revert>
-            (ex: git checkout -- common/include/utility.h)
+            e.g.: git checkout -- common/include/utility.h
 
 
    Revert A Local File To Repository Version (Different Branch)
    ════════════════════════════════════════════════════════════
       1. Open a terminal window
       2. Change to the root folder of the git repo
-      3. Revert a local file to last repository version of a different branch by typing the following command(s) into the terminal window:
+      3. Revert a local file to last repository version of a different branch by typing the following command(s)
+         into the terminal window:
 
             git checkout <branch> -- <path-to-revert>
-            (ex: git checkout development -- common/include/utility.h)
+            e.g.: git checkout development -- common/include/utility.h
 
 
 
-
-╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                                                                                Merge                                                                                    ║
-╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                              Merge                                                              ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
    Merge The Master Branch Into A Local Feature Branch
    ═══════════════════════════════════════════════════
       1. Open a terminal window
       2. Change to the root folder of the git repo
-      3. Checkout the feature branch and merge the master branch into it by typing the following command(s) into the terminal window:
+      3. Checkout the feature branch and merge the master branch into it by typing the following command(s)
+         into the terminal window:
 
             git checkout <feature-branch>
             git merge <master-branch>
@@ -277,43 +297,95 @@
 
 
 
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                           Submodules                                                            ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Add A New Submodule To An Existing Repository Checkout
+   ══════════════════════════════════════════════════════
+      1. Open a terminal window
+      2. Change to the root folder of the git repo
+      3. Add the new submodule by typing the following command(s) into the terminal window:
+         NOTE: Type git submodule -h for command line parameter usage
+
+            git submodule add <repository> [<path>]
+            e.g.: git submodule add ../../scripts.git
 
 
+   Display The Status Of Submodule(s)
+   ══════════════════════════════════
+      1. Open a terminal window
+      2. Change to the root folder of the git repo
+      3. Display the status of all submodules by typing the following command(s) into the terminal window:
+         NOTE: Type git submodule -h for command line parameter usage
+
+            git submodule status
 
 
-Misc Notes Waiting To Be Sorted Out...
+   Update A Submodule
+   ══════════════════
+      1. Open a terminal window
+      2. Change to the root folder of the git repo
+      3. Update a submodule by typing the following command(s) into the terminal window:
+         NOTE: Type git submodule -h for command line parameter usage
+
+            # Updates to the latest checkout on parent branch
+            git submodule update
+
+            # Updates to the latest checkout on the submodule branch
+            git submodule update --remote
 
 
-git add
-git commit
+   Initialize A Submodule
+   ══════════════════════
+      1. Open a terminal window
+      2. Change to the root folder of the git repo
+      3. Initialize a submodule by typing the following command(s) into the terminal window:
+         NOTE: Type git submodule -h for command line parameter usage
+
+            # Add the submodules files from the remote repository (usually used after a clone)
+            git submodule init [<path>]
+            e.g.: git submodule init scripts
 
 
+   Deinitialize A Submodule
+   ════════════════════════
+      1. Open a terminal window
+      2. Change to the root folder of the git repo
+      3. Deinitialize a submodule by typing the following command(s) into the terminal window:
+         NOTE: Type git submodule -h for command line parameter usage
 
-git submodule add <url> <path>
-
-# occasionally update the submodule to a new version:
-git -C <path> checkout <new version>
-git add <path>
-git commit -m "update submodule to new version"
-
-
-# See the list of submodules in a superproject
-git submodule status
-
-git count-objects -v
-
-git submodule update --init --recursive
-
-# WOOOO
-git submodule foreach git pull
+            # Remove the submodule from configuration, delete the submodules files, and remote the submodules directory
+            git submodule deinit -f [<path>]
+            e.g.: git submodule deinit -f scripts
 
 
-git ls-tree -r --full-tree <tree-sha-1>
+   Modify The Branch A Submodule Is Referencing
+   ════════════════════════════════════════════
+      1. Open a terminal window
+      2. Change to the root folder of the git repo
+      3. Modify the branch a submodule is referencing by typing the following command(s) into the terminal window:
+         NOTE: Type git config -h for command line parameter usage
 
-git reflog expire --expire=now --all
-git gc
+            # Modify .gitmodules configuration
+            git config -f .gitmodules submodule.<submodule-name>.branch <remote-branch-name>
+            e.g.: git config -f .gitmodules submodule.scripts.branch dev
 
-git reset --hard
+            # Update using the new configuration
+            git submodule update --remote
 
-git reflog --all
+
+   Remove A Branch Reference From A Submodule
+   ══════════════════════════════════════════
+      1. Open a terminal window
+      2. Change to the root folder of the git repo
+      3. Remove a branch reference from a submodule by typing the following command(s) into the terminal window:
+         NOTE: Type git config -h for command line parameter usage
+
+            # Modify .gitmodules configuration
+            git config -f .gitmodules --unset submodule.<submodule-name>.branch
+            e.g.: git config -f .gitmodules --unset submodule.scripts.branch
+
+            # Update using the new configuration
+            git submodule update --remote
 
