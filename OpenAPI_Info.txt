@@ -1,0 +1,86 @@
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║   ___                      _    ____ ___     ___        __       _        _                                                     ║
+║  / _ \ _ __   ___ _ __    / \  |  _ \_ _|   |_ _|_ __  / _| ___ | |___  _| |_                                                   ║
+║ | | | | '_ \ / _ \ '_ \  / _ \ | |_) | |     | || '_ \| |_ / _ \| __\ \/ / __|                                                  ║
+║ | |_| | |_) |  __/ | | |/ ___ \|  __/| |     | || | | |  _| (_) | |_ >  <| |_                                                   ║
+║  \___/| .__/ \___|_| |_/_/   \_\_|  |___|___|___|_| |_|_|  \___(_)__/_/\_\\__|                                                  ║
+║       |_|                              |_____|                                                                                  ║
+║                                                                                                                                 ║
+║ Document Encoding           : UTF-8, UNIX Line Terminator                                                                       ║
+║ Document Best Viewed/Printed: Page{Letter, Landscape, Margins(0.25in Top/Bottom, 0.25in Side)}   Font{Monospace, 10pt}          ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                         Revision History                                                        ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                             ║
+║                                                                                                                                 ║
+║  1.00.18725.xx (06 Jul 25) - Initial Creation {J. Laccone}                                                                      ║
+║                                 Added header, added reference data                                                              ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                            Reference                                                            ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                 ║
+║   OpenAPI Specification                                                                                                         ║
+║   ---------------------                                                                                                         ║
+║      https://en.wikipedia.org/wiki/OpenAPI_Specification                                                                        ║
+║      https://spec.openapis.org/oas/latest.html                                                                                  ║
+║                                                                                                                                 ║
+║                                                                                                                                 ║
+║   OpenAPI Initiative                                                                                                            ║
+║   ------------------                                                                                                            ║
+║      https://www.openapis.org                                                                                                   ║
+║                                                                                                                                 ║
+║                                                                                                                                 ║
+║   OpenAPI Generator                                                                                                             ║
+║   -----------------                                                                                                             ║
+║      https://openapi-generator.tech                                                                                             ║
+║                                                                                                                                 ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                            Overview                                                             ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   OpenAPI Specification
+   ═════════════════════
+      From Wikipedia:
+
+      ●  The OpenAPI Specification, previously known as the Swagger Specification, is a specification for a machine-readable
+         interface definition language for describing, producing, consuming and visualizing web services.  Originally developed to
+         support the Swagger framework, it became a separate project in 2015, overseen by the OpenAPI Initiative, an open-source
+         collaboration project of the Linux Foundation.
+
+      ●  An OpenAPI Description (OAD) represents a formal description of an API that tools can use to generate code, documentation,
+         test cases, and more.
+
+
+   OpenAPI Initiative
+   ══════════════════
+      From OpenAPI Initiative:
+
+      ●  The OpenAPI Initiative (OAI) was created by a consortium of forward-looking industry experts who recognize the immense
+         value of standardizing on how APIs are described. As an open governance structure under the Linux Foundation, the OAI is
+         focused on creating, evolving and promoting a vendor neutral description format. The OpenAPI Specification was originally
+         based on the Swagger Specification, donated by SmartBear Software.
+
+      ●  The OpenAPI Specification (OAS) provides a consistent means to carry information through each stage of the API lifecycle.
+         It is a specification language for HTTP APIs that defines structure and syntax in a way that is not wedded to the
+         programming language the API is created in. API specifications are typically written in YAML or JSON, allowing for easy
+         sharing and consumption of the specification.
+
+
+   OpenAPI Specification
+   ═════════════════════
+      From OpenAPI Initiative:
+
+      ●  An OpenAPI Document is a single JSON or YAML document that conforms to the OpenAPI Specification. An OpenAPI Document
+         compatible with OAS 3.*.* contains a required 'openapi' field which designates the version of the OAS that it uses.
+
+
+   OpenAPI Generator
+   ═════════════════
+      From OpenAPI Generator:
+
+      ●  Generates clients, servers, and documentation fro OpenAPI 2.0/3.x documents
+
