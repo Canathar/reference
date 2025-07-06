@@ -1,5 +1,10 @@
 ╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║ RPM_Info.txt                                                                                                                                                            ║
+║  ____  ____  __  __     ___        __       _        _                                                                                                                  ║
+║ |  _ \|  _ \|  \/  |   |_ _|_ __  / _| ___ | |___  _| |_                                                                                                                ║
+║ | |_) | |_) | |\/| |    | || '_ \| |_ / _ \| __\ \/ / __|                                                                                                               ║
+║ |  _ <|  __/| |  | |    | || | | |  _| (_) | |_ >  <| |_                                                                                                                ║
+║ |_| \_\_|   |_|  |_|___|___|_| |_|_|  \___(_)__/_/\_\\__|                                                                                                               ║
+║                   |_____|                                                                                                                                               ║
 ║                                                                                                                                                                         ║
 ║ Document Encoding           : UTF-8, UNIX Line Terminator                                                                                                               ║
 ║ Document Best Viewed/Printed: Page{Ledger, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                                                         ║
@@ -15,6 +20,8 @@
 ║                                 Adding additional reference material                                                                                                    ║
 ║  1.02.32722.00 (23 Nov 22) - Development Update {J. Laccone}                                                                                                            ║
 ║                                 Added DNF reference material                                                                                                            ║
+║  1.03.18725.00 (06 Jul 25) - Development Update {J. Laccone}                                                                                                            ║
+║                                 Updated for RHEL/AlmaLinux 9                                                                                                            ║
 ║                                                                                                                                                                         ║
 ╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                Reference                                                                                ║
@@ -57,18 +64,16 @@
 
    Determine What Query Tags rpm Supports
    ══════════════════════════════════════
-      1. Open a terminal window
-      2. Login as the superuser (root on CentOS/RHEL)
-      3. Display the query tags rpm supports by typing the following command(s) into the terminal window:
+      1. Open a bash terminal window
+      2. Display the query tags rpm supports by typing the following command(s) into the terminal window:
 
             rpm --querytags
 
 
    Determine What Query Tags repoquery Supports
    ════════════════════════════════════════════
-      1. Open a terminal window
-      2. Login as the superuser (root on CentOS/RHEL)
-      3. Display the query tags repoquery supports by typing the following command(s) into the terminal window:
+      1. Open a bash terminal window
+      2. Display the query tags repoquery supports by typing the following command(s) into the terminal window:
 
             repoquery --querytags
 
@@ -81,21 +86,19 @@
    Display The Detailed Information For A Stand Alone RPM Package File
    ═══════════════════════════════════════════════════════════════════
       1. Open a terminal window
-      2. Login as the superuser (root on CentOS/RHEL)
-      3. Display the detailed info for an rpm package by typing the following command(s) into the terminal window:
+      2. Display the detailed info for an rpm package by typing the following command(s) into the terminal window:
 
-            rpm -qip <file-name>
-            (ex: rpm -qip net-snmp-gui-5.7.2-33.el7_5.2.x86_64.rpm)
+            rpm -qip <file-name>.rpm
+            ex: rpm -qip net-snmp-gui-5.7.2-33.el7_5.2.x86_64.rpm
 
 
    Display The Detailed File Layout For A Stand Alone RPM Package
    ══════════════════════════════════════════════════════════════
       1. Open a terminal window
-      2. Login as the superuser (root on CentOS/RHEL)
-      3. Display the detailed file layout for an rpm package by typing the following command(s) into the terminal window:
+      2. Display the detailed file layout for an rpm package by typing the following command(s) into the terminal window:
 
-            rpm -qvlp <file-name>
-            (ex: rpm -qvlp net-snmp-gui-5.7.2-33.el7_5.2.x86_64.rpm)
+            rpm -qvlp <file-name>.rpm
+            ex: rpm -qvlp net-snmp-gui-5.7.2-33.el7_5.2.x86_64.rpm
 
 
 
@@ -106,49 +109,42 @@
    Display All The Installed RPM Packages
    ══════════════════════════════════════
       1. Open a terminal window
-      2. Login as the superuser (root on CentOS/RHEL)
-      3. Display the installed rpm packages by typing the following command(s) into the terminal window:
+      2. Display the installed rpm packages by typing the following command(s) into the terminal window:
          Note: The list will have three columns showing: source repo, installed package, name
 
-            repoquery -a --installed --qf "%-30{ui_from_repo} %-105{nevra} %{name}"
+            sudo repoquery -a --installed --qf "%-25{reponame} %-50{evr} %-105{summary} %-75{name}"
 
-      4. Display the rpm packages installed outside of yum by typing the following command(s) into the terminal window:
+      3. Display the rpm packages installed outside of yum by typing the following command(s) into the terminal window:
 
-            repoquery -a --installed --qf "%-30{ui_from_repo} %-105{nevra} %{name}" | grep installed
+            sudo repoquery -a --installed --qf "%-25{reponame} %-50{evr} %-105{summary} %-75{name}" | grep installed
 
 
    Determine What Package A File Is Part Of
    ════════════════════════════════════════
       1. Open a terminal window
-      2. Login as the superuser (root on CentOS/RHEL)
-      3. Display the package containing a specified file by typing the following command(s) into the terminal window:
+      2. Display the package containing a specified file by typing the following command(s) into the terminal window:
 
             rpm -q --whatprovides <file-name>
-            (ex: rpm -q --whatprovides /usr/bin/netstat)
+            ex: rpm -q --whatprovides /usr/bin/netstat
+            ex: rpm -q --whatprovides /usr/bin/python
 
 
    Display The Detailed Information For An Installed RPM Package
    ═════════════════════════════════════════════════════════════
       1. Open a terminal window
-      2. Login as the superuser (root on CentOS/RHEL)
-      3. Display the detailed info for an rpm package by typing the following command(s) into the terminal window:
+      2. Display the detailed info for an rpm package by typing the following command(s) into the terminal window:
 
             rpm -qi <package> or <name>
-            (ex: rpm -qi net-snmp)
+            ex: rpm -qi net-tools
+            ex: rpm -qi python3
 
 
    Display The Detailed File Layout For An Installed RPM Package
    ═════════════════════════════════════════════════════════════
       1. Open a terminal window
-      2. Login as the superuser (root on CentOS/RHEL)
-      3. Display the detailed file layout for an rpm package by typing the following command(s) into the terminal window:
+      2. Display the detailed file layout for an rpm package by typing the following command(s) into the terminal window:
 
             rpm -qvl <package> or <name>
-            (ex: rpm -qvl net-snmp)
-
-
-sudo dnf group list
-
-
-
+            ex: rpm -qvl net-tools
+            ex: rpm -qvl python3
 
