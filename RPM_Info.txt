@@ -1,66 +1,69 @@
-╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║  ____  ____  __  __     ___        __       _        _                                                                                                                  ║
-║ |  _ \|  _ \|  \/  |   |_ _|_ __  / _| ___ | |___  _| |_                                                                                                                ║
-║ | |_) | |_) | |\/| |    | || '_ \| |_ / _ \| __\ \/ / __|                                                                                                               ║
-║ |  _ <|  __/| |  | |    | || | | |  _| (_) | |_ >  <| |_                                                                                                                ║
-║ |_| \_\_|   |_|  |_|___|___|_| |_|_|  \___(_)__/_/\_\\__|                                                                                                               ║
-║                   |_____|                                                                                                                                               ║
-║                                                                                                                                                                         ║
-║ Document Encoding           : UTF-8, UNIX Line Terminator                                                                                                               ║
-║ Document Best Viewed/Printed: Page{Ledger, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                                                         ║
-║                                                                                                                                                                         ║
-╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
-║                                                                            Revision History                                                                             ║
-╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
-║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                                                                     ║
-║                                                                                                                                                                         ║
-║  1.00.06220.xx (02 Mar 20) - Initial Creation {J. Laccone}                                                                                                              ║
-║                                 Added sections                                                                                                                          ║
-║  1.01.06520.00 (05 Mar 20) - Development Update {J. Laccone}                                                                                                            ║
-║                                 Adding additional reference material                                                                                                    ║
-║  1.02.32722.00 (23 Nov 22) - Development Update {J. Laccone}                                                                                                            ║
-║                                 Added DNF reference material                                                                                                            ║
-║  1.03.18725.00 (06 Jul 25) - Development Update {J. Laccone}                                                                                                            ║
-║                                 Updated for RHEL/AlmaLinux 9                                                                                                            ║
-║                                                                                                                                                                         ║
-╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
-║                                                                                Reference                                                                                ║
-╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
-║                                                                                                                                                                         ║
-║   RPM Home                                                                                                                                                              ║
-║   --------                                                                                                                                                              ║
-║      https://rpm.org/                                                                                                                                                   ║
-║                                                                                                                                                                         ║
-║   RPM Package Manager                                                                                                                                                   ║
-║   -------------------                                                                                                                                                   ║
-║      https://en.wikipedia.org/wiki/RPM_Package_Manager                                                                                                                  ║
-║                                                                                                                                                                         ║
-║   DNF Package Manager                                                                                                                                                   ║
-║   -------------------                                                                                                                                                   ║
-║      https://en.wikipedia.org/wiki/DNF_(software)                                                                                                                       ║
-║      https://dnf.readthedocs.io/en/latest/index.html                                                                                                                    ║
-║                                                                                                                                                                         ║
-╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
-║                                                                                Notes                                                                                    ║
-╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
-║                                                                                                                                                                         ║
-║   RPM Packaging Guide                                                                                                                                                   ║
-║   -------------------                                                                                                                                                   ║
-║      https://rpm-packaging-guide.github.io/                                                                                                                             ║
-║                                                                                                                                                                         ║
-║   RPMBuild - What Is The Minimum I Have To Do To Create An RPM File                                                                                                     ║
-║   -----------------------------------------------------------------                                                                                                     ║
-║      https://stackoverflow.com/questions/880227/what-is-the-minimum-i-have-to-do-to-create-an-rpm-file                                                                  ║
-║                                                                                                                                                                         ║
-║   RPM vs DPKG Equivalent Commands                                                                                                                                       ║
-║   -------------------------------                                                                                                                                       ║
-║      https://tecadmin.net/rpm-vs-dpkg-commands/                                                                                                                         ║
-║                                                                                                                                                                         ║
-╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║  ____  ____  __  __     ___        __       _        _                                                                          ║
+║ |  _ \|  _ \|  \/  |   |_ _|_ __  / _| ___ | |___  _| |_                                                                        ║
+║ | |_) | |_) | |\/| |    | || '_ \| |_ / _ \| __\ \/ / __|                                                                       ║
+║ |  _ <|  __/| |  | |    | || | | |  _| (_) | |_ >  <| |_                                                                        ║
+║ |_| \_\_|   |_|  |_|___|___|_| |_|_|  \___(_)__/_/\_\\__|                                                                       ║
+║                   |_____|                                                                                                       ║
+║                                                                                                                                 ║
+║ Document Encoding           : UTF-8, UNIX Line Terminator                                                                       ║
+║ Document Best Viewed/Printed: Page{Ledger, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                 ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                         Revision History                                                        ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                             ║
+║                                                                                                                                 ║
+║  1.00.06220.xx (02 Mar 20) - Initial Creation {J. Laccone}                                                                      ║
+║                                 Added sections                                                                                  ║
+║  1.01.06520.00 (05 Mar 20) - Development Update {J. Laccone}                                                                    ║
+║                                 Adding additional reference material                                                            ║
+║  1.02.32722.00 (23 Nov 22) - Development Update {J. Laccone}                                                                    ║
+║                                 Added DNF reference material                                                                    ║
+║  1.03.18725.00 (06 Jul 25) - Development Update {J. Laccone}                                                                    ║
+║                                 Modified file for 132 columns                                                                   ║
+║                                 Removed instructions to login as root                                                           ║
+║                                 Modified examples                                                                               ║
+║                                 Updated for RHEL/AlmaLinux 9                                                                    ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                            Reference                                                            ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                 ║
+║   RPM Home                                                                                                                      ║
+║   --------                                                                                                                      ║
+║      https://rpm.org/                                                                                                           ║
+║                                                                                                                                 ║
+║   RPM Package Manager                                                                                                           ║
+║   -------------------                                                                                                           ║
+║      https://en.wikipedia.org/wiki/RPM_Package_Manager                                                                          ║
+║                                                                                                                                 ║
+║   DNF Package Manager                                                                                                           ║
+║   -------------------                                                                                                           ║
+║      https://en.wikipedia.org/wiki/DNF_(software)                                                                               ║
+║      https://dnf.readthedocs.io/en/latest/index.html                                                                            ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                              Notes                                                              ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                 ║
+║   RPM Packaging Guide                                                                                                           ║
+║   -------------------                                                                                                           ║
+║      https://rpm-packaging-guide.github.io/                                                                                     ║
+║                                                                                                                                 ║
+║   RPMBuild - What Is The Minimum I Have To Do To Create An RPM File                                                             ║
+║   -----------------------------------------------------------------                                                             ║
+║      https://stackoverflow.com/questions/880227/what-is-the-minimum-i-have-to-do-to-create-an-rpm-file                          ║
+║                                                                                                                                 ║
+║   RPM vs DPKG Equivalent Commands                                                                                               ║
+║   -------------------------------                                                                                               ║
+║      https://tecadmin.net/rpm-vs-dpkg-commands/                                                                                 ║
+║                                                                                                                                 ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
-╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                                                                              Common Query                                                                               ║
-╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                           Common Query                                                          ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
    Determine What Query Tags rpm Supports
    ══════════════════════════════════════
@@ -79,9 +82,9 @@
 
 
 
-╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                                                                        Stand Alone Package Query                                                                        ║
-╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                    Stand Alone Package Query                                                    ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
    Display The Detailed Information For A Stand Alone RPM Package File
    ═══════════════════════════════════════════════════════════════════
@@ -89,7 +92,7 @@
       2. Display the detailed info for an rpm package by typing the following command(s) into the terminal window:
 
             rpm -qip <file-name>.rpm
-            ex: rpm -qip net-snmp-gui-5.7.2-33.el7_5.2.x86_64.rpm
+            e.g.: rpm -qip net-snmp-gui-5.7.2-33.el7_5.2.x86_64.rpm
 
 
    Display The Detailed File Layout For A Stand Alone RPM Package
@@ -98,21 +101,25 @@
       2. Display the detailed file layout for an rpm package by typing the following command(s) into the terminal window:
 
             rpm -qvlp <file-name>.rpm
-            ex: rpm -qvlp net-snmp-gui-5.7.2-33.el7_5.2.x86_64.rpm
+            e.g.: rpm -qvlp net-snmp-gui-5.7.2-33.el7_5.2.x86_64.rpm
 
 
 
-╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                                                                         Installed Package Query                                                                         ║
-╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                     Installed Package Query                                                     ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
    Display All The Installed RPM Packages
    ══════════════════════════════════════
       1. Open a terminal window
       2. Display the installed rpm packages by typing the following command(s) into the terminal window:
-         Note: The list will have three columns showing: source repo, installed package, name
 
+            # Summary View
             sudo repoquery -a --installed --qf "%-25{reponame} %-50{evr} %-105{summary} %-75{name}"
+
+            # Detailed View
+            sudo repoquery -a --installed                                                                      \
+               --qf "%-25{from_repo} %-60{name}%-10{epoch}%-20{version}%-30{release}%-15{arch} %-60{sourcerpm}"
 
       3. Display the rpm packages installed outside of yum by typing the following command(s) into the terminal window:
 
@@ -125,8 +132,8 @@
       2. Display the package containing a specified file by typing the following command(s) into the terminal window:
 
             rpm -q --whatprovides <file-name>
-            ex: rpm -q --whatprovides /usr/bin/netstat
-            ex: rpm -q --whatprovides /usr/bin/python
+            e.g.: rpm -q --whatprovides /usr/bin/netstat
+            e.g.: rpm -q --whatprovides /usr/bin/python
 
 
    Display The Detailed Information For An Installed RPM Package
@@ -135,8 +142,8 @@
       2. Display the detailed info for an rpm package by typing the following command(s) into the terminal window:
 
             rpm -qi <package> or <name>
-            ex: rpm -qi net-tools
-            ex: rpm -qi python3
+            e.g.: rpm -qi net-tools
+            e.g.: rpm -qi python3
 
 
    Display The Detailed File Layout For An Installed RPM Package
@@ -145,6 +152,6 @@
       2. Display the detailed file layout for an rpm package by typing the following command(s) into the terminal window:
 
             rpm -qvl <package> or <name>
-            ex: rpm -qvl net-tools
-            ex: rpm -qvl python3
+            e.g.: rpm -qvl net-tools
+            e.g.: rpm -qvl python3
 
