@@ -6,7 +6,8 @@
 ║ |_|    \__, |\__|_| |_|\___/|_| |_|___|___|_| |_|_|  \___(_)__/_/\_\\__|                                                        ║
 ║        |___/                     |_____|                                                                                        ║
 ║                                                                                                                                 ║
-║ Document Best Viewed/Printed: Page{Letter, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                 ║
+║ Document Encoding           : UTF-8, UNIX Line Terminator                                                                       ║
+║ Document Best Viewed/Printed: Page{Landscape, 0.25in Top/Bottom Margins,  0.25in Side Margins}   Font{Monospace, 10pt}          ║
 ║                                                                                                                                 ║
 ╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                         Revision History                                                        ║
@@ -15,6 +16,9 @@
 ║                                                                                                                                 ║
 ║  1.00.18525.xx (04 Jul 25) - Initial Creation {J. Laccone}                                                                      ║
 ║                                 Added header, added reference data                                                              ║
+║  1.01.18725.xx (06 Jul 25) - Development Update {J. Laccone}                                                                    ║
+║                                 Added version table, additional procedures                                                      ║
+║                                 Modified document to aid printing                                                               ║
 ║                                                                                                                                 ║
 ╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                            Reference                                                            ║
@@ -23,6 +27,11 @@
 ║   Python                                                                                                                        ║
 ║   ------                                                                                                                        ║
 ║      https://www.python.org/                                                                                                    ║
+║      https://www.python.org/downloads/windows/                                                                                  ║
+║                                                                                                                                 ║
+║   Release PEPs                                                                                                                  ║
+║   ------------                                                                                                                  ║
+║      https://peps.python.org/topic/release/                                                                                     ║
 ║                                                                                                                                 ║
 ║                                                                                                                                 ║
 ║   Python Virtual Environments                                                                                                   ║
@@ -30,6 +39,97 @@
 ║      https://docs.python.org/3.13/library/venv.html                                                                             ║
 ║                                                                                                                                 ║
 ╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+
+
+
+
+
+
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                            Versions                                                             ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+  ┏━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+  ┃  Version  ┃    Release Date    ┃   End Of Life  ┃  Rel. Sch.  ┃                          What's New                         ┃
+  ┣━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫
+  ┃    3.15   │         TBD        │  October 2031  │   PEP-0790  │                             TBD                             ┃
+  ┠───────────┼────────────────────┼────────────────┼─────────────┼─────────────────────────────────────────────────────────────┨
+  ┃    3.14   │         TBD        │  October 2030  │   PEP-0745  │                             TBD                             ┃
+  ┠───────────┼────────────────────┼────────────────┼─────────────┼─────────────────────────────────────────────────────────────┨
+  ┃    3.13   │  October 07, 2024  │  October 2029  │   PEP-0719  │  https://docs.python.org/release/3.13.0/whatsnew/3.13.html  ┃
+  ┠───────────┼────────────────────┼────────────────┼─────────────┼─────────────────────────────────────────────────────────────┨
+  ┃    3.12   │  October 02, 2023  │  October 2028  │   PEP-0693  │  https://docs.python.org/release/3.12.0/whatsnew/3.12.html  ┃
+  ┠───────────┼────────────────────┼────────────────┼─────────────┼─────────────────────────────────────────────────────────────┨
+  ┃    3.11   │  October 24, 2022  │  October 2027  │   PEP-0664  │  https://docs.python.org/release/3.11.0/whatsnew/3.11.html  ┃
+  ┠───────────┼────────────────────┼────────────────┼─────────────┼─────────────────────────────────────────────────────────────┨
+  ┃    3.10   │  October 04, 2021  │  October 2026  │   PEP-0619  │  https://docs.python.org/release/3.10.0/whatsnew/3.10.html  ┃
+  ┠───────────┼────────────────────┼────────────────┼─────────────┼─────────────────────────────────────────────────────────────┨
+  ┃    3.9    │  October 05, 2020  │  October 2025  │   PEP-0596  │   https://docs.python.org/release/3.9.0/whatsnew/3.9.html   ┃
+  ┠───────────┼────────────────────┼────────────────┼─────────────┼─────────────────────────────────────────────────────────────┨
+  ┃    3.8    │  October 14, 2019  │  October 2024  │   PEP-0569  │   https://docs.python.org/release/3.8.0/whatsnew/3.8.html   ┃
+  ┗━━━━━━━━━━━┷━━━━━━━━━━━━━━━━━━━━┷━━━━━━━━━━━━━━━━┷━━━━━━━━━━━━━┷━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                           Installation                                                          ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   Windows
+   ═══════
+      1. Download the desired version of python from the Python Software Foundation
+      2. Double-click on the "python-<version>-<arch>.exe" file to begin the installation process
+            a. Make sure the "Use admin privileges when installing py.exe" checkbox is checked
+            b. Make sure the "Add python.exe to PATH" checkbox is checked
+            c. Click the "Install Now" item
+      3. Reboot your workstation
+      4. After the reboot, open a PowerShell terminal window:
+      5. Verify that the desired version of python was installed by typing the following command(s) into the terminal window:
+
+            # The version returned should match the version downloaded in step 1
+            python -V
+
+
+   Linux (RHEL, Fedora, AlmaLinux)
+   ═══════════════════════════════
+      1. Open a bash terminal window
+      2. Perform a check to see if there is already a version of python installed by typing the following command(s) into the
+         terminal window:
+         NOTE: Depending on your system, there may already be an acceptable version of python installed
+
+            # Verify that your system has at least one installed python package
+            sudo repoquery -a --installed                                \
+               --qf "%-25{reponame} %-50{evr} %-105{summary} %-75{name}" \
+               | grep -e 'interpreter' | grep -e 'Python'
+
+            # Verify that you have access to the installed python package
+            # NOTE: The '/bin/python' symbolic link can be pointed to a different python version using 'alternates'
+            <python-command> -V
+            e.g.: python -V
+
+      3. If python is not installed or the version of python is not desired, perform a check to see what versions are available
+         by typing the following command(s) into the terminal window:
+
+            # This command will list all of the available python interpreters for your currently configured system
+            sudo repoquery -a                                                  \
+               --qf "%-25{reponame} %-50{evr} %-105{summary} %-75{name}"       \
+               | grep -e 'interpreter' | grep -e 'Python' | grep -ve 'Bindings'
+
+      4. Install/verify the desired version by typing the following command(s) into the terminal window:
+
+            # Install the desired python
+            sudo dnf install <python-package-name>
+            e.g.: sudo dnf install python3.11
+
+            # Verify the desired version was installed
+            <python-command> -V
+            e.g.: python3.11 -V
+
+
 
 ╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
 ║                                                      Virtual Environments                                                       ║
@@ -60,7 +160,7 @@
       5. Create the desired python virtual environment by typing the following command(s) into the terminal window:
 
             python -m venv <name-of-desired-python-virtual-env>
-            ex: python -m venv hello-world
+            e.g.: python -m venv hello-world
 
 
    Configure A Python Virtual Environment
@@ -70,7 +170,7 @@
       3. Activate the python virtual environment by typing the following command(s) into the terminal window:
 
             pvea <python-virtual-env-name>
-            ex: pvea hello-world
+            e.g.: pvea hello-world
 
       4. Update the python package manager by typing the following command(s) into the terminal window:
 
