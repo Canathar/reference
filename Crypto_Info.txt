@@ -1,87 +1,127 @@
-╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║ Crypto_Info.txt                                                                                                                                                         ║
-║                                                                                                                                                                         ║
-║ Document Encoding           : UTF-8, UNIX Line Terminator                                                                                                               ║
-║ Document Best Viewed/Printed: Page{Ledger, Landscape, 0.25in Side Margins}   Font{Monospace Font, Normal, 10pt}                                                         ║
-║                                                                                                                                                                         ║
-╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
-║                                                                            Revision History                                                                             ║
-╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
-║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                                                                     ║
-║                                                                                                                                                                         ║
-║  1.00.02321.xx (23 Jan 21) - Initial Creation {J. Laccone}                                                                                                              ║
-║                                 Added header, added reference data                                                                                                      ║
-║  1.00.01023.xx (10 Jan 23) - Initial Creation {J. Laccone}                                                                                                              ║
-║                                 Added certificate reference data                                                                                                        ║
-║                                                                                                                                                                         ║
-╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
-║                                                                                Reference                                                                                ║
-╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
-║                                                                                                                                                                         ║
-║  Cryptography                                                                                                                                                           ║
-║  ------------                                                                                                                                                           ║
-║     https://en.wikipedia.org/wiki/Cryptography                                                                                                                          ║
-║                                                                                                                                                                         ║
-║                                                                                                                                                                         ║
-║  Advanced Encryption Standard (AES)                                                                                                                                     ║
-║  ----------------------------------                                                                                                                                     ║
-║     https://en.wikipedia.org/wiki/Advanced_Encryption_Standard                                                                                                          ║
-║                                                                                                                                                                         ║
-║  Elliptic Curve Digital Signature Algorithm (ECDSA)                                                                                                                     ║
-║  --------------------------------------------------                                                                                                                     ║
-║     https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm                                                                                            ║
-║                                                                                                                                                                         ║
-║  Galois/Counter Mode (GCM)                                                                                                                                              ║
-║  -------------------------                                                                                                                                              ║
-║     https://en.wikipedia.org/wiki/Galois/Counter_Mode                                                                                                                   ║
-║                                                                                                                                                                         ║
-║                                                                                                                                                                         ║
-║  Cryptographic Key Types                                                                                                                                                ║
-║  -----------------------                                                                                                                                                ║
-║     https://en.wikipedia.org/wiki/Cryptographic_key_types                                                                                                               ║
-║                                                                                                                                                                         ║
-║  Key Management                                                                                                                                                         ║
-║  --------------                                                                                                                                                         ║
-║     https://en.wikipedia.org/wiki/Key_management                                                                                                                        ║
-║                                                                                                                                                                         ║
-║  Public Key Cryptography Standards (PKCS)                                                                                                                               ║
-║  ----------------------------------------                                                                                                                               ║
-║     https://en.wikipedia.org/wiki/PKCS                                                                                                                                  ║
-║                                                                                                                                                                         ║
-║  Public-key Cryptography                                                                                                                                                ║
-║  -----------------------                                                                                                                                                ║
-║     https://en.wikipedia.org/wiki/Public-key_cryptography                                                                                                               ║
-║                                                                                                                                                                         ║
-║  Public-key Infrastructure                                                                                                                                              ║
-║  -------------------------                                                                                                                                              ║
-║     https://en.wikipedia.org/wiki/Public_key_infrastructure                                                                                                             ║
-║                                                                                                                                                                         ║
-║  Symmetric-key Algorithm                                                                                                                                                ║
-║  -----------------------                                                                                                                                                ║
-║     https://en.wikipedia.org/wiki/Symmetric-key_algorithm                                                                                                               ║
-║                                                                                                                                                                         ║
-║                                                                                                                                                                         ║
-║  PEM, DER, CRT, And CER:X.509 Encodings And Conversions                                                                                                                 ║
-║  ------------------------------------------------------                                                                                                                 ║
-║     https://www.ssl.com/guide/pem-der-crt-and-cer-x-509-encodings-and-conversions                                                                                       ║
-║                                                                                                                                                                         ║
-╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
-║                                                                                  Notes                                                                                  ║
-╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
-║                                                                                                                                                                         ║
-║  Cipher Block Chaining (CBC)                                                                                                                                            ║
-║  ---------------------------                                                                                                                                            ║
-║     https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation                                                                                                        ║
-║                                                                                                                                                                         ║
-║  Secret Key Identification (SKID)                                                                                                                                       ║
-║  --------------------------------                                                                                                                                       ║
-║     https://crypto.stackexchange.com/questions/27343/what-is-the-original-skid3-protocol                                                                                ║
-║                                                                                                                                                                         ║
-╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║   ____                  _           ___        __       _        _                                                              ║
+║  / ___|_ __ _   _ _ __ | |_ ___    |_ _|_ __  / _| ___ | |___  _| |_                                                            ║
+║ | |   | '__| | | | '_ \| __/ _ \    | || '_ \| |_ / _ \| __\ \/ / __|                                                           ║
+║ | |___| |  | |_| | |_) | || (_) |   | || | | |  _| (_) | |_ >  <| |_                                                            ║
+║  \____|_|   \__, | .__/ \__\___/___|___|_| |_|_|  \___(_)__/_/\_\\__|                                                           ║
+║             |___/|_|          |_____|                                                                                           ║
+║                                                                                                                                 ║
+║ Document Encoding           : UTF-8, UNIX Line Terminator                                                                       ║
+║ Document Best Viewed/Printed: Page{Landscape, 0.25in Top/Bottom Margins,  0.25in Side Margins}   Font{Monospace, 10pt}          ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                        Revision History                                                         ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ VV.vv.DOYyy.bb (dd MMM yy) - Initial Creation/Development Update/Maintenance Update                                             ║
+║                                                                                                                                 ║
+║  1.00.02321.xx (23 Jan 21) - Initial Creation {J. Laccone}                                                                      ║
+║                                 Added header, added reference data                                                              ║
+║  1.01.01023.xx (10 Jan 23) - Development Update {J. Laccone}                                                                    ║
+║                                 Added certificate reference data                                                                ║
+║  1.02.19725.xx (16 Jul 25) - Development Update {J. Laccone}                                                                    ║
+║                                 Reformatted to 132 columns                                                                      ║
+║                                 Verified links                                                                                  ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                            Reference                                                            ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                 ║
+║  Cryptography                                                                                                                   ║
+║  ------------                                                                                                                   ║
+║     https://en.wikipedia.org/wiki/Cryptography                                                                                  ║
+║                                                                                                                                 ║
+║  Cryptographic Key Types                                                                                                        ║
+║  -----------------------                                                                                                        ║
+║     https://en.wikipedia.org/wiki/Cryptographic_key_types                                                                       ║
+║                                                                                                                                 ║
+║                                                                                                                                 ║
+║  Key Management                                                                                                                 ║
+║  --------------                                                                                                                 ║
+║     https://en.wikipedia.org/wiki/Key_management                                                                                ║
+║                                                                                                                                 ║
+║  Symmetric-key Algorithm                                                                                                        ║
+║  -----------------------                                                                                                        ║
+║     https://en.wikipedia.org/wiki/Symmetric-key_algorithm                                                                       ║
+║                                                                                                                                 ║
+║                                                                                                                                 ║
+║  Public Key Cryptography Standards (PKCS)                                                                                       ║
+║  ----------------------------------------                                                                                       ║
+║     https://en.wikipedia.org/wiki/PKCS                                                                                          ║
+║     https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=pkcs11                                                          ║
+║                                                                                                                                 ║
+║  Public-key Cryptography                                                                                                        ║
+║  -----------------------                                                                                                        ║
+║     https://en.wikipedia.org/wiki/Public-key_cryptography                                                                       ║
+║                                                                                                                                 ║
+║  Public-key Infrastructure                                                                                                      ║
+║  -------------------------                                                                                                      ║
+║     https://en.wikipedia.org/wiki/Public_key_infrastructure                                                                     ║
+║                                                                                                                                 ║
+║                                                                                                                                 ║
+║  Advanced Encryption Standard (AES)                                                                                             ║
+║  ----------------------------------                                                                                             ║
+║     https://en.wikipedia.org/wiki/Advanced_Encryption_Standard                                                                  ║
+║                                                                                                                                 ║
+║  Galois/Counter Mode (GCM)                                                                                                      ║
+║  -------------------------                                                                                                      ║
+║     https://en.wikipedia.org/wiki/Galois/Counter_Mode                                                                           ║
+║                                                                                                                                 ║
+║                                                                                                                                 ║
+║  Elliptic Curve Digital Signature Algorithm (ECDSA)                                                                             ║
+║  --------------------------------------------------                                                                             ║
+║     https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm                                                    ║
+║                                                                                                                                 ║
+║                                                                                                                                 ║
+║  PEM, DER, CRT, And CER:X.509 Encodings And Conversions                                                                         ║
+║  ------------------------------------------------------                                                                         ║
+║     https://www.ssl.com/guide/pem-der-crt-and-cer-x-509-encodings-and-conversions                                               ║
+║                                                                                                                                 ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                              Notes                                                              ║
+╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                                                                 ║
+║  Cipher Block Chaining (CBC)                                                                                                    ║
+║  ---------------------------                                                                                                    ║
+║     https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation                                                                ║
+║                                                                                                                                 ║
+║                                                                                                                                 ║
+║  Secret Key Identification (SKID)                                                                                               ║
+║  --------------------------------                                                                                               ║
+║     https://crypto.stackexchange.com/questions/27343/what-is-the-original-skid3-protocol                                        ║
+║                                                                                                                                 ║
+║                                                                                                                                 ║
+║  Linux Unified Key Setup (LUKS)                                                                                                 ║
+║  ------------------------------                                                                                                 ║
+║     https://en.wikipedia.org/wiki/Linux_Unified_Key_Setup                                                                       ║
+║                                                                                                                                 ║
+║                                                                                                                                 ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
-╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                                                                               Certificates                                                                              ║
-╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                          OASIS PKCS 11                                                          ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+   From Wikipedia:
+
+      Public Key Cryptography Standards (PKCS) #11 -- Cryptographic Token Interface
+
+      Also known as "Cryptoki". An API defining a generic interface to cryptographic tokens (see also hardware security module).
+      Often used in single sign-on, public-key cryptography and disk encryption systems. RSA Security has turned over further
+      development of the PKCS #11 standard to the OASIS PKCS 11 Technical Committee.
+
+
+   The PKCS #11 URI Scheme (RFC-7512)
+   ══════════════════════════════════
+      https://datatracker.ietf.org/doc/html/rfc7512
+
+   PKCS #11 Specification Version 3.1
+   ══════════════════════════════════
+      https://docs.oasis-open.org/pkcs11/pkcs11-spec/v3.1/os/pkcs11-spec-v3.1-os.html
+
+
+╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                           Certificates                                                          ║
+╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
    View The Contents Of A Certificate
    ══════════════════════════════════
@@ -89,7 +129,7 @@
       2. Display the contents of the certificate by typing the following command(s) into the terminal window:
 
             openssl x509 -in <certificate-file-name>.pem -text -noout
-            (ex: openssl x509 -in docker.pem -text -noout)
+            e.g.: openssl x509 -in docker.pem -text -noout
 
 
    Display The Certificate Chain Between The Local Machine And A Destination URL
@@ -98,7 +138,7 @@
       2. Display the certificate chain by typing the following command(s) into the terminal window:
 
             openssl s_client -connect <url-of-destination>:443 -showcerts </dev/null
-            (ex: openssl s_client -connect index.docker.io:443 -showcerts </dev/null)
+            e.g.: openssl s_client -connect index.docker.io:443 -showcerts </dev/null
 
 
    Save A Destination URL's Certificate
@@ -106,6 +146,13 @@
       1. Open a terminal window
       2. Save the destination URL certificate by typing the following command(s) into the terminal window:
 
-            openssl s_client -connect <url-of-destination>:443 -showcerts </dev/null 2>/dev/null | openssl x509 -outform PEM > /tmp/<certificate-file>.pem
-            (ex: openssl s_client -connect index.docker.io:443 -showcerts </dev/null 2>/dev/null | openssl x509 -outform PEM > /tmp/docker.pem)
+            openssl s_client                                             \
+               -connect <url-of-destination>:443                         \
+               -showcerts </dev/null 2>/dev/null                         \
+               | openssl x509 -outform PEM > /tmp/<certificate-file>.pem
+            e.g.:
+               openssl s_client                                 \
+                  -connect index.docker.io:443                  \
+                  -showcerts </dev/null 2>/dev/null             \
+                  | openssl x509 -outform PEM > /tmp/docker.pem
 
